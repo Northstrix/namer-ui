@@ -1,0 +1,32 @@
+.halomotButton {
+  margin: auto;
+  padding: 3px;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(135deg, #4776cb, #a19fe5, #6cc606);
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  transition: all .3s;
+}
+
+.halomotButtonSpan {
+  background: #000;
+  padding: 1rem 4rem;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.halomotButtonSpan.hovered {
+  background: none;
+  color: #fff;
+}
