@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import ChronicleButton from '@/app/the-actual-components/chronicle-button/ChronicleButton'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
@@ -9,7 +9,9 @@ import PositionAwareButton from '@/app/the-actual-components/position-aware-butt
 import FancyNotification from '@/app/the-actual-components/fancy-notification/FancyNotification'
 import MagicButton from '@/app/the-actual-components/magic-button/MagicButton'
 import HalomotButton from '@/app/the-actual-components/halomot-button/HalomotButton'
-import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch';
+import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch'
+import SkeuomorphicToggle from '@/app/the-actual-components/skeuomorphic-toggle/SkeuomorphicToggle'
+import RisingDroplets from '@/app/the-actual-components/rising-droplets/RisingDroplets'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -36,7 +38,11 @@ const components = [
   { id: 'magic-button', name: 'Magic Button', description: 'A button that employs moving particles.' },
   { id: 'halomot-button', name: 'Halomot Button', description: 'A stylish button with a vibrant gradient that fills it on hover.' },
   { id: 'shamayim-toggle-switch', name: 'Shamayim Toggle Switch', description: 'A celestial-themed toggle switch with a smooth animation and mirroring option.' },
+  { id: 'skeuomorphic-toggle', name: 'Skeuomorphic Switch', description: 'A skeuomorphic toggle switch with customizable colors, inscriptions, and mirroring option.' },
+  { id: 'rising-droplets', name: 'Rising Droplets', description: 'An animation of droplets rising from the bottom of the container to the top,' }
 ]
+
+//console.log(`There are ${components.length} components available.`);
 
 export default function ComponentsPage() {
   const [activeComponent, setActiveComponent] = useState(components[0].id)
@@ -53,7 +59,6 @@ export default function ComponentsPage() {
   }, [activeComponent])
 
   const handleFilesFromFishyFileDrop = async (files: FileList): Promise<void> => {
-
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       toast.info(`File N${i + 1}: ${file.name}`);
@@ -88,6 +93,44 @@ export default function ComponentsPage() {
     setIsNotificationVisible(false);
   };
   // Fancy Notification stuff //
+  
+  
+  // Skeuomorphic Setting Switches stuff //
+  const [hydration, setHydration] = useState(true);
+  const [notifications, setNotifications] = useState(false);
+  const [autoSave, setAutoSave] = useState(false);
+
+  const logStateChange = useCallback((name: string, value: boolean) => {
+    toast.info(`${name} changed to: ${value}`);
+  }, []);
+
+  const handleHydrationChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setHydration(e.target.checked);
+    logStateChange('Hydration', e.target.checked);
+  }, [logStateChange]);
+
+  const handleNotificationsChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setNotifications(e.target.checked);
+    logStateChange('Notifications', e.target.checked);
+  }, [logStateChange]);
+
+  const handleAutoSaveChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setAutoSave(e.target.checked);
+    logStateChange('Auto-Save', e.target.checked);
+  }, [logStateChange]);
+  // Skeuomorphic Setting Switches stuff //
+
+  // Rising Droplets stuff //
+  const [loaderVisible, setLoaderVisible] = useState(false);
+
+  const toggleLoader = () => {
+    if (loaderVisible) {
+      setLoaderVisible(false);
+    } else {
+      setLoaderVisible(true);
+    }
+  };
+  // Rising Droplets stuff //
 
   const renderComponent = () => {
     switch(activeComponent) {
@@ -293,10 +336,71 @@ export default function ComponentsPage() {
             </div>
           </div>
         );
+      case 'skeuomorphic-toggle':
+        return (
+          <div className="bg-[#2e3138] p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+            <div style={{ 
+              minHeight: '300px', 
+              borderRadius: '0.5rem', 
+              backgroundColor: '#454954', 
+              color: '#e0e0e0',
+              padding: '20px',
+              transition: 'background-color 0.3s, color 0.3s'
+            }}>
+              <h1 style={{ marginBottom: '20px', fontSize: '24px', fontWeight: 'bold'}}>Settings</h1>
+              
+              <div style={{ width: '250px', margin: '0 auto' }}>
+                <SkeuomorphicToggle
+                  label="Hydration"
+                  name="hydration"
+                  checked={hydration}
+                  onChange={handleHydrationChange}
+                  onText="ON"
+                  offText="OFF"
+                  hue={210}
+                  hueSuccess={120}
+                />
+      
+                <SkeuomorphicToggle
+                  label="Notifications"
+                  name="notifications"
+                  checked={notifications}
+                  onChange={handleNotificationsChange}
+                  onText="ON"
+                  offText="OFF"
+                  hue={180}
+                  hueSuccess={90}
+                />
+      
+                <SkeuomorphicToggle
+                  label="Auto-Save"
+                  name="autoSave"
+                  checked={autoSave}
+                  onChange={handleAutoSaveChange}
+                  onText="YES"
+                  offText="NO"
+                  hue={260}
+                  hueSuccess={45}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      case 'rising-droplets':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center relative">
+            <ChronicleButton text='Enable/Disable' onClick={toggleLoader} />
+   
+            {loaderVisible && (
+              <RisingDroplets colors={['#059FF6', '#8A2BE2', '#FF8C00']} />
+            )}
+          </div>
+        );
       default:
         return <div>No preview available.</div>;
     }
   };
+
   return (
     <div className="flex">
       <ToastContainer

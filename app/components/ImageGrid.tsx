@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
-import MagicButton from '@/app/the-actual-components/magic-button/MagicButton'
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch';
+import HalomotButton from '@/app/the-actual-components/halomot-button/HalomotButton'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,7 +24,7 @@ interface ImageData {
 }
 
 const imageData: ImageData[] = [
-  { src: "magic-button", title: "Magic Button", description: "Click it for a fancy notification to appear." },
+  { src: "halomot-button", title: "Halomot Bttn", description: "Click it for a fancy notification to appear." },
   { src: 'fishy-button', title: 'Fishy Button', description: 'A sleek button with floating fish appearing on hover.' },
   { src: "toggles", title: "Toggle Switch", description: "A celestial-themed toggle switch." },
 ];
@@ -146,13 +146,12 @@ const ImageGrid: React.FC<ImageGridProps> = ({
       );
     }
   
-    if (image.src === 'magic-button') {
+    if (image.src === 'halomot-button') {
       return (
-        <div className="relative w-[348px] h-[248px] bg-[#080810] flex items-center justify-center">
-          <MagicButton 
-            onButtonClick={showSuccessNotification}
-            inscription="Magic Button"
-            fontSize="1.34rem"
+        <div className="relative w-[348px] h-[248px] bg-base-300 flex items-center justify-center">
+          <HalomotButton 
+            onClick={showSuccessNotification}
+            inscription="Click Me"
           />
         </div>
       );

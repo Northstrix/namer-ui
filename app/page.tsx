@@ -37,7 +37,7 @@ export default function Home() {
   const showSuccessNotification = () => {
     setNotificationStatus('success');
     setNotificationMessage("I'm levitating.");
-    setNotificationMessage1('The magic button works!');
+    setNotificationMessage1('The halomot button works!');
     setIsNotificationVisible(true);
   };
   
@@ -103,7 +103,7 @@ export default function Home() {
   }
 
   return (
-    <div className="relative min-h-[calc(100vh-68px)] w-full bg-[#242434] overflow-hidden flex flex-col justify-center items-center">      
+    <div className="relative min-h-[calc(100vh-100px)] w-full bg-[#242434] overflow-hidden flex flex-col justify-center items-center">      
       <FancyNotification
         type={notificationStatus}
         message={notificationMessage}
