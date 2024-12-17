@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Namer UI
+Namer UI is a collection of reusable components designed to empower developers in creating beautiful user interfaces.
 
-## Getting Started
+Check it out at https://namer-ui.netlify.app/
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Alt Logo](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/Logo.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Alt First Screenshot](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/1.webp)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![Alt Second Screenshot](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/2.webp)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+![Alt Third Screenshot](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/3.webp)
 
-## Learn More
+# Credit
 
-To learn more about Next.js, take a look at the following resources:
+The existence of this project (at least in its current form) wouldn't've been possible without the following:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[daisyui](https://github.com/saadeghi/daisyui) by [saadeghi](https://github.com/saadeghi)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[Text Reveal Animation](https://codepen.io/swatiparge/pen/LYVMEag) by [Swati Parge](https://codepen.io/swatiparge)
 
-## Deploy on Vercel
+[Text scroll and hover effect with GSAP and clip](https://codepen.io/Juxtopposed/pen/mdQaNbG) by [Juxtopposed](https://codepen.io/Juxtopposed)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[react-toastify](https://github.com/fkhadra/react-toastify) by [fkhadra](https://github.com/fkhadra)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[BUTTONS](https://codepen.io/uchihaclan/pen/NWOyRWy) by [TAYLOR](https://codepen.io/uchihaclan)
+
+</br>
+
+Inspired by [x/ui](https://ui.3x.gl/)
