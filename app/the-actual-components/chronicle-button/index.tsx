@@ -12,12 +12,13 @@ import ChronicleButton from '@/app/the-actual-components/chronicle-button/Chroni
   onClick={() => console.log('The first button has been clicked')} 
 />
 
-{/* Custom width and hover color example */}
+{/* Custom width, rounding, and hover color example */}
 <ChronicleButton 
-  text='The blue one'
+  text='Blue (1.4em)' // Button text
   onClick={() => console.log('The blue button has been clicked')} 
-  width="200px"
+  width="200px" // Custom width
   hoverColor="#90BAFD" // Custom hover color: a vibrant blue
+  borderRadius="1.4em" // Custom border radius
 />
 
 {/* Outlined button with custom hover color and reduced height */}
@@ -37,6 +38,7 @@ import ChronicleButton from '@/app/the-actual-components/chronicle-button/Chroni
 // - width: string (optional) - Custom width for the button (default: 160px)
 // - outlined: boolean (optional) - Whether to use an outlined style (default: false)
 // - outlinePaddingAdjustment: string (optional) - Reduces vertical padding for outlined buttons
+// - borderRadius: string (optional) - Custom border radius for the button (default: '0.76rem')
 `,
 code: [
   {
@@ -52,6 +54,7 @@ interface ChronicleButtonProps {
   width?: string;
   outlined?: boolean;
   outlinePaddingAdjustment?: string;
+  borderRadius?: string; // New property for border radius
 }
 
 const ChronicleButton: React.FC<ChronicleButtonProps> = ({ 
@@ -60,13 +63,15 @@ const ChronicleButton: React.FC<ChronicleButtonProps> = ({
   hoverColor = 'var(--chronicle-button-default-hover-color)', 
   width = '160px',
   outlined = false,
-  outlinePaddingAdjustment = '2px'
+  outlinePaddingAdjustment = '2px',
+  borderRadius = '0.76rem' // Default value for border radius
 }) => {
   const buttonStyle = {
     '--hover-color': hoverColor,
-    '--text-color': outlined ? 'var(--chronicle-button-background)' : 'var(--chronicle-button-negative-)',
+    '--text-color': outlined ? 'var(--chronicle-button-background)' : 'var(--chronicle-button-negative-foreground',
     '--outline-padding-adjustment': outlinePaddingAdjustment,
     width: width,
+    borderRadius: borderRadius, // Set the border radius directly in style
   } as React.CSSProperties;
 
   return (
@@ -89,15 +94,14 @@ export default ChronicleButton;
     content: `.chronicleButton {
   --chronicle-button-background: #f0f0f1;
   --chronicle-button-negative-foreground: #1a1a24;
-  --chronicle-button-border-radius: 0.76rem;
   --chronicle-button-default-hover-color: #a594fd;
 
+  border-radius: var(--chronicle-button-border-radius, 0.76rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   line-height: 1;
-  border-radius: var(--chronicle-button-border-radius);
   padding: 1rem 1.232rem;
   cursor: pointer;
   border: none;

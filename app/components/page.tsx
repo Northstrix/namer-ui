@@ -12,7 +12,27 @@ import HalomotButton from '@/app/the-actual-components/halomot-button/HalomotBut
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch'
 import SkeuomorphicToggle from '@/app/the-actual-components/skeuomorphic-toggle/SkeuomorphicToggle'
 import RisingDroplets from '@/app/the-actual-components/rising-droplets/RisingDroplets'
+import BauhausCard from '@/app/the-actual-components/bauhaus-card/BauhausCard'
+import DutchCard from '@/app/the-actual-components/dutch-card/DutchCard'
+import GlowingCard from '@/app/the-actual-components/glowing-card/GlowingCard'
+import MetamorphicLoader from '@/app/the-actual-components/metamorphic-loader/MetamorphicLoader'
+import MultiColoredText from '@/app/the-actual-components/multi-colored-text/MultiColoredText'
+import PricingCard from '@/app/the-actual-components/pricing-card/PricingCard'
+import BaubleToggle from '@/app/the-actual-components/bauble-toggle/BaubleToggle'
+import HazeCard from '@/app/the-actual-components/haze-card/HazeCard'
+import FancyNavBar from '@/app/the-actual-components/fancy-navbar/FancyNavbar'
+import UnfoldingNavbar from '@/app/the-actual-components/unfolding-navbar/UnfoldingNavbar'
+import ModernRetroButton from '@/app/the-actual-components/modern-retro-button/ModernRetroButton'
+import HalfFilledText from '@/app/the-actual-components/half-filled-text/HalfFilledText'
+import GradientText from '@/app/the-actual-components/gradient-text/GradientText'
+import ModernNavbar from '@/app/the-actual-components/modern-navbar/ModernNavbar'
+import HeartsButton from '@/app/the-actual-components/hearts-button/HeartsButton'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
+import { faTools } from '@fortawesome/free-solid-svg-icons';
+import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFilled, IconCircleArrowUpFilled, IconLockFilled, IconSettingsFilled, IconInfoCircleFilled } from '@tabler/icons-react';
+import { IconHome, IconFile, IconPencil, IconLogout } from '@tabler/icons-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -39,7 +59,22 @@ const components = [
   { id: 'halomot-button', name: 'Halomot Button', description: 'A stylish button with a vibrant gradient that fills it on hover.' },
   { id: 'shamayim-toggle-switch', name: 'Shamayim Toggle Switch', description: 'A celestial-themed toggle switch with a smooth animation and mirroring option.' },
   { id: 'skeuomorphic-toggle', name: 'Skeuomorphic Switch', description: 'A skeuomorphic toggle switch with customizable colors, inscriptions, and mirroring option.' },
-  { id: 'rising-droplets', name: 'Rising Droplets', description: 'An animation of droplets rising from the bottom of the container to the top,' }
+  { id: 'rising-droplets', name: 'Rising Droplets', description: 'An animation of droplets rising from the bottom of the container to the top,' },
+  { id: 'bauhaus-card', name: 'Bauhaus Card', description: 'A modern, Bauhaus-inspired card component with customizable parts.' },
+  { id: 'dutch-card', name: 'Dutch Card', description: 'A card component with animated border.' },
+  { id: 'glowing-card', name: 'Glowing Card', description: 'A webflow-inspired card that glows on hover.' },
+  { id: 'metamorphic-loader', name: 'Metamorphic Loader', description: 'A loader that dynamically changes shape from a circle to a rounded square, and vice versa.' },
+  { id: 'multi-colored-text', name: 'Multi-Colored Text', description: 'A multi-colored text using 5 different colors.' },
+  { id: 'pricing-card', name: 'Pricing Card', description: 'An interactive pricing card that responds to cursor movements.' },
+  { id: 'bauble-toggle', name: 'Bauble Toggle', description: 'An ornamental toggle switch styled as a Christmas bauble.' },
+  { id: 'haze-card', name: 'Haze Card', description: 'A visually striking card with a purple haze effect.' },
+  { id: 'fancy-navbar', name: 'Fancy Navbar', description: 'A stylish navigation bar with a ghost-like circle animation.' },
+  { id: 'unfolding-navbar', name: 'Unfolding Navbar', description: 'A navigation bar with elements that unfold smoothly on hover.' },
+  { id: 'modern-retro-button', name: 'Modern Retro Button', description: 'An unusual button that employs modern and retro styles at the same time.' },
+  { id: 'half-filled-text', name: 'Half-Filled Text', description: 'A text that\'s half-filled or half-empty, depending on your perspective.' },
+  { id: 'gradient-text', name: 'Gradient Text', description: 'A multi-colored text with moving gradient.' },
+  { id: 'modern-navbar', name: 'Modern Navbar', description: 'A visually appealing navigation bar component designed for modern web applications.' },
+  { id: 'hearts-button', name: 'Hearts Button', description: 'A button with three moving hearts that appear when the button is hovered.' },
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -132,6 +167,10 @@ export default function ComponentsPage() {
   };
   // Rising Droplets stuff //
 
+  // Glowing Card stuff //
+  const [hoveredCard, setHoveredCard] = useState<'github' | 'medium' | 'instructables' | null>(null);
+  // Glowing Card stuff //
+
   const renderComponent = () => {
     switch(activeComponent) {
       case 'chronicle-button':
@@ -142,10 +181,11 @@ export default function ComponentsPage() {
               onClick={() => toast.info("The first button has been clicked")} 
             />
             <ChronicleButton 
-              text='The blue one'
-              onClick={() => toast.info("The blue button has been clicked")} 
-              width="200px"
-              hoverColor="#90BAFD"
+              text='Blue (1.4em)' // Button text
+              onClick={() => console.log('The blue button has been clicked')} 
+              width="200px" // Custom width
+              hoverColor="#90BAFD" // Custom hover color: a vibrant blue
+              borderRadius="1.4em" // Custom border radius
             />
             <ChronicleButton 
               text="Outlined (-6px)" 
@@ -394,6 +434,411 @@ export default function ComponentsPage() {
             {loaderVisible && (
               <RisingDroplets colors={['#059FF6', '#8A2BE2', '#FF8C00']} />
             )}
+          </div>
+        );
+      case 'bauhaus-card':
+        return (
+          <div className="bg-[#252533] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <BauhausCard
+                id="1"
+                accentColor="#156ef6"
+                topInscription="Uploaded on 12/31/2024"
+                mainText="Financial Report.zip"
+                subMainText="Downloading File..."
+                progressBarInscription="Progress:"
+                progress={75.98}
+                progressValue="75.98%"
+                filledButtonInscription="Share"
+                outlinedButtonInscription="Bookmark"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#2c7cf7"
+            />
+
+            <BauhausCard
+                id="2"
+                accentColor="#24d200"
+                topInscription="$4.99"
+                mainText="Next.js Basics"
+                subMainText="This course doesn't exist!"
+                progressBarInscription="Spots left:"
+                progress={20}
+                progressValue="20/100"
+                filledButtonInscription="Enroll"
+                outlinedButtonInscription="Bookmark"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#29f000"
+            />
+
+            <BauhausCard
+                id="3"
+                borderRadius="2.25em"
+                accentColor="#fc6800"
+                borderWidth="3px"
+                topInscription="1 de julio en Miami"
+                mainText="Nombre de la conferencia"
+                subMainText="Descripción de la conferencia."
+                progressBarInscription="Plazas disponibles:"
+                progress={10}
+                progressValue="32"
+                filledButtonInscription="Inscribirse"
+                outlinedButtonInscription="Detalles"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#ff7717"
+            />
+
+            <BauhausCard
+                id="4"
+                borderRadius="1em"
+                backgroundColor="#151419"
+                separatorColor="#5b5452"
+                accentColor="#8f10f6"
+                borderWidth="4px"
+                topInscription="דאלאס - תל אביב"
+                mainText="מגיע בשעה 9:03 לפי"
+                subMainText="שם שדה התעופה"
+                progressBarInscription="מגיע בעוד:"
+                progress={90}
+                progressValue="30 דקות"
+                filledButtonInscription="שתף"
+                outlinedButtonInscription="עוד"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={true}
+                swapButtons={true}
+                ChronicleButtonHoverColor="#a540f8"
+            />
+          </div>
+        );
+      case 'dutch-card':
+        return (
+          <DutchCard width="100%" height="300px" borderRadius="0.5em" background="#111118">
+            <div className=" gap-10 flex items-center justify-center">
+              <DutchCard width="300px" height="250px">
+                <p>The content goes here</p>
+              </DutchCard>
+              <DutchCard width="200px" height="250px" reverse borderRadius="2.25em">
+                <p>Od Ekhad?</p>
+              </DutchCard>
+            </div>
+          </DutchCard>
+        );
+      case 'glowing-card':
+        return (
+          <div className="bg-[#222230] p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center relative">
+            <div
+              onMouseEnter={() => setHoveredCard('github')}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{ zIndex: hoveredCard === 'github' ? 9999 : 1 }}
+            >
+              <GlowingCard
+                AccentColor="#156ef6"
+                BackgroundColor="#050505"
+                TextColor="#f7f7ff"
+                BorderRadius="2.25em"
+                BorderWidth="4px"
+                Icon={<FontAwesomeIcon icon={faGithub} size="lg" />}
+                TopInscription="GitHub"
+                BigInscription="70+"
+                SmallInscription="Repositories"
+                BottomInscription="Learn More ➔"
+                learnMoreLink="https://github.com/Northstrix"
+                width="387px"
+                height="467px"
+              />
+            </div>
+            
+            <div
+              onMouseEnter={() => setHoveredCard('medium')}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{ zIndex: hoveredCard === 'medium' ? 9999 : 1 }}
+            >
+              <GlowingCard
+                AccentColor="#8f10f6"
+                BackgroundColor="#050505"
+                TextColor="#f0f0f1"
+                BorderRadius="4px"
+                BorderWidth="2px"
+                Icon={<FontAwesomeIcon icon={faMedium} size="lg" />}
+                IconHeight="52px"
+                TopTextSize="40px"
+                TopInscription="Medium"
+                BigInscription=">30"
+                SmallInscription="Articles"
+                BottomInscription="Read Now"
+                learnMoreLink="https://medium.com/@Northstrix"
+                width="387px"
+                height="467px"
+              />
+            </div>
+            
+            <div
+              onMouseEnter={() => setHoveredCard('instructables')}
+              onMouseLeave={() => setHoveredCard(null)}
+              style={{ zIndex: hoveredCard === 'instructables' ? 9999 : 1 }}
+            >
+              <GlowingCard
+                AccentColor="#fc6800"
+                BackgroundColor="#eeeeee"
+                TextColor="#161616"
+                BorderRadius="4em"
+                BorderWidth="3px"
+                Icon={<FontAwesomeIcon icon={faTools} size="lg" />}
+                IconHeight="46px"
+                TopTextSize="34px"
+                TopInscription="Instructables"
+                BigInscription=">30"
+                SmallInscription="Tutorials"
+                BottomInscription="Click here to visit the Instructables page"
+                learnMoreLink="https://www.instructables.com/member/Northstrix/instructables/"
+                width="360px"
+                height="376px"
+              />
+            </div>
+          </div>
+        );
+      case 'metamorphic-loader':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+            <MetamorphicLoader size={260} />
+            <MetamorphicLoader size={124} color="#156ef6" lighteningStep={16} />
+            <MetamorphicLoader size={216} color="#6cc606" />
+            <MetamorphicLoader size={124} color="#ffa300" lighteningStep={14} />
+            <MetamorphicLoader size={300} color="#019a41" lighteningStep={50} />
+          </div>
+        );
+      case 'multi-colored-text':
+        return (
+          <div className="bg-[#f0f8ff] p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+            <MultiColoredText
+              inscription="פלאם חארבור"
+              fontSize="7em"
+              primaryColor="#00aaff"
+              secondaryColor="#5c3fcd"
+              tertiaryColor="#3a3a3a"
+              quaternaryColor="#f9002f"
+              quinaryColor="#f1b211"
+              separatorRotation="232deg"
+            />
+          </div>
+        );
+      case 'pricing-card':
+        return (
+          <div className="bg-[#212121] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <PricingCard
+              title="Free Plan" // The name of the pricing plan
+              price="$0/month" // The cost of the plan
+              features={[ // Array of features included in the plan. Empty strings represent blank lines.
+                "1 user",
+                "Basic feature set",
+                "500 MB storage",
+                "Community support",
+                "",
+                ""
+              ]}
+              buttonText="Start for Free" // Text displayed on the call-to-action button
+              accentColor="272, 100%, 50%" // Color used for accents and hover effects (in HSL format)
+              onButtonClick={() => toast.info('Free Plan clicked')} // Function called when the button is clicked
+              borderWidth="7px" // (Optional) Width of the border for the card
+              width="320px" // (Optional) Width of the card
+            />
+            <PricingCard
+              title="תוכנית מתחילים" // The name of the pricing plan
+              price="₪49.99/חודש" // The cost of the plan
+              features={[ // Array of features included in the plan. Empty strings represent blank lines.
+                "עד 5 משתמשים",
+                "תכונות מתקדמות",
+                "10 GB אחסון",
+                "תמיכה בדוא\"ל",
+                "גיבוי יומי",
+                ""
+              ]}
+              buttonText="התחל עכשיו" // Text displayed on the call-to-action button
+              accentColor="221, 100%, 50%" // Color used for accents and hover effects (in HSL format)
+              onButtonClick={() => toast.info('Starter Plan clicked')} // Function called when the button is clicked
+              mirrored={true} // (Optional) Reverses text direction and alignment
+              borderRadius="2.25em" // (Optional) Border radius of the card
+              maxWidth="350px" // (Optional) Maximum width of the card
+              defaultBackgroundColor="#363636" // (Optional) Background color of the card
+              borderColor="#ffffff56" // (Optional) Border color of the card
+            />
+            <PricingCard
+              title="Plan Pro" // The name of the pricing plan
+              price="€99.99/mes" // The cost of the plan
+              features={[ // Array of features included in the plan. Empty strings represent blank lines.
+                "Usuarios ilimitados",
+                "Todas las características",
+                "100 GB de almacenamiento",
+                "Soporte prioritario",
+                "Integraciones API",
+                "Análisis avanzados"
+              ]}
+              buttonText="Actualizar a Pro" // Text displayed on the call-to-action button
+              accentColor="120, 100%, 25%" // Color used for accents and hover effects (in HSL format)
+              onButtonClick={() => toast.info('Pro Plan clicked')} // Function called when the button is clicked
+              borderColor="#ffffff22" // (Optional) Border color of the card
+            />
+            <PricingCard
+              title="Gschäfts-Plaan" // The name of the pricing plan
+              price="CHF 199.99/Monet" // The cost of the plan
+              features={[ // Array of features included in the plan. Empty strings represent blank lines.
+                "Unändlich Benutzer",
+                "Alli Funktione",
+                "Unändliche Spycherplatz",
+                "Persönliche Betreuig",
+                "Massagschniderti Lösige",
+                "Vor-Ort-Schulig"
+              ]}
+              buttonText="Kontaktiered üs" // Text displayed on the call-to-action button
+              accentColor="0, 100%, 50%" // Color used for accents and hover effects (in HSL format)
+              onButtonClick={() => toast.info('Enterprise Plan clicked')} // Function called when the button is clicked
+            />
+          </div>
+        );
+      case 'bauble-toggle':
+        return (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '1em',
+            minHeight: '300px',
+            borderRadius: '0.5rem',
+            background: '#222230',
+            fontSize: '3em',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2em' }}>
+              <span style={{ color: '#E0F9FC' }}>The only</span>
+              <div style={{ width: '114px', height: '114px', overflow: 'hidden', transform: 'scale(5)' }}>
+                <BaubleToggle 
+                  onToggleChange={(isOn) => toast.info(`Toggle is now ${isOn ? 'ON' : 'OFF'}`)} 
+                />
+              </div>
+            </div>
+          </div>
+        );
+      case 'haze-card':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+            <HazeCard 
+                borderColor="white"
+                borderRadius="25px"
+                borderWidth="4px"
+                width="300px"
+                height="330px"
+            >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <p style={{ color: 'white', fontSize: '16px' }}>The content goes here</p>
+                </div>
+            </HazeCard>
+          </div>
+        );
+      case 'fancy-navbar':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+            <FancyNavBar
+              items={[
+                { icon: <IconUserFilled size={24} />, label: 'Profile Info' },
+                { icon: <IconFolderFilled size={24} />, label: 'Personal Files' },
+                { icon: <IconFileFilled size={24} />, label: 'Shared Files' },
+                { icon: <IconCircleArrowDownFilled size={24} />, label: 'Received Files' },
+                { icon: <IconCircleArrowUpFilled size={24} />, label: 'Sent Files' },
+                { icon: <IconLockFilled size={24} />, label: 'Password Vault' },
+                { icon: <IconSettingsFilled size={24} />, label: 'Settings' },
+                { icon: <IconInfoCircleFilled size={24} />, label: 'About' },
+              ]}
+              onItemHover={(index) => toast.info(`Hovering item:${index}`)}
+              onItemClick={(index) => toast.info(`Clicked item:${index}`)}
+              activeIconColor="#A594FD"
+            />
+          </div>
+        );
+      case 'unfolding-navbar':
+        return (
+          <div className="bg-base-300 rounded-lg min-h-[300px] flex items-center justify-center">
+            <UnfoldingNavbar
+              items={[
+                { icon: <IconHome size={36} />, label: 'Home' },
+                { icon: <IconFile size={36} />, label: 'Files' },
+                { icon: <IconPencil size={36} />, label: 'Drafts' },
+                { icon: <IconLogout size={36} />, label: 'Log Out' },
+              ]}
+              rolloutWidth="124px"
+              onItemClick={(label) => toast.info(`Clicked on ${label}`)} // Inline function
+            />
+          </div>
+        );
+      case 'modern-retro-button':
+        return (
+          <div className="bg-[#3d3e4a] p-8 rounded-lg min-h-[300px] flex flex-col items-center justify-center gap-6">
+            <div className="text-center mb-4">
+              <p className="text-white text-3xl font-bold mb-2">⚠️ Epilepsy Warning ⚠️</p>
+              <p className="text-m">This button flickers on hover.</p>
+            </div>
+            <ModernRetroButton 
+              label="Modern, Retro, or both?"
+              onClick={() => toast.info('Modern Retro Button clicked!')}
+            />
+          </div>
+        );
+      case 'half-filled-text':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+            <HalfFilledText 
+              inscription="חירות"
+              fontSize="12em"
+              fillColor="#c19bf5"
+              outlineColor="#8338ec"
+              outlineWidth="3px"
+            />
+          </div>
+        );
+      case 'gradient-text':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] flex flex-col gap-6 items-center justify-center">
+            <GradientText inscription="We don't see things as they are, we see them as we are." fontSize="2em" />
+            <GradientText inscription="Anaïs Nin" fontSize="1em" />
+          </div>
+        );
+      case 'modern-navbar':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+            <ModernNavbar
+                items={[
+                    { icon: <IconUserFilled size={24} />, label: 'Profile Info' },
+                    { icon: <IconFolderFilled size={24} />, label: 'Personal Files' },
+                    { icon: <IconFileFilled size={24} />, label: 'Shared Files' },
+                    { icon: <IconCircleArrowDownFilled size={24} />, label: 'Received Files' },
+                    { icon: <IconCircleArrowUpFilled size={24} />, label: 'Sent Files' },
+                    { icon: <IconLockFilled size={24} />, label: 'Password Vault' },
+                    { icon: <IconSettingsFilled size={24} />, label: 'Settings' },
+                    { icon: <IconInfoCircleFilled size={24} />, label: 'About' },
+                ]}
+                onItemHover={(index) => toast.info(`Hovering item ${index}`)}
+                onItemClick={(index) => toast.info(`Clicked item ${index}`)}
+                defaultItem={1}
+            />
+          </div>
+        );
+      case 'hearts-button':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] flex flex-col items-center justify-center gap-6">
+            <HeartsButton inscription="חארטס" onClick={() => {toast.info('First HeartsButton clicked!');}}/>
+            <HeartsButton inscription="Hover me" onClick={() => {toast.info('Second HeartsButton clicked!');}}/>
+            <HeartsButton inscription="Langzeitgedächtnis" padding="70px" onClick={() => {toast.info('Third HeartsButton clicked!');}}/>
           </div>
         );
       default:

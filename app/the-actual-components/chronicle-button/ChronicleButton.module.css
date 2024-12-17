@@ -1,15 +1,14 @@
 .chronicleButton {
   --chronicle-button-background: #f0f0f1;
   --chronicle-button-negative-foreground: #1a1a24;
-  --chronicle-button-border-radius: 0.76rem;
   --chronicle-button-default-hover-color: #a594fd;
 
+  border-radius: var(--chronicle-button-border-radius, 0.76rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   line-height: 1;
-  border-radius: var(--chronicle-button-border-radius);
   padding: 1rem 1.232rem;
   cursor: pointer;
   border: none;

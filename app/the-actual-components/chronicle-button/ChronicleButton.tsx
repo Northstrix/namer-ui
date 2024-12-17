@@ -9,6 +9,7 @@ interface ChronicleButtonProps {
   width?: string;
   outlined?: boolean;
   outlinePaddingAdjustment?: string;
+  borderRadius?: string; // New property for border radius
 }
 
 const ChronicleButton: React.FC<ChronicleButtonProps> = ({ 
@@ -17,13 +18,15 @@ const ChronicleButton: React.FC<ChronicleButtonProps> = ({
   hoverColor = 'var(--chronicle-button-default-hover-color)', 
   width = '160px',
   outlined = false,
-  outlinePaddingAdjustment = '2px'
+  outlinePaddingAdjustment = '2px',
+  borderRadius = '0.76rem' // Default value for border radius
 }) => {
   const buttonStyle = {
     '--hover-color': hoverColor,
-    '--text-color': outlined ? 'var(--chronicle-button-background)' : 'var(--chronicle-button-negative-)',
+    '--text-color': outlined ? 'var(--chronicle-button-background)' : 'var(--chronicle-button-negative-foreground',
     '--outline-padding-adjustment': outlinePaddingAdjustment,
     width: width,
+    borderRadius: borderRadius, // Set the border radius directly in style
   } as React.CSSProperties;
 
   return (
