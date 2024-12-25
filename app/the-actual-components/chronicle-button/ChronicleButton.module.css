@@ -1,6 +1,4 @@
 .chronicleButton {
-  --chronicle-button-background: #f0f0f1;
-  --chronicle-button-negative-foreground: #1a1a24;
   --chronicle-button-default-hover-color: #a594fd;
 
   border-radius: var(--chronicle-button-border-radius, 0.76rem);
@@ -14,6 +12,7 @@
   border: none;
   font-weight: 700;
   background: var(--chronicle-button-background);
+  color: var(--chronicle-button-foreground);
   transition: background .4s linear, color .4s linear;
   will-change: background, color;
 }
@@ -66,7 +65,7 @@
   background: transparent;
   border: 2px solid var(--chronicle-button-background);
   padding: calc(1rem - var(--outline-padding-adjustment)) 0;
-  transition: border .4s linear, color .4s linear;
+  transition: border .4s linear, color .4s linear, background-color .4s linear;
   will-change: border, color;
 }
 
@@ -76,7 +75,7 @@
 }
 
 .chronicleButton.outlined:hover {
-  background: transparent;
+  background: var(--outlined-button-background-on-hover);
   border-color: var(--hover-color);
 }
 

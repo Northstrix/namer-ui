@@ -32,13 +32,18 @@ import ChronicleButton from '@/app/the-actual-components/chronicle-button/Chroni
 />
 
 // Note: The ChronicleButton component accepts the following props:
-// - text: string (required) - The text to display on the button
-// - onClick: () => void (optional) - Function to call when the button is clicked
-// - hoverColor: string (optional) - Custom color for hover state (default: #a594fd)
-// - width: string (optional) - Custom width for the button (default: 160px)
-// - outlined: boolean (optional) - Whether to use an outlined style (default: false)
-// - outlinePaddingAdjustment: string (optional) - Reduces vertical padding for outlined buttons
-// - borderRadius: string (optional) - Custom border radius for the button (default: '0.76rem')
+// - text: string (required) - The text to display on the button, which serves as the primary label for user interaction.
+// - onClick: () => void (optional) - A callback function that is triggered when the button is clicked, enabling custom actions.
+// - hoverColor: string (optional) - A custom color for the button's hover state, allowing for visual feedback on interaction (default: 'var(--chronicle-button-default-hover-color)').
+// - width: string (optional) - Specifies the width of the button, providing flexibility in layout design (default: '160px').
+// - outlined: boolean (optional) - Determines whether the button should have an outlined style, which can be useful for secondary actions (default: false).
+// - outlinePaddingAdjustment: string (optional) - Adjusts the vertical padding for outlined buttons, allowing for finer control over spacing.
+// - borderRadius: string (optional) - Sets a custom border radius for the button, enabling rounded corners to match your UI style (default: '0.76rem').
+// - fontFamily: string (optional) - Allows customization of the font family used within the button, ensuring consistency with your application's typography.
+// - outlinedButtonBackgroundOnHover: string (optional) - Defines the background color of the button when hovered over in outlined mode, enhancing interactivity (default: 'transparent').
+// - customBackground: string (optional) - Sets a custom background color for the button, providing additional styling options (default: '#f0f0f1').
+// - customForeground: string (optional) - Specifies a custom text color for the button, allowing for better contrast and readability against different backgrounds (default: '#1a1a24').
+
 `,
 code: [
   {
@@ -54,7 +59,11 @@ interface ChronicleButtonProps {
   width?: string;
   outlined?: boolean;
   outlinePaddingAdjustment?: string;
-  borderRadius?: string; // New property for border radius
+  borderRadius?: string;
+  fontFamily?: string;
+  outlinedButtonBackgroundOnHover?: string;
+  customBackground?: string;
+  customForeground?: string;
 }
 
 const ChronicleButton: React.FC<ChronicleButtonProps> = ({ 
@@ -64,14 +73,22 @@ const ChronicleButton: React.FC<ChronicleButtonProps> = ({
   width = '160px',
   outlined = false,
   outlinePaddingAdjustment = '2px',
-  borderRadius = '0.76rem' // Default value for border radius
+  borderRadius = '0.76rem',
+  fontFamily,
+  outlinedButtonBackgroundOnHover = 'transparent',
+  customBackground = "#f0f0f1",
+  customForeground = "#1a1a24",
 }) => {
   const buttonStyle = {
     '--hover-color': hoverColor,
-    '--text-color': outlined ? 'var(--chronicle-button-background)' : 'var(--chronicle-button-negative-foreground',
+    '--text-color': outlined ? 'var(--chronicle-button-background)' : 'var(--chronicle-button-negative-foreground)',
     '--outline-padding-adjustment': outlinePaddingAdjustment,
+    '--outlined-button-background-on-hover': outlinedButtonBackgroundOnHover,
+    '--chronicle-button-background': customBackground || 'var(--chronicle-button-background)',
+    '--chronicle-button-foreground': customForeground || 'var(--chronicle-button-foreground)',
     width: width,
-    borderRadius: borderRadius, // Set the border radius directly in style
+    borderRadius: borderRadius,
+    fontFamily: fontFamily,
   } as React.CSSProperties;
 
   return (
@@ -92,8 +109,6 @@ export default ChronicleButton;
   {
     filename: 'ChronicleButton.module.css',
     content: `.chronicleButton {
-  --chronicle-button-background: #f0f0f1;
-  --chronicle-button-negative-foreground: #1a1a24;
   --chronicle-button-default-hover-color: #a594fd;
 
   border-radius: var(--chronicle-button-border-radius, 0.76rem);
@@ -107,6 +122,7 @@ export default ChronicleButton;
   border: none;
   font-weight: 700;
   background: var(--chronicle-button-background);
+  color: var(--chronicle-button-foreground);
   transition: background .4s linear, color .4s linear;
   will-change: background, color;
 }
@@ -159,7 +175,7 @@ export default ChronicleButton;
   background: transparent;
   border: 2px solid var(--chronicle-button-background);
   padding: calc(1rem - var(--outline-padding-adjustment)) 0;
-  transition: border .4s linear, color .4s linear;
+  transition: border .4s linear, color .4s linear, background-color .4s linear;
   will-change: border, color;
 }
 
@@ -169,7 +185,7 @@ export default ChronicleButton;
 }
 
 .chronicleButton.outlined:hover {
-  background: transparent;
+  background: var(--outlined-button-background-on-hover);
   border-color: var(--hover-color);
 }
 

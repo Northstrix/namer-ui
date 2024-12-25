@@ -1,6 +1,9 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 import ChronicleButton from '@/app/the-actual-components/chronicle-button/ChronicleButton'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
@@ -27,6 +30,8 @@ import HalfFilledText from '@/app/the-actual-components/half-filled-text/HalfFil
 import GradientText from '@/app/the-actual-components/gradient-text/GradientText'
 import ModernNavbar from '@/app/the-actual-components/modern-navbar/ModernNavbar'
 import HeartsButton from '@/app/the-actual-components/hearts-button/HeartsButton'
+import BauhausFileCard from '@/app/the-actual-components/bauhaus-file-card/BauhausFileCard'
+import SimpleDropzone from '@/app/the-actual-components/simple-dropzone/SimpleDropzone'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
@@ -75,6 +80,8 @@ const components = [
   { id: 'gradient-text', name: 'Gradient Text', description: 'A multi-colored text with moving gradient.' },
   { id: 'modern-navbar', name: 'Modern Navbar', description: 'A visually appealing navigation bar component designed for modern web applications.' },
   { id: 'hearts-button', name: 'Hearts Button', description: 'A button with three moving hearts that appear when the button is hovered.' },
+  { id: 'bauhaus-file-card', name: 'Bauhaus File Card', description: 'A bauhaus-inspired file container with interactive elements.' },
+  { id: 'simple-dropzone', name: 'Simple Dropzone', description: 'A simple dropzone made using Tailwind.' },
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -171,6 +178,14 @@ export default function ComponentsPage() {
   const [hoveredCard, setHoveredCard] = useState<'github' | 'medium' | 'instructables' | null>(null);
   // Glowing Card stuff //
 
+  // Simple Dropzone stuff //
+  const handleFilesFromSimpleDropzone = (files: File[]) => {
+    files.forEach(file => {
+      toast.info(`File: ${file.name}`); // Print the name of each file
+    });
+  };
+  // Simple Dropzone stuff //
+
   const renderComponent = () => {
     switch(activeComponent) {
       case 'chronicle-button':
@@ -182,7 +197,7 @@ export default function ComponentsPage() {
             />
             <ChronicleButton 
               text='Blue (1.4em)' // Button text
-              onClick={() => console.log('The blue button has been clicked')} 
+              onClick={() => toast.info('The blue button has been clicked')} 
               width="200px" // Custom width
               hoverColor="#90BAFD" // Custom hover color: a vibrant blue
               borderRadius="1.4em" // Custom border radius
@@ -206,10 +221,10 @@ export default function ComponentsPage() {
               title="Miami_skyline_at_night.jpg" // Title of the file
               fileSize="Size: 4.51 MB" // Size of the file displayed to the user
               description="A stunning photograph of the Miami skyline illuminated at night, showcasing the vibrant city lights and reflections on the water." // Description of the file's content
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onTitleClick={(id) => toast.info(`Title clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onDescriptionClick={(id) => toast.info(`Description clicked for file (ID: N${id})`)} // Replace console.log with toast.info
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onTitleClick={(id) => toast.info(`Title clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onDescriptionClick={(id) => toast.info(`Description clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
               filledButtonInscription="Download" // Required text for filled button inscription
               outlinedButtonInscription="Properties" // Required text for outlined button inscription
               borderWidth={2} // Width of the border (optional, default is 2)
@@ -221,10 +236,10 @@ export default function ComponentsPage() {
               title="קובץ_דחוס_חשוב.zip" // "Important Compressed File"
               fileSize="גודל: 100.12 MB" // "Size:" in Hebrew
               description="קובץ דחוס המכיל מסמכים חשובים שצריך לעבור עליהם לפני הפגישה, כולל דוחות ומצגות." // "A compressed file containing important documents to review before the meeting, including reports and presentations."
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onTitleClick={(id) => toast.info(`Title clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onDescriptionClick={(id) => toast.info(`Description clicked for file (ID: N${id})`)} // Replace console.log with toast.info
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onTitleClick={(id) => toast.info(`Title clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onDescriptionClick={(id) => toast.info(`Description clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
               metadataIntegrity={true} // Indicates if metadata integrity is maintained (optional)
               filledButtonInscription="הורדה" // "Download" in Hebrew (required)
               outlinedButtonInscription="שתף" // "Share" in Hebrew (required)
@@ -238,10 +253,10 @@ export default function ComponentsPage() {
               title="FileContainer.tsx" // Title of the TypeScript file
               fileSize="Size: 15.3 KB" // Size of the TypeScript file displayed to the user
               description="This TypeScript file contains essential components and logic for rendering the FileContainer component in your application." // Description of its content
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onTitleClick={(id) => toast.info(`Title clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onDescriptionClick={(id) => toast.info(`Description clicked for file (ID: N${id})`)} // Replace console.log with toast.info
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onTitleClick={(id) => toast.info(`Title clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onDescriptionClick={(id) => toast.info(`Description clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
               metadataIntegrity={false} // Indicates if metadata integrity is maintained (optional)
               filledButtonInscription="Send" // Required text for filled button inscription
               outlinedButtonInscription="More" // Required text for outlined button inscription
@@ -254,10 +269,10 @@ export default function ComponentsPage() {
               title="app_logic.js" // Title of the JavaScript file
               fileSize="Size: 45.7 KB" // Size of the JavaScript file displayed to the user
               description="This JavaScript file contains essential application logic that is crucial for the functionality of the web application. Ensure all functions are properly defined." // Description of its content
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onTitleClick={(id) => toast.info(`Title clicked for file (ID: N${id})`)} // Replace console.log with toast.info
-              onDescriptionClick={(id) => toast.info(`Description clicked for file (ID: N${id})`)} // Replace console.log with toast.info
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onTitleClick={(id) => toast.info(`Title clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
+              onDescriptionClick={(id) => toast.info(`Description clicked for file (ID: N${id})`)} // Replace toast.info with toast.info
               filledButtonInscription="Download" // Required text for filled button inscription
               outlinedButtonInscription="Properties" // Required text for outlined button inscription
               borderWidth={4} // Width of the border (optional)
@@ -841,6 +856,125 @@ export default function ComponentsPage() {
             <HeartsButton inscription="Langzeitgedächtnis" padding="70px" onClick={() => {toast.info('Third HeartsButton clicked!');}}/>
           </div>
         );
+      case 'bauhaus-file-card':
+        return (
+          <div className="bg-[#262630] p-8 rounded-lg min-h-[300px] gap-9 flex items-center justify-center">
+            <BauhausFileCard
+              id="file1"
+              topInscription="Size: 5.96 MB"
+              fileName="Downtown Dallas.png"
+              subMainText="A high-quality image featuring the stunning skyline of Downtown Dallas, showcasing its modern architecture and vibrant city life."
+              filledButtonInscription="View"
+              outlinedButtonInscription="Download"
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file2"
+              topInscription="Size: 15.5 MB"
+              fileName="Important project.zip"
+              subMainText="This small archive contains code, videos, and a presentation for a very important project."
+              filledButtonInscription="Extract"
+              outlinedButtonInscription="Info"
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file3"
+              topInscription="Grössi: 71.2 KB"
+              fileName="BauhausFileCard.tsx"
+              subMainText="En Code für en Bauhaus-inspirierte Datei-Container mit interaktiven Elementen."
+              filledButtonInscription="Uuslade"
+              outlinedButtonInscription="Teile"
+              containerBorderRadius="1.76em"
+              buttonRounding="0.76em"
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file4"
+              topInscription="Tamaño: 250 MB"
+              fileName="App tutorial.mp4"
+              subMainText="Video Tutorial - Este video proporciona una guía completa sobre el uso de la aplicación y sus características."
+              filledButtonInscription="Descargar"
+              outlinedButtonInscription="Detalles"
+              backgroundColor="#f5f5f5"
+              separatorColor="#d0d0d0"
+              chronicleButtonBackground="#2a2a34"
+              chronicleButtonForeground="#f5f5f5"
+              descriptionColor="#333333"
+              fileSizeColor="#555555"
+              borderWidth="6px"
+              ligtenButtonColor={-0.17}
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file5"
+              topInscription="2.3 KB :גודל"
+              fileName="bauhaus-file-card.js"
+              subMainText="קופסה לאחסון בהשראת הבאוהאוס עם אלמנטים אינטראקטיביים."
+              filledButtonInscription="פתח"
+              outlinedButtonInscription="שתף"
+              mirrored={true}
+              swapButtons={true}
+              borderWidth="4px"
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file6"
+              topInscription="Size: 5.7 MB"
+              fileName="Financial Report.pdf"
+              subMainText="The integrity of this file is compromised."
+              filledButtonInscription="View"
+              outlinedButtonInscription="Delete"
+              metadataIntegrity={false}
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+          </div>
+        );
+      case 'simple-dropzone':
+        return (
+          <div className="bg-base-300 p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+            <SimpleDropzone 
+              onFilesAdded={handleFilesFromSimpleDropzone}
+            />
+            <SimpleDropzone 
+              onFilesAdded={handleFilesFromSimpleDropzone}
+              activeInscription="שחרר את הקבצים כאן..."
+              defaultInscription="גרור ושחרר קבצים כאן או לחץ לבחירת קבצים"
+              borderColor="#888" 
+              borderWidth="4px"
+              textColor="#fff" 
+              borderRadius="2.5rem" 
+            />
+          </div>
+        );
       default:
         return <div>No preview available.</div>;
     }
@@ -849,9 +983,9 @@ export default function ComponentsPage() {
   return (
     <div className="flex">
       <ToastContainer
-        position="bottom-right" // Position of the container
-        autoClose={5000}        // Duration for all toasts in this container
-        hideProgressBar={false} // Show progress bar for all toasts
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -877,7 +1011,7 @@ export default function ComponentsPage() {
       <main className="flex-1 p-8">
         <h1 className="text-3xl font-bold mb-2">{components.find(c => c.id === activeComponent)?.name}</h1>
         <p className="text-gray-500 mb-6">{components.find(c => c.id === activeComponent)?.description}</p>
-
+  
         <div className="tabs tabs-boxed mb-4">
           <button 
             className={`tab ${activeTab === 'preview' ? 'tab-active' : ''}`} 
@@ -897,10 +1031,21 @@ export default function ComponentsPage() {
           <div className="overflow-x-auto">
             {/* Displaying code with filenames clearly distinguished */}
             {metadata?.code ? (
-              (metadata.code as CodeFile[]).map(({ filename, content }) => ( // Cast metadata.code to CodeFile[]
+              (metadata.code as CodeFile[]).map(({ filename, content }) => (
                 <div key={filename} className="mb-8">
                   <h3 className="font-bold mb-4 text-lg">{filename}</h3> {/* Filename displayed prominently */}
-                  <pre className="bg-base-200 p-4 rounded-lg overflow-x-auto">{content}</pre> {/* Code content */}
+                  {/* Wrap SyntaxHighlighter in a div with background color and rounded corners */}
+                  <SyntaxHighlighter 
+                    language={filename.endsWith('.css') ? 'css' : 'tsx'} 
+                    style={a11yDark}
+                    customStyle={{
+                      backgroundColor: '#15151C',
+                      borderRadius: '0.5em',
+                      padding: '1em'
+                    }}
+                  >
+                    {content}
+                  </SyntaxHighlighter>
                 </div>
               ))
             ) : (
@@ -908,19 +1053,33 @@ export default function ComponentsPage() {
             )}
           </div>
         )}
-
+  
         <section className="mb-6 mt-6">
           <h2 className="text-lg font-bold mb-2">Usage</h2>
           <hr />
-          <pre>{metadata?.usage}</pre>
-        </section>
+          {/* Wrap SyntaxHighlighter in a div with background color and rounded corners */}
+          {metadata?.usage && (
+            <SyntaxHighlighter 
+              language="tsx" 
+              style={a11yDark}
+              customStyle={{
+                backgroundColor: '#15151C',
+                borderRadius: '0.5em',
+                padding: '1em'
+              }}
+            >
+              {metadata.usage}
+            </SyntaxHighlighter>
 
+          )}
+        </section>
+  
         <section className="mb-6 mt-6">
           <h2 className="text-lg font-bold mb-2">Dependencies</h2>
           <hr />
           <pre>{metadata?.dependencies}</pre>
         </section>
-
+  
         <section className="mb-6 mt-6">
           <h2 className="text-lg font-bold mb-2">Credit</h2>
           <hr />
@@ -928,5 +1087,5 @@ export default function ComponentsPage() {
         </section>
       </main>
     </div>
-  )
-}
+  );  
+};

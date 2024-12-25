@@ -474,7 +474,7 @@ export default BauhausCard;
   dependencies: 'Chronicle button',
   credit: (
     <span>
-      <a href="https://codepen.io/kristen17/pen/NPKrxBd" target="_blank" rel="noopener noreferrer" className="link">CodePen Home Course design cards #scss</a> by <a href="https://codepen.io/kristen17" target="_blank" rel="noopener noreferrer" className="link">Kristen</a>
+      <a href="https://codepen.io/kristen17/pen/NPKrxBd" target="_blank" rel="noopener noreferrer" className="link">Course design cards #scss</a> by <a href="https://codepen.io/kristen17" target="_blank" rel="noopener noreferrer" className="link">Kristen</a>
       <br />
       <a href="https://codepen.io/Juxtoposed/pen/xxQNozB" target="_blank" rel="noopener noreferrer" className="link">Vercel app border hover effect</a> by <a href="https://codepen.io/Juxtoposed" target="_blank" rel="noopener noreferrer" className="link">Juxtoposed</a>
       <br />

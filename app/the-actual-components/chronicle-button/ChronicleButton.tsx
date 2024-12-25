@@ -9,7 +9,11 @@ interface ChronicleButtonProps {
   width?: string;
   outlined?: boolean;
   outlinePaddingAdjustment?: string;
-  borderRadius?: string; // New property for border radius
+  borderRadius?: string;
+  fontFamily?: string;
+  outlinedButtonBackgroundOnHover?: string;
+  customBackground?: string;
+  customForeground?: string;
 }
 
 const ChronicleButton: React.FC<ChronicleButtonProps> = ({ 
@@ -19,14 +23,22 @@ const ChronicleButton: React.FC<ChronicleButtonProps> = ({
   width = '160px',
   outlined = false,
   outlinePaddingAdjustment = '2px',
-  borderRadius = '0.76rem' // Default value for border radius
+  borderRadius = '0.76rem',
+  fontFamily,
+  outlinedButtonBackgroundOnHover = 'transparent',
+  customBackground = "#f0f0f1",
+  customForeground = "#1a1a24",
 }) => {
   const buttonStyle = {
     '--hover-color': hoverColor,
-    '--text-color': outlined ? 'var(--chronicle-button-background)' : 'var(--chronicle-button-negative-foreground',
+    '--text-color': outlined ? 'var(--chronicle-button-background)' : 'var(--chronicle-button-negative-foreground)',
     '--outline-padding-adjustment': outlinePaddingAdjustment,
+    '--outlined-button-background-on-hover': outlinedButtonBackgroundOnHover,
+    '--chronicle-button-background': customBackground || 'var(--chronicle-button-background)',
+    '--chronicle-button-foreground': customForeground || 'var(--chronicle-button-foreground)',
     width: width,
-    borderRadius: borderRadius, // Set the border radius directly in style
+    borderRadius: borderRadius,
+    fontFamily: fontFamily,
   } as React.CSSProperties;
 
   return (
