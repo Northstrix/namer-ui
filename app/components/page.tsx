@@ -32,12 +32,14 @@ import ModernNavbar from '@/app/the-actual-components/modern-navbar/ModernNavbar
 import HeartsButton from '@/app/the-actual-components/hearts-button/HeartsButton'
 import BauhausFileCard from '@/app/the-actual-components/bauhaus-file-card/BauhausFileCard'
 import SimpleDropzone from '@/app/the-actual-components/simple-dropzone/SimpleDropzone'
+import FancyHeroSection from '@/app/the-actual-components/fancy-hero-section/FancyHeroSection'
+import ModernSidebar from '@/app/the-actual-components/modern-sidebar/ModernSidebar'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
 import { faTools } from '@fortawesome/free-solid-svg-icons';
 import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFilled, IconCircleArrowUpFilled, IconLockFilled, IconSettingsFilled, IconInfoCircleFilled } from '@tabler/icons-react';
-import { IconHome, IconFile, IconPencil, IconLogout } from '@tabler/icons-react';
+import { IconHome, IconFile, IconPencil, IconLogout, IconUser, IconFolder, IconCircleArrowDown, IconCircleArrowUp, IconLock, IconSettings, IconInfoCircle } from '@tabler/icons-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -82,6 +84,8 @@ const components = [
   { id: 'hearts-button', name: 'Hearts Button', description: 'A button with three moving hearts that appear when the button is hovered.' },
   { id: 'bauhaus-file-card', name: 'Bauhaus File Card', description: 'A bauhaus-inspired file container with interactive elements.' },
   { id: 'simple-dropzone', name: 'Simple Dropzone', description: 'A simple dropzone made using Tailwind.' },
+  { id: 'fancy-hero-section', name: 'Fancy Hero Section', description: 'A fancy, PHA5E-inspired hero section.' },
+  { id: 'modern-sidebar', name: 'Modern Sidebar', description: 'A sleek, modern sidebar with customizable icons, hover effects, and responsive design.' },
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -185,6 +189,22 @@ export default function ComponentsPage() {
     });
   };
   // Simple Dropzone stuff //
+
+    // Modern Sidebar Stuff //
+    interface SquareProps {
+      color: string;
+    }
+  
+    const Square: React.FC<SquareProps> = ({ color }) => (
+      <div style={{
+        width: '12px',
+        height: '12px',
+        backgroundColor: color,
+        margin: '2px',
+        borderRadius: '50%',
+      }} />
+    );
+    // Modern Sidebar Stuff //
 
   const renderComponent = () => {
     switch(activeComponent) {
@@ -972,6 +992,130 @@ export default function ComponentsPage() {
               borderWidth="4px"
               textColor="#fff" 
               borderRadius="2.5rem" 
+            />
+          </div>
+        );
+      case 'fancy-hero-section':
+        return (
+          <FancyHeroSection
+            text={["A FANCY", "HERO SECTION", "FOR YOUR", "WEBSITE"]}
+            customWidth="100%"
+            customHeight="800px"
+            customFontSize="6.9rem"
+            onImageHover={(index) => console.log(`Hovering element ${index}`)}
+            onImageClick={(index) => toast.info(`Clicked element ${index}`)}
+            customImageData={[
+              {
+                component: (
+                  <div className="w-full h-full bg-blue-500 flex items-center justify-center text-white">
+                    Custom Component 1
+                  </div>
+                ),
+                title: "Blue",
+                description: "This is a custom blue component"
+              },
+              {
+                component: (
+                  <div className="w-full h-full text-[#242434] bg-green-500 flex items-center justify-center text-white">
+                    החיים מוזרים
+                  </div>
+                ),
+                title: "Yarok",
+                description: "This is a custom green component"
+              },
+              {
+                component: (
+                  <div className="w-full h-full bg-purple-500 flex items-center justify-center text-white">
+                    Custom Component 3
+                  </div>
+                ),
+                title: "Purple",
+                description: "This is a custom purple component"
+              }
+            ]}
+            framerSize={[336, 190]}
+            textBottom="-58px"
+            titleColor="#f0f0f0"
+            titleSize="52px"
+            descriptionColor="#eeeeee"
+            descriptionSize="16px"
+          />
+        );
+      case 'modern-sidebar':
+        return (
+          <div className="bg-[#262630] rounded-lg min-h-[300px] w-[calc(100%-360px)] gap-9 flex items-center justify-between">
+            <ModernSidebar
+              items={[
+                { icon: <IconUser size={24} />, label: 'Profile Info' },
+                { icon: <IconFolder size={24} />, label: 'Personal Files' },
+                { icon: <IconFile size={24} />, label: 'Shared Files' },
+                { icon: <IconCircleArrowDown size={24} />, label: 'Received Files' },
+                { icon: <IconCircleArrowUp size={24} />, label: 'Sent Files' },
+                { icon: <IconLock size={24} />, label: 'Password Vault' },
+                { icon: <IconSettings size={24} />, label: 'Settings' },
+                { icon: <IconInfoCircle size={24} />, label: 'About' },
+              ]}
+              onItemHover={(index) => toast.info(`Hovering item:${index}`)}
+              onItemClick={(index) => toast.info(`Clicked item:${index}`)}
+              appLogo={
+                <div style={{
+                  display:'grid',
+                  gridTemplateColumns:'repeat(3, 1fr)',
+                  gridTemplateRows:'repeat(3, 1fr)',
+                  width:'44px',
+                  height:'44px',
+                  marginRight:'8px', // Adjust as needed
+                  marginLeft:'8px', // Adjust as needed
+                }}>
+                  <Square color="#5c3fcd" />
+                  <Square color="#7538CB" />
+                  <Square color="#4246CE" />
+                  <Square color="#5c3fcd" />
+                  <Square color="#5c3fcd" />
+                  <Square color="#4246CE" />
+                  <Square color="#5c3fcd" />
+                  <Square color="#00000000" />
+                  <Square color="#4246CE" />
+                </div>
+              }
+            />
+            
+            <ModernSidebar
+              items={[
+                { icon: <IconUser size={24} />, label: 'מידע על פרופיל' }, // Profile Info
+                { icon: <IconFolder size={24} />, label: 'קבצים אישיים' }, // Personal Files
+                { icon: <IconFile size={24} />, label: 'קבצים משותפים' }, // Shared Files
+                { icon: <IconCircleArrowDown size={24} />, label: 'קבצים שהתקבלו' }, // Received Files
+                { icon: <IconCircleArrowUp size={24} />, label: 'קבצים שנשלחו' }, // Sent Files
+                { icon: <IconLock size={24} />, label: 'כספת סיסמאות' }, // Password Vault
+                { icon: <IconSettings size={24} />, label: 'הגדרות' }, // Settings
+                { icon: <IconInfoCircle size={24} />, label: 'אודות' }, // About
+              ]}
+              onItemHover={(index) => toast.info(`Hovering item:${index}`)}
+              onItemClick={(index) => toast.info(`Clicked item:${index}`)}
+              isRTL={true}
+              logoutLabel="התנתקות" // Log out in Hebrew
+              appLogo={
+                <div style={{
+                  display:'grid',
+                  gridTemplateColumns:'repeat(3, 1fr)',
+                  gridTemplateRows:'repeat(3, 1fr)',
+                  width:'44px',
+                  height:'44px',
+                  marginRight:'8px', // Adjust as needed
+                  marginLeft:'8px', // Adjust as needed
+                }}>
+                  <Square color="#5c3fcd" />
+                  <Square color="#7538CB" />
+                  <Square color="#4246CE" />
+                  <Square color="#5c3fcd" />
+                  <Square color="#5c3fcd" />
+                  <Square color="#4246CE" />
+                  <Square color="#5c3fcd" />
+                  <Square color="#00000000" />
+                  <Square color="#4246CE" />
+                </div>
+              }
             />
           </div>
         );
