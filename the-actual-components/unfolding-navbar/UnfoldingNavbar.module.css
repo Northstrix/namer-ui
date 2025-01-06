@@ -1,0 +1,49 @@
+.UnfoldingNavbar {
+  margin: auto;
+  padding: 3px;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(135deg, #4776cb, #a19fe5, #6cc606);
+  border: 0;
+  border-radius: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  transition: all .3s;
+}
+
+.UnfoldingNavbarSpan {
+  background: #050505;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.UnfoldingNavbarSpan.hovered {
+  background: none;
+  color: #fff;
+}
+
+.iconDiv {
+  position: relative; /* Ensure positioning context for tooltip */
+}
+
+.iconDiv[data-tooltip]:hover::after {
+  content: attr(data-tooltip); /* Use data-tooltip attribute */
+  position: absolute;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  white-space: nowrap; /* Prevent text from wrapping */
+  z-index: 1000; /* Ensure it appears above other elements */
+  top: -30px; /* Adjust based on where you want the tooltip */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Centering adjustment */
+}
