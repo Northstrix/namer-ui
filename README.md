@@ -3,6 +3,16 @@ Namer UI is a collection of reusable components designed to empower developers i
 
 Check it out at https://namer-ui.netlify.app/
 
+![Alt Logo](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/456x456px-logo.png)
+
+![Alt Home page](https://github.com/Northstrix/namer-ui/blob/main/screenshots/home-page.png?raw=true)
+
+![Alt Hero section](https://github.com/Northstrix/namer-ui/blob/main/screenshots/hero-section.png?raw=true)
+
+![Alt The Dutch card component](https://github.com/Northstrix/namer-ui/blob/main/screenshots/Dutch%20Card.png?raw=true)
+
+![Alt Mobile view](https://github.com/Northstrix/namer-ui/blob/main/screenshots/Mobile%20View.png?raw=true)
+
 # Credit
 
 The existence of this project (at least in its current form) wouldn't've been possible without the following:
