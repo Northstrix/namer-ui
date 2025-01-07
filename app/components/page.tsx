@@ -1011,7 +1011,6 @@ export default function ComponentsPage() {
             customWidth="100%"
             customHeight="800px"
             customFontSize="6.9rem"
-            onImageHover={(index) => console.log(`Hovering element ${index}`)}
             onImageClick={(index) => toast.info(`Clicked element ${index}`)}
             customImageData={[
               {
@@ -1171,9 +1170,9 @@ export default function ComponentsPage() {
                 <li key={component.id} className="mb-2">
                   <button
                     onClick={() => setActiveComponent(component.id)}
-                    className={`w-full text-left h-[34px] px-4 rounded-md text-[#a2a2a9] transition-colors duration-200 text-[15px] ${
+                    className={`w-full text-left h-[32px] px-4 rounded-md text-[#a2a2a9] transition-colors duration-200 text-[14px] ${
                       activeComponent === component.id 
-                        ? 'bg-[#252630] text-[#a8b1ff] text-[15.2px] hover:text-[#a8b1ff]' 
+                        ? 'bg-[#252630] text-[#a8b1ff] hover:text-[#a8b1ff]' 
                         : 'hover:bg-[#2c2c2a] hover:text-white'
                     }`}
                   >
