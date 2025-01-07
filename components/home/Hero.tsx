@@ -196,6 +196,7 @@ const Hero = () => {
               backgroundColor = "transparent"
               hoverTextColor="var(--fancy-hero-section-hovered-text-color)"
               textColor="var(--fancy-hero-section-foreground)"
+              frameOutlineColor="var(--frameOutlineColor)"
               customFontSize={fontSize}
               customImageData={[
                 {
