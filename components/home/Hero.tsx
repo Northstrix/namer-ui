@@ -9,10 +9,12 @@ import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch';
 import HalomotButton from '@/app/the-actual-components/halomot-button/HalomotButton'
 
+import ChronicleButton from '@/app/the-actual-components/chronicle-button/ChronicleButton'
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaStar } from 'react-icons/fa';
 
 const Hero = () => {
   const appName: string[] = ["Namer UI"];
@@ -20,7 +22,7 @@ const Hero = () => {
   const [hoveredLine, setHoveredLine] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isClient, setIsClient] = useState(false);
-  const [fontSize] = useState("5.12vw");
+  const [fontSize] = useState("clamp(16px, 5.12vw, 116px)");
   const cursorAnimation: AnimationControls = useAnimation();
 
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
@@ -30,6 +32,23 @@ const Hero = () => {
 
   const [topSwitchState, setTopSwitchState] = useState<boolean>(false);
   const [bottomSwitchState, setBottomSwitchState] = useState<boolean>(false);
+
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1280);
+    };
+
+    // Set initial state
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleTopSwitchChange = (isOn: boolean): void => {
     toast.info(`Top switch will be ${isOn ? 'ON' : 'OFF'} in 0.3 seconds`);
@@ -81,6 +100,15 @@ const Hero = () => {
       });
     }
   }, [mousePosition, cursorAnimation, isClient]);
+
+  const [starCount, setStarCount] = useState(0);
+
+  useEffect(() => {
+    fetch('https://api.github.com/repos/Northstrix/namer-ui')
+      .then(response => response.json())
+      .then(data => setStarCount(data.stargazers_count))
+      .catch(error => console.error('Error fetching star count:', error));
+  }, []);
 
   return (
     <>
@@ -141,7 +169,20 @@ const Hero = () => {
               </h1>
             );
           })}
-
+          {isMobile ? (
+            <div className="relative top-10">
+              <FancyNotification
+                type={notificationStatus}
+                message={notificationMessage}
+                message1={notificationMessage1}
+                isVisible={isNotificationVisible}
+                onClose={handleNotificationClose}
+                successMessage={customSuccessMessage}
+              />
+            </div>
+          ) : 
+            <></>
+          }
           <motion.p
             initial={{ opacity: 0, filter: "blur(10px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -163,20 +204,95 @@ const Hero = () => {
                 target="_blank"
                 className="px-6 bg-gradient-to-b hover:bg-primary/10 transition-all py-3 rounded-full border text-sm font-medium flex items-center justify-center gap-2 text-center max-md:grow shadow-inner shadow-black/20"
               >
-                <FaGithub /> Star on GitHub
+                <FaGithub /> Star on GitHub <FaStar className="ml-2" /> {starCount}
               </Link>
             </motion.div>
           </motion.div>
+          {isMobile ? (
+              <div className="grid grid-cols-1 gap-10 items-center">
+                <div className="flex flex-col items-center">
+                  <div className="relative w-[312px] h-[216px] bg-[var(--halomot-button-iframe-background)] flex items-center justify-center">
+                    <HalomotButton 
+                      onClick={showSuccessNotification}
+                      inscription="Click Me"
+                    />
+                  </div>
+                  <h3 className="text-2xl mt-2 text-center font-bold">Halomot Button</h3>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <div className="relative w-[312px] h-[216px] bg-[var(--fishy-button-iframe-background)] flex flex-col items-center justify-center space-y-5">
+                    <FishyButton 
+                      type="button" 
+                      className="button--2"
+                      onClick={() => toast.info("The \"Create\" button has been clicked")} 
+                    >
+                      Create
+                    </FishyButton>
+                    <FishyButton 
+                      type="button" 
+                      className="button--3"
+                      onClick={() => toast.info("The \"Cancel\" button has been clicked")} 
+                    >
+                      Cancel
+                    </FishyButton>
+                  </div>
+                  <h3 className="text-2xl mt-2 text-center font-bold">Fishy Button</h3>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '1em',
+                    height: '216px',
+                    width: '312px',
+                    backgroundImage: 'linear-gradient(45deg, #47b6d1, #90e0ec)',
+                    fontSize: '1.24em',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                      <span style={{ color: '#E0F9FC' }}>Mobile Data</span>
+                      <ShamayimToggleSwitch 
+                        defaultState={topSwitchState} 
+                        onChange={handleTopSwitchChange} 
+                      />
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
+                      <ShamayimToggleSwitch 
+                        defaultState={bottomSwitchState} 
+                        mirrored 
+                        onChange={handleBottomSwitchChange} 
+                      />
+                      <span style={{ color: '#E0F9FC' }}>נתונים סלולריים</span>
+                    </div>
+                  </div>
+                  <h3 className="text-2xl mt-2 text-center font-bold">Toggle Switch</h3>
+                </div>
+                <div className="bg-[transparent] p-8 rounded-lg flex flex-wrap items-center justify-center relative">
+                  <ChronicleButton 
+                    text="Explore More"
+                    onClick={() => window.location.href = '/components'}
+                    width="200px"
+                  />
+                </div>
+              </div>
+            ) : <></> }
         </div>
         <div className="relative overflow-hidden w-[1200px] max-sm:w-[1000px] h-full p-8 mb-8 mt-8 rounded-xl">
-        <FancyNotification
-          type={notificationStatus}
-          message={notificationMessage}
-          message1={notificationMessage1}
-          isVisible={isNotificationVisible}
-          onClose={handleNotificationClose}
-          successMessage={customSuccessMessage} // Pass custom success message
-        />
+          {isMobile ? (
+              <></>
+              ) : 
+              <FancyNotification
+                type={notificationStatus}
+                message={notificationMessage}
+                message1={notificationMessage1}
+                isVisible={isNotificationVisible}
+                onClose={handleNotificationClose}
+                successMessage={customSuccessMessage} // Pass custom success message
+              />
+          }
           <motion.div
             initial={{ x: "100%", y: "100%" }}
             animate={{ x: "-2.2%", y: 0 }}
@@ -186,6 +302,9 @@ const Hero = () => {
               bounce: 0.2,
             }}
           >
+            {isMobile ? (
+             <></>
+            ) : 
             <FancyHeroSection
               text={["STYLISH",
                 "TYPESCRIPT",
@@ -272,6 +391,7 @@ const Hero = () => {
               descriptionColor="var(--fancy-hero-section-description-color)"
               descriptionSize="16px"
             />
+            }
           </motion.div>
         </div>
         <ToastContainer

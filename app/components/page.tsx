@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { CodeBlock } from "./code-block";
 
 import ChronicleButton from '@/app/the-actual-components/chronicle-button/ChronicleButton'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
@@ -1217,17 +1218,10 @@ export default function ComponentsPage() {
               (metadata.code as CodeFile[]).map(({ filename, content }) => (
                 <div key={filename} className="mb-8">
                   <h3 className="font-bold mb-4 text-lg">{filename}</h3>
-                  <SyntaxHighlighter 
-                    language={filename.endsWith('.css') ? 'css' : 'tsx'} 
-                    style={a11yDark}
-                    customStyle={{
-                      backgroundColor: '#080810',
-                      borderRadius: '0.5em',
-                      padding: '1em'
-                    }}
-                  >
-                    {content}
-                  </SyntaxHighlighter>
+                  <CodeBlock
+                    filename={filename}
+                    code={content}
+                  />
                 </div>
               ))
             ) : (
