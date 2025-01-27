@@ -599,7 +599,7 @@ export default BauhausFileCard;
 ],
   dependencies: `npm install @fontsource/roboto-mono --legacy-peer-deps
 npm install @fontsource/alef --legacy-peer-deps
-Chronicle button
+Chronicle Button
   `,
   credit: (
     <span>

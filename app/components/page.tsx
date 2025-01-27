@@ -6,6 +6,10 @@ import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { CodeBlock } from "./code-block";
 
 import ChronicleButton from '@/app/the-actual-components/chronicle-button/ChronicleButton'
+import SliderHeroSection from '@/app/the-actual-components/slider-hero-section/SliderHeroSection'
+import BauhausFileCard from '@/app/the-actual-components/bauhaus-file-card/BauhausFileCard'
+import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
+import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsAppWidget'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
 import PositionAwareButton from '@/app/the-actual-components/position-aware-button/PositionAwareButton'
@@ -30,7 +34,6 @@ import HalfFilledText from '@/app/the-actual-components/half-filled-text/HalfFil
 import GradientText from '@/app/the-actual-components/gradient-text/GradientText'
 import ModernNavbar from '@/app/the-actual-components/modern-navbar/ModernNavbar'
 import HeartsButton from '@/app/the-actual-components/hearts-button/HeartsButton'
-import BauhausFileCard from '@/app/the-actual-components/bauhaus-file-card/BauhausFileCard'
 import SimpleDropzone from '@/app/the-actual-components/simple-dropzone/SimpleDropzone'
 import FancyHeroSection from '@/app/the-actual-components/fancy-hero-section/FancyHeroSection'
 import ModernSidebar from '@/app/the-actual-components/modern-sidebar/ModernSidebar'
@@ -42,8 +45,6 @@ import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFi
 import { IconHome, IconFile, IconPencil, IconLogout, IconUser, IconFolder, IconCircleArrowDown, IconCircleArrowUp, IconLock, IconSettings, IconInfoCircle } from '@tabler/icons-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import dynamic from "next/dynamic";
 
 import { FaBars } from 'react-icons/fa'; // Import the hamburger icon
 
@@ -61,6 +62,10 @@ interface CodeFile {
 
 const components = [
   { id: 'chronicle-button', name: 'Chronicle Button', description: 'A button with a unique hover effect.' },
+  { id: 'slider-hero-section', name: 'Slider Hero Section', description: 'A customizable hero section with sliding showcase options, image transitions, and responsive design.' },
+  { id: 'bauhaus-file-card', name: 'Bauhaus File Card', description: 'A bauhaus-inspired file container with interactive elements.' },
+  { id: 'product-card', name: 'Product Card', description: 'A versatile product card component with image, pricing, discount, and interactive buttons for e-commerce applications.' },
+  { id: 'whatsapp-widget', name: 'WhatsApp Widget', description: 'A customizable WhatsApp chat widget with auto-popup functionality, personalized messaging, and styled UI elements.' },
   { id: 'file-container', name: 'File Container', description: 'A container for displaying file information.' },
   { id: 'fishy-button', name: 'Fishy Button', description: 'A sleek button featuring floating fish that appear on hover.' },
   { id: 'position-aware-button', name: 'Position-Aware Button', description: 'A button with a dynamic hover effect that responds to mouse movements.' },
@@ -85,7 +90,6 @@ const components = [
   { id: 'gradient-text', name: 'Gradient Text', description: 'A multi-colored text with moving gradient.' },
   { id: 'modern-navbar', name: 'Modern Navbar', description: 'A visually appealing navigation bar component designed for modern web applications.' },
   { id: 'hearts-button', name: 'Hearts Button', description: 'A button with three moving hearts that appear when the button is hovered.' },
-  { id: 'bauhaus-file-card', name: 'Bauhaus File Card', description: 'A bauhaus-inspired file container with interactive elements.' },
   { id: 'simple-dropzone', name: 'Simple Dropzone', description: 'A simple dropzone made using Tailwind.' },
   { id: 'fancy-hero-section', name: 'Fancy Hero Section', description: 'A fancy, PHA5E-inspired hero section.' },
   { id: 'modern-sidebar', name: 'Modern Sidebar', description: 'A sleek, modern sidebar with customizable icons, hover effects, and responsive design.' },
@@ -204,6 +208,16 @@ export default function ComponentsPage() {
     );
     // Modern Sidebar Stuff //
 
+    // WhatsApp Widget Stuff //
+    const [clickCount, setClickCount] = useState(0);
+      
+    const handleWhatsAppClick = () => {
+      setClickCount(prevCount => prevCount + 1);
+      // Add your WhatsApp link opening logic here
+    };
+
+    // WhatsApp Widget Stuff //
+
   const renderComponent = () => {
     switch(activeComponent) {
       case 'chronicle-button':
@@ -230,6 +244,237 @@ export default function ComponentsPage() {
             />
           </div>
         );
+      case 'slider-hero-section':
+        return (
+          <div className="bg-[#050505] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+            <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
+              Disclaimer: All product names, logos, brand identifiers, and trademarks displayed on this website are the sole property of their respective owners. These items are used for demonstrational and illustrative purposes only. The Namer UI is not affiliated with, endorsed by, or sponsored by any of the companies whose products are showcased here. This website does not present a commercial offer of any kind. The store name is fictional; any resemblance to existing business(es) is entirely coincidental and unintentional.
+            </p> 
+            
+            <SliderHeroSection
+              title="Discover cutting-edge tech and top brands at NamerStore – your one-stop destination for brand new, refurbished, and pre-owned electronics"
+              showcaseOptions={[
+                { text: 'Brand New Electronics', imageUrl: 'https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { text: 'Refurbished iPhones', imageUrl: 'https://images.unsplash.com/photo-1604671368394-2240d0b1bb6c?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                { text: 'Pre-owned Samsung Flagships', imageUrl: 'https://images.unsplash.com/photo-1584006682522-dc17d6c0d9ac?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+              ]}
+              onOptionClick={(option) => toast.info(`Clicked item: ${option}`)}
+              onOptionHover={(option) => toast.info(`Hovered item: ${option}`)}
+            />
+      
+            <div className="w-[500px] overflow-hidden">
+              <SliderHeroSection
+                title="גלה טכנולוגיה חדשנית ומותגים מובילים בנמרסטור - היעד שלך למוצרי אלקטרוניקה חדשים, מחודשים ומשומשים"
+                showcaseOptions={[
+                  { text: 'מוצרי אלקטרוניקה חדשים', imageUrl: 'https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                  { text: 'אייפונים מחודשים', imageUrl: 'https://images.unsplash.com/photo-1604671368394-2240d0b1bb6c?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+                  { text: 'מכשירי סמסונג משומשים', imageUrl: 'https://images.unsplash.com/photo-1584006682522-dc17d6c0d9ac?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+                ]}
+                onOptionClick={(option) => toast.info(`Clicked item: ${option}`)}
+                onOptionHover={(option) => toast.info(`Hovered item: ${option}`)}
+                activeOptionColor="#A031EB"
+                textColor="#080810"
+                imageChangeInterval={3000}
+                imageTransitionDuration={0.51}
+                darkenImages={-0.5}
+                height="760px"
+                borderRadius="2.5em"
+              />
+            </div>
+
+          </div>
+        );
+      case 'bauhaus-card':
+        return (
+          <div className="bg-[#252533] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <BauhausCard
+                id="1"
+                accentColor="#156ef6"
+                topInscription="Uploaded on 12/31/2024"
+                mainText="Financial Report.zip"
+                subMainText="Downloading File..."
+                progressBarInscription="Progress:"
+                progress={75.98}
+                progressValue="75.98%"
+                filledButtonInscription="Share"
+                outlinedButtonInscription="Bookmark"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#2c7cf7"
+            />
+
+            <BauhausCard
+                id="2"
+                accentColor="#24d200"
+                topInscription="$4.99"
+                mainText="Next.js Basics"
+                subMainText="This course doesn't exist!"
+                progressBarInscription="Spots left:"
+                progress={20}
+                progressValue="20/100"
+                filledButtonInscription="Enroll"
+                outlinedButtonInscription="Bookmark"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#29f000"
+            />
+
+            <BauhausCard
+                id="3"
+                borderRadius="2.25em"
+                accentColor="#fc6800"
+                borderWidth="3px"
+                topInscription="1 de julio en Miami"
+                mainText="Nombre de la conferencia"
+                subMainText="Descripción de la conferencia."
+                progressBarInscription="Plazas disponibles:"
+                progress={10}
+                progressValue="32"
+                filledButtonInscription="Inscribirse"
+                outlinedButtonInscription="Detalles"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#ff7717"
+            />
+
+            <BauhausCard
+                id="4"
+                borderRadius="1em"
+                backgroundColor="#151419"
+                separatorColor="#5b5452"
+                accentColor="#8f10f6"
+                borderWidth="4px"
+                topInscription="דאלאס - תל אביב"
+                mainText="מגיע בשעה 9:03 לפי"
+                subMainText="שם שדה התעופה"
+                progressBarInscription="מגיע בעוד:"
+                progress={90}
+                progressValue="30 דקות"
+                filledButtonInscription="שתף"
+                outlinedButtonInscription="עוד"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={true}
+                swapButtons={true}
+                ChronicleButtonHoverColor="#a540f8"
+            />
+          </div>
+        );
+      case 'product-card':
+        return (
+          <div className="bg-[#262630] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+            <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
+              Disclaimer: This product card is a conceptual design prototype created for demonstrative and educational purposes only. All product names, logos, brand identifiers, and trademarks displayed here are the sole property of their respective owners. Product details, images, and descriptions are used for illustrative purposes and do not represent actual commercial offerings. Namer UI is not affiliated with, endorsed by, or sponsored by any of the companies whose products are showcased. This website does not present a commercial offer of any kind. Any resemblance to existing product(s) is entirely coincidental.
+            </p> 
+            
+            <div className="bg-[#262630] min-h-[300px] flex flex-wrap gap-8 items-center justify-center relative">
+              <ProductCard
+                id="0"
+                imageSrc="https://images.pexels.com/photos/18525574/pexels-photo-18525574/free-photo-of-unboxing-iphone-15-pro-max-box-in-natural-titanium-color-mention-zana_qaradaghy-on-instagram-while-use-this-photo-follow-on-instagram-zana_qaradaghy.jpeg"
+                altText="iPhone 15 Pro"
+                oldPrice="$1,199"
+                price="$1,079"
+                condition="Brand new"
+                discountPercentage={10}
+                title="iPhone 15 Pro"
+                description="Titanium smartphone with an advanced camera system, offering stunning photography capabilities and a sleek design."
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)}
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)}
+              />
+              <ProductCard
+                id="1"
+                imageSrc="https://images.unsplash.com/photo-1721864428881-dbabb9ea0017?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                altText="Samsung Galaxy Flip 6"
+                oldPrice="$999"
+                price="$499"
+                condition="Pre-owned"
+                discountPercentage={50}
+                title="Samsung Galaxy Flip 6"
+                description="Innovative foldable smartphone with a sleek design that enhances portability while providing a large display for immersive viewing experiences and multitasking."
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)}
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)}
+                accentColor="#00A6FB"
+                buttonRounding={50}
+              />
+              <ProductCard
+                id="2"
+                imageSrc="https://images.unsplash.com/photo-1514473776127-61e2dc1dded3?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                altText="iPhone 7"
+                oldPrice="$199"
+                price="$159"
+                condition="Refurbished"
+                discountPercentage={20}
+                title="iPhone 7"
+                description="Classic iPhone model with 12MP camera and water resistance, offering reliable performance and essential features for everyday smartphone users."
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)}
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)}
+                showOutlinedButton={false}
+                accentColor="#FF3900"
+                outerWidth={392}
+                outerHeight={414}
+                borderWidth={4}
+                containerRounding={14}
+                innerContainerRounding={14}
+                buttonRounding={14}
+                activeComponentScale={1.048}
+              />
+              <ProductCard
+                id="3"
+                imageSrc="https://images.unsplash.com/photo-1511296933631-18b1a062212c?q=80&w=2436&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                altText="iPhone X"
+                oldPrice="₪999"
+                price="₪599"
+                condition="משומש"
+                discountPercentage={40}
+                title="iPhone X"
+                description="סמארטפון אייקוני עם תצוגת Super Retina בגודל 5.8 אינץ', טכנולוגיית Face ID מתקדמת, מצלמות כפולות של 12MP ועיצוב חדשני שמהפכני בצילום הסלולרי."
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)}
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)}
+                showOutlinedButton={true}
+                accentColor="#00A6FB"
+                containerRounding={36}
+                innerContainerRounding={21}
+                buttonRounding={50}
+                lightenButtonColor={0.47}
+                filledButtonInscription="קנה עכשיו"
+                outlinedButtonInscription="הוסף לעגלה"
+                swapButtons={true}
+                activeComponentScale={1.08}
+                mirrorTags={true}
+              />
+            </div>
+          </div>
+        );
+      case 'whatsapp-widget':
+        return (
+          <div className="bg-[#050505] min-h-[300px] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+            <p className="text-[#F7F7FF] text-m max-w-[900px] text-center mt-4 px-4">
+              Disclaimer: The person, name, and sales pitch demonstrated in this WhatsApp widget are entirely fictitious. Any similarity to actual individual(s) or business(es) is purely coincidental and unintentional. NamerStore is a fictional entity used for illustrative purposes only. The store name is fictional; any resemblance to existing business(es) is entirely coincidental and unintentional. This widget is a conceptual design prototype created for demonstrative and educational purposes and does not represent an actual commercial offering.
+            </p> 
+            <GradientText
+              inscription={`Button has been clicked ${clickCount} ${clickCount === 1 ? 'time' : 'times'}`} 
+              fontSize="1.2em" 
+            />
+            <WhatsAppWidget
+              name="Alice West"
+              photo="https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              status="online"
+              onWhatsAppClick={handleWhatsAppClick}
+              displayedMessage="Hi, I'm Alice from NamerStore. 🚀 Looking for new, pre-owned, or refurbished tech? We have great deals! What device interests you? Let's find a perfect match for you."
+              selfPopUpsIn={3000}
+            />
+          </div>
+        );        
       case 'file-container':
         return (
           <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
@@ -461,92 +706,6 @@ export default function ComponentsPage() {
             {loaderVisible && (
               <RisingDroplets colors={['#059FF6', '#8A2BE2', '#FF8C00']} />
             )}
-          </div>
-        );
-      case 'bauhaus-card':
-        return (
-          <div className="bg-[#252533] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
-            <BauhausCard
-                id="1"
-                accentColor="#156ef6"
-                topInscription="Uploaded on 12/31/2024"
-                mainText="Financial Report.zip"
-                subMainText="Downloading File..."
-                progressBarInscription="Progress:"
-                progress={75.98}
-                progressValue="75.98%"
-                filledButtonInscription="Share"
-                outlinedButtonInscription="Bookmark"
-                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
-                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
-                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
-                mirrored={false}
-                swapButtons={false}
-                ChronicleButtonHoverColor="#2c7cf7"
-            />
-
-            <BauhausCard
-                id="2"
-                accentColor="#24d200"
-                topInscription="$4.99"
-                mainText="Next.js Basics"
-                subMainText="This course doesn't exist!"
-                progressBarInscription="Spots left:"
-                progress={20}
-                progressValue="20/100"
-                filledButtonInscription="Enroll"
-                outlinedButtonInscription="Bookmark"
-                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
-                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
-                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
-                mirrored={false}
-                swapButtons={false}
-                ChronicleButtonHoverColor="#29f000"
-            />
-
-            <BauhausCard
-                id="3"
-                borderRadius="2.25em"
-                accentColor="#fc6800"
-                borderWidth="3px"
-                topInscription="1 de julio en Miami"
-                mainText="Nombre de la conferencia"
-                subMainText="Descripción de la conferencia."
-                progressBarInscription="Plazas disponibles:"
-                progress={10}
-                progressValue="32"
-                filledButtonInscription="Inscribirse"
-                outlinedButtonInscription="Detalles"
-                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
-                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
-                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
-                mirrored={false}
-                swapButtons={false}
-                ChronicleButtonHoverColor="#ff7717"
-            />
-
-            <BauhausCard
-                id="4"
-                borderRadius="1em"
-                backgroundColor="#151419"
-                separatorColor="#5b5452"
-                accentColor="#8f10f6"
-                borderWidth="4px"
-                topInscription="דאלאס - תל אביב"
-                mainText="מגיע בשעה 9:03 לפי"
-                subMainText="שם שדה התעופה"
-                progressBarInscription="מגיע בעוד:"
-                progress={90}
-                progressValue="30 דקות"
-                filledButtonInscription="שתף"
-                outlinedButtonInscription="עוד"
-                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
-                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
-                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
-                mirrored={true}
-                swapButtons={true}
-                ChronicleButtonHoverColor="#a540f8"
-            />
           </div>
         );
       case 'dutch-card':
@@ -1133,6 +1292,11 @@ export default function ComponentsPage() {
     }
   };
 
+  const showcaseOptions = [
+    { text: 'Option 1', imageUrl: '/image1.jpg' },
+    { text: 'Option 2', imageUrl: '/image2.jpg' },
+    { text: 'Option 3', imageUrl: '/image3.jpg' },
+  ];
 
   return (
     <div className="flex min-h-screen overflow-hidden bg-[#141414] text-[#f7f7ff]">
