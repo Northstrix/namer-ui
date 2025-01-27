@@ -27,6 +27,8 @@ The existence of this project (at least in its current form) wouldn't've been po
 
 [Code Block](https://ui.aceternity.com/components/code-block) by [Aceternity UI](https://ui.aceternity.com)
 
+[Named scroll-timeline vertical](https://codepen.io/utilitybend/pen/VwBRNwm) by [utilitybend](https://codepen.io/utilitybend)
+
 </br>
 
 Inspired by [x/ui](https://ui.3x.gl/)
