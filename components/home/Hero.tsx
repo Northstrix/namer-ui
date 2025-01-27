@@ -306,9 +306,10 @@ const Hero = () => {
              <></>
             ) : 
             <FancyHeroSection
-              text={["STYLISH",
-                "TYPESCRIPT",
-                "COMPONENTS",
+              text = {[
+                '\u00A0STYLISH\u00A0',
+                '\u00A0TYPESCRIPT\u00A0',
+                '\u00A0COMPONENTS\u00A0',
               ]}
               customWidth="100%"
               customHeight="800px"
