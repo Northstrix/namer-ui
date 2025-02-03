@@ -23,7 +23,7 @@ The existence of this project (at least in its current form) wouldn't've been po
 
 [react-toastify](https://github.com/fkhadra/react-toastify) by [fkhadra](https://github.com/fkhadra)
 
-[BUTTONS](https://codepen.io/uchihaclan/pen/NWOyRWy) by [TAYLOR](https://codepen.io/uchihaclan)
+[Chronicle Button](https://codepen.io/Haaguitos/pen/OJrVZdJ) by [Haaguitos](https://codepen.io/Haaguitos)
 
 [Code Block](https://ui.aceternity.com/components/code-block) by [Aceternity UI](https://ui.aceternity.com)
 
