@@ -268,7 +268,7 @@ const containerSize = "336px";
   // Calculate background pattern size
   const backgroundPatternSize = \`\${(parsedContainerSize - (parsedBorderWidth * 2)) / 16}px\`;
 
-  console.log('Calculated Background Pattern Size:', backgroundPatternSize);
+  //console.log('Calculated Background Pattern Size:', backgroundPatternSize);
 const extension = fileName.split('.').pop() || '';
 const fileType = fileTypeClassification.find(type => type.extensions.includes(\`.\${extension}\`));
 const accentColor = fileType ? fileType.color : '#3D4785';
@@ -599,7 +599,7 @@ export default BauhausFileCard;
 ],
   dependencies: `npm install @fontsource/roboto-mono --legacy-peer-deps
 npm install @fontsource/alef --legacy-peer-deps
-Chronicle button
+Chronicle Button
   `,
   credit: (
     <span>

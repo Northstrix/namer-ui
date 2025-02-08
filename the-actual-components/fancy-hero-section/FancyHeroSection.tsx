@@ -22,7 +22,6 @@ interface FancyHeroSectionProps {
   customWidth?: string;
   customHeight?: string;
   customFontSize?: string;
-  onImageHover?: (index: number | null) => void;
   onImageClick?: (index: number) => void;
   customImageData: CustomImageData[];
   framerSize?: [number, number];
@@ -31,6 +30,7 @@ interface FancyHeroSectionProps {
   titleSize?: string;
   descriptionColor?: string;
   descriptionSize?: string;
+  frameOutlineColor?: string;
 }
 
 const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
@@ -45,7 +45,6 @@ const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
   customWidth,
   customHeight,
   customFontSize,
-  onImageHover,
   onImageClick,
   customImageData,
   framerSize = [340, 248],
@@ -54,6 +53,7 @@ const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
   titleSize = '48px',
   descriptionColor,
   descriptionSize = '14px',
+  frameOutlineColor = '#a1a1b2',
 }) => {
   const [hoveredImage, setHoveredImage] = useState<number | null>(null);
   const [hoveredLine, setHoveredLine] = useState<number | null>(null);
@@ -160,6 +160,7 @@ const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
           descriptionColor={descriptionColor}
           descriptionSize={descriptionSize}
           textColor={textColor}
+          frameOutlineColor={frameOutlineColor}
         />
       </div>
       <div ref={textContainerRef} className="container flex flex-col justify-center items-center relative z-20 py-10">

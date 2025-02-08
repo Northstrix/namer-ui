@@ -11,8 +11,7 @@ import FancyHeroSection from '@/app/the-actual-components/fancy-hero-section/Fan
   customWidth="100%"
   customHeight="800px"
   customFontSize="6.9rem"
-  onImageHover={(index) => console.log(\`Hovering element \${index}\`)}
-  onImageClick={(index) => console.log(\`Clicked element \${index}\`)}
+  onImageClick={(index) => toast.info(\`Clicked element \${index}\`)}
   customImageData={[
     {
       component: (
@@ -62,8 +61,7 @@ import FancyHeroSection from '@/app/the-actual-components/fancy-hero-section/Fan
 // - customWidth: string (optional) - Specifies a custom width for the hero section.
 // - customHeight: string (optional) - Specifies a custom height for the hero section.
 // - customFontSize: string (optional) - Sets a custom font size for the main text.
-// - onImageHover: (index: number | null) => void (optional) - Callback function triggered when hovering over an element.
-// - onImageClick: (index: number) => void (optional) - Callback function triggered when an element is being clicked on.
+// - onImageClick: (index: number) => void (optional) - Callback function triggered when an element is clicked.
 // - customImageData: CustomImageData[] (required) - An array of custom component data objects for the image (component) grid.
 // - framerSize: [number, number] (optional) - Specifies the size of the framer component [width, height] (default: [340, 248]).
 // - textBottom: string (optional) - Sets the bottom position of the text in the image grid (default: '-95px').
@@ -71,6 +69,7 @@ import FancyHeroSection from '@/app/the-actual-components/fancy-hero-section/Fan
 // - titleSize: string (optional) - Sets the font size of the title text in the image grid (default: '48px').
 // - descriptionColor: string (optional) - Defines the color of the description text in the image grid.
 // - descriptionSize: string (optional) - Sets the font size of the description text in the image grid (default: '14px').
+// - frameOutlineColor: string (optional) - Sets the color of the frame outline (default: '#a1a1b2').
 `,
 code: [
   {
@@ -99,7 +98,6 @@ interface FancyHeroSectionProps {
   customWidth?: string;
   customHeight?: string;
   customFontSize?: string;
-  onImageHover?: (index: number | null) => void;
   onImageClick?: (index: number) => void;
   customImageData: CustomImageData[];
   framerSize?: [number, number];
@@ -108,6 +106,7 @@ interface FancyHeroSectionProps {
   titleSize?: string;
   descriptionColor?: string;
   descriptionSize?: string;
+  frameOutlineColor?: string;
 }
 
 const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
@@ -122,7 +121,6 @@ const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
   customWidth,
   customHeight,
   customFontSize,
-  onImageHover,
   onImageClick,
   customImageData,
   framerSize = [340, 248],
@@ -131,6 +129,7 @@ const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
   titleSize = '48px',
   descriptionColor,
   descriptionSize = '14px',
+  frameOutlineColor = '#a1a1b2',
 }) => {
   const [hoveredImage, setHoveredImage] = useState<number | null>(null);
   const [hoveredLine, setHoveredLine] = useState<number | null>(null);
@@ -186,9 +185,11 @@ const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
       }
     });
     setHoveredImage(hoveredIndex);
+    /*
     if (onImageHover) {
       onImageHover(hoveredIndex);
     }
+      */
   };
 
   const handleImageClick = (index: number) => {
@@ -235,6 +236,7 @@ const FancyHeroSection: React.FC<FancyHeroSectionProps> = ({
           descriptionColor={descriptionColor}
           descriptionSize={descriptionSize}
           textColor={textColor}
+          frameOutlineColor={frameOutlineColor}
         />
       </div>
       <div ref={textContainerRef} className="container flex flex-col justify-center items-center relative z-20 py-10">
@@ -358,6 +360,7 @@ interface ImageGridProps {
   descriptionColor?: string;
   descriptionSize?: string;
   textColor?: string;
+  frameOutlineColor?: string;
 }
 
 const ImageGrid: React.FC<ImageGridProps> = ({
@@ -373,6 +376,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({
   descriptionColor,
   descriptionSize = '14px',
   textColor = '#ffffff',
+  frameOutlineColor = '#a1a1b2',
 }) => {
   const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [targetPositions, setTargetPositions] = useState<{ x: number; y: number }[]>(
@@ -461,7 +465,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({
     isSelected: boolean;
   }
 
-  const FramerComponent: React.FC<FramerComponentProps> = ({ index }) => {
+  const FramerComponent: React.FC<FramerComponentProps> = ({ index}) => {
     const customImage = customImageData[index];
     return (
       <div className="relative bg-transparent flex items-center justify-center" style={{ width: \`\${width}px\`, height: \`\${height}px\` }}>
@@ -506,18 +510,22 @@ const ImageGrid: React.FC<ImageGridProps> = ({
                       <div className="absolute" style={{
                         width: \`\${Math.sqrt(width ** 2 + height ** 2)}px\`,
                         height: '1px',
-                        backgroundColor: '#9191a1',
+                        backgroundColor: frameOutlineColor,
                         top: '0',
                         left: '0',
                         transform: \`rotate(\${angle}deg)\`,
                         transformOrigin: 'top left',
                         zIndex: '40'
                       }} />
-                      <div className="absolute top-0 left-0 right-0 bottom-0 border border-[#9191a1]" />
+                      <div 
+  className="absolute top-0 left-0 right-0 bottom-0 border" 
+  style={{ borderColor: frameOutlineColor }}
+/>
+
                       <div className="absolute" style={{
                         width: \`\${Math.sqrt(width ** 2 + height ** 2)}px\`,
                         height: '1px',
-                        backgroundColor: '#9191a1',
+                        backgroundColor: frameOutlineColor,
                         top: '0',
                         right: '0',
                         transform: \`rotate(-\${angle}deg)\`,

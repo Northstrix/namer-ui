@@ -39,7 +39,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({
   descriptionColor,
   descriptionSize = '14px',
   textColor = '#ffffff',
-  frameOutlineColor = 'var(--frameOutlineColor)',
+  frameOutlineColor = '#a1a1b2',
 }) => {
   const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [targetPositions, setTargetPositions] = useState<{ x: number; y: number }[]>(
