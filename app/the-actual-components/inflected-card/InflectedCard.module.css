@@ -1,0 +1,139 @@
+.card {
+  position: relative;
+  border-radius: var(--card-rounding);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 18.75rem;
+  background: var(--parent-bg);
+  border-radius: var(--card-rounding);
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.imgBox {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.imgBox img {
+  transition: transform 0.3s ease;
+}
+
+.imgBox img.hovered {
+  transform: scale(var(--image-hover-zoom, 1.1));
+}  
+
+.icon {
+  position: absolute;
+  bottom: -0.375rem;
+  right: -0.375rem;
+  width: 6rem;
+  height: 6rem;
+  background: var(--parent-bg);
+  border-top-left-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.icon:hover .iconBox {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.icon::before {
+  position: absolute;
+  content: "";
+  bottom: 0.375rem;
+  left: -1.25rem;
+  background: transparent;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+  box-shadow: 0.313rem 0.313rem 0 0.313rem var(--parent-bg);
+}
+
+.icon::after {
+  position: absolute;
+  content: "";
+  top: -1.25rem;
+  right: 0.375rem;
+  background: transparent;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+  box-shadow: 0.313rem 0.313rem 0 0.313rem var(--parent-bg);
+}
+
+.iconBox {
+  position: absolute;
+  inset: 0.625rem;
+  background: var(--button-bg);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.iconBox:hover {
+  background: var(--button-hover-bg);
+}
+
+.iconBox span {
+  color: var(--icon-color);
+  font-size: var(--icon-size);
+  transition: color 0.3s ease;
+}
+
+.iconBox:hover span {
+  color: var(--icon-hover-color);
+}
+
+.content {
+  padding: 0.938rem 0.625rem;
+}
+
+.content h3 {
+  transition: color 0.3s ease;
+}
+
+.content p {
+  transition: color 0.3s ease;
+}
+
+.content ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.content ul li {
+  background: var(--tag-bg);
+  color: var(--tag-color);
+  font-weight: 700;
+  padding: 0.375rem 0.625rem;
+  border-radius: var(--tag-rounding);
+  transition: all 0.3s ease;
+}
+
+.content ul li:hover {
+  opacity: 0.8;
+}
