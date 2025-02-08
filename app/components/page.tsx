@@ -8,8 +8,10 @@ import { CodeBlock } from "./code-block";
 import ChronicleButton from '@/app/the-actual-components/chronicle-button/ChronicleButton'
 import SliderHeroSection from '@/app/the-actual-components/slider-hero-section/SliderHeroSection'
 import BauhausFileCard from '@/app/the-actual-components/bauhaus-file-card/BauhausFileCard'
+import InflectedCard from '@/app/the-actual-components/inflected-card/InflectedCard'
 import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsAppWidget'
+import DicedHeroSection from '@/app/the-actual-components/diced-hero-section/DicedHeroSection'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
 import PositionAwareButton from '@/app/the-actual-components/position-aware-button/PositionAwareButton'
@@ -37,12 +39,15 @@ import HeartsButton from '@/app/the-actual-components/hearts-button/HeartsButton
 import SimpleDropzone from '@/app/the-actual-components/simple-dropzone/SimpleDropzone'
 import FancyHeroSection from '@/app/the-actual-components/fancy-hero-section/FancyHeroSection'
 import ModernSidebar from '@/app/the-actual-components/modern-sidebar/ModernSidebar'
+import SpaceButton from '@/app/the-actual-components/space-button/SpaceButton'
+import SpacyPricingCard from '@/app/the-actual-components/spacy-pricing-card/SpacyPricingCard'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
 import { faTools } from '@fortawesome/free-solid-svg-icons';
 import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFilled, IconCircleArrowUpFilled, IconLockFilled, IconSettingsFilled, IconInfoCircleFilled } from '@tabler/icons-react';
 import { IconHome, IconFile, IconPencil, IconLogout, IconUser, IconFolder, IconCircleArrowDown, IconCircleArrowUp, IconLock, IconSettings, IconInfoCircle } from '@tabler/icons-react';
+import { IconCornerRightUp, IconFold } from '@tabler/icons-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -64,8 +69,10 @@ const components = [
   { id: 'chronicle-button', name: 'Chronicle Button', description: 'A button with a unique hover effect.' },
   { id: 'slider-hero-section', name: 'Slider Hero Section', description: 'A customizable hero section with sliding showcase options, image transitions, and responsive design.' },
   { id: 'bauhaus-file-card', name: 'Bauhaus File Card', description: 'A bauhaus-inspired file container with interactive elements.' },
+  { id: 'inflected-card', name: 'Inflected Card', description: 'A versatile card component with an unorthodox shape.' },
   { id: 'product-card', name: 'Product Card', description: 'A versatile product card component with image, pricing, discount, and interactive buttons for e-commerce applications.' },
   { id: 'whatsapp-widget', name: 'WhatsApp Widget', description: 'A customizable WhatsApp chat widget with auto-popup functionality, personalized messaging, and styled UI elements.' },
+  { id: 'diced-hero-section', name: 'Diced Hero Section', description: 'A customizable hero section with diced image grid, gradient text, and responsive design for showcasing content.' },
   { id: 'file-container', name: 'File Container', description: 'A container for displaying file information.' },
   { id: 'fishy-button', name: 'Fishy Button', description: 'A sleek button featuring floating fish that appear on hover.' },
   { id: 'position-aware-button', name: 'Position-Aware Button', description: 'A button with a dynamic hover effect that responds to mouse movements.' },
@@ -93,6 +100,8 @@ const components = [
   { id: 'simple-dropzone', name: 'Simple Dropzone', description: 'A simple dropzone made using Tailwind.' },
   { id: 'fancy-hero-section', name: 'Fancy Hero Section', description: 'A fancy, PHA5E-inspired hero section.' },
   { id: 'modern-sidebar', name: 'Modern Sidebar', description: 'A sleek, modern sidebar with customizable icons, hover effects, and responsive design.' },
+  { id: 'space-button', name: 'Space Button', description: 'A futuristic button with dynamic gradients and hover effects, evoking the mesmerizing colors of outer space.' },
+  { id: 'spacy-pricing-card', name: 'Spacy Pricing Card', description: 'A dynamic, customizable pricing card component with a sleek, futuristic design.' },
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -217,7 +226,7 @@ export default function ComponentsPage() {
     };
 
     // WhatsApp Widget Stuff //
-
+    
   const renderComponent = () => {
     switch(activeComponent) {
       case 'chronicle-button':
@@ -284,90 +293,283 @@ export default function ComponentsPage() {
 
           </div>
         );
-      case 'bauhaus-card':
+      case 'bauhaus-file-card':
         return (
-          <div className="bg-[#252533] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
-            <BauhausCard
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap', // Allows items to wrap to the next line
+            gap: '36px', // Space between items
+            justifyContent: 'center', // Center items horizontally
+            padding: '32px', // Optional padding for the container
+            backgroundColor: '#262630', // Background color of the container
+            borderRadius: '8px', // Rounded corners for the container
+            minHeight: '300px' // Minimum height for the container
+          }}>
+            <BauhausFileCard
+              id="file1"
+              topInscription="Size: 5.96 MB"
+              fileName="Downtown Dallas.png"
+              subMainText="A high-quality image featuring the stunning skyline of Downtown Dallas, showcasing its modern architecture and vibrant city life."
+              filledButtonInscription="View"
+              outlinedButtonInscription="Download"
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file2"
+              topInscription="Size: 15.5 MB"
+              fileName="Important project.zip"
+              subMainText="This small archive contains code, videos, and a presentation for a very important project."
+              filledButtonInscription="Extract"
+              outlinedButtonInscription="Info"
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file3"
+              topInscription="Grössi: 71.2 KB"
+              fileName="BauhausFileCard.tsx"
+              subMainText="En Code für en Bauhaus-inspirierte Datei-Container mit interaktiven Elementen."
+              filledButtonInscription="Uuslade"
+              outlinedButtonInscription="Teile"
+              containerBorderRadius="1.76em"
+              buttonRounding="0.76em"
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file4"
+              topInscription="Tamaño: 250 MB"
+              fileName="App tutorial.mp4"
+              subMainText="Video Tutorial - Este video proporciona una guía completa sobre el uso de la aplicación y sus características."
+              filledButtonInscription="Descargar"
+              outlinedButtonInscription="Detalles"
+              backgroundColor="#f5f5f5"
+              separatorColor="#d0d0d0"
+              chronicleButtonBackground="#2a2a34"
+              chronicleButtonForeground="#f5f5f5"
+              descriptionColor="#333333"
+              fileSizeColor="#555555"
+              borderWidth="6px"
+              ligtenButtonColor={-0.17}
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file5"
+              topInscription="2.3 KB :גודל"
+              fileName="bauhaus-file-card.js"
+              subMainText="קופסה לאחסון בהשראת הבאוהאוס עם אלמנטים אינטראקטיביים."
+              filledButtonInscription="פתח"
+              outlinedButtonInscription="שתף"
+              mirrored={true}
+              swapButtons={true}
+              borderWidth="4px"
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+
+            <BauhausFileCard
+              id="file6"
+              topInscription="Size: 5.7 MB"
+              fileName="Financial Report.pdf"
+              subMainText="The integrity of this file is compromised."
+              filledButtonInscription="View"
+              outlinedButtonInscription="Delete"
+              metadataIntegrity={false}
+              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
+              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
+              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
+              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
+              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
+            />
+          </div>
+        );
+      case 'inflected-card':
+        return (
+          <div className="bg-[#050505] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+            <p className="text-[#F7F7FF] text-m max-w-[1260px] text-center mt-4 px-4">
+              Disclaimer: This product card is a conceptual design prototype created for demonstrative and educational purposes only. All product names, logos, brand identifiers, and trademarks displayed here are the sole property of their respective owners. Product details, images, and descriptions are used for illustrative purposes and do not represent actual commercial offerings. Namer UI is not affiliated with, endorsed by, or sponsored by any of the companies whose products are showcased. This website does not present a commercial offer of any kind. Any resemblance to existing product(s) is entirely coincidental.
+            </p> 
+            
+            <div className="bg-[#050505] min-h-[300px] flex flex-wrap gap-8 items-center justify-center relative">
+              <InflectedCard
+                id="0"
+                image="https://images.pexels.com/photos/18525574/pexels-photo-18525574/free-photo-of-unboxing-iphone-15-pro-max-box-in-natural-titanium-color-mention-zana_qaradaghy-on-instagram-while-use-this-photo-follow-on-instagram-zana_qaradaghy.jpeg"
+                title="iPhone 15 Pro"
+                description="Titanium smartphone with an advanced camera system, offering stunning photography capabilities and a sleek design."
+                tags={[
+                  { name: "Brand new", textColor: "#f7f7ff", backgroundColor: "#9F4EFF", rounding: 5 },
+                  { name: "10% off", textColor: "#242424", backgroundColor: "#f1f1f7", rounding: 5 },
+                ]}
+                parentBackgroundColor="#050505"
+                onClick={(target, id) => toast.info(`Clicked ${target} on card ${id}`)}
+                onHover={(target, id) => toast.info(`Hovering over ${target} on card ${id}`)}
+                cardRounding={15}
+                fontSizes={{
+                  title: "1.8rem",
+                  description: "1rem",
+                  tags: "0.85rem",
+                  price: "0.84rem",
+                }}
+                margins={{
+                  title: "0 0 7px 0",
+                  description: "0 0 18px 0",
+                  tags: "10px 0 0 0",
+                }}
+                buttonIcon={<IconCornerRightUp />}
+                buttonIconSize={32}
+                buttonIconColor="#ffffff"
+                buttonIconHoverColor="#EEEEEE"
+                buttonBackgroundColor="#9F4EFF"
+                buttonBackgroundHoverColor="#a960ff"
+                maxWidth="500px"
+                imageHoverZoom={1.1}
+                price="$1,079"
+                priceTagTextColor="#f7f7ff"
+                oldPrice="$1,199"
+                priceTagRounding="25px"
+              />
+
+              <InflectedCard
                 id="1"
-                accentColor="#156ef6"
-                topInscription="Uploaded on 12/31/2024"
-                mainText="Financial Report.zip"
-                subMainText="Downloading File..."
-                progressBarInscription="Progress:"
-                progress={75.98}
-                progressValue="75.98%"
-                filledButtonInscription="Share"
-                outlinedButtonInscription="Bookmark"
-                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
-                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
-                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
-                mirrored={false}
-                swapButtons={false}
-                ChronicleButtonHoverColor="#2c7cf7"
-            />
+                image="https://images.unsplash.com/photo-1721864428881-dbabb9ea0017?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                title="Samsung Galaxy Flip 6"
+                description="Innovative foldable smartphone with a sleek design that enhances portability while providing a large display for immersive viewing experiences and multitasking."
+                tags={[
+                  { name: "Pre-owned", textColor: "#f7f7ff", backgroundColor: "#00A6FB", rounding: 0 },
+                  { name: "50% off", textColor: "#242424", backgroundColor: "#f1f1f7", rounding: 0 },
+                ]}
+                parentBackgroundColor="#050505"
+                onClick={(target, id) => toast.info(`Clicked ${target} on card ${id}`)}
+                onHover={(target, id) => toast.info(`Hovering over ${target} on card ${id}`)}
+                cardRounding={15}
+                fontSizes={{
+                  title: "1.8rem",
+                  description: "1rem",
+                  tags: "0.85rem",
+                  price: "1.12rem",
+                }}
+                margins={{
+                  title: "0 0 7px 0",
+                  description: "0 0 18px 0",
+                  tags: "10px 0 0 0",
+                }}
+                buttonIcon={<IconFold />}
+                buttonIconSize={32}
+                buttonIconColor="#ffffff"
+                buttonIconHoverColor="#EEEEEE"
+                buttonBackgroundColor="#00A6FB"
+                buttonBackgroundHoverColor="#0582CA"
+                maxWidth="500px"
+                imageHoverZoom={1.1}
+                price="$499"
+                priceTagTextColor="#050505"
+                oldPrice="$991"
+                oldPriceTextColor="#565656"
+                priceTagRounding="6px"
+                priceTagBackgroundColor = 'rgba(255,255,255,0.78)'
+              />
 
-            <BauhausCard
+              <InflectedCard
                 id="2"
-                accentColor="#24d200"
-                topInscription="$4.99"
-                mainText="Next.js Basics"
-                subMainText="This course doesn't exist!"
-                progressBarInscription="Spots left:"
-                progress={20}
-                progressValue="20/100"
-                filledButtonInscription="Enroll"
-                outlinedButtonInscription="Bookmark"
-                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
-                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
-                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
-                mirrored={false}
-                swapButtons={false}
-                ChronicleButtonHoverColor="#29f000"
-            />
+                image="https://images.unsplash.com/photo-1514473776127-61e2dc1dded3?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                title="iPhone 7"
+                description="Classic iPhone model with 12MP camera and water resistance, offering reliable performance and essential features for everyday smartphone users."
+                tags={[
+                  { name: "Refurbished", textColor: "#f7f7ff", backgroundColor: "#FF3900", rounding: 5 },
+                  { name: "20% off", textColor: "#242424", backgroundColor: "#f1f1f7", rounding: 5 },
+                ]}
+                parentBackgroundColor="#050505"
+                onClick={(target, id) => toast.info(`Clicked ${target} on card ${id}`)}
+                onHover={(target, id) => toast.info(`Hovering over ${target} on card ${id}`)}
+                cardRounding={14}
+                fontSizes={{
+                  title: "1.8rem",
+                  description: "1rem",
+                  tags: "0.85rem",
+                  price: "1.12rem",
+                }}
+                margins={{
+                  title: "0 0 7px 0",
+                  description: "0 0 18px 0",
+                  tags: "10px 0 0 0",
+                }}
+                buttonIcon={<IconCornerRightUp />}
+                buttonIconSize={32}
+                buttonIconColor="#ffffff"
+                buttonIconHoverColor="#EEEEEE"
+                buttonBackgroundColor="#FF3900"
+                buttonBackgroundHoverColor="#FF5733"
+                maxWidth="392px"
+                imageHoverZoom={1.35}
+                price="$159"
+                priceTagRounding="25px"
+                priceTagBackgroundColor = '#FF3900'
+              />
 
-            <BauhausCard
+              <InflectedCard
                 id="3"
-                borderRadius="2.25em"
-                accentColor="#fc6800"
-                borderWidth="3px"
-                topInscription="1 de julio en Miami"
-                mainText="Nombre de la conferencia"
-                subMainText="Descripción de la conferencia."
-                progressBarInscription="Plazas disponibles:"
-                progress={10}
-                progressValue="32"
-                filledButtonInscription="Inscribirse"
-                outlinedButtonInscription="Detalles"
-                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
-                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
-                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
-                mirrored={false}
-                swapButtons={false}
-                ChronicleButtonHoverColor="#ff7717"
-            />
-
-            <BauhausCard
-                id="4"
-                borderRadius="1em"
-                backgroundColor="#151419"
-                separatorColor="#5b5452"
-                accentColor="#8f10f6"
-                borderWidth="4px"
-                topInscription="דאלאס - תל אביב"
-                mainText="מגיע בשעה 9:03 לפי"
-                subMainText="שם שדה התעופה"
-                progressBarInscription="מגיע בעוד:"
-                progress={90}
-                progressValue="30 דקות"
-                filledButtonInscription="שתף"
-                outlinedButtonInscription="עוד"
-                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
-                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
-                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                image="https://images.unsplash.com/photo-1511296933631-18b1a062212c?q=80&w=2436&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                title="iPhone X"
+                description="סמארטפון אייקוני עם תצוגת Super Retina בגודל 5.8 אינץ', טכנולוגיית Face ID מתקדמת, מצלמות כפולות של 12MP ועיצוב חדשני שמהפכני בצילום הסלולרי."
+                tags={[
+                  { name: "40% הנחה", textColor: "#242424", backgroundColor: "#f1f1f7", rounding: 15 },
+                  { name: "משומש", textColor: "#f7f7ff", backgroundColor: "#00A6FB", rounding: 15 },
+                ]}
+                parentBackgroundColor="#050505"
+                onClick={(target, id) => toast.info(`Clicked ${target} on card ${id}`)}
+                onHover={(target, id) => toast.info(`Hovering over ${target} on card ${id}`)}
+                cardRounding={36}
+                fontSizes={{
+                  title: "1.8rem",
+                  description: "1rem",
+                  tags: "0.85rem",
+                  price: "1.12rem",
+                }}
+                margins={{
+                  title: "0 0 7px 0",
+                  description: "0 0 18px 0",
+                  tags: "10px 0 0 0",
+                }}
+                buttonIcon={<IconCornerRightUp />}
+                buttonIconSize={32}
+                buttonIconColor="#ffffff"
+                buttonIconHoverColor="#EEEEEE"
+                buttonBackgroundColor="#00A6FB"
+                buttonBackgroundHoverColor="#0582CA"
+                maxWidth="330px"
+                imageHoverZoom={1.61}
+                price="₪599"
+                priceTagTextColor="#f7f7ff"
+                oldPrice="₪991"
+                oldPriceOnTheRight={true}
+                priceTagRounding="25px"
                 mirrored={true}
-                swapButtons={true}
-                ChronicleButtonHoverColor="#a540f8"
-            />
+                tagsAlignment="right"
+                titleAlignment="center"
+                descriptionAlignment="right"
+              />
+            </div>
           </div>
         );
       case 'product-card':
@@ -474,7 +676,116 @@ export default function ComponentsPage() {
               selfPopUpsIn={3000}
             />
           </div>
-        );        
+        );
+      case 'diced-hero-section':
+        return (
+          <div className="bg-[#323236] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+            <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
+              Disclaimer: This reusable component is a conceptual design prototype created for demonstrative and educational purposes only. All product images displayed here are used for illustrative purposes and do not represent actual items for sale. Product details are fictional and do not reflect real commercial offerings. This website is not affiliated with, endorsed by, or sponsored by any food producers or grocery retailers. This page does not present a commercial offer of any kind. Any resemblance to existing products or services is entirely coincidental.
+            </p> 
+              <DicedHeroSection
+                topText="Discover"
+                mainText="Freshness"
+                subMainText="Explore a vibrant harvest of organic, seasonal fruits and vegetables, bursting with flavors. Unveil a paramount selection of naturally delicious and nutritious premium produce sourced directly from local farms!"
+                buttonText="Shop Now"
+                slides={[
+                  {
+                    title: "Purple Cauliflower",
+                    image: "https://images.unsplash.com/photo-1620053927547-cf64d4829ff4?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  },
+                  {
+                    title: "Strawberry",
+                    image: "https://images.unsplash.com/photo-1623227866882-c005c26dfe41?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  },
+                  {
+                    title: "Feijoa",
+                    image: "https://images.unsplash.com/photo-1541857754-557a44522bec?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  },
+                  {
+                    title: "Fruits and Vegetables",
+                    image: "https://images.unsplash.com/photo-1646340691161-521e588e9964?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  },
+                ]}
+                onMainButtonClick={() => toast.info("Main button clicked for the first element")}
+                onGridImageHover={(index) => toast.info(`Grid image ${index} hovered for the first element`)}
+                onGridImageClick={(index) => toast.info(`Grid image ${index} clicked for the first element`)}
+                topTextStyle={{
+                  color: "#2c3e50",
+                  fontSize: "1.2rem"
+                }}
+                mainTextStyle={{
+                  fontSize: "4.5rem",
+                  gradient: "linear-gradient(45deg, #16a085, #2980b9)"
+                }}
+                subMainTextStyle={{
+                  color: "#34495e",
+                  fontSize: "1.3rem"
+                }}
+                buttonStyle={{
+                  backgroundColor: "#27ae60",
+                  color: "#ffffff",
+                  borderRadius: "2rem",
+                  hoverColor: "#2ecc71"
+                }}
+                componentBorderRadius="8px"
+                backgroundColor="#ecf0f1"
+                mobileBreakpoint={1000}
+                fontFamily="Arial, sans-serif"
+              />
+              <DicedHeroSection
+                topText="גלה"
+                mainText="טריות"
+                subMainText="חקור יבול עשיר של פירות וירקות אורגניים עונתיים, מלאי טעמים. גלה מבחר מעולה של תוצרת איכותית, טעימה וטבעית, מזינה ומגיעה ישירות מחוות מקומיות!"
+                buttonText="קנה עכשיו"
+                slides={[
+                  {
+                    title: "כרובית סגולה",
+                    image: "https://images.unsplash.com/photo-1620053927547-cf64d4829ff4?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  },
+                  {
+                    title: "תותים",
+                    image: "https://images.unsplash.com/photo-1623227866882-c005c26dfe41?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  },
+                  {
+                    title: "פיג'ויה",
+                    image: "https://images.unsplash.com/photo-1541857754-557a44522bec?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  },
+                  {
+                    title: "מגוון פירות וירקות",
+                    image: "https://images.unsplash.com/photo-1646340691161-521e588e9964?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  },
+                ]}
+                onMainButtonClick={() => toast.info("Main button clicked for the second element")}
+                onGridImageHover={(index) => toast.info(`Grid image ${index} hovered for the second element`)}
+                onGridImageClick={(index) => toast.info(`Grid image ${index} clicked for the second element`)}
+                topTextStyle={{
+                  color: "#f7f7ff",
+                  fontSize: "1.4rem"
+                }}
+                mainTextStyle={{
+                  fontSize: "5rem",
+                  gradient: "linear-gradient(45deg, #9F4EFF, #00A6FB)"
+                }}
+                subMainTextStyle={{
+                  color: "#f7f7ff",
+                  fontSize: "1.12rem"
+                }}
+                buttonStyle={{
+                  backgroundColor: "#00A6FB",
+                  color: "#ffffff",
+                  borderRadius: "7px",
+                  hoverColor: "#9F4EFF"
+                }}
+                componentBorderRadius="1.76em"
+                backgroundColor="#000000"
+                separatorColor="#086CA2"
+                maxContentWidth="1190px"
+                mobileBreakpoint={910}
+                fontFamily="Arial, sans-serif"
+                isRTL={true}
+              />
+          </div>
+        );  
       case 'file-container':
         return (
           <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
@@ -706,6 +1017,92 @@ export default function ComponentsPage() {
             {loaderVisible && (
               <RisingDroplets colors={['#059FF6', '#8A2BE2', '#FF8C00']} />
             )}
+          </div>
+        );
+      case 'bauhaus-card':
+        return (
+          <div className="bg-[#252533] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <BauhausCard
+                id="1"
+                accentColor="#156ef6"
+                topInscription="Uploaded on 12/31/2024"
+                mainText="Financial Report.zip"
+                subMainText="Downloading File..."
+                progressBarInscription="Progress:"
+                progress={75.98}
+                progressValue="75.98%"
+                filledButtonInscription="Share"
+                outlinedButtonInscription="Bookmark"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#2c7cf7"
+            />
+
+            <BauhausCard
+                id="2"
+                accentColor="#24d200"
+                topInscription="$4.99"
+                mainText="Next.js Basics"
+                subMainText="This course doesn't exist!"
+                progressBarInscription="Spots left:"
+                progress={20}
+                progressValue="20/100"
+                filledButtonInscription="Enroll"
+                outlinedButtonInscription="Bookmark"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#29f000"
+            />
+
+            <BauhausCard
+                id="3"
+                borderRadius="2.25em"
+                accentColor="#fc6800"
+                borderWidth="3px"
+                topInscription="1 de julio en Miami"
+                mainText="Nombre de la conferencia"
+                subMainText="Descripción de la conferencia."
+                progressBarInscription="Plazas disponibles:"
+                progress={10}
+                progressValue="32"
+                filledButtonInscription="Inscribirse"
+                outlinedButtonInscription="Detalles"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={false}
+                swapButtons={false}
+                ChronicleButtonHoverColor="#ff7717"
+            />
+
+            <BauhausCard
+                id="4"
+                borderRadius="1em"
+                backgroundColor="#151419"
+                separatorColor="#5b5452"
+                accentColor="#8f10f6"
+                borderWidth="4px"
+                topInscription="דאלאס - תל אביב"
+                mainText="מגיע בשעה 9:03 לפי"
+                subMainText="שם שדה התעופה"
+                progressBarInscription="מגיע בעוד:"
+                progress={90}
+                progressValue="30 דקות"
+                filledButtonInscription="שתף"
+                outlinedButtonInscription="עוד"
+                onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)} 
+                onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)} 
+                onMoreOptionsClick={(id) => toast.info(`More options dots clicked for ID: ${id}`)} 
+                mirrored={true}
+                swapButtons={true}
+                ChronicleButtonHoverColor="#a540f8"
+            />
           </div>
         );
       case 'dutch-card':
@@ -1036,117 +1433,6 @@ export default function ComponentsPage() {
             <HeartsButton inscription="Langzeitgedächtnis" padding="70px" onClick={() => {toast.info('Third HeartsButton clicked!');}}/>
           </div>
         );
-      case 'bauhaus-file-card':
-        return (
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap', // Allows items to wrap to the next line
-            gap: '36px', // Space between items
-            justifyContent: 'center', // Center items horizontally
-            padding: '32px', // Optional padding for the container
-            backgroundColor: '#262630', // Background color of the container
-            borderRadius: '8px', // Rounded corners for the container
-            minHeight: '300px' // Minimum height for the container
-          }}>
-            <BauhausFileCard
-              id="file1"
-              topInscription="Size: 5.96 MB"
-              fileName="Downtown Dallas.png"
-              subMainText="A high-quality image featuring the stunning skyline of Downtown Dallas, showcasing its modern architecture and vibrant city life."
-              filledButtonInscription="View"
-              outlinedButtonInscription="Download"
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
-              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
-              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
-              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
-            />
-
-            <BauhausFileCard
-              id="file2"
-              topInscription="Size: 15.5 MB"
-              fileName="Important project.zip"
-              subMainText="This small archive contains code, videos, and a presentation for a very important project."
-              filledButtonInscription="Extract"
-              outlinedButtonInscription="Info"
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
-              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
-              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
-              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
-            />
-
-            <BauhausFileCard
-              id="file3"
-              topInscription="Grössi: 71.2 KB"
-              fileName="BauhausFileCard.tsx"
-              subMainText="En Code für en Bauhaus-inspirierte Datei-Container mit interaktiven Elementen."
-              filledButtonInscription="Uuslade"
-              outlinedButtonInscription="Teile"
-              containerBorderRadius="1.76em"
-              buttonRounding="0.76em"
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
-              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
-              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
-              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
-            />
-
-            <BauhausFileCard
-              id="file4"
-              topInscription="Tamaño: 250 MB"
-              fileName="App tutorial.mp4"
-              subMainText="Video Tutorial - Este video proporciona una guía completa sobre el uso de la aplicación y sus características."
-              filledButtonInscription="Descargar"
-              outlinedButtonInscription="Detalles"
-              backgroundColor="#f5f5f5"
-              separatorColor="#d0d0d0"
-              chronicleButtonBackground="#2a2a34"
-              chronicleButtonForeground="#f5f5f5"
-              descriptionColor="#333333"
-              fileSizeColor="#555555"
-              borderWidth="6px"
-              ligtenButtonColor={-0.17}
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
-              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
-              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
-              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
-            />
-
-            <BauhausFileCard
-              id="file5"
-              topInscription="2.3 KB :גודל"
-              fileName="bauhaus-file-card.js"
-              subMainText="קופסה לאחסון בהשראת הבאוהאוס עם אלמנטים אינטראקטיביים."
-              filledButtonInscription="פתח"
-              outlinedButtonInscription="שתף"
-              mirrored={true}
-              swapButtons={true}
-              borderWidth="4px"
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
-              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
-              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
-              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
-            />
-
-            <BauhausFileCard
-              id="file6"
-              topInscription="Size: 5.7 MB"
-              fileName="Financial Report.pdf"
-              subMainText="The integrity of this file is compromised."
-              filledButtonInscription="View"
-              outlinedButtonInscription="Delete"
-              metadataIntegrity={false}
-              onFilledButtonClick={(id) => toast.info(`Filled button clicked for ${id}`)}
-              onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ${id}`)}
-              onTitleClick={(id) => toast.info(`Title clicked for ${id}`)}
-              onDescriptionClick={(id) => toast.info(`Description clicked for ${id}`)}
-              onMoreOptionsClick={(id) => toast.info(`More options clicked for ${id}`)}
-            />
-          </div>
-        );
       case 'simple-dropzone':
         return (
           <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
@@ -1284,6 +1570,145 @@ export default function ComponentsPage() {
                   <Square color="#4246CE" />
                 </div>
               }
+            />
+          </div>
+        );
+      case 'space-button':
+        return (
+          <div style={{
+            display: 'inline-flex',
+            flexWrap: 'wrap',
+            gap: '36px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '32px',
+            backgroundColor: '#03010b',
+            borderRadius: '8px',
+            minHeight: '300px',
+            width: '100%'
+          }}>
+            <SpaceButton 
+                inscription="Outer Space"
+                variant="outer"
+                onClick={() => toast.info("The Outer Space button has been clicked")}
+              />
+              <SpaceButton 
+                inscription="Inner Space (1px border)"
+                borderWidth="1px"
+                onClick={() => toast.info("The Inner Space button has been clicked")}
+              />
+              <SpaceButton 
+                inscription="Outer Space (1px, thin font)"
+                isBold={false}
+                variant="outer"
+                onClick={() => toast.info("The Outer Space thin font button has been clicked")}
+              />
+              <SpaceButton 
+                inscription="5px Border"
+                borderWidth="5px"
+                onClick={() => toast.info("The 5px Border button has been clicked")}
+              />
+              <SpaceButton 
+                inscription="Hover any of these"
+                borderRadius="2em"
+                onClick={() => toast.info("The Hover any of these button has been clicked")}
+              />
+              <SpaceButton 
+                inscription="פונט גדול"
+                fontSize="32px"
+                variant="outer"
+                onClick={() => toast.info("The large font button has been clicked")}
+              />
+          </div>
+        );
+      case 'spacy-pricing-card':
+        return (
+          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <SpacyPricingCard
+              planName="Personal Plan"
+              price="$9.99/month"
+              description="The essentials"
+              features={[
+                { text: "50GB Secure Storage" },
+                { text: "Basic Computation Engine" },
+                { text: "Data Visualization Tools" }
+              ]}
+              onChoosePlan={() => toast.info("Personal plan selected")}
+            />
+
+            <SpacyPricingCard
+              planName="CloudCompute Pro"
+              price="$159.99/month"
+              description="Advanced cloud computing solution"
+              features={[
+                { text: "Unlimited Data Storage" },
+                { text: "High-Performance Computing" },
+                { text: "Real-time Data Processing" }
+              ]}
+              backgroundColor="#0f172a"
+              headerBackgroundColor="#1e293b"
+              topTextColor="#38bdf8"
+              priceColor="#f1f5f9"
+              descriptionColor="#94a3b8"
+              featureColor="#e2e8f0"
+              checkmarkColor="#22d3ee"
+              borderColor="#38bdf8"
+              containerRounding="20px"
+              onChoosePlan={() => toast.info("CloudCompute Pro plan selected")}
+            />
+
+            <SpacyPricingCard
+              planName="תוכנית מתחילים"
+              price="₪49.99/חודש"
+              description="פתרון ענן בסיסי לעסקים קטנים"
+              features={[
+                { text: "עד 5 משתמשים" },
+                { text: "תכונות מתקדמות" },
+                { text: "10 GB אחסון" },
+                { text: "תמיכה בדוא״ל" },
+                { text: "גיבוי יומי" }
+              ]}
+              backgroundColor="#1e3a8a"
+              headerBackgroundColor="#1e40af"
+              topTextColor="#93c5fd"
+              priceColor="#ffffff"
+              descriptionColor="#bfdbfe"
+              featureColor="#dbeafe"
+              checkmarkColor="#3b82f6"
+              borderColor="#60a5fa"
+              glowColor="#2563eb"
+              containerRounding="2.25em"
+              buttonVariant="outer"
+              buttonText="התחל עכשיו"
+              featureAlign="center"
+              isRTL={true}
+              onChoosePlan={() => toast.info('Starter Plan clicked')}
+            />
+
+            <SpacyPricingCard
+              planName="Erdbeerifründe Abo"
+              price="CHF 39.99/Monat"
+              description="Frische Erdbeeri direkt zu Ihne hei"
+              features={[
+                { text: "500g Erdbeeri wöchentlich" },
+                { text: "Usgewählti Sorte" },
+                { text: "Lieferig innerhalb vo 24 Stunde" },
+                { text: "Rezept-Idee im Päckli" }
+              ]}
+              backgroundColor="#fce4ec"
+              headerBackgroundColor="#f8bbd0"
+              topTextColor="#ad1457"
+              priceColor="#880e4f"
+              descriptionColor="#ad1457"
+              featureColor="#c2185b"
+              borderColor="#f48fb1"
+              glowColor="#f06292"
+              containerRounding="8px"
+              buttonVariant="inner"
+              buttonRounding="200px"
+              checkSymbol="🍓"
+              buttonText="Abonniere jetz!"
+              onChoosePlan={() => toast.info('Monthly strawberry delivery subscription clicked')}
             />
           </div>
         );
