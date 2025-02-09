@@ -1,5 +1,4 @@
 "use client";
-
 import React, { createContext, useContext, useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
@@ -21,6 +20,7 @@ type FancyNavBarProps = {
   tooltipSpacing?: number;
   activeIconColor?: string;
   defaultItem?: number;
+  removeTooltipOnClick?: boolean;
 };
 
 type NavBarContextType = {
@@ -49,6 +49,7 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
   tooltipSpacing = 24,
   activeIconColor = backgroundColor,
   defaultItem = 0,
+  removeTooltipOnClick = false,
 }) => {
   const [activeItem, setActiveItem] = useState(defaultItem);
   const navBarRef = useRef<HTMLDivElement>(null);
@@ -67,8 +68,10 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const itemButtons = navBarRef.current?.querySelectorAll<HTMLButtonElement>('button');
     if (!itemButtons) return;
+
     const currentIndex = activeItem;
     let newIndex = currentIndex;
+
     switch (e.key) {
       case 'ArrowRight':
       case 'ArrowDown':
@@ -87,6 +90,7 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
       default:
         return;
     }
+
     e.preventDefault();
     setActiveItem(newIndex);
     itemButtons[newIndex].focus();
@@ -130,6 +134,7 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
             index={index}
             onHover={() => onItemHover?.(index)}
             onClick={() => onItemClick?.(index)}
+            removeTooltipOnClick={removeTooltipOnClick}
           />
         ))}
         <NavBarHighlight ref={sliderRef} />
@@ -138,12 +143,18 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
   );
 };
 
-const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onClick: () => void }> = ({
+const NavBarItem: React.FC<NavItem & {
+  index: number;
+  onHover: () => void;
+  onClick: () => void;
+  removeTooltipOnClick?: boolean;
+}> = ({
   icon,
   label,
   index,
   onHover,
   onClick,
+  removeTooltipOnClick = false,
 }) => {
   const {
     activeItem,
@@ -156,10 +167,27 @@ const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onCli
     tooltipTextSize,
     tooltipSpacing
   } = useContext(NavBarContext);
-  
+
   const isActive = index === activeItem;
   const iconSize = height * 0.5;
-  const [isHovered, setIsHovered] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowTooltip(true);
+    onHover();
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
+  const handleClick = () => {
+    setActiveItem(index);
+    onClick();
+    if (removeTooltipOnClick) {
+      setShowTooltip(false);
+    }
+  };
 
   return (
     <button
@@ -168,15 +196,9 @@ const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onCli
       aria-label={label}
       aria-pressed={isActive}
       tabIndex={isActive ? 0 : -1}
-      onClick={() => {
-        setActiveItem(index);
-        onClick();
-      }}
-      onMouseEnter={() => {
-        setIsHovered(true);
-        onHover();
-      }}
-      onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       style={{
         backgroundColor: 'transparent',
         borderRadius: '50%',
@@ -207,7 +229,7 @@ const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onCli
         {React.cloneElement(icon, { style: { ...icon.props.style, color: 'currentColor' } })}
       </div>
       <AnimatePresence>
-        {isHovered && (
+        {showTooltip && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -238,6 +260,7 @@ const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onCli
 const NavBarHighlight = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>((props, ref) => {
   const { foregroundColor, height, padding } = useContext(NavBarContext);
   const highlightSize = height - 2 * padding;
+
   return (
     <div
       ref={ref}

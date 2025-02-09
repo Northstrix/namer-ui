@@ -8,21 +8,84 @@ import FancyNavBar from '@/app/the-actual-components/fancy-navbar/FancyNavbar'
 
 import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFilled, IconCircleArrowUpFilled, IconLockFilled, IconSettingsFilled, IconInfoCircleFilled } from '@tabler/icons-react';
 
-<FancyNavBar
-  items={[
-    { icon: <IconUserFilled size={24} />, label: 'Profile Info' },
-    { icon: <IconFolderFilled size={24} />, label: 'Personal Files' },
-    { icon: <IconFileFilled size={24} />, label: 'Shared Files' },
-    { icon: <IconCircleArrowDownFilled size={24} />, label: 'Received Files' },
-    { icon: <IconCircleArrowUpFilled size={24} />, label: 'Sent Files' },
-    { icon: <IconLockFilled size={24} />, label: 'Password Vault' },
-    { icon: <IconSettingsFilled size={24} />, label: 'Settings' },
-    { icon: <IconInfoCircleFilled size={24} />, label: 'About' },
-  ]}
-  onItemHover={(index) => console.log(\`Hovering item:\${index}\`)}
-  onItemClick={(index) => console.log(\`Clicked item:\${index}\`)}
-  activeIconColor="#A594FD"
-/>
+<div style={{
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '100px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '32px',
+  backgroundColor: '#181820',
+  borderRadius: '8px',
+  minHeight: '640px'
+}}>
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '20px'
+  }}>
+    <h2 style={{ 
+      color: '#f7f7ff', 
+      fontSize: '24px', 
+      fontWeight: 'bold',
+      marginBottom: '8px'
+    }}>
+      Default Behavior
+    </h2>
+    <FancyNavBar
+      items={[
+        { icon: <IconUserFilled size={24} />, label: 'Profile Info' },
+        { icon: <IconFolderFilled size={24} />, label: 'Personal Files' },
+        { icon: <IconFileFilled size={24} />, label: 'Shared Files' },
+        { icon: <IconCircleArrowDownFilled size={24} />, label: 'Received Files' },
+        { icon: <IconCircleArrowUpFilled size={24} />, label: 'Sent Files' },
+        { icon: <IconLockFilled size={24} />, label: 'Password Vault' },
+        { icon: <IconSettingsFilled size={24} />, label: 'Settings' },
+        { icon: <IconInfoCircleFilled size={24} />, label: 'About' },
+      ]}
+      onItemHover={(index) => console.log(\`First NavBar - Hovering item: \${index}\`)}
+      onItemClick={(index) => console.log(\`First NavBar - Clicked item: \${index}\`)}
+      activeIconColor="#00A6FB"
+      backgroundColor="#f7f7ff"
+      foregroundColor="#050505"
+    />
+  </div>
+
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '20px'
+  }}>
+    <h2 style={{ 
+      color: '#f7f7ff', 
+      fontSize: '24px', 
+      fontWeight: 'bold',
+      marginBottom: '8px'
+    }}>
+      Tooltip Disappears on Click
+    </h2>
+    <FancyNavBar
+      items={[
+        { icon: <IconInfoCircleFilled size={24} />, label: "אודות" },
+        { icon: <IconSettingsFilled size={24} />, label: "הגדרות" },
+        { icon: <IconLockFilled size={24} />, label: "כספת סיסמאות" },
+        { icon: <IconCircleArrowUpFilled size={24} />, label: "קבצים שנשלחו" },
+        { icon: <IconCircleArrowDownFilled size={24} />, label: "קבצים שהתקבלו" },
+        { icon: <IconFileFilled size={24} />, label: "קבצים משותפים" },
+        { icon: <IconFolderFilled size={24} />, label: "קבצים אישיים" },
+        { icon: <IconUserFilled size={24} />, label: "מידע פרופיל" },
+      ]}
+      onItemHover={(index) => console.log(\`Second NavBar - Hovering item: \${index}\`)}
+      onItemClick={(index) => console.log(\`Second NavBar - Clicked item: \${index}\`)}
+      activeIconColor="#9F4EFF"
+      backgroundColor="#020203"
+      foregroundColor="#f7f7ff"
+      removeTooltipOnClick={true}
+    />
+  </div>
+</div>
 
 // Note: The FancyNavBar component accepts the following props:
 // - items: NavItem[] (required) - An array of objects representing the items in the navbar, each containing an icon (React node) and a label (string).
@@ -36,12 +99,12 @@ import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFi
 // - tooltipSpacing: number (optional) - Spacing between the tooltip and the icon in pixels (default: 24).
 // - activeIconColor: string (optional) - Color for the currently active icon (default: matches backgroundColor).
 // - defaultItem: number (optional) - Index of the initially active item in the navbar (default: 0).
+// - removeTooltipOnClick: boolean (optional) - Flag to remove tooltip on click as well as on unhover (default: false).
 `,
 code: [
   {
     filename: 'FancyNavbar.tsx',
     content: `"use client";
-
 import React, { createContext, useContext, useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
@@ -63,6 +126,7 @@ type FancyNavBarProps = {
   tooltipSpacing?: number;
   activeIconColor?: string;
   defaultItem?: number;
+  removeTooltipOnClick?: boolean;
 };
 
 type NavBarContextType = {
@@ -91,6 +155,7 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
   tooltipSpacing = 24,
   activeIconColor = backgroundColor,
   defaultItem = 0,
+  removeTooltipOnClick = false,
 }) => {
   const [activeItem, setActiveItem] = useState(defaultItem);
   const navBarRef = useRef<HTMLDivElement>(null);
@@ -109,8 +174,10 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const itemButtons = navBarRef.current?.querySelectorAll<HTMLButtonElement>('button');
     if (!itemButtons) return;
+
     const currentIndex = activeItem;
     let newIndex = currentIndex;
+
     switch (e.key) {
       case 'ArrowRight':
       case 'ArrowDown':
@@ -129,6 +196,7 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
       default:
         return;
     }
+
     e.preventDefault();
     setActiveItem(newIndex);
     itemButtons[newIndex].focus();
@@ -172,6 +240,7 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
             index={index}
             onHover={() => onItemHover?.(index)}
             onClick={() => onItemClick?.(index)}
+            removeTooltipOnClick={removeTooltipOnClick}
           />
         ))}
         <NavBarHighlight ref={sliderRef} />
@@ -180,12 +249,18 @@ export const FancyNavBar: React.FC<FancyNavBarProps> = ({
   );
 };
 
-const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onClick: () => void }> = ({
+const NavBarItem: React.FC<NavItem & {
+  index: number;
+  onHover: () => void;
+  onClick: () => void;
+  removeTooltipOnClick?: boolean;
+}> = ({
   icon,
   label,
   index,
   onHover,
   onClick,
+  removeTooltipOnClick = false,
 }) => {
   const {
     activeItem,
@@ -198,10 +273,27 @@ const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onCli
     tooltipTextSize,
     tooltipSpacing
   } = useContext(NavBarContext);
-  
+
   const isActive = index === activeItem;
   const iconSize = height * 0.5;
-  const [isHovered, setIsHovered] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowTooltip(true);
+    onHover();
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
+  const handleClick = () => {
+    setActiveItem(index);
+    onClick();
+    if (removeTooltipOnClick) {
+      setShowTooltip(false);
+    }
+  };
 
   return (
     <button
@@ -210,15 +302,9 @@ const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onCli
       aria-label={label}
       aria-pressed={isActive}
       tabIndex={isActive ? 0 : -1}
-      onClick={() => {
-        setActiveItem(index);
-        onClick();
-      }}
-      onMouseEnter={() => {
-        setIsHovered(true);
-        onHover();
-      }}
-      onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       style={{
         backgroundColor: 'transparent',
         borderRadius: '50%',
@@ -249,7 +335,7 @@ const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onCli
         {React.cloneElement(icon, { style: { ...icon.props.style, color: 'currentColor' } })}
       </div>
       <AnimatePresence>
-        {isHovered && (
+        {showTooltip && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -280,6 +366,7 @@ const NavBarItem: React.FC<NavItem & { index: number; onHover: () => void; onCli
 const NavBarHighlight = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>((props, ref) => {
   const { foregroundColor, height, padding } = useContext(NavBarContext);
   const highlightSize = height - 2 * padding;
+
   return (
     <div
       ref={ref}
