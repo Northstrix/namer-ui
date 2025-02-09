@@ -1340,22 +1340,83 @@ export default function ComponentsPage() {
         );
       case 'fancy-navbar':
         return (
-          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
-            <FancyNavBar
-              items={[
-                { icon: <IconUserFilled size={24} />, label: 'Profile Info' },
-                { icon: <IconFolderFilled size={24} />, label: 'Personal Files' },
-                { icon: <IconFileFilled size={24} />, label: 'Shared Files' },
-                { icon: <IconCircleArrowDownFilled size={24} />, label: 'Received Files' },
-                { icon: <IconCircleArrowUpFilled size={24} />, label: 'Sent Files' },
-                { icon: <IconLockFilled size={24} />, label: 'Password Vault' },
-                { icon: <IconSettingsFilled size={24} />, label: 'Settings' },
-                { icon: <IconInfoCircleFilled size={24} />, label: 'About' },
-              ]}
-              onItemHover={(index) => toast.info(`Hovering item:${index}`)}
-              onItemClick={(index) => toast.info(`Clicked item:${index}`)}
-              activeIconColor="#A594FD"
-            />
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '100px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '32px',
+            backgroundColor: '#181820',
+            borderRadius: '8px',
+            minHeight: '640px'
+          }}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '20px'
+            }}>
+              <h2 style={{ 
+                color: '#f7f7ff', 
+                fontSize: '24px', 
+                fontWeight: 'bold',
+                marginBottom: '8px'
+              }}>
+                Default Behavior
+              </h2>
+              <FancyNavBar
+                items={[
+                  { icon: <IconUserFilled size={24} />, label: 'Profile Info' },
+                  { icon: <IconFolderFilled size={24} />, label: 'Personal Files' },
+                  { icon: <IconFileFilled size={24} />, label: 'Shared Files' },
+                  { icon: <IconCircleArrowDownFilled size={24} />, label: 'Received Files' },
+                  { icon: <IconCircleArrowUpFilled size={24} />, label: 'Sent Files' },
+                  { icon: <IconLockFilled size={24} />, label: 'Password Vault' },
+                  { icon: <IconSettingsFilled size={24} />, label: 'Settings' },
+                  { icon: <IconInfoCircleFilled size={24} />, label: 'About' },
+                ]}
+                onItemHover={(index) => toast.info(`First NavBar - Hovering item: ${index}`)}
+                onItemClick={(index) => toast.info(`First NavBar - Clicked item: ${index}`)}
+                activeIconColor="#00A6FB"
+                backgroundColor="#f7f7ff"
+                foregroundColor="#050505"
+              />
+            </div>
+
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '20px'
+            }}>
+              <h2 style={{ 
+                color: '#f7f7ff', 
+                fontSize: '24px', 
+                fontWeight: 'bold',
+                marginBottom: '8px'
+              }}>
+                Tooltip Disappears on Click
+              </h2>
+              <FancyNavBar
+                items={[
+                  { icon: <IconInfoCircleFilled size={24} />, label: "אודות" },
+                  { icon: <IconSettingsFilled size={24} />, label: "הגדרות" },
+                  { icon: <IconLockFilled size={24} />, label: "כספת סיסמאות" },
+                  { icon: <IconCircleArrowUpFilled size={24} />, label: "קבצים שנשלחו" },
+                  { icon: <IconCircleArrowDownFilled size={24} />, label: "קבצים שהתקבלו" },
+                  { icon: <IconFileFilled size={24} />, label: "קבצים משותפים" },
+                  { icon: <IconFolderFilled size={24} />, label: "קבצים אישיים" },
+                  { icon: <IconUserFilled size={24} />, label: "מידע פרופיל" },
+                ]}
+                onItemHover={(index) => toast.info(`Second NavBar - Hovering item: ${index}`)}
+                onItemClick={(index) => toast.info(`Second NavBar - Clicked item: ${index}`)}
+                activeIconColor="#9F4EFF"
+                backgroundColor="#020203"
+                foregroundColor="#f7f7ff"
+                removeTooltipOnClick={true}
+              />
+            </div>
           </div>
         );
       case 'unfolding-navbar':
