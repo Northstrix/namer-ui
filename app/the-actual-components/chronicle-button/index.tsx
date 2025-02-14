@@ -34,7 +34,7 @@ import ChronicleButton from '@/app/the-actual-components/chronicle-button/Chroni
 // Note: The ChronicleButton component accepts the following props:
 // - text: string (required) - The text to display on the button, which serves as the primary label for user interaction.
 // - onClick: () => void (optional) - A callback function that is triggered when the button is clicked, enabling custom actions.
-// - hoverColor: string (optional) - A custom color for the button's hover state, allowing for visual feedback on interaction (default: 'var(--chronicle-button-default-hover-color)').
+// - hoverColor: string (optional) - A custom color for the button's hover state, allowing for visual feedback on interaction (default: '#a594fd').
 // - width: string (optional) - Specifies the width of the button, providing flexibility in layout design (default: '160px').
 // - outlined: boolean (optional) - Determines whether the button should have an outlined style, which can be useful for secondary actions (default: false).
 // - outlinePaddingAdjustment: string (optional) - Adjusts the vertical padding for outlined buttons, allowing for finer control over spacing.
@@ -43,7 +43,6 @@ import ChronicleButton from '@/app/the-actual-components/chronicle-button/Chroni
 // - outlinedButtonBackgroundOnHover: string (optional) - Defines the background color of the button when hovered over in outlined mode, enhancing interactivity (default: 'transparent').
 // - customBackground: string (optional) - Sets a custom background color for the button, providing additional styling options (default: '#f0f0f1').
 // - customForeground: string (optional) - Specifies a custom text color for the button, allowing for better contrast and readability against different backgrounds (default: '#1a1a24').
-
 `,
 code: [
   {

@@ -6,43 +6,45 @@ const metadata = {
   usage: `// Path to the "GradientText.tsx" file
 import GradientText from '@/app/the-actual-components/gradient-text/GradientText'
 
-<div className="bg-base-300 p-8 rounded-lg min-h-[300px] flex flex-col gap-6 items-center justify-center">
-  <GradientText inscription="We don't see things as they are, we see them as we are." fontSize="2em" />
-  <GradientText inscription="Anaïs Nin" fontSize="1em" />
+<div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-col gap-6 items-center justify-center">
+  <p style={{ textAlign: 'center', fontSize: '2em'}}>
+    We don't see things as they are,{' '}
+    <GradientText>we see them as we are.</GradientText>
+  </p>
+  <GradientText fontSize="1em">Anaïs Nin</GradientText>
 </div>
 
 // Note: The GradientText component accepts the following props:
-// - inscription: string (required) - The text to display with multiple colors.
-// - fontSize: string (required) - The font size for the text (e.g., '50px', '2em').
+// - children: ReactNode (required) - The content to be rendered inside the block.
+// - fontSize: string (optional) - The font size for the text (e.g., '50px', '2em').
 `,
 code: [
   {
     filename: 'GradientText.tsx',
-    content: `"use client"
+    content: `"use client";
+
 import React, { useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 interface GradientTextProps {
-  inscription: string;
-  fontSize: string;
+  children: string;
+  fontSize?: string;
 }
 
-const GradientText: React.FC<GradientTextProps> = ({ inscription, fontSize }) => {
+const GradientText: React.FC<GradientTextProps> = ({ children, fontSize }) => {
   const textRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (textRef.current) {
-      const chars = inscription.trim().split('');
+      const chars = children.trim().split('');
       textRef.current.innerHTML = chars.map(char => \`<span>\${char}</span>\`).join('');
     }
-  }, [inscription]);
+  }, [children]);
 
   return (
-    <Container>
-      <AnimatedText ref={textRef} className="txt anim-text-flow" fontSize={fontSize}>
-        {inscription}
-      </AnimatedText>
-    </Container>
+    <AnimatedText fontSize={fontSize} ref={textRef}>
+      {children}
+    </AnimatedText>
   );
 };
 
@@ -54,19 +56,10 @@ const animTextFlowKeys = keyframes\`
   \`).join('')}
 \`;
 
-const Container = styled.div\`
-  color: #fefefe;
-  font-family: 'Ubuntu', sans-serif;
-  letter-spacing: 0.2em;
-  line-height: 2;
-  font-weight: 300;
-  text-rendering: optimizeLegibility;
-  text-align: center;
-\`;
-
-const AnimatedText = styled.span<{ fontSize: string }>\`
-  display: block;
-  font-size: \${props => props.fontSize};
+const AnimatedText = styled.span<{ fontSize?: string }>\`
+  display: inline; // Crucial:  Allows it to sit inline with other text
+  font-size: \${props => props.fontSize || 'inherit'}; // Use inherit to respect parent
+  white-space: pre; // preserves spaces
 
   span {
     animation-name: \${animTextFlowKeys};
@@ -74,6 +67,7 @@ const AnimatedText = styled.span<{ fontSize: string }>\`
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-fill-mode: forwards;
+    display: inline-block; // Important for animation on each character
   }
 
   \${[...Array(100)].map((_, i) => \`
