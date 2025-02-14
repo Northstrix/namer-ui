@@ -41,6 +41,12 @@ import FancyHeroSection from '@/app/the-actual-components/fancy-hero-section/Fan
 import ModernSidebar from '@/app/the-actual-components/modern-sidebar/ModernSidebar'
 import SpaceButton from '@/app/the-actual-components/space-button/SpaceButton'
 import SpacyPricingCard from '@/app/the-actual-components/spacy-pricing-card/SpacyPricingCard'
+import StructuredBlock from '@/app/the-actual-components/structured-block/StructuredBlock'
+import SectionContainer from '@/app/the-actual-components/section-container/SectionContainer'
+import AboutUsSection from '@/app/the-actual-components/about-us-section/AboutUsSection'
+import UnfoldingFAQ from '@/app/the-actual-components/unfolding-faq/UnfoldingFAQ'
+import InfiniteTestimonials from '@/app/the-actual-components/infinite-testimonials/InfiniteTestimonials'
+import UnfoldingSidebar from '@/app/the-actual-components/unfolding-sidebar/UnfoldingSidebar'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
@@ -50,13 +56,12 @@ import { IconHome, IconFile, IconPencil, IconLogout, IconUser, IconFolder, IconC
 import { IconCornerRightUp, IconFold } from '@tabler/icons-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { FaBars } from 'react-icons/fa'; // Import the hamburger icon
+import { IconBorderRightPlus, IconFoldDown } from '@tabler/icons-react';
 
 interface Metadata {
   usage: string;
   code: React.ReactNode;
-  dependencies: string;
+  dependencies: string | React.ReactNode;
   credit: React.ReactNode;
 }
 
@@ -102,6 +107,12 @@ const components = [
   { id: 'modern-sidebar', name: 'Modern Sidebar', description: 'A sleek, modern sidebar with customizable icons, hover effects, and responsive design.' },
   { id: 'space-button', name: 'Space Button', description: 'A futuristic button with dynamic gradients and hover effects, evoking the mesmerizing colors of outer space.' },
   { id: 'spacy-pricing-card', name: 'Spacy Pricing Card', description: 'A dynamic, customizable pricing card component with a sleek, futuristic design.' },
+  { id: 'structured-block', name: 'Structured Block', description: 'A simple block with adjustable padding and text size for desktop and mobile.' },
+  { id: 'section-container', name: 'Section Container', description: 'A simple container with responsive padding and content alignment optimized for different screen sizes.' },
+  { id: 'about-us-section', name: 'About Us Section', description: 'A versatile and responsive section for displaying company information.' },
+  { id: 'unfolding-faq', name: 'Unfolding FAQ', description: 'A modern component with expandable sections and sparkle highlights on question hover.' },
+  { id: 'infinite-testimonials', name: 'Infinite Testimonials', description: 'An element that displays a continuous, scrolling loop of testimonials or quotes.' },
+  { id: 'unfolding-sidebar', name: 'Unfolding Sidebar', description: 'A modern, space-efficient sidebar that unfolds and collapses, utilizing Framer Motion for smooth transitions.' }
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -663,10 +674,9 @@ export default function ComponentsPage() {
             <p className="text-[#F7F7FF] text-m max-w-[900px] text-center mt-4 px-4">
               Disclaimer: The person, name, and sales pitch demonstrated in this WhatsApp widget are entirely fictitious. Any similarity to actual individual(s) or business(es) is purely coincidental and unintentional. NamerStore is a fictional entity used for illustrative purposes only. The store name is fictional; any resemblance to existing business(es) is entirely coincidental and unintentional. This widget is a conceptual design prototype created for demonstrative and educational purposes and does not represent an actual commercial offering.
             </p> 
-            <GradientText
-              inscription={`Button has been clicked ${clickCount} ${clickCount === 1 ? 'time' : 'times'}`} 
-              fontSize="1.2em" 
-            />
+            <GradientText fontSize="1.2em">
+              {`Button has been clicked ${clickCount.toString()} ${clickCount === 1 ? 'time' : 'times'}`}
+            </GradientText>
             <WhatsAppWidget
               name="Alice West"
               photo="https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -1462,8 +1472,11 @@ export default function ComponentsPage() {
       case 'gradient-text':
         return (
           <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-col gap-6 items-center justify-center">
-            <GradientText inscription="We don't see things as they are, we see them as we are." fontSize="2em" />
-            <GradientText inscription="Anaïs Nin" fontSize="1em" />
+            <p style={{ textAlign: 'center', fontSize: '2em'}}>
+              We don't see things as they are,{' '}
+              <GradientText>we see them as we are.</GradientText>
+            </p>
+            <GradientText fontSize="1em">Anaïs Nin</GradientText>
           </div>
         );
       case 'modern-navbar':
@@ -1773,16 +1786,265 @@ export default function ComponentsPage() {
             />
           </div>
         );
+      case 'structured-block':
+        return (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column', // Stack elements vertically
+            gap: '0px', // Remove gap between items
+            justifyContent: 'flex-start', // Align items to the top
+            alignItems: 'stretch', // Make items take full width
+            backgroundColor: '#050505', // Background color of the container
+            borderRadius: '8px', // Rounded corners for the container
+            minHeight: '300px' // Minimum height for the container
+          }}>
+            <StructuredBlock>
+              Section Header
+            </StructuredBlock>
+            <StructuredBlock
+              textColor="#f7f7ff"
+              desktopPadding={{
+                left: "24px",
+                right: "24px",
+                top: "0px",
+                bottom: "0px",
+              }}
+              mobilePadding={{
+                left: "10px",
+                right: "10px",
+                top: "0px",
+                bottom: "0px",
+              }}
+              desktopFontSize="1.32rem"
+              mobileFontSize="1.14rem"
+            >
+              It can <GradientText>wrap</GradientText> other elements
+            </StructuredBlock>
+            <StructuredBlock
+              desktopTextAlign="right"
+              mobileTextAlign="right"
+              textDirection="rtl"
+            >
+              טקסט מיושר ל<GradientText>ימין</GradientText>.
+            </StructuredBlock>
+          </div>
+        );
+      case 'section-container':
+        return (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column', // Stack elements vertically
+            gap: '0px', // Remove gap between items
+            justifyContent: 'flex-start', // Align items to the top
+            alignItems: 'stretch', // Make items take full width
+            backgroundColor: '#050505', // Background color of the container
+            borderRadius: '8px', // Rounded corners for the container
+            minHeight: '300px' // Minimum height for the container
+          }}>
+            <SectionContainer 
+              desktopPadding={{ left: "40px", right: "40px", top: "40px", bottom: "20px" }}
+              mobilePadding={{ left: "20px", right: "20px", top: "20px", bottom: "20px" }}
+            >
+              This text is left-aligned on desktop and centered on mobile.
+            </SectionContainer>
+          </div>
+        );
+      case 'about-us-section':
+        return (
+          <div className="bg-[#050505] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+            <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
+              Disclaimer: All products, logos, brand identifiers, and trademarks displayed on this website are the sole property of their respective owners. These items are used for demonstrational and illustrative purposes only. The Namer UI is not affiliated with, endorsed by, or sponsored by any of the companies whose products are showcased here. This website does not present a commercial offer of any kind. The enterprise name and description are fictional; any resemblance to existing business(es) is entirely coincidental and unintentional.
+            </p> 
+            <AboutUsSection
+              aboutUsImages={[
+                "https://images.unsplash.com/photo-1622531636820-5d727319e45d?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://images.unsplash.com/photo-1603389335957-10bea39c9d32?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://images.unsplash.com/photo-1494698853255-d0fa521abc6c?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://images.unsplash.com/photo-1695753456538-3d29fa0a4ba0?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              ]}
+              aboutUsDescription={`
+                Shakhor opened in July 2024 to address the growing demand for affordable and high-quality electronics in Austin, Texas. We offer competitive prices on a wide range of new, refurbished, and pre-owned products, including smartphones, tablets, laptops, gaming consoles, wearables, and more. Our carefully curated selection caters to tech enthusiasts, students, and professionals alike. What sets us apart is our commitment to customer satisfaction. Our expert staff provides personalized guidance to help you find the perfect device for your unique needs and lifestyle. By choosing Shakhor Electronics, you're not just getting great deals on top-notch technology; you're joining a community dedicated to making cutting-edge electronics accessible to all. We ensure that customers with limited budgets can afford quality refurbished and pre-owned devices, allowing everyone to experience the benefits of modern technology without breaking the bank.
+              `}
+              onButtonClick={() => toast.info('The "Contact Us" button has been clicked!')}
+              onGridImageClick={(index) => toast.info(`Grid image ${index + 1} clicked!`)}
+              onGridImageHover={(index) => toast.info(`Grid image ${index + 1} hovered!`)}
+            />
+          </div>
+        );
+      case 'unfolding-faq':
+        return (
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap', // Allows items to wrap to the next line
+            gap: '36px', // Space between items
+            justifyContent: 'center', // Center items horizontally
+            padding: '32px', // Optional padding for the container
+            backgroundColor: '#111111', // Background color of the container
+            borderRadius: '8px', // Rounded corners for the container
+            minHeight: '300px', // Minimum height for the container
+            border: '1px solid #262626'
+          }}>
+            <UnfoldingFAQ faqs={[
+              {
+                question: "Lao Tzu",
+                answer: "When I let go of what I am, I become what I might be."
+              },
+              {
+                question: "Oscar Wilde",
+                answer: <>
+                  There are only two tragedies in life:
+                  <ul style={{ listStyleType: 'none', paddingLeft: '1em', marginTop: '0.5em' }}>
+                    <li style={{ marginBottom: '0.5em' }}>
+                      <span style={{ fontSize: '1.2em', marginRight: '0.5em' }}>&#x25CF;</span>
+                      One is not getting what one wants;
+                    </li>
+                    <li>
+                      <span style={{ fontSize: '1.2em', marginRight: '0.5em' }}>&#x25CF;</span>
+                      <GradientText fontSize="1em">and the other is getting it.</GradientText>
+                    </li>
+                  </ul>
+                </>
+              }                
+            ]} />
+          </div>
+        );
+      case 'infinite-testimonials':
+        return (
+          <div className="bg-[#050505] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+            <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
+              Disclaimer: The testimonials and store name presented here are entirely fictional and created for demonstrational purposes only. Shakhor is not a real establishment or enterprise. These fictional testimonials are designed to showcase the functionality of the Infinite Testimonials component and do not represent real customer experiences or opinions. Any resemblance to actual persons, living or dead, or actual businesses is purely coincidental. This demonstration is intended solely for illustrative purposes in a web development context.
+            </p>
+            <InfiniteTestimonials
+              direction="left"
+              cycleDuration="120s"
+              pauseOnHover={true}
+              items={[
+                {
+                  quote: "I was so hesitant about buying a laptop that wasn't brand new, but Shakhor proved me wrong! The quality is outstanding, and I got it for a steal.",
+                  name: "Alice Anderson",
+                  title: "First-Time Refurb Buyer"
+                },
+                {
+                  quote: "I needed a reliable phone without breaking the bank, and Shakhor was the answer. The quality is fantastic, and the savings were huge!",
+                  name: "Ben Baker",
+                  title: "Budget Shopper"
+                },
+                {
+                  quote: "I keep coming back to Shakhor because the prices are unbeatable, and the products are always top-notch. Why pay more for new?",
+                  name: "Charlotte Carter",
+                  title: "Repeat Customer"
+                },
+                {
+                  quote: "Shakhor made it so easy to upgrade my tablet without emptying my wallet. The quality is excellent, and I'm thrilled with my purchase.",
+                  name: "David Davis",
+                  title: "Tech Upgrade Enthusiast"
+                },
+                {
+                  quote: "I got a smartwatch that looks and functions like new, all thanks to Shakhor's amazing prices and quality. Highly recommend!",
+                  name: "Ethan Evans",
+                  title: "Smart Shopper"
+                },
+                {
+                  quote: "I was blown away by the quality of the phone I purchased—it felt brand new! Plus, the price was incredible. Thanks, Shakhor!",
+                  name: "Fiona Foster",
+                  title: "Satisfied Customer"
+                },
+                {
+                  quote: "The Sony headphones I bought from Shakhor sound amazing and were priced lower than anywhere else. Incredible value!",
+                  name: "George Garcia",
+                  title: "Music Lover"
+                },
+                {
+                  quote: "Finding an affordable tablet with great battery life was a breeze on Shakhor's website. I couldn't be happier with my purchase.",
+                  name: "Hannah Hill",
+                  title: "Informed Buyer"
+                },
+                {
+                  quote: "Shakhor is my go-to place for electronics. The service is great, and the prices are unbeatable for the quality you get.",
+                  name: "Isaac Ingram",
+                  title: "Electronics Enthusiast"
+                },
+                {
+                  quote: "I was hesitant about buying a refurbished product, but the smartwatch I got from Shakhor changed my mind. It's been perfect for my runs, and I saved so much money!",
+                  name: "Jessica Johnson",
+                  title: "Fitness Fanatic"
+                },
+                {
+                  quote: "I was looking for a high-quality refurbished phone, and Shakhor delivered exactly what I needed. The device looks and functions like new, and the price was unbeatable. I couldn't be happier with my purchase!",
+                  name: "Kevin King",
+                  title: "Satisfied Buyer"
+                },
+                {
+                  quote: "There's no need to overpay for new electronics when Shakhor offers such great quality at such affordable prices. Highly recommend!",
+                  name: "Laura Lewis",
+                  title: "Smart Shopper"
+                },
+                {
+                  quote: "Shakhor helped me save money without sacrificing quality. I got an amazing laptop at a fraction of the cost of a new one!",
+                  name: "Michael Moore",
+                  title: "Budget-Friendly Buyer"
+                },
+                {
+                  quote: "Shakhor consistently offers great deals, so I often get smartwatches from there as gifts for my family members",
+                  name: "Nina Nelson",
+                  title: "Caring Family Member"
+                },
+                {
+                  quote: "The tablet I got from Shakhor is the great balance between budget and great experience when learning and studying!",
+                  name: "Oliver Owens",
+                  title: "Student Shopper"
+                }
+              ]}
+            />
+          </div>
+        );
+      case 'unfolding-sidebar':
+        return (
+          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <UnfoldingSidebar
+              logo="/logo.png"
+              appName="Namer UI"
+              sections={[
+                {
+                  title: "Components",
+                  components: [
+                    { id: 'chronicle-button', name: 'Chronicle Button' },
+                    { id: 'inflected-card', name: 'Inflected Card' },
+                    { id: 'halomot-button', name: 'Halomot Button' },
+                  ]
+                }
+              ]}
+              onComponentClick={(componentId) => toast.info(`Clicked component: ${componentId}`)}
+              unfoldIcon={<IconBorderRightPlus />}
+              foldIcon={<IconFoldDown />}
+              foldIconRotation={90}
+              unfoldIconRotation={0}
+              iconColor="#71717a"
+              iconHoverColor="#27272a"
+              backgroundColor="#f8fafc"
+              headerBackgroundColor="#edf2f7"
+              textColor="#44444b"
+              activeTextColor="#09090b"
+              hoverBackgroundColor="#e5e7eb"
+              activeBackgroundColor="#629bf8"
+              sidebarWidth="256px"
+              collapsedWidth="54px"
+              headerHeight="50px"
+              rightStripeColor="#cbd5e1"
+              rightStripeHoverColor="#94a3b8"
+              itemBorderRadius="32px"
+              appNameColor="#18181b"
+              sectionTitleColor="#27272a"
+              componentFontSize="14px"
+              defaultActiveComponent="chronicle-button"
+              initialOpenState={true}
+            />
+          </div>
+        );
       default:
         return <div>No preview available.</div>;
     }
   };
-
-  const showcaseOptions = [
-    { text: 'Option 1', imageUrl: '/image1.jpg' },
-    { text: 'Option 2', imageUrl: '/image2.jpg' },
-    { text: 'Option 3', imageUrl: '/image3.jpg' },
-  ];
 
   return (
     <div className="flex min-h-screen overflow-hidden bg-[#141414] text-[#f7f7ff]">
@@ -1797,44 +2059,28 @@ export default function ComponentsPage() {
         draggable
         pauseOnHover
       />
-      <aside className={`bg-[#161618] transition-all duration-300 border-r border-[#2c2c2a] flex flex-col flex-shrink-0 ${isSidebarOpen ? 'w-64' : 'w-[54px]'}`}>
-        <nav className={`bg-[#151515] h-[50px] flex items-center p-4 ${isSidebarOpen ? 'justify-between' : 'justify-center'}`}>
-          {isSidebarOpen && (
-            <a href="/" className="flex items-center">
-              <img src="/logo.png" alt="Namer UI" className="w-[24px] h-[24px] mr-2" />
-              <span className="font-bold text-[14px]">Namer UI</span>
-            </a>
-          )}
-          <button 
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
-            className="text-[#a2a2a9] hover:text-white"
-          >
-            <FaBars size={24} />
-          </button>
-        </nav>
-        
-        {isSidebarOpen && (
-          <div className="p-4 flex-grow">
-            <a href="/components" className="text-1xl mb-6 text-white block">Components</a>
-            <ul className="menu w-full rounded-box mt-6">
-              {components.map((component, index) => (
-                <li key={component.id} className="mb-2">
-                  <button
-                    onClick={() => setActiveComponent(component.id)}
-                    className={`w-full text-left h-[32px] px-4 rounded-md text-[#a2a2a9] transition-colors duration-200 text-[14px] ${
-                      activeComponent === component.id 
-                        ? 'bg-[#252630] text-[#a8b1ff] hover:text-[#a8b1ff]' 
-                        : 'hover:bg-[#2c2c2a] hover:text-white'
-                    }`}
-                  >
-                    {component.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </aside>
+      <UnfoldingSidebar
+        logo="/logo.png"
+        appName="Namer UI"
+        sections={[
+          {
+            title: "Components",
+            components: components.map(component => ({
+              id: component.id,
+              name: component.name
+            }))
+          }
+        ]}
+        onComponentClick={(componentId) => {
+          setActiveComponent(componentId);
+        }}
+        unfoldIcon={<IconBorderRightPlus size={24} />}
+        foldIcon={<IconFoldDown size={24} />}
+        foldIconRotation={90}
+        unfoldIconRotation={0}
+        iconSize={24}
+        defaultActiveComponent={activeComponent}
+      />
       <main className="flex-grow p-8 overflow-auto">
         <h1 className="text-3xl font-bold mb-2">{components.find(c => c.id === activeComponent)?.name}</h1>
         <p className="text-gray-500 mb-6">{components.find(c => c.id === activeComponent)?.description}</p>
@@ -1901,7 +2147,13 @@ export default function ComponentsPage() {
         <section className="mb-6 mt-6">
           <h2 className="text-lg font-bold mb-2">Dependencies</h2>
           <hr />
-          <pre>{metadata?.dependencies}</pre>
+          <div className="credit-content [&_a]:underline">
+            {typeof metadata?.dependencies === "string" ? (
+              <pre className="whitespace-pre-wrap">{metadata.dependencies}</pre>
+            ) : (
+              metadata?.dependencies
+            )}
+          </div>
         </section>
 
         <section className="mb-6 mt-6">
