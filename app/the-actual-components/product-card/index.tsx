@@ -435,93 +435,93 @@ export default ProductCard;
   {
     filename: 'ProductCard.module.css',
     content: `.file-container {
-    --border-color: var(--accent-color);
-    --hover-text-color: var(--accent-color);
-    --active-component-scale: 1.024;
-    border: solid transparent;
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-    background-image: linear-gradient(#050505, #050505), var(--border-gradient);
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease;
-    font-family: "Arial", "Alef", sans-serif;
-  }
+  --border-color: var(--accent-color);
+  --hover-text-color: var(--accent-color);
+  --active-component-scale: 1.024;
+  border: solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-image: linear-gradient(#050505, #050505), var(--border-gradient);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  font-family: "Arial", "Alef", sans-serif;
+}
 
-  .file-container:hover {
-    transform: scale(var(--active-component-scale));
-  }
+.file-container:hover {
+  transform: scale(var(--active-component-scale));
+}
 
-  .inner-container {
-    background-color: black;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(45deg, rgba(230, 230, 230, 0.15) 25%, transparent 25%, transparent 75%, rgba(240, 240, 240, 0.15) 75%),
-                linear-gradient(-45deg, rgba(240, 240, 240, 0.15) 25%, transparent 25%, transparent 75%, rgba(230, 230, 230, 0.15) 75%);
-    background-size: var(--background-pattern-size) var(--background-pattern-size);
-  }
-  
-  .image-container {
-    width: 100%;
-    height: 200px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 16px;
-    position: relative;
-    align-items: center;
-  }
-  
-  .text {
-    font-size: 21px;
-    font-weight: bold;
-    letter-spacing: -.01em;
-    line-height: normal;
-    color: var(--text-color);
-    text-align: center;
-    margin-top: 5px;
-  }
-  
-  .description {
-    color: var(--text-color);
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-align: center;
-    margin-top: 9px;
-  }
-  
-  .button-container {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-    margin-bottom: 1px;
-  }
-  
-  .file-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .file-container:hover .file-image {
-    transform: scale(1.1);
-  }
-  
-  .file-container:hover .text {
-    color: var(--hover-text-color);
-  }
+.inner-container {
+  background-color: black;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(45deg, rgba(230, 230, 230, 0.15) 25%, transparent 25%, transparent 75%, rgba(240, 240, 240, 0.15) 75%),
+              linear-gradient(-45deg, rgba(240, 240, 240, 0.15) 25%, transparent 25%, transparent 75%, rgba(230, 230, 230, 0.15) 75%);
+  background-size: var(--background-pattern-size) var(--background-pattern-size);
+}
+
+.image-container {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 16px;
+  position: relative;
+  align-items: center;
+}
+
+.text {
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: -.01em;
+  line-height: normal;
+  color: var(--text-color);
+  text-align: center;
+  margin-top: 5px;
+}
+
+.description {
+  color: var(--text-color);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 9px;
+}
+
+.button-container {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 1px;
+}
+
+.file-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.file-container:hover .file-image {
+  transform: scale(1.1);
+}
+
+.file-container:hover .text {
+  color: var(--hover-text-color);
+}
 `
   },
 ],
