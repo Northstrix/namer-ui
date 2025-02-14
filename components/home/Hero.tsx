@@ -16,6 +16,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { FaGithub, FaStar } from 'react-icons/fa';
 
+import { Cover } from "@/components/ui/cover";
+
 const Hero = () => {
   const appName: string[] = ["Namer UI"];
 
@@ -129,46 +131,24 @@ const Hero = () => {
         </div>
         {/* background bars */}
 
-        <div className="flex flex-col justify-center gap-8 p-[2rem] max-sm:px-[1rem]">
-
-          {appName.map((line, index) => {
-            const delay = index * 0.2;
-            return (
-              <h1 key={index} 
-                  className={`text relative inline-block cursor-pointer leading-[1] m-0 font-bold text-center w-full`}
-                  style={{
-                    fontSize: '72px',
-                    color: 'var(--foreground)',
-                    letterSpacing: '-.01em',
-                    transition: 'color 0.3s ease',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    backgroundSize: '0%',
-                    backgroundRepeat: 'no-repeat',
-                  }}
-                  onMouseEnter={() => setHoveredLine(index)}
-                  onMouseLeave={() => setHoveredLine(null)}>
-                <div className="split-parent">
-                  <div className="split-child" style={{ transitionDelay: `${delay}s` }}>
-                    {appName}
-                  </div>
-                </div>
-                <span 
-                  className="absolute inset-0 flex items-center justify-center z-10"
-                  style={{
-                    backgroundColor: 'var(--firstThemeColor)',
-                    color: 'var(--negativeForeground)',
-                    clipPath: hoveredLine === index ? 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' : 'polygon(0 50%, 100% 50%, 100% 50%, 0 50%)',
-                    transformOrigin: 'center',
-                    transition: 'all cubic-bezier(.1,.5,.5,1) 0.4s',
-                  }}>
-                  {appName}
-                </span>
-              </h1>
-            );
-          })}
+        <div className="flex flex-col justify-center gap-6 p-[2rem] max-sm:px-[1rem]">
+        <h1
+          className={`text relative inline-flex justify-center items-center cursor-pointer leading-[1] m-0 font-bold text-center h-[96px] w-full`}
+          style={{
+            fontSize: '72px',
+            color: 'var(--foreground)',
+            letterSpacing: '-.01em',
+            transition: 'color 0.3s ease',
+            position: 'relative',
+            overflow: 'hidden',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            backgroundSize: '0%',
+            backgroundRepeat: 'no-repeat',
+          }}
+        >
+            <Cover>{appName}</Cover>
+          </h1>
           {isMobile ? (
             <div className="relative top-10">
               <FancyNotification
@@ -275,6 +255,9 @@ const Hero = () => {
                     text="Explore More"
                     onClick={() => window.location.href = '/components'}
                     width="200px"
+                    customBackground="var(--hero-chronicle-button-background)"
+                    customForeground="var(--hero-chronicle-button-foreground)"
+                    hoverColor="var(--hero-chronicle-button-hover-color)"
                   />
                 </div>
               </div>
