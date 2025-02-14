@@ -29,6 +29,8 @@ The existence of this project (at least in its current form) wouldn't've been po
 
 [Named scroll-timeline vertical](https://codepen.io/utilitybend/pen/VwBRNwm) by [utilitybend](https://codepen.io/utilitybend)
 
+[Cover](https://ui.aceternity.com/components/container-cover) by [Aceternity UI](https://ui.aceternity.com/components/container-cover)
+
 </br>
 
 Inspired by [x/ui](https://ui.3x.gl/)
