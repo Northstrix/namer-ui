@@ -12,6 +12,7 @@ import InflectedCard from '@/app/the-actual-components/inflected-card/InflectedC
 import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsAppWidget'
 import DicedHeroSection from '@/app/the-actual-components/diced-hero-section/DicedHeroSection'
+import SequenceHeroSection from '@/app/the-actual-components/sequence-hero-section/SequenceHeroSection'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
 import PositionAwareButton from '@/app/the-actual-components/position-aware-button/PositionAwareButton'
@@ -47,6 +48,7 @@ import AboutUsSection from '@/app/the-actual-components/about-us-section/AboutUs
 import UnfoldingFAQ from '@/app/the-actual-components/unfolding-faq/UnfoldingFAQ'
 import InfiniteTestimonials from '@/app/the-actual-components/infinite-testimonials/InfiniteTestimonials'
 import UnfoldingSidebar from '@/app/the-actual-components/unfolding-sidebar/UnfoldingSidebar'
+import BlogPostHeader from '@/app/the-actual-components/blog-post-header/BlogPostHeader'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
@@ -57,6 +59,7 @@ import { IconCornerRightUp, IconFold } from '@tabler/icons-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IconBorderRightPlus, IconFoldDown } from '@tabler/icons-react';
+import styled from 'styled-components';
 
 interface Metadata {
   usage: string;
@@ -78,6 +81,7 @@ const components = [
   { id: 'product-card', name: 'Product Card', description: 'A versatile product card component with image, pricing, discount, and interactive buttons for e-commerce applications.' },
   { id: 'whatsapp-widget', name: 'WhatsApp Widget', description: 'A customizable WhatsApp chat widget with auto-popup functionality, personalized messaging, and styled UI elements.' },
   { id: 'diced-hero-section', name: 'Diced Hero Section', description: 'A customizable hero section with diced image grid, gradient text, and responsive design for showcasing content.' },
+  { id: 'sequence-hero-section', name: 'Sequence Hero Section', description: 'A fully customizable hero section with steps, image carousel, and rating cards.' },
   { id: 'file-container', name: 'File Container', description: 'A container for displaying file information.' },
   { id: 'fishy-button', name: 'Fishy Button', description: 'A sleek button featuring floating fish that appear on hover.' },
   { id: 'position-aware-button', name: 'Position-Aware Button', description: 'A button with a dynamic hover effect that responds to mouse movements.' },
@@ -112,7 +116,8 @@ const components = [
   { id: 'about-us-section', name: 'About Us Section', description: 'A versatile and responsive section for displaying company information.' },
   { id: 'unfolding-faq', name: 'Unfolding FAQ', description: 'A modern component with expandable sections and sparkle highlights on question hover.' },
   { id: 'infinite-testimonials', name: 'Infinite Testimonials', description: 'An element that displays a continuous, scrolling loop of testimonials or quotes.' },
-  { id: 'unfolding-sidebar', name: 'Unfolding Sidebar', description: 'A modern, space-efficient sidebar that unfolds and collapses, utilizing Framer Motion for smooth transitions.' }
+  { id: 'unfolding-sidebar', name: 'Unfolding Sidebar', description: 'A modern, space-efficient sidebar that unfolds and collapses, utilizing Framer Motion for smooth transitions.' },
+  { id: 'blog-post-header', name: 'Blog Post Header', description: 'A customizable, animated header for blog posts featuring a gradient background, author info, and social links.' },
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -237,6 +242,43 @@ export default function ComponentsPage() {
     };
 
     // WhatsApp Widget Stuff //
+
+    // Blog Post Header Stuff //
+
+    interface NuanceIconProps {
+      size?: string;
+      backgroundColor?: string;
+    }
+    
+    const NuanceIconContainer = styled.div<{ backgroundColor?: string; size?: string }>`
+      background-color: ${props => props.backgroundColor || 'transparent'};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: ${props => props.size || '1em'};
+      height: ${props => props.size || '1em'};
+      border-radius: 50%;
+      overflow: hidden;
+      &:hover {
+        outline: none;
+      }
+    `;
+    
+    const NuanceIconImage = styled.img`
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    `;
+    
+    const NuanceIcon: React.FC<NuanceIconProps> = ({ size, backgroundColor }) => {
+      return (
+        <NuanceIconContainer backgroundColor={backgroundColor} size={size}>
+          <NuanceIconImage src="https://nuance.xyz/assets/images/loaders/nuance-loader.gif" alt="Nuance Logo" />
+        </NuanceIconContainer>
+      );
+    };
+
+    // Blog Post Header Stuff //
     
   const renderComponent = () => {
     switch(activeComponent) {
@@ -795,7 +837,66 @@ export default function ComponentsPage() {
                 isRTL={true}
               />
           </div>
-        );  
+        );
+      case 'sequence-hero-section':
+        return (
+          <>
+          <p className="text-[#F7F7FF] text-m text-center m-8 px-4">
+            Disclaimer: This SequenceHeroSection component is a conceptual design prototype created for demonstrative and educational purposes only. The travel experiences, destinations, and services described are fictional and do not represent actual offerings. The customer ratings and profile images are simulated and do not depict real individuals or their opinions. This component is not affiliated with, endorsed by, or sponsored by any travel agencies, tour operators, or hospitality services. The content presented does not constitute a commercial offer of any kind. Any resemblance to actual travel products, services, or persons is purely coincidental. This component is intended solely for illustration of web design concepts and should not be used as a basis for travel planning or decision-making.
+          </p>
+
+          <div className="bg-[#f1f1f7] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <SequenceHeroSection 
+              title="Roam Free"
+              subtitle="Discover the world's hidden gems with our curated adventures"
+              steps={[
+                {
+                  number: "01",
+                  title: "Choose Your Dream Destination",
+                  description: "Browse through our handpicked selection of breathtaking locations, from tropical paradises to bustling cityscapes.",
+                  bgColor: "bg-blue-400"
+                },
+                {
+                  number: "02",
+                  title: "Customize Your Perfect Itinerary",
+                  description: "Tailor your trip with a mix of guided tours and free time, ensuring a balance of structure and spontaneity.",
+                  bgColor: "bg-indigo-400"
+                },
+                {
+                  number: "03",
+                  title: "Immerse in Local Culture",
+                  description: "Connect with local communities, taste authentic cuisines, and participate in traditional activities for a truly enriching experience.",
+                  bgColor: "bg-green-400"
+                }
+              ]}
+              ctaText="Explore Now"
+              ctaLink="https://maxim-bortnikov.netlify.app/"
+              carouselImages={[
+                "https://images.unsplash.com/photo-1580536792511-b3cc93006b70?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://images.unsplash.com/photo-1448906654166-444d494666b3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://images.unsplash.com/photo-1618415112746-d999da95f609?q=80&w=1414&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+              ]}
+              profiles={[
+                { 
+                  name: "Tamar Mendelson", 
+                  image: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=240&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+                  rating: 4.8 
+                },
+                { 
+                  name: "Joe Charlescraft", 
+                  image: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=240&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+                  rating: 4.9 
+                },
+                { 
+                  name: "Martina Edelweist", 
+                  image: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=240&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+                  rating: 5.0 
+                }
+              ]}
+            />
+          </div>
+          </>
+        );
       case 'file-container':
         return (
           <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
@@ -2040,6 +2141,117 @@ export default function ComponentsPage() {
               initialOpenState={true}
             />
           </div>
+        );
+      case 'blog-post-header':
+        return (
+          <>
+          <div className="bg-[#f0f0f1] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <BlogPostHeader
+              featuredImageSrc="https://raw.githubusercontent.com/Northstrix/Midbar/main/STM32F401CCU6_and_Arduino_Uno_Version/V1.0/Pictures/IMG_20230504_145722.jpg"
+              featuredImageWidth="50%"
+              tagText="Personal Data Confidentiality"
+              titleText="Midbar (STM32F401CCU6 + Arduino Uno Version)"
+              authorImageSrc="https://avatars.githubusercontent.com/u/43994704?v=4"
+              authorName="Maxim Bortnikov"
+              authorLink="http://maxim-bortnikov.netlify.app/"
+              date="Jun 19, 2023"
+              readTime="14 min Read"
+              socialIcons={[
+                {
+                  name: 'GitHub',
+                  icon: <FontAwesomeIcon icon={faGithub} size="lg" />,
+                  link: 'https://github.com/Northstrix/Midbar',
+                  backgroundColor: '#333',
+                  foregroundColor: '#fff'
+                },
+                {
+                  name: 'Medium',
+                  icon: <FontAwesomeIcon icon={faMedium} size="lg" />,
+                  link: 'https://medium.com/@Northstrix/midbar-stm32f401ccu6-arduino-uno-version-1b95657d6d38',
+                  backgroundColor: '#000',
+                  foregroundColor: '#fff'
+                },
+                {
+                  name: 'Instructables',
+                  icon: <FontAwesomeIcon icon={faTools} size="lg" />,
+                  link: 'https://www.instructables.com/Midbar-STM32F401CCU6-Arduino-Uno-Version/',
+                  backgroundColor: '#fc6800',
+                  foregroundColor: '#fff'
+                },
+              ]}
+              categoryForeground="#EE5921"
+              textColor="#334"
+              titleSize="3em"
+              imageBorderRadius="24px"
+              spacing="20px"
+              maxImageHeight="520px"
+              imageShadowColor="#F78702"
+              onHover={() => toast.info('First header hovered')}
+              onClick={() => toast.info('First header clicked')}
+              categoryClicked={(category) => toast.info(`Category clicked: ${category}`)}
+            />
+          </div>
+          <div style={{
+            height: '32px'
+          }}></div>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap', // Allows items to wrap to the next line
+            justifyContent: 'center', // Center items horizontally
+            padding: '32px', // Optional padding for the container
+            backgroundColor: '#111111', // Background color of the container
+            borderRadius: '8px', // Rounded corners for the container
+            minHeight: '300px', // Minimum height for the container
+            border: '1px solid #323232'
+          }}>
+            <BlogPostHeader
+              featuredImageSrc="https://github.com/Northstrix/In-Browser-File-Encrypter/raw/main/V1.0/Media/Main.png?raw=true"
+              featuredImageWidth="46%"
+              tagText="פיתוח ווב"
+              titleText="איך בניתי אפליקציית ווב ללא ניסיון בג'אווהסקריפט"
+              authorImageSrc="https://avatars.githubusercontent.com/u/43994704?v=4"
+              authorName="מקסים בורטניקוב"
+              authorLink="http://maxim-bortnikov.netlify.app/"
+              date="8 באוגוסט 2024"
+              readTime="17 דקות קריאה"
+              socialIcons={[
+              {
+              name: 'GitHub',
+              icon: <FontAwesomeIcon icon={faGithub} size="lg" />,
+              link: 'https://github.com/Northstrix/In-Browser-File-Encrypter',
+              backgroundColor: '#fff',
+              foregroundColor: '#333'
+              },
+              {
+              name: 'Medium',
+              icon: <FontAwesomeIcon icon={faMedium} size="lg" />,
+              link: 'https://medium.com/system-weakness/how-i-built-a-web-app-with-no-javascript-experience-d8bf3ed14f6f',
+              backgroundColor: '#fff',
+              foregroundColor: '#000'
+              },
+              {
+              name: 'Nuance',
+              icon: <NuanceIcon backgroundColor="#fff" size="lg" />, // Assuming inverted color is white
+              link: 'https://nuance.xyz/northstrix/10780-434go-diaaa-aaaaf-qakwq-cai/how-i-built-a-web-app-with-no-javascript-experience',
+              backgroundColor: '#000',
+              foregroundColor: '#fff'
+              },
+              ]}
+              categoryForeground="#4E54C8"
+              textColor="#f7f7ff"
+              titleSize="3em"
+              imageBorderRadius="12px"
+              spacing="20px"
+              headerMaxWidth="1200px"
+              desktopBreakpoint={900}
+              imageShadowColor="#424242"
+              onHover={() => toast.info('Second header hovered')}
+              onClick={() => toast.info('Second header clicked')}
+              categoryClicked={(category) => toast.info(`Category clicked: ${category}`)}
+              isRTL={true}
+            />
+          </div>
+          </>
         );
       default:
         return <div>No preview available.</div>;
