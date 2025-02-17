@@ -9,7 +9,11 @@ Check it out at https://namer-ui.netlify.app/
 
 ![Alt Hero section](https://github.com/Northstrix/namer-ui/blob/main/screenshots/hero-section.png?raw=true)
 
-![Alt The Dutch card component](https://github.com/Northstrix/namer-ui/blob/main/screenshots/Dutch%20Card.png?raw=true)
+![Alt About Us Section](https://github.com/Northstrix/namer-ui/blob/main/screenshots/about-us-section.png?raw=true)
+
+![Alt Sequence Hero Section](https://github.com/Northstrix/namer-ui/blob/main/screenshots/sequence-hero-section.png?raw=true)
+
+![Alt Blog Post Header](https://github.com/Northstrix/namer-ui/blob/main/screenshots/blog-post-header.png?raw=true)
 
 ![Alt Mobile view](https://github.com/Northstrix/namer-ui/blob/main/screenshots/Mobile%20View.png?raw=true)
 
