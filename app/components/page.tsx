@@ -845,7 +845,7 @@ export default function ComponentsPage() {
             Disclaimer: This SequenceHeroSection component is a conceptual design prototype created for demonstrative and educational purposes only. The travel experiences, destinations, and services described are fictional and do not represent actual offerings. The customer ratings and profile images are simulated and do not depict real individuals or their opinions. This component is not affiliated with, endorsed by, or sponsored by any travel agencies, tour operators, or hospitality services. The content presented does not constitute a commercial offer of any kind. Any resemblance to actual travel products, services, or persons is purely coincidental. This component is intended solely for illustration of web design concepts and should not be used as a basis for travel planning or decision-making.
           </p>
 
-          <div className="bg-[#f1f1f7] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+          <div className="bg-[#f1f1f7] p-8 rounded-lg items-center justify-center relative flex" style={{ height: window.innerWidth >= 1024 ? 'calc(100vh - 69px)' : 'auto' }}>
             <SequenceHeroSection 
               title="Roam Free"
               subtitle="Discover the world's hidden gems with our curated adventures"
