@@ -12,6 +12,7 @@ import InflectedCard from '@/app/the-actual-components/inflected-card/InflectedC
 import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsAppWidget'
 import DicedHeroSection from '@/app/the-actual-components/diced-hero-section/DicedHeroSection'
+import AnimatedTestimonials from '@/app/the-actual-components/animated-testimonials/AnimatedTestimonials'
 import SequenceHeroSection from '@/app/the-actual-components/sequence-hero-section/SequenceHeroSection'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
@@ -81,6 +82,7 @@ const components = [
   { id: 'product-card', name: 'Product Card', description: 'A versatile product card component with image, pricing, discount, and interactive buttons for e-commerce applications.' },
   { id: 'whatsapp-widget', name: 'WhatsApp Widget', description: 'A customizable WhatsApp chat widget with auto-popup functionality, personalized messaging, and styled UI elements.' },
   { id: 'diced-hero-section', name: 'Diced Hero Section', description: 'A customizable hero section with diced image grid, gradient text, and responsive design for showcasing content.' },
+  { id: 'animated-testimonials', name: 'Animated Testimonials', description: 'A customized Aceternity UI component, optimized for custom image aspect ratios and support for Right-to-Left (RTL) languages.' },
   { id: 'sequence-hero-section', name: 'Sequence Hero Section', description: 'A fully customizable hero section with steps, image carousel, and rating cards.' },
   { id: 'file-container', name: 'File Container', description: 'A container for displaying file information.' },
   { id: 'fishy-button', name: 'Fishy Button', description: 'A sleek button featuring floating fish that appear on hover.' },
@@ -837,6 +839,191 @@ export default function ComponentsPage() {
                 isRTL={true}
               />
           </div>
+        );
+      case 'animated-testimonials':
+        return (
+          <>
+            <div className="bg-[#050505] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+              <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
+                Disclaimer: The testimonials and restaurant name presented here are entirely fictional and created for demonstrational purposes only. Shining Yam is not a real establishment or enterprise. These fictional testimonials are designed to showcase the functionality of the Animated Testimonials component and do not represent real customer experiences or opinions. Any resemblance to actual persons, living or dead, or actual businesses is purely coincidental. This demonstration is intended solely for illustrative purposes in a web development context.
+              </p>
+            </div>
+            <div className="bg-[#f1f1f7] p-20 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+              <div
+                className="items-center justify-center relative flex"
+                style={{
+                  maxWidth: "1456px",
+                }}
+              >
+                <AnimatedTestimonials
+                  testimonials={[
+                    {
+                      quote:
+                        "I was impressed by the food — every dish is bursting with flavor! And I could really tell that they use high-quality ingredients. The staff was friendly and attentive, going the extra mile. I'll definitely be back for more!",
+                      name: "Tamar Mendelson",
+                      designation: "Restaurant Critic",
+                      src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    },
+                    {
+                      quote:
+                        "This place exceeded all expectations! The atmosphere is inviting, and the staff truly goes above and beyond to ensure a fantastic visit. I'll definitely keep returning for more exceptional dining experience.",
+                      name: "Joe Charlescraft",
+                      designation: "Frequent Visitor",
+                      src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+                    },
+                    {
+                      quote:
+                        "Shining Yam is a hidden gem! From the moment I walked in, I knew I was in for a treat. The impeccable service and overall attention to detail created a memorable experience. I highly recommend it!",
+                      name: "Martina Edelweist",
+                      designation: "Satisfied Customer",
+                      src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+                    },
+                  ]}
+                  colors={{
+                    name: "#0a0a0a",
+                    position: "#454545",
+                    testimony: "#171717",
+                    arrowBackground: "#141414",
+                    arrowForeground: "#f1f1f7",
+                    arrowHoverForeground: "#00A6FB",
+                  }}
+                  desktopVersionBottomThreshold={1024}
+                  fontSizes={{
+                    name: "28px",
+                    position: "20px",
+                    testimony: "20px",
+                  }}
+                  spacing={{
+                    nameTop: "0",
+                    nameBottom: "10px",
+                    positionTop: "0",
+                    positionBottom: "0.5em",
+                    testimonyTop: "1.24em",
+                    testimonyBottom: "1em",
+                    lineHeight: "1.56",
+                  }}
+                  imageAspectRatio={1.05}
+                />
+              </div>
+            </div>
+            <div className="bg-[#050505] p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+              <div
+                className="items-center justify-center relative flex"
+                style={{
+                  maxWidth: "1024px",
+                }}
+              >
+                <AnimatedTestimonials
+                  testimonials={[
+                    {
+                      quote:
+                        "I was impressed by the food — every dish is bursting with flavor! And I could really tell that they use high-quality ingredients. The staff was friendly and attentive, going the extra mile. I'll definitely be back for more!",
+                      name: "Tamar Mendelson",
+                      designation: "Restaurant Critic",
+                      src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    },
+                    {
+                      quote:
+                        "This place exceeded all expectations! The atmosphere is inviting, and the staff truly goes above and beyond to ensure a fantastic visit. I'll definitely keep returning for more exceptional dining experience.",
+                      name: "Joe Charlescraft",
+                      designation: "Frequent Visitor",
+                      src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+                    },
+                    {
+                      quote:
+                        "Shining Yam is a hidden gem! From the moment I walked in, I knew I was in for a treat. The impeccable service and overall attention to detail created a memorable experience. I highly recommend it!",
+                      name: "Martina Edelweist",
+                      designation: "Satisfied Customer",
+                      src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+                    },
+                  ]}
+                  colors={{
+                    name: "#f7f7ff",
+                    position: "#e1e1e1",
+                    testimony: "#f1f1f7",
+                    arrowBackground: "#0582CA",
+                    arrowForeground: "#141414",
+                    arrowHoverForeground: "#f7f7ff",
+                  }}
+                  desktopVersionBottomThreshold={1024}
+                  fontSizes={{
+                    name: "28px",
+                    position: "20px",
+                    testimony: "20px",
+                  }}
+                  spacing={{
+                    nameTop: "0",
+                    nameBottom: "10px",
+                    positionTop: "0",
+                    positionBottom: "0.5em",
+                    testimonyTop: "1.24em",
+                    testimonyBottom: "1em",
+                    lineHeight: "1.56",
+                  }}
+                  imageAspectRatio={1.05}
+                />
+              </div>
+            </div>
+            <div className="bg-[#f1f1f7] p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+              <div
+                className="items-center justify-center relative flex"
+                style={{
+                  maxWidth: "1200px",
+                }}
+              >
+                <AnimatedTestimonials
+                  testimonials={[
+                    {
+                      quote:
+                        "הייתי מרותק מהאוכל — כל מנה מלאה בטעם! והייתי יכול לראות באמת שהם משתמשים במרכיבים של איכות גבוהה. הצוות היה ידידותי ותשומת לב, הולך עד הסוף. אני בהחלט אחזור ליותר!",
+                      name: "תמר מנדלסון",
+                      designation: "מבקר מסעדות",
+                      src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    },
+                    {
+                      quote:
+                        "מקום זה עלה על כל הציפיות! האווירה מזמינה, והצוות באמת הולך מעבר לכל גבול כדי להבטיח ביקור מדהים. אני בהחלט אמשיך לחזור לחוויית אכילה יוצאת דופן.",
+                      name: "ג'ו צ'רלסקראפט",
+                      designation: "מבקר תדיר",
+                      src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+                    },
+                    {
+                      quote:
+                        "שיינין ים הוא פנינה מוסתרת! מהרגע שנכנסתי, ידעתי שאני בדרך למתנה. השירות המושלם והתשומת הלב הכללית לפרטים יצרו חוויה זכורה. אני ממליץ מאוד עליו!",
+                      name: "מרטינה אדלווייסט",
+                      designation: "לקוח מרוצה",
+                      src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+                    },
+                  ]}
+                  colors={{
+                    name: "#0a0a0a",
+                    position: "#454545",
+                    testimony: "#171717",
+                    arrowBackground: "#141414",
+                    arrowForeground: "#f1f1f7",
+                    arrowHoverForeground: "#00A6FB",
+                  }}
+                  desktopVersionBottomThreshold={1024}
+                  fontSizes={{
+                    name: "32px",
+                    position: "21px",
+                    testimony: "21px",
+                  }}
+                  spacing={{
+                    nameTop: "0",
+                    nameBottom: "12px",
+                    positionTop: "0",
+                    positionBottom: "0.5em",
+                    testimonyTop: "1.24em",
+                    testimonyBottom: "1em",
+                    lineHeight: "1.56",
+                  }}
+                  imageAspectRatio={1.05}
+                  isRTL={true}
+                />
+              </div>
+            </div>
+          </>
         );
       case 'sequence-hero-section':
         return (
