@@ -9,6 +9,12 @@ Check it out at https://namer-ui.netlify.app/
 
 ![Alt Hero section](https://github.com/Northstrix/namer-ui/blob/main/screenshots/hero-section.png?raw=true)
 
+![Alt Hero Highlight](https://github.com/Northstrix/namer-ui/blob/main/screenshots/hero-highlight.png?raw=true)
+
+![Alt Animated Testimonials](https://github.com/Northstrix/namer-ui/blob/main/screenshots/animated-testimonials.png?raw=true)
+
+![Alt Simple Navbar](https://github.com/Northstrix/namer-ui/blob/main/screenshots/simple-navbar.png?raw=true)
+
 ![Alt About Us Section](https://github.com/Northstrix/namer-ui/blob/main/screenshots/about-us-section.png?raw=true)
 
 ![Alt Sequence Hero Section](https://github.com/Northstrix/namer-ui/blob/main/screenshots/sequence-hero-section.png?raw=true)
