@@ -14,6 +14,7 @@ import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsApp
 import DicedHeroSection from '@/app/the-actual-components/diced-hero-section/DicedHeroSection'
 import AnimatedTestimonials from '@/app/the-actual-components/animated-testimonials/AnimatedTestimonials'
 import SequenceHeroSection from '@/app/the-actual-components/sequence-hero-section/SequenceHeroSection'
+import SimpleNavbar from '@/app/the-actual-components/simple-navbar/SimpleNavbar'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
 import PositionAwareButton from '@/app/the-actual-components/position-aware-button/PositionAwareButton'
@@ -50,6 +51,7 @@ import UnfoldingFAQ from '@/app/the-actual-components/unfolding-faq/UnfoldingFAQ
 import InfiniteTestimonials from '@/app/the-actual-components/infinite-testimonials/InfiniteTestimonials'
 import UnfoldingSidebar from '@/app/the-actual-components/unfolding-sidebar/UnfoldingSidebar'
 import BlogPostHeader from '@/app/the-actual-components/blog-post-header/BlogPostHeader'
+import { Highlight } from "@/app/the-actual-components/hero-highlight/HeroHighlight"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
@@ -57,6 +59,7 @@ import { faTools } from '@fortawesome/free-solid-svg-icons';
 import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFilled, IconCircleArrowUpFilled, IconLockFilled, IconSettingsFilled, IconInfoCircleFilled } from '@tabler/icons-react';
 import { IconHome, IconFile, IconPencil, IconLogout, IconUser, IconFolder, IconCircleArrowDown, IconCircleArrowUp, IconLock, IconSettings, IconInfoCircle } from '@tabler/icons-react';
 import { IconCornerRightUp, IconFold } from '@tabler/icons-react';
+import { IconStar, IconUserStar, IconList, IconCalendarEvent } from '@tabler/icons-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IconBorderRightPlus, IconFoldDown } from '@tabler/icons-react';
@@ -84,6 +87,7 @@ const components = [
   { id: 'diced-hero-section', name: 'Diced Hero Section', description: 'A customizable hero section with diced image grid, gradient text, and responsive design for showcasing content.' },
   { id: 'animated-testimonials', name: 'Animated Testimonials', description: 'A customized Aceternity UI component, optimized for custom image aspect ratios and support for Right-to-Left (RTL) languages.' },
   { id: 'sequence-hero-section', name: 'Sequence Hero Section', description: 'A fully customizable hero section with steps, image carousel, and rating cards.' },
+  { id: "simple-navbar", name: "Simple Navbar", description: "A simple navigation bar with icons, tooltips, and space for a phone number, suitable for simple yet modern websites." },
   { id: 'file-container', name: 'File Container', description: 'A container for displaying file information.' },
   { id: 'fishy-button', name: 'Fishy Button', description: 'A sleek button featuring floating fish that appear on hover.' },
   { id: 'position-aware-button', name: 'Position-Aware Button', description: 'A button with a dynamic hover effect that responds to mouse movements.' },
@@ -120,6 +124,7 @@ const components = [
   { id: 'infinite-testimonials', name: 'Infinite Testimonials', description: 'An element that displays a continuous, scrolling loop of testimonials or quotes.' },
   { id: 'unfolding-sidebar', name: 'Unfolding Sidebar', description: 'A modern, space-efficient sidebar that unfolds and collapses, utilizing Framer Motion for smooth transitions.' },
   { id: 'blog-post-header', name: 'Blog Post Header', description: 'A customizable, animated header for blog posts featuring a gradient background, author info, and social links.' },
+  { id: 'hero-highlight', name: 'Hero Highlight', description: 'A modified version of the Aceternity component that doesn\'t require modification of the Tailwind configuration file.' },
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -128,8 +133,6 @@ export default function ComponentsPage() {
   const [activeComponent, setActiveComponent] = useState<string>(components[0]?.id || '');
   const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview')
   const [metadata, setMetadata] = useState<Metadata | null>(null)
-
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
   
   useEffect(() => {
     const loadComponent = async () => {
@@ -281,6 +284,12 @@ export default function ComponentsPage() {
     };
 
     // Blog Post Header Stuff //
+
+    // Simple Navbar Stuff //
+
+    const disclaimerString = `<div style={{height: '69px'}}></div>`;
+
+    // Simple Navbar Stuff //
     
   const renderComponent = () => {
     switch(activeComponent) {
@@ -1082,6 +1091,53 @@ export default function ComponentsPage() {
               ]}
             />
           </div>
+          </>
+        );
+      case 'simple-navbar':
+        return (
+          <>
+            <div style={{ fontSize: '21px'}} className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-col items-center justify-center">
+              Disclaimer: The website name, slogan, phone number, and all associated messengers displayed on the navbar are entirely fictional and created for demonstration purposes only. Any resemblance to actual entities, whether in name, content, or appearance, is purely coincidental and unintended.
+              <div style={{height: '40px'}}></div>
+              Insert this element at the top of the page to compensate for the navbar height:
+              <div style={{height: '8px'}}></div>
+              {disclaimerString}
+            </div>
+            <SimpleNavbar
+              desktopPadding="24px"
+              mobilePadding="12px"
+              desktopFont="22px"
+              mobileFont="20px"
+              desktopSubFont="14px"
+              mobileSubFont="12px"
+              displayNavigationThreshold={846}
+              maxWidth="1536px"
+              onNavItemClick={(itemLabel) => toast.info(`Clicked: ${itemLabel}`)}
+              appName="Shakhor"
+              appSubInscription="Cool, like a midnight in Austin!"
+              phoneNumber="+1 (234) 567-8901"
+              phoneSubInscription="Telegram, WhatsApp, Viber"
+              items={[
+                { icon: <IconHome size={22} />, label: 'Home' },
+                { icon: <IconStar size={22} />, label: 'Food of the Day' },
+                { icon: <IconUserStar size={22} />, label: 'Customer Reviews' },
+                { icon: <IconList size={22} />, label: 'Menu' },
+                { icon: <IconCalendarEvent size={22} />, label: 'Events & Promotions' },
+                { icon: <IconInfoCircle size={22} />, label: 'About Us' },
+              ]}
+              backgroundColor="#171717"
+              iconForegroundColor="#00A6FB"
+              stripeColor="#616161"
+              defaultTextColor="#00A6FB"
+              foregroundHoverColor="#f1f1f7"
+              tooltipBackgroundColor="#4ac2ff"
+              tooltipForegroundColor="#050505"
+              activeIconColor="#f7f7ff"
+              activeIconBackgroundColor="#00A6FB"
+              activeIconGlowColor="#00A6FB"
+              onAppNameClicked={() => toast.info("App Name Clicked")}
+              onPhoneNumberClicked={() => toast.info("Phone Number Clicked")}
+            />
           </>
         );
       case 'file-container':
@@ -2440,130 +2496,159 @@ export default function ComponentsPage() {
           </div>
           </>
         );
+      case 'hero-highlight':
+        return (
+          <div className="bg-[#f1f1f7] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+              <h1 className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-[#050505] max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto">
+                Say hi to{" "}
+                <Highlight
+                  gradientColors="#6c5ce7, #3498db" // Blue-purple gradient colors
+                  gradientAngle="-35deg" // Gradient angle
+                  padding={{
+                    top: "0.72rem",
+                    bottom: "0.41rem",
+                    left: "1rem",
+                    right: "1rem",
+                  }}
+                  initialHighlightDelay={2000} // Delay for highlight animation
+                  delayColorChange={5500} // Delay for text color change
+                  nextColor="#f1f1f7" // New text color after delay
+                  defaultColor="#050505" // Default text color
+                >
+                  Namer UI
+                </Highlight>
+              </h1>
+          </div>
+        );
       default:
         return <div>No preview available.</div>;
     }
   };
 
   return (
-    <div className="flex min-h-screen overflow-hidden bg-[#141414] text-[#f7f7ff]">
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <UnfoldingSidebar
-        logo="/logo.png"
-        appName="Namer UI"
-        sections={[
-          {
-            title: "Components",
-            components: components.map(component => ({
-              id: component.id,
-              name: component.name
-            }))
-          }
-        ]}
-        onComponentClick={(componentId) => {
-          setActiveComponent(componentId);
-        }}
-        unfoldIcon={<IconBorderRightPlus size={24} />}
-        foldIcon={<IconFoldDown size={24} />}
-        foldIconRotation={90}
-        unfoldIconRotation={0}
-        iconSize={24}
-        defaultActiveComponent={activeComponent}
-      />
-      <main className="flex-grow p-8 overflow-auto">
-        <h1 className="text-3xl font-bold mb-2">{components.find(c => c.id === activeComponent)?.name}</h1>
-        <p className="text-gray-500 mb-6">{components.find(c => c.id === activeComponent)?.description}</p>
+    <>
+      {activeComponent === 'simple-navbar' && (
+        <div style={{ height: '69px' }}></div>
+      )}
+      <div className="flex min-h-screen overflow-hidden bg-[#141414] text-[#f7f7ff]">
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <UnfoldingSidebar
+          logo="/logo.png"
+          appName="Namer UI"
+          sections={[
+            {
+              title: "Components",
+              components: components.map(component => ({
+                id: component.id,
+                name: component.name
+              }))
+            }
+          ]}
+          onComponentClick={(componentId) => {
+            setActiveComponent(componentId);
+          }}
+          unfoldIcon={<IconBorderRightPlus size={24} />}
+          foldIcon={<IconFoldDown size={24} />}
+          foldIconRotation={90}
+          unfoldIconRotation={0}
+          iconSize={24}
+          defaultActiveComponent={activeComponent}
+        />
+        <main className="flex-grow p-8 overflow-auto">
+          <h1 className="text-3xl font-bold mb-2">{components.find(c => c.id === activeComponent)?.name}</h1>
+          <p className="text-gray-500 mb-6">{components.find(c => c.id === activeComponent)?.description}</p>
 
-        <div className="tabs mb-4 flex">
-          <button 
-            className={`tab flex-1 rounded-md mr-2 py-2 transition-colors duration-200 ${
-              activeTab === 'preview' 
-                ? 'bg-[#252630] text-[#a8b1ff]' 
-                : 'bg-[#1e1e1e] text-[#a2a2a9] hover:bg-[#2c2c2a] hover:text-white'
-            }`} 
-            onClick={() => setActiveTab('preview')}
-          >
-            Preview
-          </button>
-          <button 
-            className={`tab flex-1 rounded-md ml-2 py-2 transition-colors duration-200 ${
-              activeTab === 'code' 
-                ? 'bg-[#252630] text-[#a8b1ff]' 
-                : 'bg-[#1e1e1e] text-[#a2a2a9] hover:bg-[#2c2c2a] hover:text-white'
-            }`} 
-            onClick={() => setActiveTab('code')}
-          >
-            Code
-          </button>
-        </div>
-
-        {activeTab === 'preview' ? renderComponent() : (
-          <div className="overflow-x-auto">
-            {metadata?.code ? (
-              (metadata.code as CodeFile[]).map(({ filename, content }) => (
-                <div key={filename} className="mb-8">
-                  <h3 className="font-bold mb-4 text-lg">{filename}</h3>
-                  <CodeBlock
-                    filename={filename}
-                    code={content}
-                  />
-                </div>
-              ))
-            ) : (
-              <p>No code available.</p>
-            )}
-          </div>
-        )}
-
-        <section className="mb-6 mt-6">
-          <h2 className="text-lg font-bold mb-2">Usage</h2>
-          <hr />
-          {metadata?.usage && (
-            <SyntaxHighlighter 
-              language="tsx" 
-              style={a11yDark}
-              customStyle={{
-                backgroundColor: '#080810',
-                borderRadius: '0.5em',
-                padding: '1em'
-              }}
+          <div className="tabs mb-4 flex">
+            <button 
+              className={`tab flex-1 rounded-md mr-2 py-2 transition-colors duration-200 ${
+                activeTab === 'preview' 
+                  ? 'bg-[#252630] text-[#a8b1ff]' 
+                  : 'bg-[#1e1e1e] text-[#a2a2a9] hover:bg-[#2c2c2a] hover:text-white'
+              }`} 
+              onClick={() => setActiveTab('preview')}
             >
-              {metadata.usage}
-            </SyntaxHighlighter>
+              Preview
+            </button>
+            <button 
+              className={`tab flex-1 rounded-md ml-2 py-2 transition-colors duration-200 ${
+                activeTab === 'code' 
+                  ? 'bg-[#252630] text-[#a8b1ff]' 
+                  : 'bg-[#1e1e1e] text-[#a2a2a9] hover:bg-[#2c2c2a] hover:text-white'
+              }`} 
+              onClick={() => setActiveTab('code')}
+            >
+              Code
+            </button>
+          </div>
+
+          {activeTab === 'preview' ? renderComponent() : (
+            <div className="overflow-x-auto">
+              {metadata?.code ? (
+                (metadata.code as CodeFile[]).map(({ filename, content }) => (
+                  <div key={filename} className="mb-8">
+                    <h3 className="font-bold mb-4 text-lg">{filename}</h3>
+                    <CodeBlock
+                      filename={filename}
+                      code={content}
+                    />
+                  </div>
+                ))
+              ) : (
+                <p>No code available.</p>
+              )}
+            </div>
           )}
-        </section>
 
-        <section className="mb-6 mt-6">
-          <h2 className="text-lg font-bold mb-2">Dependencies</h2>
-          <hr />
-          <div className="credit-content [&_a]:underline">
-            {typeof metadata?.dependencies === "string" ? (
-              <pre className="whitespace-pre-wrap">{metadata.dependencies}</pre>
-            ) : (
-              metadata?.dependencies
+          <section className="mb-6 mt-6">
+            <h2 className="text-lg font-bold mb-2">Usage</h2>
+            <hr />
+            {metadata?.usage && (
+              <SyntaxHighlighter 
+                language="tsx" 
+                style={a11yDark}
+                customStyle={{
+                  backgroundColor: '#080810',
+                  borderRadius: '0.5em',
+                  padding: '1em'
+                }}
+              >
+                {metadata.usage}
+              </SyntaxHighlighter>
             )}
-          </div>
-        </section>
+          </section>
 
-        <section className="mb-6 mt-6">
-          <h2 className="text-lg font-bold mb-2">Credit</h2>
-          <hr />
-          <div className="credit-content [&_a]:underline">
-            {metadata?.credit}
-          </div>
-        </section>
+          <section className="mb-6 mt-6">
+            <h2 className="text-lg font-bold mb-2">Dependencies</h2>
+            <hr />
+            <div className="credit-content [&_a]:underline">
+              {typeof metadata?.dependencies === "string" ? (
+                <pre className="whitespace-pre-wrap">{metadata.dependencies}</pre>
+              ) : (
+                metadata?.dependencies
+              )}
+            </div>
+          </section>
 
-      </main>
-    </div>
+          <section className="mb-6 mt-6">
+            <h2 className="text-lg font-bold mb-2">Credit</h2>
+            <hr />
+            <div className="credit-content [&_a]:underline">
+              {metadata?.credit}
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </>
   );
 };
