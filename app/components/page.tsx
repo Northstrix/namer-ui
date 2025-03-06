@@ -143,6 +143,14 @@ export default function ComponentsPage() {
     loadComponent()
   }, [activeComponent])
 
+  // Product Card Stuff //
+
+  const originalDiscountTag = "הנחה 40%";
+  const discountTagParts = originalDiscountTag.split(' ');
+  const swappedDiscountTag = discountTagParts.reverse().join(' ');
+
+  // Product Card Stuff //
+
   // Fancy Notification stuff //
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const [notificationStatus, setNotificationStatus] = useState<'success' | 'error'>('success');
@@ -337,7 +345,7 @@ export default function ComponentsPage() {
       
             <div className="w-[500px] overflow-hidden">
               <SliderHeroSection
-                title="גלה טכנולוגיה חדשנית ומותגים מובילים בנמרסטור - היעד שלך למוצרי אלקטרוניקה חדשים, מחודשים ומשומשים"
+                title="גלה טכנולוגיה חדשנית ומותגים מובילים בנמרסטור - היעד שלך למוצרי אלקטרוניקה חדשים, מחודשים ומשומשים."
                 showcaseOptions={[
                   { text: 'מוצרי אלקטרוניקה חדשים', imageUrl: 'https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
                   { text: 'אייפונים מחודשים', imageUrl: 'https://images.unsplash.com/photo-1604671368394-2240d0b1bb6c?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
@@ -352,6 +360,8 @@ export default function ComponentsPage() {
                 darkenImages={-0.5}
                 height="760px"
                 borderRadius="2.5em"
+                mobileTitleAlign="right"
+                mobileShowcaseAlign="right"
               />
             </div>
 
@@ -638,12 +648,12 @@ export default function ComponentsPage() {
         );
       case 'product-card':
         return (
-          <div className="bg-[#262630] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+          <div className="bg-[#050505] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
             <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
               Disclaimer: This product card is a conceptual design prototype created for demonstrative and educational purposes only. All product names, logos, brand identifiers, and trademarks displayed here are the sole property of their respective owners. Product details, images, and descriptions are used for illustrative purposes and do not represent actual commercial offerings. Namer UI is not affiliated with, endorsed by, or sponsored by any of the companies whose products are showcased. This website does not present a commercial offer of any kind. Any resemblance to existing product(s) is entirely coincidental.
             </p> 
             
-            <div className="bg-[#262630] min-h-[300px] flex flex-wrap gap-8 items-center justify-center relative">
+            <div className="bg-[#050505] min-h-[300px] flex flex-wrap gap-8 items-center justify-center relative">
               <ProductCard
                 id="0"
                 imageSrc="https://images.pexels.com/photos/18525574/pexels-photo-18525574/free-photo-of-unboxing-iphone-15-pro-max-box-in-natural-titanium-color-mention-zana_qaradaghy-on-instagram-while-use-this-photo-follow-on-instagram-zana_qaradaghy.jpeg"
@@ -651,7 +661,7 @@ export default function ComponentsPage() {
                 oldPrice="$1,199"
                 price="$1,079"
                 condition="Brand new"
-                discountPercentage={10}
+                discountTag="10% OFF"
                 title="iPhone 15 Pro"
                 description="Titanium smartphone with an advanced camera system, offering stunning photography capabilities and a sleek design."
                 onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)}
@@ -664,7 +674,7 @@ export default function ComponentsPage() {
                 oldPrice="$999"
                 price="$499"
                 condition="Pre-owned"
-                discountPercentage={50}
+                discountTag="50% OFF"
                 title="Samsung Galaxy Flip 6"
                 description="Innovative foldable smartphone with a sleek design that enhances portability while providing a large display for immersive viewing experiences and multitasking."
                 onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)}
@@ -679,7 +689,7 @@ export default function ComponentsPage() {
                 oldPrice="$199"
                 price="$159"
                 condition="Refurbished"
-                discountPercentage={20}
+                discountTag="20% OFF"
                 title="iPhone 7"
                 description="Classic iPhone model with 12MP camera and water resistance, offering reliable performance and essential features for everyday smartphone users."
                 onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)}
@@ -693,6 +703,7 @@ export default function ComponentsPage() {
                 innerContainerRounding={14}
                 buttonRounding={14}
                 activeComponentScale={1.048}
+                darkTextInTags={true}
               />
               <ProductCard
                 id="3"
@@ -701,12 +712,13 @@ export default function ComponentsPage() {
                 oldPrice="₪999"
                 price="₪599"
                 condition="משומש"
-                discountPercentage={40}
+                discountTag={swappedDiscountTag}
                 title="iPhone X"
                 description="סמארטפון אייקוני עם תצוגת Super Retina בגודל 5.8 אינץ', טכנולוגיית Face ID מתקדמת, מצלמות כפולות של 12MP ועיצוב חדשני שמהפכני בצילום הסלולרי."
                 onFilledButtonClick={(id) => toast.info(`Filled button clicked for ID: ${id}`)}
                 onOutlinedButtonClick={(id) => toast.info(`Outlined button clicked for ID: ${id}`)}
                 showOutlinedButton={true}
+                outlineColor="#f1f1f7"
                 accentColor="#00A6FB"
                 containerRounding={36}
                 innerContainerRounding={21}

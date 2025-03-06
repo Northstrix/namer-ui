@@ -21,17 +21,21 @@ interface SliderHeroSectionProps {
   mobileShowcaseFontSize?: string;
   desktopVersionBottomThreshold?: number;
   darkenImages?: number;
-  desktopPadding?: { leftRight?: string; topBottom?: string; };
-  mobilePadding?: { leftRight?: string; topBottom?: string; };
+  desktopPadding?: { top?: string; bottom?: string; leftRight?: string; };
+  mobilePadding?: { top?: string; bottom?: string; leftRight?: string; };
   height?: string;
   isBoldFont?: boolean;
   borderRadius?: string;
   onOptionClick?: (index: number) => void;
   onOptionHover?: (index: number) => void;
+  desktopTitleAlign?: string;
+  mobileTitleAlign?: string;
+  desktopShowcaseAlign?: string;
+  mobileShowcaseAlign?: string;
 }
 
 const isRTLCheck = (text: string): boolean => {
-  return /[\u0590-\u05FF\u0600-\u06FF\u0700-\u074F]/.test(text);
+    return /[\u0590-\u05FF\u0600-\u06FF\u0700-\u074F]/.test(text); // Hebrew, Arabic, and Persian ranges in Unicode
 };
 
 const SliderHeroSection: React.FC<SliderHeroSectionProps> = ({
@@ -47,13 +51,17 @@ const SliderHeroSection: React.FC<SliderHeroSectionProps> = ({
   mobileShowcaseFontSize = '25px',
   desktopVersionBottomThreshold = 768,
   darkenImages = 0.5,
-  desktopPadding = { leftRight: '24px', topBottom: '82px' },
-  mobilePadding = { leftRight: '10px', topBottom: '69px' },
+  desktopPadding = { top: '62px', bottom: '67px', leftRight: '24px' },
+  mobilePadding = { top: '39px', bottom: '39px', leftRight: '10px' },
   height = '100vh',
   isBoldFont = true,
   borderRadius = 'none',
   onOptionClick,
   onOptionHover,
+  desktopTitleAlign = 'left',
+  mobileTitleAlign = 'center',
+  desktopShowcaseAlign = 'left',
+  mobileShowcaseAlign = 'center',
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobileView, setIsMobileView] = useState(false);
@@ -90,29 +98,13 @@ const SliderHeroSection: React.FC<SliderHeroSectionProps> = ({
   useEffect(() => {
     if (imagesRef.current) {
       const images = imagesRef.current.children;
-      gsap.to(images, {
-        opacity: 0,
-        duration: imageTransitionDuration,
-        ease: 'power2.inOut',
-      });
-      gsap.to(images[activeIndex], {
-        opacity: 1,
-        duration: imageTransitionDuration,
-        ease: 'power2.inOut',
-      });
+      gsap.to(images, { opacity: 0, duration: imageTransitionDuration, ease: 'power2.inOut', });
+      gsap.to(images[activeIndex], { opacity: 1, duration: imageTransitionDuration, ease: 'power2.inOut', });
     }
     if (optionsRef.current) {
       const options = optionsRef.current.children;
-      gsap.to(options, {
-        color: textColor,
-        duration: 0.3,
-        ease: 'power2.inOut',
-      });
-      gsap.to(options[activeIndex], {
-        color: activeOptionColor,
-        duration: 0.3,
-        ease: 'power2.inOut',
-      });
+      gsap.to(options, { color: textColor, duration: 0.3, ease: 'power2.inOut', });
+      gsap.to(options[activeIndex], { color: activeOptionColor, duration: 0.3, ease: 'power2.inOut', });
     }
   }, [activeIndex, imageTransitionDuration, activeOptionColor, textColor]);
 
@@ -120,7 +112,7 @@ const SliderHeroSection: React.FC<SliderHeroSectionProps> = ({
     setActiveIndex(index);
     onOptionClick?.(index);
   };
-  
+
   const handleOptionHover = (index: number) => {
     setActiveIndex(index);
     setIsHovered(true);
@@ -140,17 +132,25 @@ const SliderHeroSection: React.FC<SliderHeroSectionProps> = ({
       </BackgroundImages>
       <Overlay $darkenImages={darkenImages} $borderRadius={borderRadius} />
       <Content>
-        <Title 
+        <Title
           $isRTL={isRTLCheck(title)}
-          $isMobileView={isMobileView} 
-          $desktopFontSize={desktopFontSize} 
-          $mobileFontSize={mobileFontSize} 
+          $isMobileView={isMobileView}
+          $desktopFontSize={desktopFontSize}
+          $mobileFontSize={mobileFontSize}
           $isBoldFont={isBoldFont}
           $color={textColor}
+          $desktopAlign={desktopTitleAlign}
+          $mobileAlign={mobileTitleAlign}
         >
           {title}
         </Title>
-        <ShowcaseContainer ref={optionsRef} $isRTL={isRTLCheck(showcaseOptions[0].text)}>
+        <ShowcaseContainer
+          ref={optionsRef}
+          $isRTL={isRTLCheck(showcaseOptions[0].text)}
+          $isMobileView={isMobileView}
+          $desktopAlign={desktopShowcaseAlign}
+          $mobileAlign={mobileShowcaseAlign}
+        >
           {showcaseOptions.map((option, index) => (
             <ShowcaseOption
               key={index}
@@ -165,6 +165,8 @@ const SliderHeroSection: React.FC<SliderHeroSectionProps> = ({
               $isActive={index === activeIndex}
               $activeColor={activeOptionColor}
               $textColor={textColor}
+              $desktopAlign={desktopShowcaseAlign}
+              $mobileAlign={mobileShowcaseAlign}
             >
               {option.text}
             </ShowcaseOption>
@@ -175,20 +177,14 @@ const SliderHeroSection: React.FC<SliderHeroSectionProps> = ({
   );
 };
 
-const Container = styled.div<{
-  $height: string;
-  $isMobileView: boolean;
-  $desktopPadding: { leftRight?: string; topBottom?: string };
-  $mobilePadding: { leftRight?: string; topBottom?: string };
-  $borderRadius: string;
-}>`
+const Container = styled.div<{ $height: string; $isMobileView: boolean; $desktopPadding: { top?: string; bottom?: string; leftRight?: string; }; $mobilePadding: { top?: string; bottom?: string; leftRight?: string; }; $borderRadius: string; }>`
   height: ${props => props.$height};
   width: 100%;
   position: relative;
   overflow: hidden;
   padding: ${props => props.$isMobileView
-    ? `${props.$mobilePadding.topBottom} ${props.$mobilePadding.leftRight}`
-    : `${props.$desktopPadding.topBottom} ${props.$desktopPadding.leftRight}`};
+    ? `${props.$mobilePadding.top} ${props.$mobilePadding.leftRight} ${props.$mobilePadding.bottom}`
+    : `${props.$desktopPadding.top} ${props.$desktopPadding.leftRight} ${props.$desktopPadding.bottom}`};
   border-radius: ${props => props.$borderRadius};
 `;
 
@@ -237,43 +233,28 @@ const Content = styled.div`
   justify-content: space-between;
 `;
 
-const Title = styled.h1<{
-  $isRTL: boolean;
-  $isMobileView: boolean;
-  $desktopFontSize: string;
-  $mobileFontSize: string;
-  $isBoldFont: boolean;
-  $color: string;
-}>`
+const Title = styled.h1<{ $isRTL: boolean; $isMobileView: boolean; $desktopFontSize: string; $mobileFontSize: string; $isBoldFont: boolean; $color: string; $desktopAlign: string; $mobileAlign: string; }>`
   font-size: ${props => props.$isMobileView ? props.$mobileFontSize : props.$desktopFontSize};
-  text-align: ${props => props.$isRTL ? 'right' : 'left'};
+  text-align: ${props => props.$isMobileView ? props.$mobileAlign : props.$desktopAlign};
   margin: 0;
   font-weight: ${props => props.$isBoldFont ? 'bold' : 'normal'};
   color: ${props => props.$color};
   direction: ${props => props.$isRTL ? 'rtl' : 'ltr'};
 `;
 
-const ShowcaseContainer = styled.div<{ $isRTL: boolean }>`
+const ShowcaseContainer = styled.div<{ $isRTL: boolean; $isMobileView: boolean; $desktopAlign: string; $mobileAlign: string; }>`
   display: inline-flex;
   flex-direction: column;
-  align-items: ${props => props.$isRTL ? 'flex-end' : 'flex-start'};
-  align-self: ${props => props.$isRTL ? 'flex-end' : 'flex-start'};
+  align-items: ${props => props.$isMobileView ? props.$mobileAlign : props.$desktopAlign};
+  align-self: ${props => props.$isMobileView ? props.$mobileAlign : props.$desktopAlign};
+  direction: ${props => props.$isRTL ? 'rtl' : 'ltr'};
 `;
 
-const ShowcaseOption = styled.div<{
-  $isMobileView: boolean;
-  $desktopShowcaseFontSize: string;
-  $mobileShowcaseFontSize: string;
-  $isBoldFont: boolean;
-  $isRTL: boolean;
-  $isActive: boolean;
-  $activeColor: string;
-  $textColor: string;
-}>`
+const ShowcaseOption = styled.div<{ $isMobileView: boolean; $desktopShowcaseFontSize: string; $mobileShowcaseFontSize: string; $isBoldFont: boolean; $isRTL: boolean; $isActive: boolean; $activeColor: string; $textColor: string; $desktopAlign: string; $mobileAlign: string; }>`
   cursor: pointer;
   font-size: ${props => props.$isMobileView ? props.$mobileShowcaseFontSize : props.$desktopShowcaseFontSize};
   font-weight: ${props => props.$isBoldFont ? 'bold' : 'normal'};
-  text-align: ${props => props.$isRTL ? 'right' : 'left'};
+  text-align: ${props => props.$isMobileView ? props.$mobileAlign : props.$desktopAlign};
   direction: ${props => props.$isRTL ? 'rtl' : 'ltr'};
   color: ${props => props.$isActive ? props.$activeColor : props.$textColor};
   transition: color 0.3s ease;

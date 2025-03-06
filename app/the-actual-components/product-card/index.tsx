@@ -5,80 +5,94 @@ const metadata = {
   usage: `// Path to the "ProductCard.tsx" file
 import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 
-<ProductCard
-  id="0"
-  imageSrc="https://images.pexels.com/photos/18525574/pexels-photo-18525574/free-photo-of-unboxing-iphone-15-pro-max-box-in-natural-titanium-color-mention-zana_qaradaghy-on-instagram-while-use-this-photo-follow-on-instagram-zana_qaradaghy.jpeg"
-  altText="iPhone 15 Pro"
-  oldPrice="$1,199"
-  price="$1,079"
-  condition="Brand new"
-  discountPercentage={10}
-  title="iPhone 15 Pro"
-  description="Titanium smartphone with an advanced camera system, offering stunning photography capabilities and a sleek design."
-  onFilledButtonClick={(id) => toast.info(\`Filled button clicked for ID: \${id}\`)}
-  onOutlinedButtonClick={(id) => toast.info(\`Outlined button clicked for ID: \${id}\`)}
-/>
-<ProductCard
-  id="1"
-  imageSrc="https://images.unsplash.com/photo-1721864428881-dbabb9ea0017?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  altText="Samsung Galaxy Flip 6"
-  oldPrice="$999"
-  price="$499"
-  condition="Pre-owned"
-  discountPercentage={50}
-  title="Samsung Galaxy Flip 6"
-  description="Innovative foldable smartphone with a sleek design that enhances portability while providing a large display for immersive viewing experiences and multitasking."
-  onFilledButtonClick={(id) => toast.info(\`Filled button clicked for ID: \${id}\`)}
-  onOutlinedButtonClick={(id) => toast.info(\`Outlined button clicked for ID: \${id}\`)}
-  accentColor="#00A6FB"
-  buttonRounding={50}
-/>
-<ProductCard
-  id="2"
-  imageSrc="https://images.unsplash.com/photo-1514473776127-61e2dc1dded3?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  altText="iPhone 7"
-  oldPrice="$199"
-  price="$159"
-  condition="Refurbished"
-  discountPercentage={20}
-  title="iPhone 7"
-  description="Classic iPhone model with 12MP camera and water resistance, offering reliable performance and essential features for everyday smartphone users."
-  onFilledButtonClick={(id) => toast.info(\`Filled button clicked for ID: \${id}\`)}
-  onOutlinedButtonClick={(id) => toast.info(\`Outlined button clicked for ID: \${id}\`)}
-  showOutlinedButton={false}
-  accentColor="#FF3900"
-  outerWidth={392}
-  outerHeight={414}
-  borderWidth={4}
-  containerRounding={14}
-  innerContainerRounding={14}
-  buttonRounding={14}
-  activeComponentScale={1.048}
-/>
-<ProductCard
-  id="3"
-  imageSrc="https://images.unsplash.com/photo-1511296933631-18b1a062212c?q=80&w=2436&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  altText="iPhone X"
-  oldPrice="₪999"
-  price="₪599"
-  condition="משומש"
-  discountPercentage={40}
-  title="iPhone X"
-  description="סמארטפון אייקוני עם תצוגת Super Retina בגודל 5.8 אינץ', טכנולוגיית Face ID מתקדמת, מצלמות כפולות של 12MP ועיצוב חדשני שמהפכני בצילום הסלולרי."
-  onFilledButtonClick={(id) => toast.info(\`Filled button clicked for ID: \${id}\`)}
-  onOutlinedButtonClick={(id) => toast.info(\`Outlined button clicked for ID: \${id}\`)}
-  showOutlinedButton={true}
-  accentColor="#00A6FB"
-  containerRounding={36}
-  innerContainerRounding={21}
-  buttonRounding={50}
-  lightenButtonColor={0.47}
-  filledButtonInscription="קנה עכשיו"
-  outlinedButtonInscription="הוסף לעגלה"
-  swapButtons={true}
-  activeComponentScale={1.08}
-  mirrorTags={true}
-/>
+const originalDiscountTag = "הנחה 40%";
+const discountTagParts = originalDiscountTag.split(' ');
+const swappedDiscountTag = discountTagParts.reverse().join(' ');
+
+<div className="bg-[#050505] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+  <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
+    Disclaimer: This product card is a conceptual design prototype created for demonstrative and educational purposes only. All product names, logos, brand identifiers, and trademarks displayed here are the sole property of their respective owners. Product details, images, and descriptions are used for illustrative purposes and do not represent actual commercial offerings. Namer UI is not affiliated with, endorsed by, or sponsored by any of the companies whose products are showcased. This website does not present a commercial offer of any kind. Any resemblance to existing product(s) is entirely coincidental.
+  </p> 
+  
+  <div className="bg-[#050505] min-h-[300px] flex flex-wrap gap-8 items-center justify-center relative">
+    <ProductCard
+      id="0"
+      imageSrc="https://images.pexels.com/photos/18525574/pexels-photo-18525574/free-photo-of-unboxing-iphone-15-pro-max-box-in-natural-titanium-color-mention-zana_qaradaghy-on-instagram-while-use-this-photo-follow-on-instagram-zana_qaradaghy.jpeg"
+      altText="iPhone 15 Pro"
+      oldPrice="$1,199"
+      price="$1,079"
+      condition="Brand new"
+      discountTag="10% OFF"
+      title="iPhone 15 Pro"
+      description="Titanium smartphone with an advanced camera system, offering stunning photography capabilities and a sleek design."
+      onFilledButtonClick={(id) => console.log(\`Filled button clicked for ID: \${id}\`)}
+      onOutlinedButtonClick={(id) => console.log(\`Outlined button clicked for ID: \${id}\`)}
+    />
+    <ProductCard
+      id="1"
+      imageSrc="https://images.unsplash.com/photo-1721864428881-dbabb9ea0017?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      altText="Samsung Galaxy Flip 6"
+      oldPrice="$999"
+      price="$499"
+      condition="Pre-owned"
+      discountTag="50% OFF"
+      title="Samsung Galaxy Flip 6"
+      description="Innovative foldable smartphone with a sleek design that enhances portability while providing a large display for immersive viewing experiences and multitasking."
+      onFilledButtonClick={(id) => console.log(\`Filled button clicked for ID: \${id}\`)}
+      onOutlinedButtonClick={(id) => console.log(\`Outlined button clicked for ID: \${id}\`)}
+      accentColor="#00A6FB"
+      buttonRounding={50}
+    />
+    <ProductCard
+      id="2"
+      imageSrc="https://images.unsplash.com/photo-1514473776127-61e2dc1dded3?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      altText="iPhone 7"
+      oldPrice="$199"
+      price="$159"
+      condition="Refurbished"
+      discountTag="20% OFF"
+      title="iPhone 7"
+      description="Classic iPhone model with 12MP camera and water resistance, offering reliable performance and essential features for everyday smartphone users."
+      onFilledButtonClick={(id) => console.log(\`Filled button clicked for ID: \${id}\`)}
+      onOutlinedButtonClick={(id) => console.log(\`Outlined button clicked for ID: \${id}\`)}
+      showOutlinedButton={false}
+      accentColor="#FF3900"
+      outerWidth={392}
+      outerHeight={414}
+      borderWidth={4}
+      containerRounding={14}
+      innerContainerRounding={14}
+      buttonRounding={14}
+      activeComponentScale={1.048}
+      darkTextInTags={true}
+    />
+    <ProductCard
+      id="3"
+      imageSrc="https://images.unsplash.com/photo-1511296933631-18b1a062212c?q=80&w=2436&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      altText="iPhone X"
+      oldPrice="₪999"
+      price="₪599"
+      condition="משומש"
+      discountTag={swappedDiscountTag}
+      title="iPhone X"
+      description="סמארטפון אייקוני עם תצוגת Super Retina בגודל 5.8 אינץ', טכנולוגיית Face ID מתקדמת, מצלמות כפולות של 12MP ועיצוב חדשני שמהפכני בצילום הסלולרי."
+      onFilledButtonClick={(id) => console.log(\`Filled button clicked for ID: \${id}\`)}
+      onOutlinedButtonClick={(id) => console.log(\`Outlined button clicked for ID: \${id}\`)}
+      showOutlinedButton={true}
+      outlineColor="#f1f1f7"
+      accentColor="#00A6FB"
+      containerRounding={36}
+      innerContainerRounding={21}
+      buttonRounding={50}
+      lightenButtonColor={0.47}
+      filledButtonInscription="קנה עכשיו"
+      outlinedButtonInscription="הוסף לעגלה"
+      swapButtons={true}
+      activeComponentScale={1.08}
+      mirrorTags={true}
+    />
+  </div>
+</div>
 
 // Note: The ProductCard component accepts the following props:
 // - id: string (required) - Unique identifier for the product container.
@@ -87,7 +101,7 @@ import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 // - price: string (required) - Current price of the product.
 // - oldPrice: string (optional) - Original/previous price of the product.
 // - condition: string (optional) - Current condition of the product (e.g., "Brand new", "Pre-owned").
-// - discountPercentage: number (optional) - Percentage discount applied to the product.
+// - discountTag: string (optional) - Discount tag to display on the product.
 // - title: string (required) - Name or title of the product.
 // - description: string (required) - Detailed description of the product.
 // - showOutlinedButton: boolean (optional) - Flag to display the secondary (outlined) button (default: true).
@@ -109,12 +123,13 @@ import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 // - buttonBackground: string (optional) - Background color for buttons.
 // - buttonForeground: string (optional) - Foreground color for buttons.
 // - borderWidth: number (optional) - Width of the card border (default: 3px).
-// - lightenButtonColor: number (optional) - Factor to lighten button colors on hover (default: 0.32).
+// - lightenButtonColor: number (optional) - Factor to lighten button colors on hover (default: 0.12).
 // - filledButtonInscription: string (optional) - Text for the primary button (default: 'Buy now').
 // - outlinedButtonInscription: string (optional) - Text for the secondary button (default: 'Add to cart').
 // - swapButtons: boolean (optional) - Flag to swap button positions (default: false).
 // - activeComponentScale: number (optional) - Scale factor on hover (default: 1.024).
 // - mirrorTags: boolean (optional) - Flag to mirror tag positioning (default: false).
+// - darkTextInTags: boolean (optional) - Flag to use dark text color in tags (default: false).
 `,
 code: [
   {
@@ -132,7 +147,7 @@ interface ProductCardProps {
   price: string;
   oldPrice?: string;
   condition?: string;
-  discountPercentage?: number;
+  discountTag?: string;
   title: string;
   description: string;
   showOutlinedButton?: boolean;
@@ -141,6 +156,7 @@ interface ProductCardProps {
   outerWidth?: number;
   outerHeight?: number;
   outerContainerSize?: number;
+  outlineColor?: string;
   innerWidth?: number;
   innerHeight?: number;
   descriptionLines?: number;
@@ -160,6 +176,7 @@ interface ProductCardProps {
   swapButtons?: boolean;
   activeComponentScale?: number;
   mirrorTags?: boolean;
+  darkTextInTags?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -169,7 +186,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   oldPrice,
   condition,
-  discountPercentage,
+  discountTag,
   title,
   description,
   showOutlinedButton = true,
@@ -178,6 +195,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   outerWidth = 390,
   outerHeight = 412,
   outerContainerSize = 32,
+  outlineColor = '#303030',
   innerWidth,
   innerHeight,
   descriptionLines = 3,
@@ -191,18 +209,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
   buttonBackground,
   buttonForeground,
   borderWidth = 3,
-  lightenButtonColor = 0.32,
+  lightenButtonColor = 0.12,
   filledButtonInscription = 'Buy now',
   outlinedButtonInscription = 'Add to cart',
   swapButtons = false,
   activeComponentScale = 1.024,
   mirrorTags = false,
+  darkTextInTags = false, // Default value for the new prop
 }) => {
   const [rotation, setRotation] = useState('0deg');
   const [borderGradient, setBorderGradient] = useState('');
 
   useEffect(() => {
-    setBorderGradient(\`conic-gradient(from var(--rotation), \${accentColor} 0deg, \${accentColor} 90deg, #242424 90deg, #242424 360deg)\`);
+    setBorderGradient(\`conic-gradient(from var(--rotation), \${accentColor} 0deg, \${accentColor} 90deg, \${outlineColor} 90deg, \${outlineColor} 360deg)\`);
   }, [accentColor]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -240,12 +259,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const displayedTitle = title.length > 27 ? title.slice(0, 24) + '...' : title;
-  
   const calculatedInnerWidth = innerWidth || outerWidth - 2 * borderWidth - outerContainerSize;
   const calculatedInnerHeight = innerHeight || outerHeight - 2 * borderWidth - outerContainerSize;
-  
   const backgroundPatternSize = \`\${Math.floor((Math.min(calculatedInnerWidth, calculatedInnerHeight)) / 16)}px\`;
-  
+
   const containerStyle: React.CSSProperties = {
     '--rotation': rotation,
     '--border-gradient': borderGradient,
@@ -257,7 +274,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     height: \`\${outerHeight}px\`,
     borderRadius: \`\${containerRounding}px\`,
     borderWidth: \`\${borderWidth}px\`,
-  } as React.CSSProperties;  
+  } as React.CSSProperties;
 
   const innerContainerStyle: React.CSSProperties = {
     borderRadius: \`\${innerContainerRounding}px\`,
@@ -274,97 +291,92 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const titleStyle: React.CSSProperties = {
     direction: isRTLCheck(title) ? 'rtl' : 'ltr',
   };
+
+  const priceTagStyle = {
+    position: 'absolute' as const,
+    top: '10px',
+    ...(mirrorTags ? { left: '10px', right: 'auto' } : { right: '10px', left: 'auto' }),
+    borderRadius: \`\${tagRounding}px\`,
+    backgroundColor: 'var(--border-color)',
+    padding: '8px 15px',
+    fontSize: '12px',
+    zIndex: 10,
+    display: 'flex',
+    alignItems: 'center',
+    fontWeight: 'bold',
+  };
+
+  const discountTagStyle: React.CSSProperties = {
+    position: 'absolute' as const,
+    top: '51px',
+    ...(mirrorTags ? { left: '10px', right: 'auto' } : { right: '10px', left: 'auto' }),
+    backgroundColor: 'var(--border-color)',
+    padding: '8px 15px',
+    fontSize: '12px',
+    zIndex: 10,
+    borderRadius: \`\${tagRounding}px\`,
+    fontWeight: 'bold',
+    direction: discountTag ? (isRTLCheck(discountTag) ? 'rtl' : 'ltr') : 'ltr',
+    color: darkTextInTags ? '#111111' : 'var(--text-color)',
+  };  
+  
   
   return (
-    <div 
-      className={styles['file-container']} 
-      id={\`container-\${id}\`}
-      onMouseMove={handleMouseMove}
-      style={containerStyle}
-    >
+    <div className={styles['file-container']} id={\`container-\${id}\`} onMouseMove={handleMouseMove} style={containerStyle}>
       <div className={styles['inner-container']} style={innerContainerStyle}>
         <div className={styles['image-container']}>
           <Image src={imageSrc} alt={altText} layout="fill" objectFit="cover" className={styles['file-image']} />
-          <div 
-            className={styles['price-tag']} 
-            style={{ 
+          <div className={styles['price-tag']} style={priceTagStyle}>
+            {mirrorTags ? (
+              <>
+                <span className={styles['new-price']} style={{ fontWeight: 'bold' }}>
+                  <span style={{ color: darkTextInTags ? '#111111' : 'var(--text-color)' }}>{price}</span>
+                </span>
+                {oldPrice && (
+                  <span className={styles['old-price']} style={{ marginLeft: '8px', fontWeight: 'bold' }}>
+                    <span style={{ color: darkTextInTags ? '#404040' : 'var(--text-color)', opacity: 0.64, textDecoration: 'line-through', textDecorationColor: darkTextInTags ? '#404040' : 'var(--text-color)' }}>
+                      {oldPrice}
+                    </span>
+                  </span>
+                )}
+              </>
+            ) : (
+              <>
+                {oldPrice && (
+                  <span className={styles['old-price']} style={{ marginRight: '8px', fontWeight: 'bold' }}>
+                    <span style={{ color: darkTextInTags ? '#404040' : 'var(--text-color)', opacity: 0.64, textDecoration: 'line-through', textDecorationColor: darkTextInTags ? '#404040' : 'var(--text-color)' }}>
+                      {oldPrice}
+                    </span>
+                  </span>
+                )}
+                <span className={styles['new-price']} style={{ fontWeight: 'bold' }}>
+                  <span style={{ color: darkTextInTags ? '#111111' : 'var(--text-color)' }}>{price}</span>
+                </span>
+              </>
+            )}
+          </div>
+          {condition && (
+            <div className={styles['condition-tag']} style={{
               position: 'absolute',
-              top: '10px', 
-              ...(mirrorTags 
-                ? { left: '10px', right: 'auto' } 
-                : { right: '10px', left: 'auto' }
-              ),
-              borderRadius: \`\${tagRounding}px\`,
-              backgroundColor: 'var(--border-color)',
+              top: '10px',
+              ...(mirrorTags ? { right: '10px', left: 'auto' } : { left: '10px', right: 'auto' }),
+              backgroundColor: 'rgba(0,0,0,0.7)',
               color: 'var(--text-color)',
               padding: '8px 15px',
               fontSize: '12px',
               zIndex: 10,
-              display: 'flex',
-              alignItems: 'center',
+              borderRadius: \`\${tagRounding}px\`,
               fontWeight: 'bold'
-            }}
-          >
-            {mirrorTags ? (
-              <>
-                <span className={styles['new-price']} style={{ fontWeight: 'bold' }}>{price}</span>
-                {oldPrice && <span className={styles['old-price']} style={{ marginLeft: '8px', textDecoration: 'line-through', opacity: 0.7, fontWeight: 'bold' }}>{oldPrice}</span>}
-              </>
-            ) : (
-              <>
-                {oldPrice && <span className={styles['old-price']} style={{ textDecoration: 'line-through', opacity: 0.7, marginRight: '8px', fontWeight: 'bold' }}>{oldPrice}</span>}
-                <span className={styles['new-price']} style={{ fontWeight: 'bold' }}>{price}</span>
-              </>
-            )}
-          </div>
-          
-          {condition && (
-            <div 
-              className={styles['condition-tag']} 
-              style={{
-                position: 'absolute',
-                top: '10px',
-                ...(mirrorTags 
-                  ? { right: '10px', left: 'auto' } 
-                  : { left: '10px', right: 'auto' }
-                ),
-                backgroundColor: 'rgba(0,0,0,0.7)',
-                color: 'var(--text-color)',
-                padding: '8px 15px',
-                fontSize: '12px',
-                zIndex: 10,
-                borderRadius: \`\${tagRounding}px\`,
-                fontWeight: 'bold'
-              }}
-            >
+            }}>
               {condition}
             </div>
           )}
-          
-          {discountPercentage && (
-            <div 
-              className={styles['discount-tag']} 
-              style={{ 
-                position: 'absolute',
-                top: '51px', 
-                ...(mirrorTags 
-                  ? { left: '10px', right: 'auto' } 
-                  : { right: '10px', left: 'auto' }
-                ),
-                backgroundColor: 'var(--border-color)',
-                color: 'var(--text-color)',
-                padding: '8px 15px',
-                fontSize: '12px',
-                zIndex: 10,
-                borderRadius: \`\${tagRounding}px\`,
-                fontWeight: 'bold'
-              }}
-            >
-              {discountPercentage}% OFF
+          {discountTag && (
+            <div className={styles['discount-tag']} style={discountTagStyle}>
+              {discountTag}
             </div>
           )}
         </div>
-        
         <div className={styles['content']}>
           <h1 className={styles['text']} style={titleStyle}>{displayedTitle}</h1>
           <p className={styles['description']} style={descriptionStyle}>{description}</p>
@@ -426,7 +438,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
     </div>
-  );  
+  );
 };
 
 export default ProductCard;

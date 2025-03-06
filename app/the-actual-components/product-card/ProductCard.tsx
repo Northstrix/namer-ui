@@ -11,7 +11,7 @@ interface ProductCardProps {
   price: string;
   oldPrice?: string;
   condition?: string;
-  discountPercentage?: number;
+  discountTag?: string;
   title: string;
   description: string;
   showOutlinedButton?: boolean;
@@ -20,6 +20,7 @@ interface ProductCardProps {
   outerWidth?: number;
   outerHeight?: number;
   outerContainerSize?: number;
+  outlineColor?: string;
   innerWidth?: number;
   innerHeight?: number;
   descriptionLines?: number;
@@ -39,6 +40,7 @@ interface ProductCardProps {
   swapButtons?: boolean;
   activeComponentScale?: number;
   mirrorTags?: boolean;
+  darkTextInTags?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -48,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   oldPrice,
   condition,
-  discountPercentage,
+  discountTag,
   title,
   description,
   showOutlinedButton = true,
@@ -57,6 +59,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   outerWidth = 390,
   outerHeight = 412,
   outerContainerSize = 32,
+  outlineColor = '#303030',
   innerWidth,
   innerHeight,
   descriptionLines = 3,
@@ -70,18 +73,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
   buttonBackground,
   buttonForeground,
   borderWidth = 3,
-  lightenButtonColor = 0.32,
+  lightenButtonColor = 0.12,
   filledButtonInscription = 'Buy now',
   outlinedButtonInscription = 'Add to cart',
   swapButtons = false,
   activeComponentScale = 1.024,
   mirrorTags = false,
+  darkTextInTags = false, // Default value for the new prop
 }) => {
   const [rotation, setRotation] = useState('0deg');
   const [borderGradient, setBorderGradient] = useState('');
 
   useEffect(() => {
-    setBorderGradient(`conic-gradient(from var(--rotation), ${accentColor} 0deg, ${accentColor} 90deg, #242424 90deg, #242424 360deg)`);
+    setBorderGradient(`conic-gradient(from var(--rotation), ${accentColor} 0deg, ${accentColor} 90deg, ${outlineColor} 90deg, ${outlineColor} 360deg)`);
   }, [accentColor]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -119,12 +123,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const displayedTitle = title.length > 27 ? title.slice(0, 24) + '...' : title;
-  
   const calculatedInnerWidth = innerWidth || outerWidth - 2 * borderWidth - outerContainerSize;
   const calculatedInnerHeight = innerHeight || outerHeight - 2 * borderWidth - outerContainerSize;
-  
   const backgroundPatternSize = `${Math.floor((Math.min(calculatedInnerWidth, calculatedInnerHeight)) / 16)}px`;
-  
+
   const containerStyle: React.CSSProperties = {
     '--rotation': rotation,
     '--border-gradient': borderGradient,
@@ -136,7 +138,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     height: `${outerHeight}px`,
     borderRadius: `${containerRounding}px`,
     borderWidth: `${borderWidth}px`,
-  } as React.CSSProperties;  
+  } as React.CSSProperties;
 
   const innerContainerStyle: React.CSSProperties = {
     borderRadius: `${innerContainerRounding}px`,
@@ -153,97 +155,92 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const titleStyle: React.CSSProperties = {
     direction: isRTLCheck(title) ? 'rtl' : 'ltr',
   };
+
+  const priceTagStyle = {
+    position: 'absolute' as const,
+    top: '10px',
+    ...(mirrorTags ? { left: '10px', right: 'auto' } : { right: '10px', left: 'auto' }),
+    borderRadius: `${tagRounding}px`,
+    backgroundColor: 'var(--border-color)',
+    padding: '8px 15px',
+    fontSize: '12px',
+    zIndex: 10,
+    display: 'flex',
+    alignItems: 'center',
+    fontWeight: 'bold',
+  };
+
+  const discountTagStyle: React.CSSProperties = {
+    position: 'absolute' as const,
+    top: '51px',
+    ...(mirrorTags ? { left: '10px', right: 'auto' } : { right: '10px', left: 'auto' }),
+    backgroundColor: 'var(--border-color)',
+    padding: '8px 15px',
+    fontSize: '12px',
+    zIndex: 10,
+    borderRadius: `${tagRounding}px`,
+    fontWeight: 'bold',
+    direction: discountTag ? (isRTLCheck(discountTag) ? 'rtl' : 'ltr') : 'ltr',
+    color: darkTextInTags ? '#111111' : 'var(--text-color)',
+  };  
+  
   
   return (
-    <div 
-      className={styles['file-container']} 
-      id={`container-${id}`}
-      onMouseMove={handleMouseMove}
-      style={containerStyle}
-    >
+    <div className={styles['file-container']} id={`container-${id}`} onMouseMove={handleMouseMove} style={containerStyle}>
       <div className={styles['inner-container']} style={innerContainerStyle}>
         <div className={styles['image-container']}>
           <Image src={imageSrc} alt={altText} layout="fill" objectFit="cover" className={styles['file-image']} />
-          <div 
-            className={styles['price-tag']} 
-            style={{ 
+          <div className={styles['price-tag']} style={priceTagStyle}>
+            {mirrorTags ? (
+              <>
+                <span className={styles['new-price']} style={{ fontWeight: 'bold' }}>
+                  <span style={{ color: darkTextInTags ? '#111111' : 'var(--text-color)' }}>{price}</span>
+                </span>
+                {oldPrice && (
+                  <span className={styles['old-price']} style={{ marginLeft: '8px', fontWeight: 'bold' }}>
+                    <span style={{ color: darkTextInTags ? '#404040' : 'var(--text-color)', opacity: 0.64, textDecoration: 'line-through', textDecorationColor: darkTextInTags ? '#404040' : 'var(--text-color)' }}>
+                      {oldPrice}
+                    </span>
+                  </span>
+                )}
+              </>
+            ) : (
+              <>
+                {oldPrice && (
+                  <span className={styles['old-price']} style={{ marginRight: '8px', fontWeight: 'bold' }}>
+                    <span style={{ color: darkTextInTags ? '#404040' : 'var(--text-color)', opacity: 0.64, textDecoration: 'line-through', textDecorationColor: darkTextInTags ? '#404040' : 'var(--text-color)' }}>
+                      {oldPrice}
+                    </span>
+                  </span>
+                )}
+                <span className={styles['new-price']} style={{ fontWeight: 'bold' }}>
+                  <span style={{ color: darkTextInTags ? '#111111' : 'var(--text-color)' }}>{price}</span>
+                </span>
+              </>
+            )}
+          </div>
+          {condition && (
+            <div className={styles['condition-tag']} style={{
               position: 'absolute',
-              top: '10px', 
-              ...(mirrorTags 
-                ? { left: '10px', right: 'auto' } 
-                : { right: '10px', left: 'auto' }
-              ),
-              borderRadius: `${tagRounding}px`,
-              backgroundColor: 'var(--border-color)',
+              top: '10px',
+              ...(mirrorTags ? { right: '10px', left: 'auto' } : { left: '10px', right: 'auto' }),
+              backgroundColor: 'rgba(0,0,0,0.7)',
               color: 'var(--text-color)',
               padding: '8px 15px',
               fontSize: '12px',
               zIndex: 10,
-              display: 'flex',
-              alignItems: 'center',
+              borderRadius: `${tagRounding}px`,
               fontWeight: 'bold'
-            }}
-          >
-            {mirrorTags ? (
-              <>
-                <span className={styles['new-price']} style={{ fontWeight: 'bold' }}>{price}</span>
-                {oldPrice && <span className={styles['old-price']} style={{ marginLeft: '8px', textDecoration: 'line-through', opacity: 0.7, fontWeight: 'bold' }}>{oldPrice}</span>}
-              </>
-            ) : (
-              <>
-                {oldPrice && <span className={styles['old-price']} style={{ textDecoration: 'line-through', opacity: 0.7, marginRight: '8px', fontWeight: 'bold' }}>{oldPrice}</span>}
-                <span className={styles['new-price']} style={{ fontWeight: 'bold' }}>{price}</span>
-              </>
-            )}
-          </div>
-          
-          {condition && (
-            <div 
-              className={styles['condition-tag']} 
-              style={{
-                position: 'absolute',
-                top: '10px',
-                ...(mirrorTags 
-                  ? { right: '10px', left: 'auto' } 
-                  : { left: '10px', right: 'auto' }
-                ),
-                backgroundColor: 'rgba(0,0,0,0.7)',
-                color: 'var(--text-color)',
-                padding: '8px 15px',
-                fontSize: '12px',
-                zIndex: 10,
-                borderRadius: `${tagRounding}px`,
-                fontWeight: 'bold'
-              }}
-            >
+            }}>
               {condition}
             </div>
           )}
-          
-          {discountPercentage && (
-            <div 
-              className={styles['discount-tag']} 
-              style={{ 
-                position: 'absolute',
-                top: '51px', 
-                ...(mirrorTags 
-                  ? { left: '10px', right: 'auto' } 
-                  : { right: '10px', left: 'auto' }
-                ),
-                backgroundColor: 'var(--border-color)',
-                color: 'var(--text-color)',
-                padding: '8px 15px',
-                fontSize: '12px',
-                zIndex: 10,
-                borderRadius: `${tagRounding}px`,
-                fontWeight: 'bold'
-              }}
-            >
-              {discountPercentage}% OFF
+          {discountTag && (
+            <div className={styles['discount-tag']} style={discountTagStyle}>
+              {discountTag}
             </div>
           )}
         </div>
-        
         <div className={styles['content']}>
           <h1 className={styles['text']} style={titleStyle}>{displayedTitle}</h1>
           <p className={styles['description']} style={descriptionStyle}>{description}</p>
@@ -305,7 +302,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
     </div>
-  );  
+  );
 };
 
 export default ProductCard;
