@@ -26,6 +26,8 @@ import AboutUsSection from '@/app/the-actual-components/about-us-section/AboutUs
 // - aboutUsImages: string[] (required) - Array of image URLs for the grid.
 // - aboutUsDescription: string (required) - Text description for the About Us section.
 // - titleText: string (optional) - Title for the section (default: "About Us").
+// - titleTextColor: string (optional) - Color for the title text (default: "#FFFFFF").
+// - descriptionTextColor: string (optional) - Color for the description text (default: "#F1F1F7").
 // - buttonText: string (optional) - Text for the button (default: "Contact Us").
 // - onButtonClick: () => void (optional) - Function to handle button click (default: no-op).
 // - desktopPadding: object (optional) - Padding for desktop view.
@@ -67,6 +69,8 @@ interface AboutUsSectionProps {
   aboutUsImages: string[];
   aboutUsDescription: string;
   titleText?: string;
+  titleTextColor?: string;
+  descriptionTextColor?: string;
   buttonText?: string;
   onButtonClick?: () => void;
   desktopPadding?: { left: string; right: string; top: string; bottom: string };
@@ -150,6 +154,8 @@ const AboutUsSection: React.FC<AboutUsSectionProps> = ({
   aboutUsImages,
   aboutUsDescription,
   titleText = "About Us",
+  titleTextColor = "#FFFFFF",
+  descriptionTextColor = "#F1F1F7",
   buttonText = "Contact Us",
   onButtonClick = () => {},
   desktopPadding = { left: '24px', right: '24px', top: '40px', bottom: '32px' },
@@ -231,7 +237,7 @@ const AboutUsSection: React.FC<AboutUsSectionProps> = ({
   return (
     <div ref={sectionRef} style={{ marginBottom: viewportWidth >= desktopThreshold ? spaceBelowDesktop : spaceBelowMobile }}>
       <StructuredBlock
-        textColor="var(--foreground)"
+        textColor={titleTextColor}
         desktopPadding={sectionHeaderPadding.desktopPadding}
         mobilePadding={sectionHeaderPadding.mobilePadding}
         desktopFontSize={sectionHeaderFontSize.desktop}
@@ -250,7 +256,7 @@ const AboutUsSection: React.FC<AboutUsSectionProps> = ({
             <ImageGridWrapper>{renderImages()}</ImageGridWrapper>
             <TextContainer>
               <StructuredBlock
-                textColor="var(--foreground)"
+                textColor={descriptionTextColor}
                 desktopPadding={{ left: "0", right: "0", top: "0", bottom: "20" }}
                 mobilePadding={{ left: "0", right: "0", top: "20", bottom: "20" }}
                 desktopFontSize={sectionTextFontSize.desktop}
@@ -279,7 +285,7 @@ const AboutUsSection: React.FC<AboutUsSectionProps> = ({
             {renderImages()}
             <TextContainer>
               <StructuredBlock
-                textColor="var(--foreground)"
+                textColor={descriptionTextColor}
                 desktopPadding={{ left: "0", right: "0", top: "0", bottom: "20" }}
                 mobilePadding={{ left: "0", right: "0", top: "20", bottom: "20" }}
                 desktopFontSize={sectionTextFontSize.desktop}

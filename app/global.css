@@ -57,10 +57,12 @@
     --hero-chronicle-button-background: #242424;
     --hero-chronicle-button-foreground: #f0f0f1;
     --hero-chronicle-button-hover-color: #00A7E1;
+    --hero-section-background: #ffffff;
+    --product-card-title-color: #141414;
   }
   .dark {
     --firstThemeColor: #4246CE;
-    --negativeForeground: hsl(240, 16%, 12%);
+    --negativeForeground: #1a1a23;
     --fancy-hero-section-foreground: #FAFAFA; 
     --fancy-hero-section-description-color: #EEEEEE;
     --fancy-hero-section-hovered-text-color: #1F1F1F;
@@ -105,6 +107,8 @@
     --hero-chronicle-button-background: #f0f0f1;
     --hero-chronicle-button-foreground: #1a1a24;
     --hero-chronicle-button-hover-color: #a594fd;
+    --hero-section-background: #141414;
+    --product-card-title-color: #f7f7ff;
   }
 }
 

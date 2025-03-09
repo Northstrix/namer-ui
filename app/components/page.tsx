@@ -52,6 +52,8 @@ import InfiniteTestimonials from '@/app/the-actual-components/infinite-testimoni
 import UnfoldingSidebar from '@/app/the-actual-components/unfolding-sidebar/UnfoldingSidebar'
 import BlogPostHeader from '@/app/the-actual-components/blog-post-header/BlogPostHeader'
 import { Highlight } from "@/app/the-actual-components/hero-highlight/HeroHighlight"
+import ConfirmationPopUp from '@/app/the-actual-components/confirmation-pop-up/ConfirmationPopUp'
+import RNG from '@/app/the-actual-components/rng/RNG'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
@@ -125,6 +127,8 @@ const components = [
   { id: 'unfolding-sidebar', name: 'Unfolding Sidebar', description: 'A modern, space-efficient sidebar that unfolds and collapses, utilizing Framer Motion for smooth transitions.' },
   { id: 'blog-post-header', name: 'Blog Post Header', description: 'A customizable, animated header for blog posts featuring a gradient background, author info, and social links.' },
   { id: 'hero-highlight', name: 'Hero Highlight', description: 'A modified version of the Aceternity component that doesn\'t require modification of the Tailwind configuration file.' },
+  { id: 'confirmation-pop-up', name: 'Confirmation PopUp', description: 'A customizable confirmation popup with dynamic styling and RTL support.' },
+  { id: 'rng', name: 'Random Number Generator', description: 'A modern RNG component that generates random numbers enhanced by the randomness captured from the mouse movements.' },
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -298,6 +302,56 @@ export default function ComponentsPage() {
     const disclaimerString = `<div style={{height: '69px'}}></div>`;
 
     // Simple Navbar Stuff //
+
+    // Confirmation Pop-up Stuff //
+
+    const [showConfirmPopUp, setShowConfirmPopUp] = useState(false);
+
+    const handleConfirmationPopUpConfirm = () => {
+      toast.info('Confirmed');
+      setShowConfirmPopUp(false);
+    };
+  
+    const handleConfirmationPopUpCancel = () => {
+      toast.info('Cancelled');
+      setShowConfirmPopUp(false);
+    };
+
+    // Confirmation Pop-up Stuff //
+
+    // RNG Stuff //
+
+    const [showRNG, setShowRNG] = useState(false);
+
+    const handleRNGClose = (randomData: Uint8Array) => {
+      setShowRNG(false);
+      console.log('Random Data:', randomData);
+      // Optionally, you can also convert the Uint8Array to a hexadecimal string for easier inspection
+      const hexString = Array.from(randomData, (byte) => byte.toString(16).padStart(2, '0')).join('');
+      console.log('Random Data (Hex):', hexString);
+      const foldedRandomValue = xorHalvesRepeatedly(randomData, 7);
+      const hexString1 = Array.from(foldedRandomValue, (byte) => byte.toString(16).padStart(2, '0')).join('');
+      toast.info(`Folded Random Value (Hex): ${hexString1}`);
+    };
+
+    function xorHalvesRepeatedly(array: Uint8Array, repetitions: number): Uint8Array {
+      let result = array;
+      for (let i = 0; i < repetitions; i++) {
+        result = xorHalves(result);
+      }
+      return result;
+    }
+    
+    function xorHalves(array: Uint8Array): Uint8Array {
+      const halfLength = Math.floor(array.length / 2);
+      const result = new Uint8Array(halfLength);
+      for (let i = 0; i < halfLength; i++) {
+        result[i] = array[i] ^ array[i + halfLength];
+      }
+      return result;
+    }
+
+    // RNG Stuff //
     
   const renderComponent = () => {
     switch(activeComponent) {
@@ -2532,6 +2586,63 @@ export default function ComponentsPage() {
               </h1>
           </div>
         );
+      case 'confirmation-pop-up':
+        return (
+          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            <ChronicleButton 
+              text='Show Pop-up'
+              onClick={() => setShowConfirmPopUp(true)}
+            />
+            <ConfirmationPopUp
+              showConfirmPopUp={showConfirmPopUp}
+              onConfirm={handleConfirmationPopUpConfirm}
+              onCancel={handleConfirmationPopUpCancel}
+              confirmText="Yes"
+              cancelText="No"
+              messageText="Are you sure you want to delete this file?"
+              mirrorButtons={false}
+              textSize={21}
+              inscriptionColor="#f7f7ff"
+              backgroundColorFirst="#eeeeee"
+              backgroundColorSecond="#242424"
+              borderColor="#545454"
+              generalBorderRadius="8px"
+              borderWidth={1}
+              modalWidth="auto"
+              modalHeight="auto"
+              modalPadding="24px"
+              marginAroundModal="1rem"
+              
+              buttonOutlineColor="#484848" 
+              buttonBorderRadius="4px" 
+              
+              confirmFirstClass="bg-[#202021] text-[#f7f7ff]"
+              confirmSecondClass="bg-[#7538CB] text-[#f7f7ff]"
+              cancelFirstClass="bg-[#202021] text-[#f1f1f7]"
+              cancelSecondClass="bg-[#DAFA34] text-[#181820]"
+            />
+          </div>
+        );
+      case 'rng':
+        return (
+          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative flex-col">
+            <div className="text-[#f7f7ff]  text-center  mb-4">
+              <strong>Disclaimer:</strong> The random number generator provided here is for demonstration purposes only. It hasn't undergone a security audit, which means it should not be used for any critical or sensitive applications where security is paramount. The generated numbers are not guaranteed to be cryptographically secure or suitable for high-stakes uses. Use this tool at your own risk.
+            </div>
+            <ChronicleButton 
+              text='Show RNG'
+              onClick={() => setShowRNG(true)}
+            />
+            {showRNG && (
+              <RNG
+                onClose={handleRNGClose}
+                width="auto"
+                height="auto"
+                borderRadius="10px"
+              />
+            )}
+          </div>
+        );        
       default:
         return <div>No preview available.</div>;
     }
