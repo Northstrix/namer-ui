@@ -21,6 +21,7 @@ import PositionAwareButton from '@/app/the-actual-components/position-aware-butt
 import FancyNotification from '@/app/the-actual-components/fancy-notification/FancyNotification'
 import MagicButton from '@/app/the-actual-components/magic-button/MagicButton'
 import HalomotButton from '@/app/the-actual-components/halomot-button/HalomotButton'
+import DreamyInput from '@/app/the-actual-components/dreamy-input/DreamyInput'
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch'
 import SkeuomorphicToggle from '@/app/the-actual-components/skeuomorphic-toggle/SkeuomorphicToggle'
 import RisingDroplets from '@/app/the-actual-components/rising-droplets/RisingDroplets'
@@ -53,7 +54,12 @@ import UnfoldingSidebar from '@/app/the-actual-components/unfolding-sidebar/Unfo
 import BlogPostHeader from '@/app/the-actual-components/blog-post-header/BlogPostHeader'
 import { Highlight } from "@/app/the-actual-components/hero-highlight/HeroHighlight"
 import ConfirmationPopUp from '@/app/the-actual-components/confirmation-pop-up/ConfirmationPopUp'
-import RNG from '@/app/the-actual-components/rng/RNG'
+import RNG from '@/app/the-actual-components/random-number-generator/RandomNumberGenerator'
+
+import FileEncrypter from '@/app/the-actual-components/file-encrypter/FileEncrypter'
+import EncryptedFileAndKeyDownloaderHelper from '@/app/the-actual-components/file-encrypter/EncryptedFileAndKeyDownloaderHelper'
+import FileDecrypter from '@/app/the-actual-components/file-encrypter/FileDecrypter'
+import DecryptModal from '@/app/the-actual-components/file-encrypter/DecryptModal';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
@@ -66,6 +72,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IconBorderRightPlus, IconFoldDown } from '@tabler/icons-react';
 import styled from 'styled-components';
+
+import { I18nextProvider } from 'react-i18next'; // Import I18nextProvider
+import i18nConf from '@/next-i18next.config.js'; // Import your i18n configuration
+import { useTranslation } from 'react-i18next';
 
 interface Metadata {
   usage: string;
@@ -96,6 +106,7 @@ const components = [
   { id: 'fancy-notification', name: 'Fancy Notification', description: 'An animated rectangle notification.' },
   { id: 'magic-button', name: 'Magic Button', description: 'A button that employs moving particles.' },
   { id: 'halomot-button', name: 'Halomot Button', description: 'A stylish button with a vibrant gradient that fills it on hover.' },
+  { id: "dreamy-input", name: "Dreamy Input", description: "A customizable input field with smooth animations and RTL support." },
   { id: 'shamayim-toggle-switch', name: 'Shamayim Toggle Switch', description: 'A celestial-themed toggle switch with a smooth animation and mirroring option.' },
   { id: 'skeuomorphic-toggle', name: 'Skeuomorphic Switch', description: 'A skeuomorphic toggle switch with customizable colors, inscriptions, and mirroring option.' },
   { id: 'rising-droplets', name: 'Rising Droplets', description: 'An animation of droplets rising from the bottom of the container to the top,' },
@@ -128,7 +139,8 @@ const components = [
   { id: 'blog-post-header', name: 'Blog Post Header', description: 'A customizable, animated header for blog posts featuring a gradient background, author info, and social links.' },
   { id: 'hero-highlight', name: 'Hero Highlight', description: 'A modified version of the Aceternity component that doesn\'t require modification of the Tailwind configuration file.' },
   { id: 'confirmation-pop-up', name: 'Confirmation PopUp', description: 'A customizable confirmation popup with dynamic styling and RTL support.' },
-  { id: 'rng', name: 'Random Number Generator', description: 'A modern RNG component that generates random numbers enhanced by the randomness captured from the mouse movements.' },
+  { id: 'random-number-generator', name: 'Random Number Generator', description: 'A modern RNG component that generates random numbers enhanced by the randomness captured from the mouse movements.' },
+  { id: "file-encrypter", name: "File Encrypter", description: "A file encryption component that utilizes the \"ChaCha20 + Serpent 256-CBC + HMAC-SHA3-512\" authenticated encryption scheme. Each file is encrypted with its own key, derived using Argon2id." },
 ]
 
 //console.log(`There are ${components.length} components available.`);
@@ -322,11 +334,12 @@ export default function ComponentsPage() {
     // RNG Stuff //
 
     const [showRNG, setShowRNG] = useState(false);
-
+    const [showHebrewRNG, setShowHebrewRNG] = useState(false);
+    
     const handleRNGClose = (randomData: Uint8Array) => {
       setShowRNG(false);
+      setShowHebrewRNG(false);
       console.log('Random Data:', randomData);
-      // Optionally, you can also convert the Uint8Array to a hexadecimal string for easier inspection
       const hexString = Array.from(randomData, (byte) => byte.toString(16).padStart(2, '0')).join('');
       console.log('Random Data (Hex):', hexString);
       const foldedRandomValue = xorHalvesRepeatedly(randomData, 7);
@@ -352,6 +365,480 @@ export default function ComponentsPage() {
     }
 
     // RNG Stuff //
+
+    // File Encrypter Stuff //
+
+      // Shared Hooks //
+
+        const { i18n, t } = useTranslation(); // Localization
+        const [masterKeyForFileEncrypter, setmasterKeyForFileEncrypter] = useState<Uint8Array>(new Uint8Array([1, 2]));
+        const [argon2Iterations, setArgon2Iterations] = useState<number>(900);
+        const [fileEncrypterResult, setFileEncrypterResult] = useState({
+          randomlyGeneratedFileKey: null as Uint8Array | null,
+          fileSalt: null as Uint8Array | null,
+          metadataSalt: null as Uint8Array | null,
+          encryptedFileContent: null as Uint8Array | null,
+          encryptedFilename: null as Uint8Array | null,
+          encryptedDescription: null as Uint8Array | null,
+          encryptedMetadataTag: null as Uint8Array | null,
+          encryptedRecordIntegrityTag: null as Uint8Array | null,
+          isThereAnError: false,
+          errorMessage: "",
+        });     
+
+      // Shared Hooks //
+
+      // Encrypter Hooks //
+
+        const [selectedFile, setSelectedFile] = useState<File | null>(null);
+        const [isEncrypterOpen, setIsEncrypterOpen] = useState(false);
+        
+        const [isEncryptedFileDownloaderVisible, setIsEncryptedFileDownloaderVisible] = useState(false);
+        const [encryptedFileDownloaderType, setEncryptedFileDownloaderType] = useState<'fileDownload' | 'error' | 'operationCancelled'>('fileDownload');
+        
+      // Encrypter Hooks //
+  
+      // Decrypter Hooks //
+
+        // Input for the component //
+
+          const [encryptedFileContent, setEncryptedFileContent] = useState<Uint8Array | null>(new Uint8Array());
+          const [randomlyGeneratedFileKey, setRandomlyGeneratedFileKey] = useState<Uint8Array | null>(null);
+          const [fileSalt, setFileSalt] = useState<Uint8Array | null>(null);
+          const [metadataSalt, setMetadataSalt] = useState<Uint8Array | null>(null);
+          const [encryptedFilename, setEncryptedFilename] = useState<Uint8Array | null>(null);
+          const [encryptedDescription, setEncryptedDescription] = useState<Uint8Array | null>(null);
+          const [encryptedMetadataTag, setEncryptedMetadataTag] = useState<Uint8Array | null>(null);
+          const [encryptedRecordIntegrityTag, setEncryptedRecordIntegrityTag] = useState<Uint8Array | null>(null);
+          const [isDecrypterOpen, setIsDecrypterOpen] = useState(false);
+
+        // Input for the component //
+
+        // Output from the component //
+
+          const [decryptedFilenameFromDecrypter, setDecryptedFilenameFromDecrypter] = useState<Uint8Array | null>(null);
+          const [filenameIntegrityFromDecrypter, setFilenameIntegrityFromDecrypter] = useState<Boolean | null>(null);
+          const [filenamePaddingValidFromDecrypter, setFilenamePaddingValidFromDecrypter] = useState<Boolean | null>(null);
+          
+          const [decryptedDescriptionFromDecrypter, setDecryptedDescriptionFromDecrypter] = useState<Uint8Array | null>(null);
+          const [descriptionIntegrityFromDecrypter, setDescriptionIntegrityFromDecrypter] = useState<Boolean | null>(null);
+          const [descriptionPaddingValidFromDecrypter, setDescriptionPaddingValidFromDecrypter] = useState<Boolean | null>(null);
+          
+          const [metadataIntegrityFromDecrypter, setMetadataIntegrityFromDecrypter] = useState<Boolean | null>(null);
+          const [decryptedFileContentFromDecrypter, setDecryptedFileContentFromDecrypter] = useState<Uint8Array | null>(null);
+          const [fileIntegrityCompromisedFromDecrypter, setFileIntegrityCompromisedFromDecrypter] = useState<boolean>(false);
+          const [fileHasInvalidPaddingFromDecrypter, setFileHasInvalidPaddingFromDecrypter] = useState<boolean>(false);
+          const [recordIntegrityFromDecrypter, setRecordIntegrityFromDecrypter] = useState<Boolean | null>(null);
+          
+          const [messagesFromDecrypter, setMessagesFromDecrypter] = useState<Message[]>([]);
+          const [isThereAnErrorFromDecrypter, setIsThereAnErrorFromDecrypter] = useState<boolean>(false);
+          const [errorMessageFromDecrypter, setErrorMessageFromDecrypter] = useState<string>('');        
+
+        // Output from the component //
+
+        const [showDecryptModal, setShowDecryptModal] = useState(false);
+
+      // Decrypter Hooks //
+
+      // Encrypter //
+
+      const handleCloseEncryptedFileDownloader = () => {
+        setIsEncryptedFileDownloaderVisible(false);
+      };
+      
+      const handleShowFileEncrypterPopUp = (type: "fileDownload" | "error" | "operationCancelled") => {
+        setEncryptedFileDownloaderType(type);
+      };
+      
+      const handleFileEncrypterClose = (result: {
+        randomlyGeneratedFileKey: Uint8Array | null;
+        fileSalt: Uint8Array | null;
+        metadataSalt: Uint8Array | null;
+        encryptedFileContent: Uint8Array | null;
+        encryptedFilename: Uint8Array | null;
+        encryptedDescription: Uint8Array | null;
+        encryptedMetadataTag: Uint8Array | null;
+        encryptedRecordIntegrityTag: Uint8Array | null;
+        isThereAnError: boolean;
+        errorMessage: string;
+      }) => {
+        setIsEncrypterOpen(false);
+        setFileEncrypterResult(result);
+      
+        if (result.isThereAnError) {
+          console.log('Error occurred:', result.errorMessage);
+          handleShowFileEncrypterPopUp("error");
+          setIsEncryptedFileDownloaderVisible(true);
+          return;
+        }
+      
+        if (
+          !result.randomlyGeneratedFileKey &&
+          !result.fileSalt &&
+          !result.metadataSalt &&
+          !result.encryptedFileContent &&
+          !result.encryptedFilename &&
+          !result.encryptedDescription &&
+          !result.encryptedMetadataTag &&
+          !result.encryptedRecordIntegrityTag
+        ) {
+          handleShowFileEncrypterPopUp("operationCancelled");
+        } else {
+          handleShowFileEncrypterPopUp("fileDownload");
+        }
+        setIsEncryptedFileDownloaderVisible(true);
+      };          
+      
+      useEffect(() => {
+        const randomKey = new Uint8Array(272);
+        window.crypto.getRandomValues(randomKey);
+        setmasterKeyForFileEncrypter(randomKey);
+      
+        // Generate random number of iterations for Argon2id
+        const randomIterations = new Uint32Array(1);
+        window.crypto.getRandomValues(randomIterations);
+        const iterations = 800 + (randomIterations[0] % 301); // 301 is the range from 800 to 1100
+        setArgon2Iterations(iterations);
+      }, []);    
+      
+      const handleFilesFromEnglishDropzoneForFileEncrypter = (files: File[]) => {
+        i18n.changeLanguage('en');
+        const selectedFile = files[0];
+        if (selectedFile.size > 0 && selectedFile.size < 300 * 1024 * 1024) {
+          setSelectedFile(selectedFile);
+          setIsEncrypterOpen(true);
+        } else if (selectedFile.size === 0) {
+          alert('Please select a valid file. The file you chose appears to be empty.');
+        } else {
+          alert('The selected file exceeds the maximum size limit of 300MB. Please choose a smaller file.');
+        }
+      };
+      
+      const handleFilesFromHebrewDropzoneForFileEncrypter = (files: File[]) => {
+        i18n.changeLanguage('he');
+        const selectedFile = files[0];
+        if (selectedFile.size > 0 && selectedFile.size < 300 * 1024 * 1024) {
+          setSelectedFile(selectedFile);
+          setIsEncrypterOpen(true);
+        } else if (selectedFile.size === 0) {
+          alert('אנא בחר קובץ תקין. הקובץ שבחרת נראה ריק.');
+        } else {
+          alert('הקובץ שנבחר עולה על הגבול המקסימלי של 300MB. אנא בחר קובץ קטן יותר.');
+        }
+      };
+
+      // Encrypter //
+
+      // Decrypter //
+
+      interface Message {
+        text: string;
+        success: boolean;
+      }
+
+      const onDecrypterClosed = (result: {
+        decryptedFilename: Uint8Array | null;
+        filenameIntegrity: Boolean | null;
+        filenamePaddingValid: Boolean | null;
+      
+        decryptedDescription: Uint8Array | null;
+        descriptionIntegrity: Boolean | null;
+        descriptionPaddingValid: Boolean | null;
+      
+        metadataIntegrity: Boolean | null;
+        metadataStatus: Message[];
+      
+        decryptedFileContent: Uint8Array | null;
+        fileIntegrityCompromised: boolean;
+        fileHasInvalidPadding: boolean;
+        fileStatus: Message[];
+      
+        recordIntegrity: Boolean | null;
+        recordStatus: Message[];
+      
+        isThereAnError: boolean;
+        errorMessage: string;
+      }) => {
+        console.log('Decrypter closed with result:');
+      
+        if (result.isThereAnError) {
+          console.error('Error occurred:', result.errorMessage);
+          alert(result.errorMessage);
+        } else if (
+          result.decryptedFilename === null &&
+          result.filenameIntegrity === null &&
+          result.filenamePaddingValid === null &&
+          result.decryptedDescription === null &&
+          result.descriptionIntegrity === null &&
+          result.descriptionPaddingValid === null &&
+          result.metadataIntegrity === null &&
+          result.metadataStatus.length === 0 &&
+          result.decryptedFileContent === null &&
+          result.fileIntegrityCompromised === false &&
+          result.fileHasInvalidPadding === false &&
+          result.fileStatus.length === 0 &&
+          result.recordIntegrity === null &&
+          result.recordStatus.length === 0
+        ) {
+          alert(t('decryption-cancelled'));
+        } else {
+          const messages = [...result.metadataStatus, ...result.fileStatus, ...result.recordStatus];
+          
+          console.log('Filename and Description:');
+          console.log('Decrypted filename:', result.decryptedFilename);
+          console.log('Filename integrity:', result.filenameIntegrity);
+          console.log('Filename padding valid:', result.filenamePaddingValid);
+          console.log('Decrypted description:', result.decryptedDescription);
+          console.log('Description integrity:', result.descriptionIntegrity);
+          console.log('Description padding valid:', result.descriptionPaddingValid);
+      
+          console.log('\nMetadata:');
+          console.log('Metadata integrity:', result.metadataIntegrity);
+      
+          console.log('\nFile:');
+          console.log('Decrypted file content:', result.decryptedFileContent);
+          console.log('File integrity compromised:', result.fileIntegrityCompromised);
+          console.log('File has invalid padding:', result.fileHasInvalidPadding);
+      
+          console.log('\nRecord:');
+          console.log('Record integrity:', result.recordIntegrity);
+          
+          console.log('\nMessages:');
+          messages.forEach((message) => {
+            console.log(message);
+          });
+          
+          // Set values into state hooks
+          setDecryptedFilenameFromDecrypter(result.decryptedFilename);
+          setFilenameIntegrityFromDecrypter(result.filenameIntegrity);
+          setFilenamePaddingValidFromDecrypter(result.filenamePaddingValid);
+          setDecryptedDescriptionFromDecrypter(result.decryptedDescription);
+          setDescriptionIntegrityFromDecrypter(result.descriptionIntegrity);
+          setDescriptionPaddingValidFromDecrypter(result.descriptionPaddingValid);
+      
+          setMetadataIntegrityFromDecrypter(result.metadataIntegrity);
+          setDecryptedFileContentFromDecrypter(result.decryptedFileContent);
+          setFileIntegrityCompromisedFromDecrypter(result.fileIntegrityCompromised);
+          setFileHasInvalidPaddingFromDecrypter(result.fileHasInvalidPadding);
+          setRecordIntegrityFromDecrypter(result.recordIntegrity);
+          setMessagesFromDecrypter(messages);
+      
+          // Open DecryptModal
+          setShowDecryptModal(true);
+        }
+      };
+
+      const generateFileSizeString = (sizeInBytes: number): string => {
+        if (sizeInBytes >= 1024 * 1024 * 1024) {
+          return `${(sizeInBytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+        } else if (sizeInBytes >= 1024 * 1024) {
+          return `${(sizeInBytes / (1024 * 1024)).toFixed(2)} MB`;
+        } else if (sizeInBytes >= 1024) {
+          return `${(sizeInBytes / 1024).toFixed(2)} KB`;
+        } else if (sizeInBytes === 1) {
+          return `1 byte`;
+        } else {
+          return `${sizeInBytes.toFixed(0)} bytes`;
+        }
+      };
+
+      const handleFilesFromEnglishDropzoneForFileDecrypter = async (files: File[]) => {
+        i18n.changeLanguage('en');
+      
+        if (files.length !== 2) {
+          alert('Please select two files: the encrypted data and the key.');
+          return;
+        }
+      
+        const encryptedFile = files.find(file => file.name.endsWith('.encrypted-data'));
+        const keyFile = files.find(file => file.name.endsWith('.key'));
+      
+        if (!encryptedFile || !keyFile) {
+          alert('Please ensure both files have the correct extensions: .encrypted-data and .key.');
+          return;
+        }
+      
+        const keyContent = await readFileAsText(keyFile);
+      
+        const keyParts = keyContent.split(',');
+        const masterKeyBase64 = keyParts[0];
+        const iterations = parseInt(keyParts[1]);
+        const randomlyGeneratedFileKeyBase64 = keyParts[2];
+        const fileSaltBase64 = keyParts[3];
+        const metadataSaltBase64 = keyParts[4];
+        const encryptedFilenameBase64 = keyParts[5];
+        const encryptedDescriptionBase64 = keyParts[6];
+        const encryptedMetadataTagBase64 = keyParts[7];
+        const encryptedRecordIntegrityTagBase64 = keyParts[8];
+      
+        let masterKey: Uint8Array | null = masterKeyBase64 === "null" ? null : base64ToUint8Array(masterKeyBase64);
+        let randomlyGeneratedFileKey: Uint8Array | null = randomlyGeneratedFileKeyBase64 === "null" ? null : base64ToUint8Array(randomlyGeneratedFileKeyBase64);
+        let fileSalt: Uint8Array | null = fileSaltBase64 === "null" ? null : base64ToUint8Array(fileSaltBase64);
+        let metadataSalt: Uint8Array | null = metadataSaltBase64 === "null" ? null : base64ToUint8Array(metadataSaltBase64);
+        let encryptedFilename: Uint8Array | null = encryptedFilenameBase64 === "null" ? null : base64ToUint8Array(encryptedFilenameBase64);
+        let encryptedDescription: Uint8Array | null = encryptedDescriptionBase64 === "null" ? null : base64ToUint8Array(encryptedDescriptionBase64);
+        let encryptedMetadataTag: Uint8Array | null = encryptedMetadataTagBase64 === "null" ? null : base64ToUint8Array(encryptedMetadataTagBase64);
+        let encryptedRecordIntegrityTag: Uint8Array | null = encryptedRecordIntegrityTagBase64 === "null" ? null : base64ToUint8Array(encryptedRecordIntegrityTagBase64);
+      
+        if (!masterKey) {
+          alert('The master key is missing!');
+          return;
+        }
+      
+        const encryptedFileContent = await readFileAsUint8Array(encryptedFile);
+      
+        // Set any Uint8Array values to null if they are exactly 1 element long
+        if (masterKey && masterKey.length === 1) masterKey = null;
+        if (randomlyGeneratedFileKey && randomlyGeneratedFileKey.length === 1) randomlyGeneratedFileKey = null;
+        if (fileSalt && fileSalt.length === 1) fileSalt = null;
+        if (metadataSalt && metadataSalt.length === 1) metadataSalt = null;
+        if (encryptedFilename && encryptedFilename.length === 1) encryptedFilename = null;
+        if (encryptedDescription && encryptedDescription.length === 1) encryptedDescription = null;
+        if (encryptedMetadataTag && encryptedMetadataTag.length === 1) encryptedMetadataTag = null;
+        if (encryptedRecordIntegrityTag && encryptedRecordIntegrityTag.length === 1) encryptedRecordIntegrityTag = null;
+        
+        // Print all values to the console
+        console.log('Encrypted File Content:', encryptedFileContent);
+        console.log('Master Key:', masterKey);
+        console.log('Iterations:', iterations);
+        console.log('Randomly Generated File Key:', randomlyGeneratedFileKey);
+        console.log('File Salt:', fileSalt);
+        console.log('Metadata Salt:', metadataSalt);
+        console.log('Encrypted Filename:', encryptedFilename);
+        console.log('Encrypted Description:', encryptedDescription);
+        console.log('Encrypted Metadata Tag:', encryptedMetadataTag);
+        console.log('Encrypted Record Integrity Tag:', encryptedRecordIntegrityTag);
+        
+        setEncryptedFileContent(encryptedFileContent);
+        setArgon2Iterations(iterations);
+        setRandomlyGeneratedFileKey(randomlyGeneratedFileKey);
+        setFileSalt(fileSalt);
+        setMetadataSalt(metadataSalt);
+        setEncryptedFilename(encryptedFilename);
+        setEncryptedDescription(encryptedDescription);
+        setEncryptedMetadataTag(encryptedMetadataTag);
+        setEncryptedRecordIntegrityTag(encryptedRecordIntegrityTag);
+      
+        if (masterKey) {
+          setmasterKeyForFileEncrypter(masterKey);
+          setIsDecrypterOpen(true);
+        }
+      };
+      
+      const handleFilesFromHebrewDropzoneForFileDecrypter = async (files: File[]) => {
+        i18n.changeLanguage('he');
+        
+        if (files.length !== 2) {
+          alert('Please select two files: the encrypted data and the key.');
+          return;
+        }
+      
+        const encryptedFile = files.find(file => file.name.endsWith('.encrypted-data'));
+        const keyFile = files.find(file => file.name.endsWith('.key'));
+      
+        if (!encryptedFile || !keyFile) {
+          alert('Please ensure both files have the correct extensions: .encrypted-data and .key.');
+          return;
+        }
+      
+        const keyContent = await readFileAsText(keyFile);
+      
+        const keyParts = keyContent.split(',');
+        const masterKeyBase64 = keyParts[0];
+        const iterations = parseInt(keyParts[1]);
+        const randomlyGeneratedFileKeyBase64 = keyParts[2];
+        const fileSaltBase64 = keyParts[3];
+        const metadataSaltBase64 = keyParts[4];
+        const encryptedFilenameBase64 = keyParts[5];
+        const encryptedDescriptionBase64 = keyParts[6];
+        const encryptedMetadataTagBase64 = keyParts[7];
+        const encryptedRecordIntegrityTagBase64 = keyParts[8];
+      
+        let masterKey: Uint8Array | null = masterKeyBase64 === "null" ? null : base64ToUint8Array(masterKeyBase64);
+        let randomlyGeneratedFileKey: Uint8Array | null = randomlyGeneratedFileKeyBase64 === "null" ? null : base64ToUint8Array(randomlyGeneratedFileKeyBase64);
+        let fileSalt: Uint8Array | null = fileSaltBase64 === "null" ? null : base64ToUint8Array(fileSaltBase64);
+        let metadataSalt: Uint8Array | null = metadataSaltBase64 === "null" ? null : base64ToUint8Array(metadataSaltBase64);
+        let encryptedFilename: Uint8Array | null = encryptedFilenameBase64 === "null" ? null : base64ToUint8Array(encryptedFilenameBase64);
+        let encryptedDescription: Uint8Array | null = encryptedDescriptionBase64 === "null" ? null : base64ToUint8Array(encryptedDescriptionBase64);
+        let encryptedMetadataTag: Uint8Array | null = encryptedMetadataTagBase64 === "null" ? null : base64ToUint8Array(encryptedMetadataTagBase64);
+        let encryptedRecordIntegrityTag: Uint8Array | null = encryptedRecordIntegrityTagBase64 === "null" ? null : base64ToUint8Array(encryptedRecordIntegrityTagBase64);
+      
+        const encryptedFileContent = await readFileAsUint8Array(encryptedFile);
+      
+        // Set any Uint8Array values to null if they are exactly 1 element long
+        if (masterKey && masterKey.length === 1) masterKey = null;
+        if (randomlyGeneratedFileKey && randomlyGeneratedFileKey.length === 1) randomlyGeneratedFileKey = null;
+        if (fileSalt && fileSalt.length === 1) fileSalt = null;
+        if (metadataSalt && metadataSalt.length === 1) metadataSalt = null;
+        if (encryptedFilename && encryptedFilename.length === 1) encryptedFilename = null;
+        if (encryptedDescription && encryptedDescription.length === 1) encryptedDescription = null;
+        if (encryptedMetadataTag && encryptedMetadataTag.length === 1) encryptedMetadataTag = null;
+        if (encryptedRecordIntegrityTag && encryptedRecordIntegrityTag.length === 1) encryptedRecordIntegrityTag = null;
+        
+        // Print all values to the console
+        console.log('Encrypted File Content:', encryptedFileContent);
+        console.log('Master Key:', masterKey);
+        console.log('Iterations:', iterations);
+        console.log('Randomly Generated File Key:', randomlyGeneratedFileKey);
+        console.log('File Salt:', fileSalt);
+        console.log('Metadata Salt:', metadataSalt);
+        console.log('Encrypted Filename:', encryptedFilename);
+        console.log('Encrypted Description:', encryptedDescription);
+        console.log('Encrypted Metadata Tag:', encryptedMetadataTag);
+        console.log('Encrypted Record Integrity Tag:', encryptedRecordIntegrityTag);
+        
+        setEncryptedFileContent(encryptedFileContent);
+        setArgon2Iterations(iterations);
+        setRandomlyGeneratedFileKey(randomlyGeneratedFileKey);
+        setFileSalt(fileSalt);
+        setMetadataSalt(metadataSalt);
+        setEncryptedFilename(encryptedFilename);
+        setEncryptedDescription(encryptedDescription);
+        setEncryptedMetadataTag(encryptedMetadataTag);
+        setEncryptedRecordIntegrityTag(encryptedRecordIntegrityTag);
+      
+        if (masterKey) {
+          setmasterKeyForFileEncrypter(masterKey);
+          setIsDecrypterOpen(true);
+        }
+      };
+      
+      // Helper functions
+      const readFileAsUint8Array = async (file: File): Promise<Uint8Array> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(new Uint8Array(reader.result as ArrayBuffer));
+          reader.onerror = reject;
+          reader.readAsArrayBuffer(file);
+        });
+      };
+      
+      const readFileAsText = async (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsText(file);
+        });
+      };      
+      
+      const base64ToUint8Array = (base64: string): Uint8Array => {
+        try {
+          const binaryString = atob(base64);
+          const uint8Array = new Uint8Array(binaryString.length);
+          for (let i = 0; i < binaryString.length; i++) {
+            uint8Array[i] = binaryString.charCodeAt(i);
+          }
+          return uint8Array;
+        } catch (error) {
+          console.warn(error);
+          return new Uint8Array([1]);
+        }
+      };
+
+      // Decrypter //
+
+    // File Encrypter Stuff //
     
   const renderComponent = () => {
     switch(activeComponent) {
@@ -1346,6 +1833,37 @@ export default function ComponentsPage() {
             <HalomotButton 
               inscription="חלומות" 
               onClick={() => toast.info("Halomot button has been clicked!")}
+            />
+          </div>
+        );
+      case 'dreamy-input':
+        return (
+          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] gap-6 flex flex-col items-center justify-center">
+            <DreamyInput
+              placeholder="This is a default input"
+            />
+            <DreamyInput
+              placeholder="This is a placeholder text"
+              multiLine={true}
+              multiLineHeight={4.18}
+              presetText={`The tree that would grow to heaven must send its roots to hell.
+  Friedrich Nietzsche`}
+              outlineColor = "linear-gradient(135deg, #8113c3, #9f9ebf, #cc0fc0)"
+              outlineColorHover = "linear-gradient(135deg, #a117f4, #c7c5ef, #ff13f0)"
+            />
+            <DreamyInput
+              presetText={`Read-only`}
+              readOnly
+            />
+            <DreamyInput
+              placeholder="Blocked (disabled) input"
+              blocked
+            />
+            <DreamyInput
+              placeholder="Blocked Text Area"
+              multiLine={true}
+              multiLineHeight={2.14}
+              blocked
             />
           </div>
         );
@@ -2623,33 +3141,190 @@ export default function ComponentsPage() {
             />
           </div>
         );
-      case 'rng':
+      case 'random-number-generator':
         return (
           <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative flex-col">
             <div className="text-[#f7f7ff]  text-center  mb-4">
               <strong>Disclaimer:</strong> The random number generator provided here is for demonstration purposes only. It hasn't undergone a security audit, which means it should not be used for any critical or sensitive applications where security is paramount. The generated numbers are not guaranteed to be cryptographically secure or suitable for high-stakes uses. Use this tool at your own risk.
             </div>
-            <ChronicleButton 
-              text='Show RNG'
-              onClick={() => setShowRNG(true)}
-            />
-            {showRNG && (
-              <RNG
-                onClose={handleRNGClose}
-                width="auto"
-                height="auto"
-                borderRadius="10px"
+              <ChronicleButton 
+                text='Show RNG'
+                onClick={() => setShowRNG(true)}
               />
-            )}
+              {showRNG && (
+                <RNG
+                  onClose={handleRNGClose}
+                  borderRadius="10px"
+                />
+              )}
+              
+              <ChronicleButton 
+                text='Show RNG (RTL)'
+                width='204px'
+                onClick={() => setShowHebrewRNG(true)}
+              />
+              {showHebrewRNG && (
+                <RNG
+                  onClose={handleRNGClose}
+                  title="מחולל מספרים אקראיים"
+                  inscription="העבר את העכבר כדי להגדיל את האקראיות."
+                  buttonInscription="המשך"
+                  isRTL={true}
+                  borderRadius="10px"
+                />
+              )}
           </div>
-        );        
+        );
+      case 'file-encrypter':
+        return (
+          <>
+          <span className="text-3xl font-bold" style={{ marginBottom: "16px", display: "block" }}>Encrypter</span>
+            <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+              <SimpleDropzone
+                onFilesAdded={handleFilesFromEnglishDropzoneForFileEncrypter}
+                activeInscription="Drop the file here..."
+                defaultInscription="Drag & drop a file here, or click to select a file"
+                borderColor="#e7e7ef"
+                borderWidth="2px"
+                textColor="#fff"
+                borderRadius="12px"
+                singleFileOnly={true}
+                onMultipleFilesSelected={(isMultiple) => {
+                  if (isMultiple) {
+                    alert('Please select only one file.');
+                  }
+                }}
+              />
+
+              <SimpleDropzone
+                onFilesAdded={handleFilesFromHebrewDropzoneForFileEncrypter}
+                activeInscription="הפל את הקובץ כאן..."
+                defaultInscription="גרור והפל קובץ כאן, או לחץ כדי לבחור קובץ"
+                borderColor="#e7e7ef"
+                activeBorderColor="#124CAE"
+                borderWidth="2px"
+                textColor="#fff"
+                borderRadius="12px"
+                singleFileOnly={true}
+                onMultipleFilesSelected={(isMultiple) => {
+                  if (isMultiple) {
+                    alert('Please select only one file.');
+                  }
+                }}
+              />
+              {isEncrypterOpen && (
+                <FileEncrypter
+                  file={selectedFile}
+                  masterKey={masterKeyForFileEncrypter}
+                  numberOfIterationsForArgon2={argon2Iterations}
+                  onClose={handleFileEncrypterClose}
+                  isOpen={isEncrypterOpen}
+                />
+              )}
+              <EncryptedFileAndKeyDownloaderHelper
+                isEncryptedFileDownloaderVisible={isEncryptedFileDownloaderVisible}
+                encryptedFileDownloaderType={encryptedFileDownloaderType}
+                encryptedFileResult={{
+                  encryptedFileContent: fileEncrypterResult.encryptedFileContent,
+                  randomlyGeneratedFileKey: fileEncrypterResult.randomlyGeneratedFileKey,
+                  fileSalt: fileEncrypterResult.fileSalt,
+                  metadataSalt: fileEncrypterResult.metadataSalt,
+                  encryptedFilename: fileEncrypterResult.encryptedFilename,
+                  encryptedDescription: fileEncrypterResult.encryptedDescription,
+                  encryptedMetadataTag: fileEncrypterResult.encryptedMetadataTag,
+                  encryptedRecordIntegrityTag: fileEncrypterResult.encryptedRecordIntegrityTag,
+                }}
+                masterKeyForFileEncrypter={masterKeyForFileEncrypter}
+                argon2Iterations={argon2Iterations}
+                handleCloseEncryptedFileDownloader={handleCloseEncryptedFileDownloader}
+              />
+            </div>
+            <span className="text-3xl font-bold" style={{ marginBottom: "16px", marginTop: "16px", display: "block" }}>Decrypter</span>
+            <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+              <SimpleDropzone
+                onFilesAdded={handleFilesFromEnglishDropzoneForFileDecrypter}
+                activeInscription="Drop the files here..."
+                defaultInscription="Drag & drop the encrypted file and its key here, or click to select files"                
+                borderColor="#e7e7ef"
+                borderWidth="2px"
+                textColor="#fff"
+                borderRadius="12px"
+              />
+
+              <SimpleDropzone
+                onFilesAdded={handleFilesFromHebrewDropzoneForFileDecrypter}
+                activeInscription="הפל את הקבצים כאן..."
+                defaultInscription="גרור והפל את הקובץ המוצפן והמפתח שלו כאן, או לחץ כדי לבחור קבצים"
+                borderColor="#e7e7ef"
+                activeBorderColor="#124CAE"
+                borderWidth="2px"
+                textColor="#fff"
+                borderRadius="12px"
+              />
+              {isDecrypterOpen && (
+                <FileDecrypter
+                  encryptedFileContent={encryptedFileContent}
+                  masterKey={masterKeyForFileEncrypter}
+                  numberOfIterationsForArgon2={argon2Iterations}
+                  randomlyGeneratedFileKey={randomlyGeneratedFileKey}
+                  fileSalt={fileSalt}
+                  metadataSalt={metadataSalt}
+                  encryptedFilename={encryptedFilename}
+                  encryptedDescription={encryptedDescription}
+                  encryptedMetadataTag={encryptedMetadataTag}
+                  encryptedRecordIntegrityTag={encryptedRecordIntegrityTag}
+                  onClose={onDecrypterClosed}
+                />
+              )}
+              {showDecryptModal && (
+                <DecryptModal
+                  headline={t('decryption-result')}
+                  filename={decryptedFilenameFromDecrypter ? new TextDecoder().decode(decryptedFilenameFromDecrypter) : ''}
+                  description={decryptedDescriptionFromDecrypter ? new TextDecoder().decode(decryptedDescriptionFromDecrypter) : ''}
+                  messages={messagesFromDecrypter}
+                  firstButtonText={t('save-as-button-inscription')}
+                  secondButtonText={t('close-button-inscription')}
+                  firstButtonGradient="linear-gradient(135deg, #4776cb, #a19fe5, #6cc606)"
+                  secondButtonGradient="linear-gradient(135deg, #ff0000, #ff4c00, #ff9900)"
+                  displayFirstButton={decryptedFileContentFromDecrypter !== null}
+                  messagesListHeader={t('status')}
+                  inscriptionAboveButtons={t('file-size', { fileSize: generateFileSizeString(decryptedFileContentFromDecrypter ? decryptedFileContentFromDecrypter.length : 0) })}
+                  onButtonClicked={(buttonType) => {
+                    if (buttonType === 'first') {
+                      if (decryptedFileContentFromDecrypter !== null && decryptedFileContentFromDecrypter.length > 0) {
+                        // Create a blob from the decrypted file content
+                        const decryptedFile = new Blob([decryptedFileContentFromDecrypter], { type: 'application/octet-stream' });
+                        const url = URL.createObjectURL(decryptedFile);
+                  
+                        // Create a link to download the file
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = decryptedFilenameFromDecrypter ? new TextDecoder().decode(decryptedFilenameFromDecrypter) : 'Unknown Filename.unknwn';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url); // Clean up the object URL
+                      } else {
+                        alert('No file content available for download.');
+                      }
+                    } else {
+                      // Handle close button click
+                      setShowDecryptModal(false);
+                    }
+                  }}                  
+                />
+              )}
+            </div>
+          </>
+        );
+            
       default:
         return <div>No preview available.</div>;
     }
   };
 
   return (
-    <>
+    <I18nextProvider i18n={i18nConf}>
       {activeComponent === 'simple-navbar' && (
         <div style={{ height: '69px' }}></div>
       )}
@@ -2772,6 +3447,6 @@ export default function ComponentsPage() {
 
         </main>
       </div>
-    </>
+    </I18nextProvider>
   );
 };
