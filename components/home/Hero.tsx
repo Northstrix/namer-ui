@@ -48,6 +48,12 @@ const Hero = () => {
 
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
+  const [showLoader, setShowLoader] = useState(false);
+
+  const showLoaderOnButtonClick = () => {
+    setShowLoader(true);
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1280);
@@ -205,19 +211,42 @@ const Hero = () => {
             </motion.div>
           </motion.div>
           {!isMobile && (
-            <div style={{ transform: 'translateY(32px)' }}>
-              <motion.div
-                initial={{ x: "-100%", y: "100%" }}
-                animate={{ x: "0%", y: 0 }}
-                transition={{
-                  type: "spring",
-                  duration: 1,
-                  bounce: 0.2,
-                }}
-              >
-                <MetamorphicLoader size={124} color="#156ef6" lighteningStep={16} />
-              </motion.div>
-            </div>
+    <div>
+    {showLoader ? (
+      <div style={{ transform: 'translateY(32px)' }}>
+        <motion.div
+          initial={{ x: "-100%", y: "100%" }}
+          animate={{ x: "0%", y: 0 }}
+          transition={{
+            type: "spring",
+            duration: 1,
+            bounce: 0.2,
+          }}
+        >
+          <MetamorphicLoader size={124} color="#156ef6" lighteningStep={16} />
+        </motion.div>
+      </div>
+    ) : (
+      <motion.div
+        initial={{ x: "-100%" }}
+        animate={{ x: "0%" }}
+        transition={{
+          type: "spring",
+          duration: 1,
+          bounce: 0.2,
+        }}
+      >
+        <ChronicleButton
+          text="Show Loader"
+          onClick={showLoaderOnButtonClick}
+          width="264px"
+          customBackground="var(--hero-chronicle-button-background)"
+          customForeground="var(--hero-chronicle-button-foreground)"
+          hoverColor="var(--hero-chronicle-button-hover-color)"
+        />
+      </motion.div>
+    )}
+  </div>
           )}
           {isMobile ? (
               <div className="grid grid-cols-1 gap-10 items-center">
@@ -284,7 +313,7 @@ const Hero = () => {
               </div>
             ) : <></> }
         </div>
-        <div className="relative overflow-hidden w-[1200px] max-sm:w-[1000px] h-full p-8 mb-8 mt-2 rounded-xl">
+        <div style={!showLoader ? { transform: 'translateY(-48px)' } : {}} className="relative overflow-hidden w-[1200px] max-sm:w-[1000px] h-full p-8 mb-8 mt-2 rounded-xl">
           {isMobile ? (
               <></>
               ) : 
