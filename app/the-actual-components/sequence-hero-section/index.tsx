@@ -6,7 +6,7 @@ const metadata = {
   usage: `// Path to the "SequenceHeroSection.tsx" file
 import SequenceHeroSection from '@/app/the-actual-components/sequence-hero-section/SequenceHeroSection'
 
-<div className="bg-[#f1f1f7] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+<div className="bg-[#f1f1f7] p-8 rounded-lg items-center justify-center relative flex" style={{ height: window.innerWidth >= 1024 ? 'calc(100vh - 69px)' : 'auto' }}>
   <SequenceHeroSection 
     title="Roam Free"
     subtitle="Discover the world's hidden gems with our curated adventures"
