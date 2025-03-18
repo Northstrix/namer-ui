@@ -6,7 +6,7 @@ const metadata = {
   usage: `// Path to the "AnimatedTestimonials.tsx" file
 import AnimatedTestimonials from '@/app/the-actual-components/animated-testimonials/AnimatedTestimonials'
 
-<div className="bg-[#f1f1f7] p-20 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+<div className="bg-[#f1f1f7] z-10 p-20 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
   <div
     className="items-center justify-center relative flex"
     style={{
@@ -64,7 +64,7 @@ import AnimatedTestimonials from '@/app/the-actual-components/animated-testimoni
     />
   </div>
 </div>
-<div className="bg-[#050505] p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+<div className="bg-[#050505] z-10 p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
   <div
     className="items-center justify-center relative flex"
     style={{
@@ -122,7 +122,7 @@ import AnimatedTestimonials from '@/app/the-actual-components/animated-testimoni
     />
   </div>
 </div>
-<div className="bg-[#f1f1f7] p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+<div className="bg-[#f1f1f7] z-10 p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
   <div
     className="items-center justify-center relative flex"
     style={{
