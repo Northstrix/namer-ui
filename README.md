@@ -35,6 +35,8 @@ The existence of this project (at least in its current form) wouldn't've been po
 
 [Cover](https://ui.aceternity.com/components/container-cover) by [Aceternity UI](https://ui.aceternity.com/components/container-cover)
 
+[Counter](https://animata.design/docs/text/counter) by [ANIMATA](https://animata.design/)
+
 </br>
 
 Inspired by [x/ui](https://ui.3x.gl/)
