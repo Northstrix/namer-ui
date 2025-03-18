@@ -4,6 +4,7 @@ import { motion, useAnimation, AnimationControls } from "framer-motion";
 import FancyNotification from '@/app/the-actual-components/fancy-notification/FancyNotification'
 import FancyHeroSection from '@/app/the-actual-components/fancy-hero-section/FancyHeroSection'
 import Link from "next/link";
+import Counter from '@/components/ui/counter'
 
 import FishyButton from '@/app/the-actual-components/fishy-button/FishyButton'
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch';
@@ -194,7 +195,12 @@ const Hero = () => {
                 target="_blank"
                 className="px-6 bg-gradient-to-b hover:bg-primary/10 transition-all py-3 rounded-full border text-sm font-medium flex items-center justify-center gap-2 text-center max-md:grow shadow-inner shadow-black/20"
               >
-                <FaGithub /> Star on GitHub <FaStar className="ml-2" /> {starCount}
+                <FaGithub /> Star on GitHub <FaStar className="ml-2" />
+                <Counter
+                  direction="up"
+                  targetValue={starCount}
+                  format={(value) => Intl.NumberFormat("en-US").format(value)}
+                />
               </Link>
             </motion.div>
           </motion.div>
@@ -445,7 +451,7 @@ const Hero = () => {
           Disclaimer: The testimonials and restaurant name presented here are entirely fictional and created for demonstrational purposes only. Shining Yam is not a real establishment or enterprise. These fictional testimonials are designed to showcase the functionality of the Animated Testimonials component and do not represent real customer experiences or opinions. Any resemblance to actual persons, living or dead, or actual businesses is purely coincidental. This demonstration is intended solely for illustrative purposes in a web development context.
         </p>
       </div>
-      <div className="bg-[#ffffff] p-16 min-h-[300px] flex flex-wrap items-center justify-center relative">
+      <div className="bg-[#ffffff] p-16 min-h-[300px] z-10 flex flex-wrap items-center justify-center relative">
         <div
           className="items-center justify-center relative flex"
           style={{
