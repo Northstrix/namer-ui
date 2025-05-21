@@ -13,6 +13,7 @@ import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsAppWidget'
 import DicedHeroSection from '@/app/the-actual-components/diced-hero-section/DicedHeroSection'
 import AnimatedTestimonials from '@/app/the-actual-components/animated-testimonials/AnimatedTestimonials'
+import ProjectShowcase from '@/app/the-actual-components/project-showcase/ProjectShowcase'
 import SequenceHeroSection from '@/app/the-actual-components/sequence-hero-section/SequenceHeroSection'
 import SimpleNavbar from '@/app/the-actual-components/simple-navbar/SimpleNavbar'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
@@ -21,6 +22,8 @@ import PositionAwareButton from '@/app/the-actual-components/position-aware-butt
 import FancyNotification from '@/app/the-actual-components/fancy-notification/FancyNotification'
 import MagicButton from '@/app/the-actual-components/magic-button/MagicButton'
 import HalomotButton from '@/app/the-actual-components/halomot-button/HalomotButton'
+import LoaderHalomotButton from '@/app/the-actual-components/loader-halomot-button/LoaderHalomotButton'
+import AnimatedCube from '@/app/the-actual-components/animated-cube/AnimatedCube'
 import DreamyInput from '@/app/the-actual-components/dreamy-input/DreamyInput'
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch'
 import SkeuomorphicToggle from '@/app/the-actual-components/skeuomorphic-toggle/SkeuomorphicToggle'
@@ -98,6 +101,7 @@ const components = [
   { id: 'whatsapp-widget', name: 'WhatsApp Widget', description: 'A customizable WhatsApp chat widget with auto-popup functionality, personalized messaging, and styled UI elements.' },
   { id: 'diced-hero-section', name: 'Diced Hero Section', description: 'A customizable hero section with diced image grid, gradient text, and responsive design for showcasing content.' },
   { id: 'animated-testimonials', name: 'Animated Testimonials', description: 'A customized Aceternity UI component, optimized for custom image aspect ratios and support for Right-to-Left (RTL) languages.' },
+  { id: 'project-showcase', name: 'Project Showcase', description: 'A customized version of the Aceternity\'s Animated Testimonials component.' },
   { id: 'sequence-hero-section', name: 'Sequence Hero Section', description: 'A fully customizable hero section with steps, image carousel, and rating cards.' },
   { id: "simple-navbar", name: "Simple Navbar", description: "A simple navigation bar with icons, tooltips, and space for a phone number, suitable for simple yet modern websites." },
   { id: 'file-container', name: 'File Container', description: 'A container for displaying file information.' },
@@ -106,6 +110,8 @@ const components = [
   { id: 'fancy-notification', name: 'Fancy Notification', description: 'An animated rectangle notification.' },
   { id: 'magic-button', name: 'Magic Button', description: 'A button that employs moving particles.' },
   { id: 'halomot-button', name: 'Halomot Button', description: 'A stylish button with a vibrant gradient that fills it on hover.' },
+  { id: 'loader-halomot-button', name: 'Loader Halomot Button', description: 'A stylish button that\'s capable of showing a loader.' },
+  { id: 'animated-cube', name: 'Animated Cube', description: 'An animated 3D cube with customizable colors and scale.' },
   { id: "dreamy-input", name: "Dreamy Input", description: "A customizable input field with smooth animations and RTL support." },
   { id: 'shamayim-toggle-switch', name: 'Shamayim Toggle Switch', description: 'A celestial-themed toggle switch with a smooth animation and mirroring option.' },
   { id: 'skeuomorphic-toggle', name: 'Skeuomorphic Switch', description: 'A skeuomorphic toggle switch with customizable colors, inscriptions, and mirroring option.' },
@@ -196,7 +202,13 @@ export default function ComponentsPage() {
   };
   // Fancy Notification stuff //
   
+  // Loader Halomot Button stuff //
   
+  const [loadingEn, setLoadingEn] = useState(false);
+  const [loadingHe, setLoadingHe] = useState(false);
+
+  // Loader Halomot Button stuff //
+
   // Skeuomorphic Setting Switches stuff //
   const [hydration, setHydration] = useState(true);
   const [notifications, setNotifications] = useState(false);
@@ -1587,6 +1599,179 @@ export default function ComponentsPage() {
             </div>
           </>
         );
+      case 'project-showcase':
+        return (
+          <>
+            <div className="bg-[#050505] p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+              <div
+                className="items-center justify-center relative flex"
+                style={{
+                  maxWidth: "1536px",
+                }}
+              >
+                <ProjectShowcase
+                  testimonials={[
+                    {
+                      name: "Plum Cave",
+                      quote:
+                        'A cloud backup solution that employs the "ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512" authenticated encryption scheme for data encryption and ML-KEM-1024 for quantum-resistant key exchange.',
+                      designation: "Next.js Project",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/plum-cave.webp",
+                      link: "https://plum-cave.netlify.app/",
+                    },
+                    {
+                      name: "Namer UI",
+                      quote:
+                        "A comprehensive collection of modern, attractive, and unique reusable TypeScript components crafted specifically for Next.js.",
+                      designation: "Next.js Project",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp",
+                      link: "https://namer-ui.netlify.app/",
+                    },
+                    {
+                      name: "React Cryptographic Toolkit",
+                      quote:
+                        "A web app that’s capable of encrypting user data, hashing strings, and calculating tags using the available HMAC algorithms. Please don’t judge me too harshly for it; this is the first React app I ever made.",
+                      designation: "React Project",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp",
+                      link: "https://northstrix.github.io/React-Cryptographic-Toolkit/",
+                    },
+                    {
+                      name: "PHA5E-Inspired Hero Section",
+                      quote:
+                        "An unorthodox, customizable component. I put it here just to demonstrate that I'm capable of creating an Angular app.",
+                      designation: "Angular Project",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/pha5e-inspired-hero-section.webp",
+                      link: "https://pha5e-inspired-hero-section.netlify.app/",
+                    },
+                    {
+                      name: "Bootleg Website Localization Tool",
+                      quote:
+                        "A simple tool designed to localize websites created with the Bazium website builder, as well as their vanilla HTML/CSS/JS counterparts.",
+                      designation: "Vanilla HTML/CSS/JS Project",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/bwlt.webp",
+                      link: "https://codepen.io/Northstrix/full/mydWRJB",
+                    },
+                    {
+                      name: "In-Browser-File-Encrypter",
+                      quote:
+                        "A browser-based tool that encrypts files locally without interacting with the server. It uses AES-256 for data encryption and HMAC-SHA512 for integrity verification.",
+                      designation: "Vanilla HTML/CSS/JS Project",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/in-browser-file-encrypter.webp",
+                      link: "https://codepen.io/Northstrix/full/xxvXvJL",
+                    },
+                  ]}
+                  fontSizes={{
+                    name: "28px",
+                    position: "20px",
+                    testimony: "20px",
+                  }}
+                  spacing={{
+                    nameTop: "0",
+                    nameBottom: "10px",
+                    positionTop: "0",
+                    positionBottom: "0.5em",
+                    testimonyTop: "1.24em",
+                    testimonyBottom: "1em",
+                    lineHeight: "1.56",
+                  }}
+                  onItemClick={(link) => toast.info(`Cliked link: ${link}`)}
+                />
+              </div>
+            </div>
+            <div className="bg-[#f1f1f7] p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+              <div
+                className="items-center justify-center relative flex"
+                style={{
+                  maxWidth: "1152px",
+                }}
+              >
+                <ProjectShowcase
+                  testimonials={[
+                    {
+                      name: "פלאם קייב",
+                      quote:
+                        'פתרון גיבוי בענן המשתמש בסכימת הצפנה מאומתת "HMAC-SHA3-512 + CBC Serpent-256 + ChaCha20" להצפנת נתונים ו-ML-KEM-1024 לחילופי מפתחות עמידים לקוונטים.',
+                      designation: "פרויקט Next.js",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/plum-cave-hebrew.webp",
+                      link: "https://plum-cave.netlify.app/",
+                    },
+                    {
+                      name: "נמר UI",
+                      quote:
+                        "אוסף מקיף של רכיבי TypeScript מודרניים, אטרקטיביים וייחודיים לשימוש חוזר המיועדים במיוחד ל-Next.js.",
+                      designation: "פרויקט Next.js",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp",
+                      link: "https://namer-ui.netlify.app/",
+                    },
+                    {
+                      name: "React קריפטוגרפיק טולקיט",
+                      quote:
+                        "אפליקציית אינטרנט המסוגלת להצפין נתוני משתמש, לבצע האש של מחרוזות ולחשב תגיות באמצעות אלגוריתמי HMAC הזמינים. אל תשפטו אותי בחומרה - זוהי האפליקציה הראשונה שיצרתי ב-React.",
+                      designation: "פרויקט React",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp",
+                      link: "https://northstrix.github.io/React-Cryptographic-Toolkit/",
+                    },
+                    {
+                      name: "מקטע גיבור בהשראת PHA5E",
+                      quote:
+                        "רכיב לא שגרתי וניתן להתאמה אישית. הוספתי אותו כאן כדי להדגים שאני מסוגל ליצור אפליקציית Angular.",
+                      designation: "פרויקט Angular",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/pha5e-inspired-hero-section.webp",
+                      link: "https://pha5e-inspired-hero-section.netlify.app/",
+                    },
+                    {
+                      name: "בוטלג וובסייט לוקליזיישן טול",
+                      quote:
+                        "כלי פשוט שנועד לבצע לוקליזציה לאתרים שנוצרו עם בוני האתרים Bazium, כמו גם לגרסאות ה-vanilla HTML/CSS/JS שלהם.",
+                      designation: "פרויקט HTML/CSS/JS וונילה",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/bwlt.webp",
+                      link: "https://codepen.io/Northstrix/full/mydWRJB",
+                    },
+                    {
+                      name: "מצפין קבצים בדפדפן",
+                      quote:
+                        "כלי מבוסס דפדפן המבצע הצפנת קבצים מקומית ללא אינטראקציה עם השרת. משתמש ב-AES-256 להצפנת נתונים וב-HMAC-SHA512 לאימות שלמות.",
+                      designation: "פרויקט HTML/CSS/JS וונילה",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/in-browser-file-encrypter.webp",
+                      link: "https://codepen.io/Northstrix/full/xxvXvJL",
+                    },
+                  ]}
+                  colors={{
+                    name: "#0a0a0a",
+                    position: "#454545",
+                    testimony: "#171717",
+                  }}
+                  fontSizes={{
+                    name: "32px",
+                    position: "21px",
+                    testimony: "21px",
+                  }}
+                  spacing={{
+                    nameTop: "0",
+                    nameBottom: "12px",
+                    positionTop: "0",
+                    positionBottom: "0.5em",
+                    testimonyTop: "1.24em",
+                    testimonyBottom: "1em",
+                    lineHeight: "1.56",
+                  }}
+                  isRTL={true}
+                  buttonInscriptions={{
+                    previousButton: "הקודם",
+                    nextButton: "הבא",
+                    openWebAppButton: "פתח אפליקציה",
+                  }}
+                  halomotButtonGradient = "linear-gradient(to left, #78E700, #00a6fb)"
+                  halomotButtonBackground = "#e1e1e7"
+                  halomotButtonTextColor = "#111"
+                  halomotButtonOuterBorderRadius = "16.2px"
+                  halomotButtonInnerBorderRadius = "15px"
+                  onItemClick={(link) => toast.info(`Cliked link: ${link}`)}
+                />
+              </div>
+            </div>
+          </>
+        );
       case 'sequence-hero-section':
         return (
           <>
@@ -1829,12 +2014,103 @@ export default function ComponentsPage() {
         );
       case 'halomot-button':
         return (
-          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] gap-6 flex items-center justify-center">
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap', // Allows items to wrap to the next line
+            gap: '36px', // Space between items
+            justifyContent: 'center', // Center items horizontally
+            padding: '32px', // Optional padding for the container
+            backgroundColor: '#050505', // Background color of the container
+            borderRadius: '8px', // Rounded corners for the container
+            minHeight: '300px' // Minimum height for the container
+          }}>
             <HalomotButton 
-              inscription="חלומות" 
-              onClick={() => toast.info("Halomot button has been clicked!")}
+              inscription="חלומות"
+              onClick={() => toast.info("The 1st Halomot button has been clicked!")}
+            />
+            <HalomotButton 
+              inscription="עוד אחד"
+              borderWidth="3px"
+              gradient = "linear-gradient(135deg, #a123f4, #603dec)"
+              outerBorderRadius="12.56px"
+              innerBorderRadius="12px"
+              onClick={() => toast.info("The 2nd Halomot button has been clicked!")}
+            />
+            <div style={{ width: "52px" }}>
+            <HalomotButton 
+              inscription=""
+              gradient = "linear-gradient(135deg, #a123f4, #603dec)"
+              fillWidth={true}
+              icon={<FontAwesomeIcon icon={faGithub} size="lg" />}
+              onClick={() => toast.info("The 3rd Halomot button has been clicked!")}
+            />
+            </div>
+            <HalomotButton 
+              inscription="Custom padding"
+              padding="46px 24px"
+              onClick={() => toast.info("The 4th Halomot button has been clicked!")}
             />
           </div>
+        );
+      case 'loader-halomot-button':
+        return (
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '36px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '32px',
+            backgroundColor: '#050505',
+            borderRadius: '8px',
+            minHeight: '300px'
+          }}>
+            <div style={{ maxWidth: "360px", height: "52px", width: "100%" }}>
+              <LoaderHalomotButton
+                text="Load Data"
+                onClick={() => {
+                  setLoadingEn(true);
+                  setTimeout(() => setLoadingEn(false), 5000);
+                }}
+                isLoading={loadingEn}
+                fillWidth
+              />
+            </div>
+            <div style={{ maxWidth: "360px", height: "52px", width: "100%" }}>
+              <LoaderHalomotButton
+                text="טען נתונים"
+                loadingText="טוען…"
+                onClick={() => {
+                  setLoadingHe(true);
+                  setTimeout(() => setLoadingHe(false), 5000);
+                }}
+                isLoading={loadingHe}
+                icon={<FontAwesomeIcon icon={faGithub} size="lg" />}
+                gradient="linear-gradient(135deg, #a123f4, #603dec)"
+                bgColor="#050505"
+                cubeFaceColor="#a123f4"
+                cubeShadowColor="#333"
+                cubeBorderColor="#333"
+                outerBorderRadius="11.4px"
+                innerBorderRadius="11px"
+                fillWidth
+                isRTL={true}
+              />
+            </div>
+          </div>
+        );
+      case 'animated-cube':
+        return (
+          <div style={{ minHeight: '300px', padding: 40, background: "#050505", display: "flex", justifyContent: "center" }}>
+            <AnimatedCube
+              size={37.5}
+              scale={2}
+              faceColor="#7dd3fc"
+              shadowColor="#0e7490"
+              borderColor="#0ea5e9"
+              animationDuration={3}
+            />
+        </div>
         );
       case 'dreamy-input':
         return (
