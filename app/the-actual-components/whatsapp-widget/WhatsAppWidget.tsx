@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ChronicleButton from '@/app/the-actual-components/chronicle-button/ChronicleButton';
 import styled from 'styled-components';
-import { IoLogoWhatsapp, IoCloseCircleOutline } from 'react-icons/io5';
+import { IconBrandWhatsapp, IconX } from '@tabler/icons-react';
 
 interface WhatsAppWidgetProps {
   name: string;
@@ -93,7 +93,7 @@ const WhatsAppWidget: React.FC<WhatsAppWidgetProps> = ({
   return (
     <>
       <ChatIcon onClick={toggleChat} isVisible={!isOpen}>
-        <IoLogoWhatsapp size={35} color="#ffffff" />
+         <IconBrandWhatsapp size={35} color="#ffffff" stroke={1.5} />
       </ChatIcon>
       <ChatContainer isOpen={isOpen}>
         <ChatHeader background={containerHeaderBackground} borderRadius={widgetRounding}>
@@ -106,7 +106,7 @@ const WhatsAppWidget: React.FC<WhatsAppWidgetProps> = ({
             <Status color={statusTextColor} transformY={statusTransformY}>{status}</Status>
           </ChatHeaderInfo>
           <CloseButton onClick={toggleChat} color={nameTextColor}>
-            <IoCloseCircleOutline />
+            <IconX size={24} color={nameTextColor} stroke={2.5} />
           </CloseButton>
         </ChatHeader>
         <ChatContent background={containerBodyBackground}>

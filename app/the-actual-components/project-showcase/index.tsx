@@ -78,7 +78,7 @@ import ProjectShowcase from '@/app/the-actual-components/project-showcase/Projec
         testimonyBottom: "1em",
         lineHeight: "1.56",
       }}
-      onItemClick={(link) => toast.info(\`Cliked link: \${link}\`)}
+      onItemClick={(link) => toast.info(\`Clicked link: \${link}\`)}
     />
   </div>
 </div>
@@ -165,12 +165,13 @@ import ProjectShowcase from '@/app/the-actual-components/project-showcase/Projec
         nextButton: "הבא",
         openWebAppButton: "פתח אפליקציה",
       }}
-      halomotButtonGradient = "linear-gradient(to left, #78E700, #00a6fb)"
-      halomotButtonBackground = "#e1e1e7"
+      halomotButtonGradient = "linear-gradient(to right, #603dec, #a123f4)"
+      halomotButtonBackground = "#eee"
       halomotButtonTextColor = "#111"
       halomotButtonOuterBorderRadius = "16.2px"
       halomotButtonInnerBorderRadius = "15px"
-      onItemClick={(link) => toast.info(\`Cliked link: \${link}\`)}
+      halomotButtonHoverTextColor = "#fff"
+      onItemClick={(link) => toast.info(\`Clicked link: \${link}\`)}
     />
   </div>
 </div>
@@ -220,6 +221,7 @@ import ProjectShowcase from '@/app/the-actual-components/project-showcase/Projec
 // - halomotButtonTextColor: string (optional) - Text color for Halomot buttons (default: "#fff").
 // - halomotButtonOuterBorderRadius: string (optional) - Outer border radius for Halomot buttons (default: "6.34px").
 // - halomotButtonInnerBorderRadius: string (optional) - Inner border radius for Halomot buttons (default: "6px").
+// - halomotButtonHoverTextColor: string (optional) - Text color for the Halomot button when hovered.
 // - mobile: object (optional) - Mobile-specific styling options.
 //    - fontSizes: object (optional) - Font size options for mobile devices.
 //      - name: string (optional) - Font size for the name text on mobile.
@@ -315,6 +317,7 @@ code: [
       halomotButtonTextColor?: string;
       halomotButtonOuterBorderRadius?: string; // Border radius for the gradient outer border
       halomotButtonInnerBorderRadius?: string; // Border radius for the inner button
+      halomotButtonHoverTextColor?: string;
     };
     
     export const ProjectShowcase = ({
@@ -360,6 +363,7 @@ code: [
       halomotButtonTextColor = "#fff",
       halomotButtonOuterBorderRadius = "6.34px",
       halomotButtonInnerBorderRadius = "6px",
+      halomotButtonHoverTextColor,
     }: ProjectShowcaseProps) => {
       const [active, setActive] = useState(0);
       const [isMobileView, setIsMobileView] = useState(false);
@@ -573,6 +577,7 @@ code: [
                       textColor={halomotButtonTextColor}
                       innerBorderRadius={halomotButtonInnerBorderRadius}
                       outerBorderRadius={halomotButtonOuterBorderRadius}
+                      {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                     />
                     <HalomotButton
                       inscription={buttonInscriptions.nextButton}
@@ -583,6 +588,7 @@ code: [
                       textColor={halomotButtonTextColor}
                       innerBorderRadius={halomotButtonInnerBorderRadius}
                       outerBorderRadius={halomotButtonOuterBorderRadius}
+                      {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                     />
                     <HalomotButton
                       inscription={buttonInscriptions.openWebAppButton}
@@ -595,6 +601,7 @@ code: [
                       textColor={halomotButtonTextColor}
                       innerBorderRadius={halomotButtonInnerBorderRadius}
                       outerBorderRadius={halomotButtonOuterBorderRadius}
+                      {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                       href={testimonials[active].link} // Set the href attribute
                     />
                   </div>
@@ -716,6 +723,7 @@ code: [
                         textColor={halomotButtonTextColor}
                         innerBorderRadius={halomotButtonInnerBorderRadius}
                         outerBorderRadius={halomotButtonOuterBorderRadius}
+                        {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                       />
                       <HalomotButton
                         inscription={buttonInscriptions.nextButton}
@@ -726,6 +734,7 @@ code: [
                         textColor={halomotButtonTextColor}
                         innerBorderRadius={halomotButtonInnerBorderRadius}
                         outerBorderRadius={halomotButtonOuterBorderRadius}
+                        {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                       />
                       <HalomotButton
                         inscription={buttonInscriptions.openWebAppButton}
@@ -739,6 +748,7 @@ code: [
                         textColor={halomotButtonTextColor}
                         innerBorderRadius={halomotButtonInnerBorderRadius}
                         outerBorderRadius={halomotButtonOuterBorderRadius}
+                        {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                         href={testimonials[active].link} // Set the href attribute
                       />
                     </div>
@@ -755,6 +765,7 @@ code: [
                         textColor={halomotButtonTextColor}
                         innerBorderRadius={halomotButtonInnerBorderRadius}
                         outerBorderRadius={halomotButtonOuterBorderRadius}
+                        {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                       />
                       <HalomotButton
                         inscription={buttonInscriptions.nextButton}
@@ -765,6 +776,7 @@ code: [
                         textColor={halomotButtonTextColor}
                         innerBorderRadius={halomotButtonInnerBorderRadius}
                         outerBorderRadius={halomotButtonOuterBorderRadius}
+                        {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                       />
                       <HalomotButton
                         inscription={buttonInscriptions.openWebAppButton}
@@ -778,6 +790,7 @@ code: [
                         textColor={halomotButtonTextColor}
                         innerBorderRadius={halomotButtonInnerBorderRadius}
                         outerBorderRadius={halomotButtonOuterBorderRadius}
+                        {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                         href={testimonials[active].link} // Set the href attribute
                       />
                     </div>

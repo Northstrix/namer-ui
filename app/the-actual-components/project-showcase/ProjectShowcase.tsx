@@ -74,6 +74,7 @@ type ProjectShowcaseProps = {
   halomotButtonTextColor?: string;
   halomotButtonOuterBorderRadius?: string; // Border radius for the gradient outer border
   halomotButtonInnerBorderRadius?: string; // Border radius for the inner button
+  halomotButtonHoverTextColor?: string;
 };
 
 export const ProjectShowcase = ({
@@ -119,6 +120,7 @@ export const ProjectShowcase = ({
   halomotButtonTextColor = "#fff",
   halomotButtonOuterBorderRadius = "6.34px",
   halomotButtonInnerBorderRadius = "6px",
+  halomotButtonHoverTextColor,
 }: ProjectShowcaseProps) => {
   const [active, setActive] = useState(0);
   const [isMobileView, setIsMobileView] = useState(false);
@@ -332,6 +334,7 @@ export const ProjectShowcase = ({
                   textColor={halomotButtonTextColor}
                   innerBorderRadius={halomotButtonInnerBorderRadius}
                   outerBorderRadius={halomotButtonOuterBorderRadius}
+                  {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                 />
                 <HalomotButton
                   inscription={buttonInscriptions.nextButton}
@@ -342,6 +345,7 @@ export const ProjectShowcase = ({
                   textColor={halomotButtonTextColor}
                   innerBorderRadius={halomotButtonInnerBorderRadius}
                   outerBorderRadius={halomotButtonOuterBorderRadius}
+                  {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                 />
                 <HalomotButton
                   inscription={buttonInscriptions.openWebAppButton}
@@ -354,6 +358,7 @@ export const ProjectShowcase = ({
                   textColor={halomotButtonTextColor}
                   innerBorderRadius={halomotButtonInnerBorderRadius}
                   outerBorderRadius={halomotButtonOuterBorderRadius}
+                  {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                   href={testimonials[active].link} // Set the href attribute
                 />
               </div>
@@ -475,6 +480,7 @@ export const ProjectShowcase = ({
                     textColor={halomotButtonTextColor}
                     innerBorderRadius={halomotButtonInnerBorderRadius}
                     outerBorderRadius={halomotButtonOuterBorderRadius}
+                    {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                   />
                   <HalomotButton
                     inscription={buttonInscriptions.nextButton}
@@ -485,6 +491,7 @@ export const ProjectShowcase = ({
                     textColor={halomotButtonTextColor}
                     innerBorderRadius={halomotButtonInnerBorderRadius}
                     outerBorderRadius={halomotButtonOuterBorderRadius}
+                    {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                   />
                   <HalomotButton
                     inscription={buttonInscriptions.openWebAppButton}
@@ -498,6 +505,7 @@ export const ProjectShowcase = ({
                     textColor={halomotButtonTextColor}
                     innerBorderRadius={halomotButtonInnerBorderRadius}
                     outerBorderRadius={halomotButtonOuterBorderRadius}
+                    {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                     href={testimonials[active].link} // Set the href attribute
                   />
                 </div>
@@ -514,6 +522,7 @@ export const ProjectShowcase = ({
                     textColor={halomotButtonTextColor}
                     innerBorderRadius={halomotButtonInnerBorderRadius}
                     outerBorderRadius={halomotButtonOuterBorderRadius}
+                    {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                   />
                   <HalomotButton
                     inscription={buttonInscriptions.nextButton}
@@ -524,6 +533,7 @@ export const ProjectShowcase = ({
                     textColor={halomotButtonTextColor}
                     innerBorderRadius={halomotButtonInnerBorderRadius}
                     outerBorderRadius={halomotButtonOuterBorderRadius}
+                    {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                   />
                   <HalomotButton
                     inscription={buttonInscriptions.openWebAppButton}
@@ -537,6 +547,7 @@ export const ProjectShowcase = ({
                     textColor={halomotButtonTextColor}
                     innerBorderRadius={halomotButtonInnerBorderRadius}
                     outerBorderRadius={halomotButtonOuterBorderRadius}
+                    {...(halomotButtonHoverTextColor ? { hoverTextColor: halomotButtonHoverTextColor } : {})}
                     href={testimonials[active].link} // Set the href attribute
                   />
                 </div>
