@@ -14,6 +14,8 @@ import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsApp
 import DicedHeroSection from '@/app/the-actual-components/diced-hero-section/DicedHeroSection'
 import AnimatedTestimonials from '@/app/the-actual-components/animated-testimonials/AnimatedTestimonials'
 import ProjectShowcase from '@/app/the-actual-components/project-showcase/ProjectShowcase'
+import ProjectCard from '@/app/the-actual-components/project-card/ProjectCard'
+import SecondPlayingCard from '@/app/the-actual-components/playing-card/SecondPlayingCard'
 import SequenceHeroSection from '@/app/the-actual-components/sequence-hero-section/SequenceHeroSection'
 import SimpleNavbar from '@/app/the-actual-components/simple-navbar/SimpleNavbar'
 import FileContainer from '@/app/the-actual-components/file-container/FileContainer'
@@ -23,6 +25,7 @@ import FancyNotification from '@/app/the-actual-components/fancy-notification/Fa
 import MagicButton from '@/app/the-actual-components/magic-button/MagicButton'
 import HalomotButton from '@/app/the-actual-components/halomot-button/HalomotButton'
 import LoaderHalomotButton from '@/app/the-actual-components/loader-halomot-button/LoaderHalomotButton'
+import PlayingCard from '@/app/the-actual-components/playing-card/PlayingCard'
 import AnimatedCube from '@/app/the-actual-components/animated-cube/AnimatedCube'
 import DreamyInput from '@/app/the-actual-components/dreamy-input/DreamyInput'
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch'
@@ -102,6 +105,7 @@ const components = [
   { id: 'diced-hero-section', name: 'Diced Hero Section', description: 'A customizable hero section with diced image grid, gradient text, and responsive design for showcasing content.' },
   { id: 'animated-testimonials', name: 'Animated Testimonials', description: 'A customized Aceternity UI component, optimized for custom image aspect ratios and support for Right-to-Left (RTL) languages.' },
   { id: 'project-showcase', name: 'Project Showcase', description: 'A customized version of the Aceternity\'s Animated Testimonials component.' },
+  { id: "project-card", name: "Project Card", description: "A simple, yet stylish card for displaying basic project info." },
   { id: 'sequence-hero-section', name: 'Sequence Hero Section', description: 'A fully customizable hero section with steps, image carousel, and rating cards.' },
   { id: "simple-navbar", name: "Simple Navbar", description: "A simple navigation bar with icons, tooltips, and space for a phone number, suitable for simple yet modern websites." },
   { id: 'file-container', name: 'File Container', description: 'A container for displaying file information.' },
@@ -111,6 +115,7 @@ const components = [
   { id: 'magic-button', name: 'Magic Button', description: 'A button that employs moving particles.' },
   { id: 'halomot-button', name: 'Halomot Button', description: 'A stylish button with a vibrant gradient that fills it on hover.' },
   { id: 'loader-halomot-button', name: 'Loader Halomot Button', description: 'A stylish button that\'s capable of showing a loader.' },
+  { id: 'playing-card', name: 'Playing Card', description: 'An interactive component inspired by a playing card, featuring a dynamic background.' },
   { id: 'animated-cube', name: 'Animated Cube', description: 'An animated 3D cube with customizable colors and scale.' },
   { id: "dreamy-input", name: "Dreamy Input", description: "A customizable input field with smooth animations and RTL support." },
   { id: 'shamayim-toggle-switch', name: 'Shamayim Toggle Switch', description: 'A celestial-themed toggle switch with a smooth animation and mirroring option.' },
@@ -173,6 +178,116 @@ export default function ComponentsPage() {
 
   // Product Card Stuff //
 
+  // Project Card Stuff //
+
+    const projectForProjectCardComponent = [
+      {
+        name: "Midbar",
+        description: "An advanced hardware encryption device designed to increase the cost of unauthorized access to the user's personal data as much as possible.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/midbar.webp",
+        link: "https://github.com/Northstrix/Midbar",
+        disableLens: false,
+        textShiftOnHover: true,
+        lensZoomFactor: 1.61,
+        lensSize: 176,
+      },
+      {
+        name: "Wi-Fi ESL",
+        description: "An electronic shelf label that receives images via Wi-Fi, decrypts them, and stores them in the ESP8266's flash memory.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/eslms.webp",
+        link: "https://github.com/Northstrix/Electronic-Shelf-Label-Management-System",
+        disableLens: false,
+        textShiftOnHover: false,
+        lensZoomFactor: 2.1,
+        lensSize: 120,
+      },
+      {
+        name: "Firebase ESL",
+        description: "An electronic shelf label that automatically retrieves its encrypted image from Firebase Realtime Database.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/eslfb.webp",
+        link: "https://github.com/Northstrix/Electronic-Shelf-Label-Firebase-Edition",
+        disableLens: true,
+        textShiftOnHover: true,
+        lensZoomFactor: 1.8,
+        lensSize: 120,
+      },
+      {
+        name: "Lantern",
+        description: "An ESP-based addressable RGB LED strip controller with a convenient user interface, controlled using the Nintendo Wii Nunchuk.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/lantern.webp",
+        link: "https://sourceforge.net/projects/the-lantern-project/",
+        disableLens: true,
+        textShiftOnHover: false,
+        lensZoomFactor: 1.2,
+        lensSize: 100,
+      },
+    ];
+    
+    const projectForProjectCardComponentHebrew = [
+      {
+        name: "פלאם קייב",
+        description: 'פתרון גיבוי בענן המשתמש בסכימת הצפנה מאומתת "HMAC-SHA3-512 + CBC Serpent-256 + ChaCha20" להצפנת נתונים ו-ML-KEM-1024 לחילופי מפתחות עמידים לקוונטים.',
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/plum-cave-hebrew.webp",
+        link: "https://plum-cave.netlify.app/",
+        disableLens: false,
+        textShiftOnHover: true,
+        lensZoomFactor: 1.61,
+        lensSize: 176,
+      },
+      {
+        name: "נמר UI",
+        description: "אוסף מקיף של רכיבי TypeScript מודרניים, אטרקטיביים וייחודיים לשימוש חוזר המיועדים במיוחד ל-Next.js.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp",
+        link: "https://namer-ui.netlify.app/",
+        disableLens: false,
+        textShiftOnHover: false,
+        lensZoomFactor: 2.2,
+        lensSize: 120,
+      },
+      {
+        name: "React קריפטוגרפיק טולקיט",
+        description: "אפליקציית אינטרנט המסוגלת להצפין נתוני משתמש, לבצע האש של מחרוזות ולחשב תגיות באמצעות אלגוריתמי HMAC הזמינים. אל תשפטו אותי בחומרה - זוהי האפליקציה הראשונה שיצרתי ב-React.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp",
+        link: "https://northstrix.github.io/React-Cryptographic-Toolkit/",
+        disableLens: true,
+        textShiftOnHover: true,
+        lensZoomFactor: 1.8,
+        lensSize: 120,
+      },
+      {
+        name: "מקטע גיבור בהשראת PHA5E",
+        description: "רכיב לא שגרתי וניתן להתאמה אישית. הוספתי אותו כאן כדי להדגים שאני מסוגל ליצור אפליקציית Angular.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/pha5e-inspired-hero-section.webp",
+        link: "https://pha5e-inspired-hero-section.netlify.app/",
+        disableLens: true,
+        textShiftOnHover: false,
+        lensZoomFactor: 1.2,
+        lensSize: 100,
+      },
+      {
+        name: "בוטלג וובסייט לוקליזיישן טול",
+        description: "כלי פשוט שנועד לבצע לוקליזציה לאתרים שנוצרו עם בוני האתרים Bazium, כמו גם לגרסאות ה-vanilla HTML/CSS/JS שלהם.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/bwlt.webp",
+        link: "https://codepen.io/Northstrix/full/mydWRJB",
+        disableLens: false,
+        textShiftOnHover: true,
+        lensZoomFactor: 1.5,
+        lensSize: 140,
+      },
+      {
+        name: "מצפין קבצים בדפדפן",
+        description: "כלי מבוסס דפדפן המבצע הצפנת קבצים מקומית ללא אינטראקציה עם השרת. משתמש ב-AES-256 להצפנת נתונים וב-HMAC-SHA512 לאימות שלמות.",
+        image: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/in-browser-file-encrypter.webp",
+        link: "https://codepen.io/Northstrix/full/xxvXvJL",
+        disableLens: true,
+        textShiftOnHover: false,
+        lensZoomFactor: 1.3,
+        lensSize: 120,
+      },
+    ];
+
+  // Project Card Stuff //
+
   // Fancy Notification stuff //
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const [notificationStatus, setNotificationStatus] = useState<'success' | 'error'>('success');
@@ -208,6 +323,12 @@ export default function ComponentsPage() {
   const [loadingHe, setLoadingHe] = useState(false);
 
   // Loader Halomot Button stuff //
+
+  // Playing Card //
+  
+  const [revealCanvasForPlayingCard, setRevealCanvasForPlayingCardForPlayingCard] = useState(false);
+  
+  // Playing Card //
 
   // Skeuomorphic Setting Switches stuff //
   const [hydration, setHydration] = useState(true);
@@ -851,7 +972,7 @@ export default function ComponentsPage() {
       // Decrypter //
 
     // File Encrypter Stuff //
-    
+
   const renderComponent = () => {
     switch(activeComponent) {
       case 'chronicle-button':
@@ -1674,7 +1795,7 @@ export default function ComponentsPage() {
                     testimonyBottom: "1em",
                     lineHeight: "1.56",
                   }}
-                  onItemClick={(link) => toast.info(`Cliked link: ${link}`)}
+                  onItemClick={(link) => toast.info(`Clicked link: ${link}`)}
                 />
               </div>
             </div>
@@ -1761,13 +1882,151 @@ export default function ComponentsPage() {
                     nextButton: "הבא",
                     openWebAppButton: "פתח אפליקציה",
                   }}
-                  halomotButtonGradient = "linear-gradient(to left, #78E700, #00a6fb)"
-                  halomotButtonBackground = "#e1e1e7"
+                  halomotButtonGradient = "linear-gradient(to right, #603dec, #a123f4)"
+                  halomotButtonBackground = "#eee"
                   halomotButtonTextColor = "#111"
                   halomotButtonOuterBorderRadius = "16.2px"
                   halomotButtonInnerBorderRadius = "15px"
-                  onItemClick={(link) => toast.info(`Cliked link: ${link}`)}
+                  halomotButtonHoverTextColor = "#fff"
+                  onItemClick={(link) => toast.info(`Clicked link: ${link}`)}
                 />
+              </div>
+            </div>
+          </>
+        );
+      case 'project-card':
+        return (
+          <>
+            {/* ENGLISH DARK CONTAINER */}
+            <div
+              style={{
+                width: "100%",
+                background: "#050505",
+                borderRadius: "8px",
+                boxSizing: "border-box",
+                marginBottom: "48px",
+              }}
+            >
+              <div
+                style={{
+                  maxWidth: "100%",
+                  margin: "0 auto",
+                  padding: "36px",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                  gap: "24px",
+                  justifyContent: "center",
+                  alignItems: "stretch",
+                  minHeight: "300px",
+                }}
+              >
+                {projectForProjectCardComponent.map((project, idx) => (
+                  <ProjectCard
+                    key={idx}
+                    name={project.name}
+                    description={project.description}
+                    image={project.image}
+                    link={project.link}
+                    imageAspectRatio={1.37}
+                    buttonInscriptions={{ openWebAppButton: "View Project" }}
+                    onItemClick={(link) => toast.info(`Clicked link: ${link}`)}
+                    // Card rounding (outer/inner)
+                    cardOuterRounding="6.34px"
+                    cardInnerRounding="6px"
+                    // Image rounding (outer/inner)
+                    imageOuterRounding="6.34px"
+                    imageInnerRounding="6px"
+                    // Card outline and backgrounds
+                    outlineColor="#2f2f2f"
+                    hoverOutlineColor="#3a3a3a"
+                    cardBackground="#1b1b1b"
+                    // Image container backgrounds (for normal and hover)
+                    imageBackground="#2f2f2f"
+                    imageHoverBackground="#3a3a3a"
+                    // Text colors
+                    foreground="#fff"
+                    secondaryForeground="#e1e1e1"
+                    // Lens and animation
+                    disableLens={project.disableLens}
+                    textShiftOnHover={project.textShiftOnHover}
+                    lensZoomFactor={project.lensZoomFactor}
+                    lensSize={project.lensSize}
+                    // HalomotButton appearance
+                    halomotButtonGradient="linear-gradient(to right, #a123f4, #603dec)"
+                    halomotButtonBackground="#050505"
+                    halomotButtonTextColor="#fff"
+                    halomotButtonOuterBorderRadius="6.34px"
+                    halomotButtonInnerBorderRadius="6px"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* HEBREW LIGHT CONTAINER */}
+            <div
+              style={{
+                width: "100%",
+                background: "#f6f6f6",
+                borderRadius: "8px",
+                boxSizing: "border-box",
+                marginBottom: "48px",
+              }}
+            >
+              <div
+                style={{
+                  maxWidth: "100%",
+                  margin: "0 auto",
+                  padding: "36px",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                  gap: "24px",
+                  justifyContent: "center",
+                  alignItems: "stretch",
+                  minHeight: "300px",
+                }}
+              >
+                {projectForProjectCardComponentHebrew.map((project, idx) => (
+                  <ProjectCard
+                    key={idx}
+                    name={project.name}
+                    description={project.description}
+                    image={project.image}
+                    link={project.link}
+                    imageAspectRatio={1.37}
+                    buttonInscriptions={{ openWebAppButton: "צפה בפרויקט" }}
+                    onItemClick={(link) => toast.info(`Clicked link: ${link}`)}
+                    // Card rounding (outer/inner)
+                    cardOuterRounding="6.34px"
+                    cardInnerRounding="6px"
+                    // Image rounding (outer/inner)
+                    imageOuterRounding="6.34px"
+                    imageInnerRounding="6px"
+                    // Card outline and backgrounds (light version)
+                    outlineColor="#e1e1e1"
+                    hoverOutlineColor="#cccccc"
+                    cardBackground="#fff"
+                    // Image container backgrounds (for normal and hover, light version)
+                    imageBackground="#e1e1e1"
+                    imageHoverBackground="#cccccc"
+                    // Text colors
+                    foreground="#222"
+                    secondaryForeground="#444"
+                    // Lens and animation
+                    disableLens={project.disableLens}
+                    textShiftOnHover={project.textShiftOnHover}
+                    lensZoomFactor={project.lensZoomFactor}
+                    lensSize={project.lensSize}
+                    // RTL for Hebrew
+                    isRTL={true}
+                    // HalomotButton appearance (light)
+                    halomotButtonGradient = "linear-gradient(to right, #603dec, #a123f4)"
+                    halomotButtonBackground = "#eee"
+                    halomotButtonTextColor = "#111"
+                    halomotButtonOuterBorderRadius = "16.2px"
+                    halomotButtonInnerBorderRadius = "15px"
+                    halomotButtonHoverTextColor = "#fff"
+                  />
+                ))}
               </div>
             </div>
           </>
@@ -2095,6 +2354,92 @@ export default function ComponentsPage() {
                 innerBorderRadius="11px"
                 fillWidth
                 isRTL={true}
+              />
+            </div>
+          </div>
+        );
+      case 'playing-card':
+        return (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '18px',
+              padding: '32px',
+              backgroundColor: '#050505',
+              borderRadius: '8px',
+              minHeight: '300px',
+            }}
+          >
+            <div
+              style={{
+                fontSize: '20px',
+                color: '#fff',
+                marginBottom: '4px',
+                textAlign: 'center',
+                letterSpacing: '0.01em',
+              }}
+            >
+              Click on the first card to show/hide dynamic background
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '36px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <PlayingCard
+                componentWidth="412px"
+                aspectRatio="3/4"
+                outerRounding="18px"
+                innerRounding="18px"
+                backgroundColor="#FFF"
+                foregroundColor="#000"
+                imageHeightPercentage={70}
+                imageSrc="https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/playground-card-image.webp"
+                imageAlt=""
+                outlineColor="#ddd"
+                hoverOutlineColor="#aaa"
+                textArray={["洪", "秀", "全"]}
+                minWidth={200}
+                maxWidth={400}
+                minTextSize={16}
+                maxTextSize={24}
+                verticalPadding="20px"
+                horizontalPadding="20px"
+                manualLetterSpacing={-2}
+                componentId="card-1"
+                revealCanvas={revealCanvasForPlayingCard}
+                onCardClicked={() => setRevealCanvasForPlayingCardForPlayingCard((prev) => !prev)}
+                textColorTransitionDelay="1s"
+                textColorTransitionDuration="2.4s"
+              />
+              <SecondPlayingCard
+                componentWidth="412px"
+                aspectRatio="3/4"
+                outerRounding="18px"
+                innerRounding="18px"
+                backgroundColor="#FFF"
+                imageHeightPercentage={62}
+                imageSrc="https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/second-playground-card-image.webp"
+                imageAlt=""
+                outlineColor="#ddd"
+                hoverOutlineColor="#3a3a3a"
+                textArray={["半", "影"]}
+                minWidth={200}
+                maxWidth={400}
+                minTextSize={16}
+                maxTextSize={24}
+                verticalPadding="20px"
+                horizontalPadding="20px"
+                manualLetterSpacing={1}
+                componentId="card-2"
+                onCardClicked={() => toast.info('The second card has been clicked')}
               />
             </div>
           </div>
