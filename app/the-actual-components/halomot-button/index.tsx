@@ -60,12 +60,13 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 // - fillWidth: boolean (optional) - If true, the button stretches to fill its container's width.
 // - fixedWidth: string (optional) - If set, the button will have a fixed width (e.g., '200px').
 // - href: string (optional) - If set, adds a tooltip to the button using the title attribute, which appears in the browser's built-in tooltip when hovered.
+// - hoverTextColor: string (optional) - Text color to use when the button is hovered.
 `,
 code: [
   {
     filename: 'HalomotButton.tsx',
     content: `"use client";
-    import React, { useState } from "react";
+    import React, { useState, useRef } from "react";
     
     interface HalomotButtonProps {
       gradient?: string; // Gradient for the button border/background
@@ -80,6 +81,8 @@ code: [
       padding?: string; // Custom padding for the inner button, e.g., "1rem 4rem"
       outerBorderRadius?: string; // Border radius for the gradient outer border
       innerBorderRadius?: string; // Border radius for the inner button
+      textColor?: string; // Text color for the button, default #fff
+      hoverTextColor?: string;
     }
     
     const HalomotButton: React.FC<HalomotButtonProps> = ({
@@ -95,8 +98,12 @@ code: [
       padding,
       outerBorderRadius = "6.34px",
       innerBorderRadius = "6px",
+      textColor = "#fff",
+      hoverTextColor,
     }) => {
       const [isHovered, setIsHovered] = useState(false);
+      const [delayedColor, setDelayedColor] = useState<string | undefined>(undefined);
+      const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     
       // Container style for fixed width
       const containerStyle: React.CSSProperties = fixedWidth
@@ -110,7 +117,7 @@ code: [
         background: gradient,
         border: "0",
         borderRadius: outerBorderRadius,
-        color: "#fff",
+        color: textColor,
         fontWeight: "bold",
         display: "flex",
         justifyContent: "center",
@@ -133,12 +140,12 @@ code: [
         borderRadius: innerBorderRadius,
         width: "100%",
         height: "100%",
-        transition: "300ms",
+        transition: hoverTextColor ? "color 0.3s, background 300ms" : "background 300ms",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         fontWeight: "bold",
-        color: "#fff",
+        color: delayedColor ? delayedColor : textColor,
         whiteSpace: "nowrap",
         fontFamily: "inherit",
         fontSize: "1rem",
@@ -159,6 +166,19 @@ code: [
         flexShrink: 0,
       };
     
+      // No delay, just set color immediately
+      const handleMouseEnter = () => {
+        setIsHovered(true);
+        if (hoverTextColor) {
+          setDelayedColor(hoverTextColor);
+        }
+      };
+    
+      const handleMouseLeave = () => {
+        setIsHovered(false);
+        setDelayedColor(undefined);
+      };
+    
       const handleClick = (
         e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>
       ) => {
@@ -169,8 +189,8 @@ code: [
       const ButtonContent = (
         <span
           style={spanStyle}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           {icon && React.cloneElement(icon, { style: iconStyle })}
           {inscription}

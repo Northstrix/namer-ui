@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 interface HalomotButtonProps {
   gradient?: string; // Gradient for the button border/background
@@ -15,6 +15,7 @@ interface HalomotButtonProps {
   outerBorderRadius?: string; // Border radius for the gradient outer border
   innerBorderRadius?: string; // Border radius for the inner button
   textColor?: string; // Text color for the button, default #fff
+  hoverTextColor?: string;
 }
 
 const HalomotButton: React.FC<HalomotButtonProps> = ({
@@ -31,8 +32,11 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
   outerBorderRadius = "6.34px",
   innerBorderRadius = "6px",
   textColor = "#fff",
+  hoverTextColor,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [delayedColor, setDelayedColor] = useState<string | undefined>(undefined);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Container style for fixed width
   const containerStyle: React.CSSProperties = fixedWidth
@@ -46,7 +50,7 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
     background: gradient,
     border: "0",
     borderRadius: outerBorderRadius,
-    color: textColor, // <--- Use textColor here
+    color: textColor,
     fontWeight: "bold",
     display: "flex",
     justifyContent: "center",
@@ -69,12 +73,12 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
     borderRadius: innerBorderRadius,
     width: "100%",
     height: "100%",
-    transition: "300ms",
+    transition: hoverTextColor ? "color 0.3s, background 300ms" : "background 300ms",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     fontWeight: "bold",
-    color: textColor, // <--- Use textColor here
+    color: delayedColor ? delayedColor : textColor,
     whiteSpace: "nowrap",
     fontFamily: "inherit",
     fontSize: "1rem",
@@ -95,6 +99,19 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
     flexShrink: 0,
   };
 
+  // No delay, just set color immediately
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (hoverTextColor) {
+      setDelayedColor(hoverTextColor);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setDelayedColor(undefined);
+  };
+
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>
   ) => {
@@ -105,8 +122,8 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
   const ButtonContent = (
     <span
       style={spanStyle}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {icon && React.cloneElement(icon, { style: iconStyle })}
       {inscription}
