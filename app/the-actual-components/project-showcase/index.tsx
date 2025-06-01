@@ -32,6 +32,13 @@ import ProjectShowcase from '@/app/the-actual-components/project-showcase/Projec
           link: "https://namer-ui.netlify.app/",
         },
         {
+          name: "Namer UI For Vue",
+          quote: "A collection of customizable, reusable TypeScript, vanilla CSS components for Vue 3.",
+          designation: "Vue Project",
+          src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp",
+          link: "https://namer-ui-for-vue.netlify.app/",
+        },
+        {
           name: "React Cryptographic Toolkit",
           quote:
             "A web app that’s capable of encrypting user data, hashing strings, and calculating tags using the available HMAC algorithms. Please don’t judge me too harshly for it; this is the first React app I ever made.",
@@ -106,6 +113,13 @@ import ProjectShowcase from '@/app/the-actual-components/project-showcase/Projec
           designation: "פרויקט Next.js",
           src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp",
           link: "https://namer-ui.netlify.app/",
+        },
+        {
+          name: "נמר UI ל-Vue",
+          quote: "אוסף של רכיבי TypeScript ו-CSS ונילה, הניתנים להתאמה אישית ולשימוש חוזר עבור Vue 3.",
+          designation: "פרויקט Vue",
+          src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp",
+          link: "https://namer-ui-for-vue.netlify.app/",
         },
         {
           name: "React קריפטוגרפיק טולקיט",
