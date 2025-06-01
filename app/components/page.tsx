@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { CodeBlock } from "./code-block";
+import { CodeBlock as LocalCodeBlock } from "./code-block";
 
 import ChronicleButton from '@/app/the-actual-components/chronicle-button/ChronicleButton'
 import SliderHeroSection from '@/app/the-actual-components/slider-hero-section/SliderHeroSection'
@@ -13,6 +13,7 @@ import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsAppWidget'
 import DicedHeroSection from '@/app/the-actual-components/diced-hero-section/DicedHeroSection'
 import AnimatedTestimonials from '@/app/the-actual-components/animated-testimonials/AnimatedTestimonials'
+import CircularTestimonials from '@/app/the-actual-components/circular-testimonials/CircularTestimonials'
 import ProjectShowcase from '@/app/the-actual-components/project-showcase/ProjectShowcase'
 import ProjectCard from '@/app/the-actual-components/project-card/ProjectCard'
 import SecondPlayingCard from '@/app/the-actual-components/playing-card/SecondPlayingCard'
@@ -26,7 +27,12 @@ import MagicButton from '@/app/the-actual-components/magic-button/MagicButton'
 import HalomotButton from '@/app/the-actual-components/halomot-button/HalomotButton'
 import LoaderHalomotButton from '@/app/the-actual-components/loader-halomot-button/LoaderHalomotButton'
 import PlayingCard from '@/app/the-actual-components/playing-card/PlayingCard'
+import CodeBlock from '@/app/the-actual-components/code-block/CodeBlock'
+import TruncatingNavbar from '@/app/the-actual-components/truncating-navbar/TruncatingNavbar'
 import AnimatedCube from '@/app/the-actual-components/animated-cube/AnimatedCube'
+import BentoGrid from '@/app/the-actual-components/bento-grid/BentoGrid'
+import RadioButton from '@/app/the-actual-components/radio-button/RadioButton'
+import AnimatedTooltip from '@/app/the-actual-components/animated-tooltip/AnimatedTooltip'
 import DreamyInput from '@/app/the-actual-components/dreamy-input/DreamyInput'
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch'
 import SkeuomorphicToggle from '@/app/the-actual-components/skeuomorphic-toggle/SkeuomorphicToggle'
@@ -78,6 +84,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IconBorderRightPlus, IconFoldDown } from '@tabler/icons-react';
 import styled from 'styled-components';
+import { Home, Settings, Info } from 'lucide-react';
 
 import { I18nextProvider } from 'react-i18next'; // Import I18nextProvider
 import i18nConf from '@/next-i18next.config.js'; // Import your i18n configuration
@@ -104,6 +111,7 @@ const components = [
   { id: 'whatsapp-widget', name: 'WhatsApp Widget', description: 'A customizable WhatsApp chat widget with auto-popup functionality, personalized messaging, and styled UI elements.' },
   { id: 'diced-hero-section', name: 'Diced Hero Section', description: 'A customizable hero section with diced image grid, gradient text, and responsive design for showcasing content.' },
   { id: 'animated-testimonials', name: 'Animated Testimonials', description: 'A customized Aceternity UI component, optimized for custom image aspect ratios and support for Right-to-Left (RTL) languages.' },
+  { id: 'circular-testimonials', name: 'Circular Testimonials', description: 'An animated testimonial section that displays user feedback in a visually engaging way.' },
   { id: 'project-showcase', name: 'Project Showcase', description: 'A customized version of the Aceternity\'s Animated Testimonials component.' },
   { id: "project-card", name: "Project Card", description: "A simple, yet stylish card for displaying basic project info." },
   { id: 'sequence-hero-section', name: 'Sequence Hero Section', description: 'A fully customizable hero section with steps, image carousel, and rating cards.' },
@@ -116,7 +124,12 @@ const components = [
   { id: 'halomot-button', name: 'Halomot Button', description: 'A stylish button with a vibrant gradient that fills it on hover.' },
   { id: 'loader-halomot-button', name: 'Loader Halomot Button', description: 'A stylish button that\'s capable of showing a loader.' },
   { id: 'playing-card', name: 'Playing Card', description: 'An interactive component inspired by a playing card, featuring a dynamic background.' },
+  { id: 'code-block', name: 'Code Block', description: 'A clean code block component that shows the formatted text with the line numbers.' },
+  { id: 'truncating-navbar', name: 'Truncating Navbar', description: 'A sleek, animated navbar that slides down and increases its padding on scroll, creating a smooth truncating effect.' },
   { id: 'animated-cube', name: 'Animated Cube', description: 'An animated 3D cube with customizable colors and scale.' },
+  { id: 'bento-grid', name: 'Bento Grid', description: 'A grid layout with fully customizable cell backgrounds, borders, border radius, and per-cell padding.' },
+  { id: 'radio-button', name: 'Radio Button', description: 'A simple component with the radio button logic.' },
+  { id: 'animated-tooltip', name: 'Animated Tooltip', description: 'A component that displays animated, themeable tooltips on hover, supporting per-item configuration.' },
   { id: "dreamy-input", name: "Dreamy Input", description: "A customizable input field with smooth animations and RTL support." },
   { id: 'shamayim-toggle-switch', name: 'Shamayim Toggle Switch', description: 'A celestial-themed toggle switch with a smooth animation and mirroring option.' },
   { id: 'skeuomorphic-toggle', name: 'Skeuomorphic Switch', description: 'A skeuomorphic toggle switch with customizable colors, inscriptions, and mirroring option.' },
@@ -329,6 +342,63 @@ export default function ComponentsPage() {
   const [revealCanvasForPlayingCard, setRevealCanvasForPlayingCardForPlayingCard] = useState(false);
   
   // Playing Card //
+
+  // Code Block Stuff //
+
+  const sampleCodeForCodeBlock = `try {
+    Swal.fire({
+      title: t('generating mlkem1024-key-pair'), // Use translation key for this message
+      html: \`<p dir="\${isRTL ? 'rtl' : 'ltr'}">\${t('please_wait')}</p>\`, // Use translation key for this message
+      color: "var(--foreground)",
+      background: "var(--card-background)",
+      width: 640,
+      allowOutsideClick: false,
+      customClass: {
+        popup: "swal-custom-popup", // Custom class for styling
+      },
+      didOpen: () => {
+          Swal.showLoading();
+      }
+  });
+    const recipient = new MlKem1024();
+    const [pkR, skR] = await recipient.generateKeyPair();
+    //console.log("Generated Public Key:", pkR);
+    //console.log("Generated Private Key:", skR);
+    if (user) {        
+      try {
+        Swal.fire({
+          title: t('uploading_mlkem_public_key_to_firebase'), // Use translation key for this message
+          html: \`<p dir="\${isRTL ? 'rtl' : 'ltr'}">\${t('please_wait')}</p>\`, // Use translation key for this message
+          color: "var(--foreground)",
+          background: "var(--card-background)",
+          width: 640,
+          allowOutsideClick: false,
+          customClass: {
+            popup: "swal-custom-popup", // Custom class for styling
+          },
+          didOpen: () => {
+              Swal.showLoading();
+          }
+      });
+        // Convert public key to hex string
+        const publicKey = btoa(String.fromCharCode(...pkR));
+        
+        // Create an object to store the public key
+        const publicKeyData = {
+          publicKey
+        };
+        
+        // Create a document reference in Firestore with the new path
+        const docRef = doc(collection(db, 'data'), \`\${user.email}/public/mlkem-public-key\`);
+        
+        // Store the public key data in Firestore
+        await setDoc(docRef, publicKeyData);
+
+      }
+...
+`;
+
+  // Code Block Stuff //
 
   // Skeuomorphic Setting Switches stuff //
   const [hydration, setHydration] = useState(true);
@@ -1749,6 +1819,13 @@ export default function ComponentsPage() {
                       link: "https://namer-ui.netlify.app/",
                     },
                     {
+                      name: "Namer UI For Vue",
+                      quote: "A collection of customizable, reusable TypeScript, vanilla CSS components for Vue 3.",
+                      designation: "Vue Project",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp",
+                      link: "https://namer-ui-for-vue.netlify.app/",
+                    },
+                    {
                       name: "React Cryptographic Toolkit",
                       quote:
                         "A web app that’s capable of encrypting user data, hashing strings, and calculating tags using the available HMAC algorithms. Please don’t judge me too harshly for it; this is the first React app I ever made.",
@@ -1823,6 +1900,13 @@ export default function ComponentsPage() {
                       designation: "פרויקט Next.js",
                       src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp",
                       link: "https://namer-ui.netlify.app/",
+                    },
+                    {
+                      name: "נמר UI ל-Vue",
+                      quote: "אוסף של רכיבי TypeScript ו-CSS ונילה, הניתנים להתאמה אישית ולשימוש חוזר עבור Vue 3.",
+                      designation: "פרויקט Vue",
+                      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp",
+                      link: "https://namer-ui-for-vue.netlify.app/",
                     },
                     {
                       name: "React קריפטוגרפיק טולקיט",
@@ -2444,6 +2528,67 @@ export default function ComponentsPage() {
             </div>
           </div>
         );
+      case 'code-block':
+        return (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '18px',
+              padding: '32px',
+              backgroundColor: '#050505',
+              borderRadius: '8px',
+              minHeight: '300px',
+            }}
+          >
+            <div style={{ width: 'auto', margin: '0 auto' }}>
+              <CodeBlock
+                code={sampleCodeForCodeBlock}
+                filename="ML-KEM.ts"
+                rootPadding="12px 8px 20px 8px"
+                borderWidth="1px"
+                rootBorderRadius="8px"
+              />
+            </div>
+          </div>
+        );
+      case 'truncating-navbar':
+        return (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '18px',
+              padding: '32px',
+              backgroundColor: '#050505',
+              borderRadius: '8px',
+              height: '300px',
+            }}
+          >
+            <TruncatingNavbar
+              icon="/logo.png"
+              appName="Namer"
+              routes={[
+                { name: 'Link', link: 'https://maxim-bortnikov.netlify.app/', external: true },
+              ]}
+              homeRoute="/"
+              scrolledBg="#151419"
+              mobileBg="#060507"
+              outlineColor="#403d4d"
+              searchPlaceholderText="Search..."
+              shortcutKey="M"
+              onOpenSearch={() => toast.info('Search button clicked!')}
+              zIndex={1}
+            />
+            <div style={{ padding: '2rem' }}>
+              <h2>Scroll down to see the navbar change!</h2>
+            </div>
+          </div>
+        );
       case 'animated-cube':
         return (
           <div style={{ minHeight: '300px', padding: 40, background: "#050505", display: "flex", justifyContent: "center" }}>
@@ -2456,6 +2601,184 @@ export default function ComponentsPage() {
               animationDuration={3}
             />
         </div>
+        );
+      case 'bento-grid':
+        return (
+          <div style={{ minHeight: '300px', padding: 40, background: "#050505", display: "flex", justifyContent: "center" }}>
+            <BentoGrid
+              mainAspect="9/16"
+              leftColRatio={0.32}
+              rightCol1={0.6}
+              rightCol2={0.4}
+              topRowRatio={0.65}
+              bottomRowRatio={0.35}
+              gap="20px"
+              gridHeight="264px"
+              cellBackground="#17161c"
+              cellBorderColor="#33313d"
+              cellBorderRadius="32px"
+              cellBorderWidth="1px"
+              cellPadding="16px"
+              mainCellBorderColor="#7b1fa2"
+              mainCellBorderRadius="32px"
+              topCenterCellBackground="#060507"
+              topRightCellBackground="#111014"
+              bottomCellBackground="#4776cb"
+              bottomCellBorderColor="#fff"
+              bottomCellBorderRadius="8px"
+              bottomCellBorderWidth="4px"
+              onCellClick={(cell) => toast.info(`Clicked: ${cell}`)}
+              main={
+                <div style={{ width: '100%', textAlign: 'center' }}>
+                  <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>Left (Main)</div>
+                </div>
+              }
+              topCenter={
+                <div style={{ width: '100%', textAlign: 'center' }}>
+                  <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>Top Center</div>
+                </div>
+              }
+              topRight={
+                <div style={{ width: '100%', textAlign: 'center' }}>
+                  <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>Top Right</div>
+                </div>
+              }
+              bottom={
+                <div style={{ width: '100%', textAlign: 'center' }}>
+                  <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>Bottom Right</div>
+                </div>
+              }
+            />
+        </div>
+        );
+      case 'radio-button':
+        return (
+          <div
+            style={{
+              minHeight: '300px',
+              padding: '40px',
+              background: '#050505',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div
+              style={{
+                width: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '2rem',
+                boxSizing: 'border-box',
+                background: 'rgba(0,0,0,0.2)',
+                borderRadius: '12px',
+              }}
+            >
+              <RadioButton
+                options={[
+                  { value: 'home', label: 'Home', icon: Home },
+                  { value: 'settings', label: 'Settings', icon: Settings },
+                  { value: 'about', label: 'About', icon: Info },
+                ]}
+                onChange={value => {
+                  toast.info(`Selected tab: ${value}`)
+                }}
+                defaultValue="home"
+                activeBg="#f7f7fa"
+                activeFg="#24222b"
+                inactiveBg="#24222b"
+                inactiveFg="#f7f7fa"
+                hoverBg="#4776cb"
+              />
+            </div>
+          </div>
+        );
+      case 'animated-tooltip':
+        return (
+          <div
+            style={{
+              minHeight: '300px',
+              padding: '40px',
+              background: '#050505',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transform: 'translateY(24px)' }}>
+              <AnimatedTooltip
+                items={[
+                  {
+                    id: "Next.js",
+                    name: 'Next.js',
+                    image: 'https://icon.icepanel.io/Technology/svg/Next.js.svg',
+                    appearanceEffect: 'from-top-left',
+                    tooltipOffsetY: 2,
+                    tooltipBorderEffectColors: ['#33303b 0%', '#33303b 100%'],
+                    nameColor: '#41b883',
+                    imageRounding: 40,
+                    imageOutlineColor: "#fff",
+                    tooltipWidth: "auto"
+                  },
+                  {
+                    id: "TypeScript",
+                    name: 'TypeScript',
+                    designation: '24px higher than Next.js tooltip',
+                    image: 'https://icon.icepanel.io/Technology/svg/TypeScript.svg',
+                    appearanceEffect: 'from-top',
+                    tooltipOffsetY: 26,
+                    tooltipBorderEffectColors: ['#4776cb 0', '#a19fe5 40%', 'transparent 90%'],
+                    nameFontSize: '1.3rem',
+                    imageOutlineColor: "#fff",
+                    nameColor: '#fff',
+                    designationColor: '#008ceb',
+                    imageRounding: 8,
+                    tooltipRounding: 0,
+                  },
+                  {
+                    id: "Tailwind CSS",
+                    name: 'Tailwind CSS',
+                    designation: "That one doesn't tilt",
+                    image: 'https://icon.icepanel.io/Technology/svg/Tailwind-CSS.svg',
+                    appearanceEffect: 'from-top-right',
+                    tooltipOffsetY: 2,
+                    tooltipBorderEffectColors: ['#0097fd 0', '#0097fd 100%'],
+                    imageRounding: 0,
+                    tintTilt: false,
+                    tooltipRounding: 50,
+                    designationFontSize: "1.125rem",
+                    tooltipColor: "#eee",
+                    tooltipDotColor: "rgba(21, 114, 182, 0.84)",
+                    nameColor: "#111014",
+                    designationColor: "#3e3a49",
+                    imageOutlineColor: "#333",
+                  },
+                ]}
+                tooltipColor="#060507"
+                tooltipBorderEffectRotation="2.94rad"
+                tooltipBorderEffectThickness="1px"
+                tooltipBorderEffectPercentage={100}
+                tooltipRounding={8}
+                tooltipWidth="264px"
+                tooltipPadding="0.625rem 1rem"
+                appearanceEffect="from-top"
+                tooltipPosition="top"
+                nameFontSize="1.2rem"
+                designationFontSize="0.875rem"
+                nameColor="#ffeaa7"
+                designationColor="#fab1a0"
+                imageOutlineColor="#fff"
+                imageOutlineWidth="1px"
+                tooltipBgColor="rgba(71, 118, 203, 0.05)"
+                tooltipDotColor="rgba(98, 92, 115, 0.73)"
+                tintTilt
+                avatarGap="24px"
+                uniqueId="main-demo"
+              />
+            </div>
+          </div>
         );
       case 'dreamy-input':
         return (
@@ -3938,7 +4261,56 @@ export default function ComponentsPage() {
             </div>
           </>
         );
-            
+      case 'circular-testimonials':
+        return (
+          <>
+            <div className="bg-[#050505] rounded-lg flex flex-col items-center justify-center relative gap-8 py-8">
+              <p className="text-[#F7F7FF] text-m max-w-[1080px] text-center mt-4 px-4">
+                Disclaimer: The testimonials and restaurant name presented here are entirely fictional and created for demonstrational purposes only. Shining Yam is not a real establishment or enterprise. These fictional testimonials are designed to showcase the functionality of the Animated Testimonials component and do not represent real customer experiences or opinions. Any resemblance to actual persons, living or dead, or actual businesses is purely coincidental. This demonstration is intended solely for illustrative purposes in a web development context.
+              </p>
+            </div>
+            <div className="bg-[#f1f1f7] p-20 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+              <div className="items-center justify-center relative flex" style={{ maxWidth: "1456px" }}>
+                <CircularTestimonials
+                  testimonials={[
+                    {
+                      quote: "I was impressed by the food! And I could really tell that they use high-quality ingredients. The staff was friendly and attentive. I'll definitely be back for more!",
+                      name: "Tamar Mendelson",
+                      designation: "Restaurant Critic",
+                      src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    },
+                    {
+                      quote: "This place exceeded all expectations! The atmosphere is inviting, and the staff truly goes above and beyond. I'll keep returning for more exceptional dining experience.",
+                      name: "Joe Charlescraft",
+                      designation: "Frequent Visitor",
+                      src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+                    },
+                    {
+                      quote: "Shining Yam is a hidden gem! The impeccable service and overall attention to detail created a memorable experience. I highly recommend it!",
+                      name: "Martina Edelweist",
+                      designation: "Satisfied Customer",
+                      src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+                    },
+                  ]}
+                  autoplay={true}
+                  colors={{
+                    name: "#0a0a0a",
+                    designation: "#454545",
+                    testimony: "#171717",
+                    arrowBackground: "#141414",
+                    arrowForeground: "#f1f1f7",
+                    arrowHoverBackground: "#00A6FB",
+                  }}
+                  fontSizes={{
+                    name: "28px",
+                    designation: "20px",
+                    quote: "20px",
+                  }}
+                />
+              </div>
+            </div>
+          </>
+        );     
       default:
         return <div>No preview available.</div>;
     }
@@ -4016,7 +4388,7 @@ export default function ComponentsPage() {
                 (metadata.code as CodeFile[]).map(({ filename, content }) => (
                   <div key={filename} className="mb-8">
                     <h3 className="font-bold mb-4 text-lg">{filename}</h3>
-                    <CodeBlock
+                    <LocalCodeBlock
                       filename={filename}
                       code={content}
                     />

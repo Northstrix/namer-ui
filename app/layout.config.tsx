@@ -31,5 +31,11 @@ export const baseOptions: BaseLayoutProps = {
       active: "nested-url",
       icon: <LayoutPanelTop />,
     },
+    {
+      text: "Vue Components",
+      url: "https://namer-ui-for-vue.netlify.app/",
+      active: "nested-url",
+      icon: <LayoutPanelTop />,
+    },
   ],
 };
