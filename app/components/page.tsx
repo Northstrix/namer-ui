@@ -9,6 +9,7 @@ import ChronicleButton from '@/app/the-actual-components/chronicle-button/Chroni
 import SliderHeroSection from '@/app/the-actual-components/slider-hero-section/SliderHeroSection'
 import BauhausFileCard from '@/app/the-actual-components/bauhaus-file-card/BauhausFileCard'
 import InflectedCard from '@/app/the-actual-components/inflected-card/InflectedCard'
+import SilkyCard from '@/app/the-actual-components/silky-card/SilkyCard'
 import ProductCard from '@/app/the-actual-components/product-card/ProductCard'
 import WhatsAppWidget from '@/app/the-actual-components/whatsapp-widget/WhatsAppWidget'
 import DicedHeroSection from '@/app/the-actual-components/diced-hero-section/DicedHeroSection'
@@ -16,6 +17,9 @@ import AnimatedTestimonials from '@/app/the-actual-components/animated-testimoni
 import CircularTestimonials from '@/app/the-actual-components/circular-testimonials/CircularTestimonials'
 import ProjectShowcase from '@/app/the-actual-components/project-showcase/ProjectShowcase'
 import ProjectCard from '@/app/the-actual-components/project-card/ProjectCard'
+import TextSwap from '@/app/the-actual-components/text-swap/TextSwap'
+import FloatingLabelInput from '@/app/the-actual-components/floating-label-input/FloatingLabelInput'
+import LoginForm from '@/app/the-actual-components/login-form/LoginForm'
 import SecondPlayingCard from '@/app/the-actual-components/playing-card/SecondPlayingCard'
 import SequenceHeroSection from '@/app/the-actual-components/sequence-hero-section/SequenceHeroSection'
 import SimpleNavbar from '@/app/the-actual-components/simple-navbar/SimpleNavbar'
@@ -33,6 +37,8 @@ import AnimatedCube from '@/app/the-actual-components/animated-cube/AnimatedCube
 import BentoGrid from '@/app/the-actual-components/bento-grid/BentoGrid'
 import RadioButton from '@/app/the-actual-components/radio-button/RadioButton'
 import AnimatedTooltip from '@/app/the-actual-components/animated-tooltip/AnimatedTooltip'
+import CustomCheckbox from '@/app/the-actual-components/custom-checkbox/CustomCheckbox'
+import FormCard from '@/app/the-actual-components/form-card/FormCard'
 import DreamyInput from '@/app/the-actual-components/dreamy-input/DreamyInput'
 import { ShamayimToggleSwitch } from '@/app/the-actual-components/shamayim-toggle-switch/ShamayimToggleSwitch'
 import SkeuomorphicToggle from '@/app/the-actual-components/skeuomorphic-toggle/SkeuomorphicToggle'
@@ -76,7 +82,7 @@ import DecryptModal from '@/app/the-actual-components/file-encrypter/DecryptModa
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faMedium } from '@fortawesome/free-brands-svg-icons';
 import { faTools } from '@fortawesome/free-solid-svg-icons';
-import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFilled, IconCircleArrowUpFilled, IconLockFilled, IconSettingsFilled, IconInfoCircleFilled } from '@tabler/icons-react';
+import { IconUserFilled, IconFolderFilled, IconFileFilled, IconCircleArrowDownFilled, IconCircleArrowUpFilled, IconLockFilled, IconSettingsFilled, IconInfoCircleFilled, IconBorderRadius } from '@tabler/icons-react';
 import { IconHome, IconFile, IconPencil, IconLogout, IconUser, IconFolder, IconCircleArrowDown, IconCircleArrowUp, IconLock, IconSettings, IconInfoCircle } from '@tabler/icons-react';
 import { IconCornerRightUp, IconFold } from '@tabler/icons-react';
 import { IconStar, IconUserStar, IconList, IconCalendarEvent } from '@tabler/icons-react';
@@ -107,6 +113,7 @@ const components = [
   { id: 'slider-hero-section', name: 'Slider Hero Section', description: 'A customizable hero section with sliding showcase options, image transitions, and responsive design.' },
   { id: 'bauhaus-file-card', name: 'Bauhaus File Card', description: 'A bauhaus-inspired file container with interactive elements.' },
   { id: 'inflected-card', name: 'Inflected Card', description: 'A versatile card component with an unorthodox shape.' },
+  { id: 'silky-card', name: 'Silky Card', description: 'A card component that reveals a captivating dynamic background when hovered.' },
   { id: 'product-card', name: 'Product Card', description: 'A versatile product card component with image, pricing, discount, and interactive buttons for e-commerce applications.' },
   { id: 'whatsapp-widget', name: 'WhatsApp Widget', description: 'A customizable WhatsApp chat widget with auto-popup functionality, personalized messaging, and styled UI elements.' },
   { id: 'diced-hero-section', name: 'Diced Hero Section', description: 'A customizable hero section with diced image grid, gradient text, and responsive design for showcasing content.' },
@@ -114,6 +121,9 @@ const components = [
   { id: 'circular-testimonials', name: 'Circular Testimonials', description: 'An animated testimonial section that displays user feedback in a visually engaging way.' },
   { id: 'project-showcase', name: 'Project Showcase', description: 'A customized version of the Aceternity\'s Animated Testimonials component.' },
   { id: "project-card", name: "Project Card", description: "A simple, yet stylish card for displaying basic project info." },
+  { id: "text-swap", name: "Text Swap", description: "An improved version of the Text Rotate component from Fancy Components." },
+  { id: 'floating-label-input', name: 'Floating Label Input', description: 'A fully customizable floating label input component.' },
+  { id: 'login-form', name: 'Login Form', description: 'A fully customizable login form with the floating label input and chronicle button components.' },
   { id: 'sequence-hero-section', name: 'Sequence Hero Section', description: 'A fully customizable hero section with steps, image carousel, and rating cards.' },
   { id: "simple-navbar", name: "Simple Navbar", description: "A simple navigation bar with icons, tooltips, and space for a phone number, suitable for simple yet modern websites." },
   { id: 'file-container', name: 'File Container', description: 'A container for displaying file information.' },
@@ -130,6 +140,8 @@ const components = [
   { id: 'bento-grid', name: 'Bento Grid', description: 'A grid layout with fully customizable cell backgrounds, borders, border radius, and per-cell padding.' },
   { id: 'radio-button', name: 'Radio Button', description: 'A simple component with the radio button logic.' },
   { id: 'animated-tooltip', name: 'Animated Tooltip', description: 'A component that displays animated, themeable tooltips on hover, supporting per-item configuration.' },
+  { id: 'custom-checkbox', name: 'Custom Checkbox', description: 'A flexible checkbox component that works as a single checkbox or a group, can be used in both LTR and RTL layouts.' },
+  { id: 'form-card', name: 'Form Card', description: 'A modern, customizable card component for forms, with badge, stats, and actions.' },
   { id: "dreamy-input", name: "Dreamy Input", description: "A customizable input field with smooth animations and RTL support." },
   { id: 'shamayim-toggle-switch', name: 'Shamayim Toggle Switch', description: 'A celestial-themed toggle switch with a smooth animation and mirroring option.' },
   { id: 'skeuomorphic-toggle', name: 'Skeuomorphic Switch', description: 'A skeuomorphic toggle switch with customizable colors, inscriptions, and mirroring option.' },
@@ -301,6 +313,15 @@ export default function ComponentsPage() {
 
   // Project Card Stuff //
 
+  // Floating Label Input //
+
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [info, setInfo] = useState('');
+
+  // Floating Label Input //
+
   // Fancy Notification stuff //
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const [notificationStatus, setNotificationStatus] = useState<'success' | 'error'>('success');
@@ -399,6 +420,63 @@ export default function ComponentsPage() {
 `;
 
   // Code Block Stuff //
+
+  // Custom Checkbox Stuff //
+  
+  const [customCheckboxCheckedLTR, setCustomCheckboxCheckedLTR] = useState(false);
+  const [customCheckboxCheckedRTL, setCustomCheckboxCheckedRTL] = useState(false);
+  const [customCheckboxCheckedAR, setCustomCheckboxCheckedAR] = useState(false);
+  const [customCheckboxCheckedNoOutline, setCustomCheckboxCheckedNoOutline] = useState(false);
+  const [customCheckboxCheckedFullRounding, setCustomCheckboxCheckedFullRounding] = useState(false);
+  const [customCheckboxCheckedNoRounding, setCustomCheckboxCheckedNoRounding] = useState(false);
+
+  // Disabled checkboxes
+  const [customCheckboxCheckedDisabled, setCustomCheckboxCheckedDisabled] = useState(false);
+  const [customCheckboxCheckedDisabledWhiteRed, setCustomCheckboxCheckedDisabledWhiteRed] = useState(false);
+
+  // LTR group
+  const [customCheckboxSelectedLTR, setCustomCheckboxSelectedLTR] = useState<string[]>([]);
+  const customCheckboxLTROptions = [
+    { value: "next", label: "Next.js" },
+    { value: "ts", label: "TypeScript" },
+    { value: "namer", label: "Namer UI" }
+  ];
+
+  // RTL group
+  const [customCheckboxSelectedRTL, setCustomCheckboxSelectedRTL] = useState<string[]>([]);
+  const customCheckboxRTLOptions = [
+    { value: "midbar", label: "מדבר" },
+    { value: "lakhash", label: "לחש" },
+    { value: "blueberryloom", label: "בלוברי לום" }
+  ];
+
+  // Max selection group
+  const [customCheckboxSelectedMax, setCustomCheckboxSelectedMax] = useState<string[]>([]);
+  const customCheckboxMaxOptions = [
+    { value: "one", label: "1st" },
+    { value: "two", label: "2nd" },
+    { value: "three", label: "3rd" }
+  ];
+
+  // 5-item group, only three can be selected
+  const [customCheckboxSelectedFive, setCustomCheckboxSelectedFive] = useState<string[]>([]);
+  const customCheckboxFiveOptions = [
+    { value: "one", label: "One" },
+    { value: "two", label: "Two" },
+    { value: "three", label: "Three" },
+    { value: "four", label: "Four" },
+    { value: "five", label: "Five" }
+  ];
+
+  // Disabled per item group
+  const [customCheckboxSelectedDisabledGroup, setCustomCheckboxSelectedDisabledGroup] = useState<string[]>([]);
+  const customCheckboxDisabledGroupOptions = [
+    { value: "a", label: "Enabled" },
+    { value: "b", label: "Disabled", checkboxProps: { disabled: true } },
+    { value: "c", label: "Enabled" }
+  ];
+
+  // Custom Checkbox Stuff //
 
   // Skeuomorphic Setting Switches stuff //
   const [hydration, setHydration] = useState(true);
@@ -1048,16 +1126,17 @@ export default function ComponentsPage() {
       case 'chronicle-button':
         return (
           <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            {/* Original examples */}
             <ChronicleButton 
               text='Hover Me'
               onClick={() => toast.info("The first button has been clicked")} 
             />
             <ChronicleButton 
-              text='Blue (1.4em)' // Button text
+              text='Blue (1.4em)'
               onClick={() => toast.info('The blue button has been clicked')} 
-              width="200px" // Custom width
-              hoverColor="#90BAFD" // Custom hover color: a vibrant blue
-              borderRadius="1.4em" // Custom border radius
+              width="200px"
+              hoverColor="#90BAFD"
+              borderRadius="1.4em"
             />
             <ChronicleButton 
               text="Outlined (-6px)" 
@@ -1066,6 +1145,36 @@ export default function ComponentsPage() {
               width="200px"
               outlined={true}
               outlinePaddingAdjustment="6px"
+            />
+            <ChronicleButton
+              text="Custom Padding"
+              onClick={() => toast.info("Custom Padding clicked")}
+              width="auto"
+              outlined={true}
+              outlinePaddingAdjustment="0px"
+              borderRadius="2.5em"
+              outlineBorderWidth="3px"
+              customBackground="#7c3aed"
+              customForeground="#fff"
+              outlinedButtonBackgroundOnHover="#ede9fe"
+              hoverColor="#a21caf"
+              fontSize="1.2em"
+              fontFamily="Arial Black, Arial, sans-serif"
+              padding="1.5em 2.5em"
+              hoverForeground = "#222"
+            />
+            <ChronicleButton
+              text="Oceanic"
+              onClick={() => toast.info("Oceanic clicked")}
+              width="210px"
+              borderRadius="2em"
+              customBackground="#00a0d8"
+              customForeground="#fff"
+              hoverColor="#fff"
+              hoverForeground="#0a0a0a"
+              fontSize="1.1em"
+              fontFamily="Verdana, Geneva, sans-serif"
+              padding="1.3em 2em"
             />
           </div>
         );
@@ -1387,6 +1496,258 @@ export default function ComponentsPage() {
                 titleAlignment="center"
                 descriptionAlignment="right"
               />
+            </div>
+          </div>
+        );
+      case 'silky-card':
+        return (
+          <div className="bg-[#050505] p-8 rounded-[12px] min-h-[400px] flex flex-wrap gap-6 justify-center items-start">
+            <div className="text-[#aaa] w-full mb-4 select-none text-center">Hover the cards to reveal the background</div>
+
+            <div className="max-w-[400px] max-h-[320px] w-full h-[280px] flex-grow flex-shrink box-border min-w-[220px]">
+              <SilkyCard
+                order={0} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={false}
+                onClick={() => toast.info("Clicked card 1")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 5\nscale: 1\ncolor: #7B7481\nnoiseIntensity: 1.5\nrotation: 0\nisRTL: false`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #1
+                  <p className="font-normal text-sm mt-2">Default Silk animation</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[320px] w-full h-[270px] flex-grow flex-shrink box-border min-w-[220px]">
+              <SilkyCard
+                order={1} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={false}
+                speed={10} scale={2} color="#4300FE" noiseIntensity={0} rotation={0.1}
+                outerBorderRadius="8px" innerBorderRadius="40px" backgroundColor="#363664" borderColor="#fff" borderColorHover="#4300FE"
+                borderWidth = "5px"
+                onClick={() => toast.info("Clicked card 2")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 10\nscale: 2\ncolor: #4300f3\nnoiseIntensity: 0\nrotation: 0.1\nisRTL: false`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #2
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[300px] w-full h-[300px] flex-grow flex-shrink box-border min-w-[220px]">
+              <SilkyCard
+                order={2} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={true}
+                speed={2} scale={0.5} color="#603dec" noiseIntensity={5} rotation={0.5}
+                outerBorderRadius="6.34px" innerBorderRadius="6px" backgroundColor="#222230" borderColorHover="#2d2c3d"
+                onClick={() => toast.info("Clicked card 3")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 2\nscale: 0.5\ncolor: #603dec\nnoiseIntensity: 5\nrotation: 0.5\nisRTL: true`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #3
+                  <p className="font-normal text-sm mt-2">Custom Silk params, isRTL true</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[380px] max-h-[300px] w-full h-[270px] flex-grow flex-shrink box-border min-w-[190px]">
+              <SilkyCard
+                order={3} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={false}
+                speed={8} scale={1.5} color="#f12b30" noiseIntensity={1} rotation={0}
+                outerBorderRadius="2.11px" innerBorderRadius="2px" backgroundColor="#2b1e1e" borderColorHover="#3a2c2c"
+                onClick={() => toast.info("Clicked card 4")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 8\nscale: 1.5\ncolor: #f12b30\nnoiseIntensity: 1\nrotation: 0\nisRTL: false`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #4
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[390px] max-h-[300px] w-full h-[290px] flex-grow flex-shrink box-border min-w-[200px]">
+              <SilkyCard
+                order={4} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={true}
+                speed={20} scale={0.24} color="#3662f4" noiseIntensity={12} rotation={-0.3} backgroundColor="#202330" borderColorHover="#2a2f44"
+                onClick={() => toast.info("Clicked card 5")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 20\nscale: 0.24\ncolor: #3662f4\nnoiseIntensity: 12\nrotation: -0.3\nisRTL: true`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #5
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[300px] w-full h-[280px] flex-grow flex-shrink box-border min-w-[180px]">
+              <SilkyCard
+                order={5} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={true}
+                speed={16} scale={1} color="#7B7481" noiseIntensity={0.8} rotation={0.2}
+                outerBorderRadius="18px" innerBorderRadius="16px" backgroundColor="#2c2a2f" borderColorHover="#3e3c40"
+                onClick={() => toast.info("Clicked card 6")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 16\nscale: 1\ncolor: #7B7481\nnoiseIntensity: 0.8\nrotation: 0.2\nisRTL: true`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #6
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[300px] w-full h-[270px] flex-grow flex-shrink box-border min-w-[200px]">
+              <SilkyCard
+                order={6} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={false}
+                speed={3} scale={0.7} color="#ee33aa" noiseIntensity={2.2} rotation={-0.5}
+                outerBorderRadius="42.8px" innerBorderRadius="42px" backgroundColor="#301b2f" borderColorHover="#4b2e4b"
+                onClick={() => toast.info("Clicked card 7")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 3\nscale: 0.7\ncolor: #ee33aa\nnoiseIntensity: 2.2\nrotation: -0.5\nisRTL: false`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #7
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[300px] w-full h-[290px] flex-grow flex-shrink box-border min-w-[210px]">
+              <SilkyCard
+                order={7} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={true}
+                speed={9} scale={1.3} color="#4400ff" noiseIntensity={1.1} rotation={0.4}
+                outerBorderRadius="0px" innerBorderRadius="0px" backgroundColor="#261f44" borderColorHover="#3f3c6e"
+                onClick={() => toast.info("Clicked card 8")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 9\nscale: 1.3\ncolor: #4400ff\nnoiseIntensity: 1.1\nrotation: 0.4\nisRTL: true`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #8
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[300px] w-full h-[270px] flex-grow flex-shrink box-border min-w-[200px]">
+              <SilkyCard
+                order={8} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={false}
+                speed={3} scale={0.7} color="#ee33aa" noiseIntensity={2.2} rotation={-0.5} backgroundColor="#301b2f" borderColorHover="#4b2e4b"
+                onClick={() => toast.info("Clicked card 9")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 3\nscale: 0.7\ncolor: #ee33aa\nnoiseIntensity: 2.2\nrotation: -0.5\nisRTL: false`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">   
+                  Silky Card #9
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[300px] w-full h-[290px] flex-grow flex-shrink box-border min-w-[210px]">
+              <SilkyCard
+                order={9} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={true}
+                speed={9} scale={1.3} color="#4400ff" noiseIntensity={1.1} rotation={0.4} backgroundColor="#261f44" borderColorHover="#3f3c6e"
+                onClick={() => toast.info("Clicked card 10")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 9\nscale: 1.3\ncolor: #4400ff\nnoiseIntensity: 1.1\nrotation: 0.4\nisRTL: true`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">   
+                  Silky Card #10
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[380px] max-h-[280px] w-full h-[280px] flex-grow flex-shrink box-border min-w-[190px]">
+              <SilkyCard
+                order={10} isMobile={false} align="flex-end" textAlign="right" textDirection="ltr" isRTL={false}
+                speed={14} scale={2.8} color="#0077cc" noiseIntensity={0.5} rotation={-0.6} backgroundColor="#172a42" borderColorHover="#23426a"
+                onClick={() => toast.info("Clicked card 11")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-right whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 14\nscale: 2.8\ncolor: #0077cc\nnoiseIntensity: 0.5\nrotation: -0.6\nisRTL: false`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-right">   
+                  Silky Card #11
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[380px] max-h-[300px] w-full h-[270px] flex-grow flex-shrink box-border min-w-[200px]">
+              <SilkyCard
+                order={11} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={true}
+                speed={3} scale={1.4} color="#81007f" noiseIntensity={1.8} rotation={0.2} backgroundColor="#351534" borderColorHover="#4d2a4d"
+                onClick={() => toast.info("Clicked card 12")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 3\nscale: 1.4\ncolor: #81007f\nnoiseIntensity: 1.8\nrotation: 0.2\nisRTL: true`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">   
+                  Silky Card #12
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[280px] w-full h-[280px] flex-grow flex-shrink box-border min-w-[200px]">
+              <SilkyCard
+                order={13} isMobile={false} textDirection="ltr" isRTL={false}
+                speed={11} scale={0.7} color="#aaff00" noiseIntensity={1.3} rotation={0.2} backgroundColor="#293312" borderColorHover="#446626"
+                onClick={() => toast.info("Clicked card 14")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-center whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 11\nscale: 0.7\ncolor: #aaff00\nnoiseIntensity: 1.3\nrotation: 0.2\nisRTL: false`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-center">
+                  Silky Card #14
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[390px] max-h-[300px] w-full h-[280px] flex-grow flex-shrink box-border min-w-[210px]">
+              <SilkyCard
+                order={14} isMobile={false} align="flex-end" textAlign="right" textDirection="ltr" isRTL={false}
+                speed={5} scale={1.1} color="#ff4400" noiseIntensity={1.9} rotation={0.3} backgroundColor="#422a1f" borderColorHover="#623f2b"
+                onClick={() => toast.info("Clicked card 15")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-right whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 5\nscale: 1.1\ncolor: #ff4400\nnoiseIntensity: 1.9\nrotation: 0.3\nisRTL: false`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-right">
+                  Silky Card #15
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
+            </div>
+
+            <div className="max-w-[400px] max-h-[300px] w-full h-[270px] flex-grow flex-shrink box-border min-w-[210px]">
+              <SilkyCard
+                order={15} isMobile={false} align="flex-start" textAlign="left" textDirection="ltr" isRTL={true}
+                speed={18} scale={1.6} color="#22aa66" noiseIntensity={2} rotation={-0.1} backgroundColor="#193222" borderColorHover="#2e4835"
+                onClick={() => toast.info("Clicked card 16")}
+              >
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-mono font-bold text-sm select-none text-left whitespace-pre-wrap opacity-[0.85] mb-1.5">
+                  {`speed: 18\nscale: 1.6\ncolor: #22aa66\nnoiseIntensity: 2.0\nrotation: -0.1\nisRTL: true`}
+                </div>
+                <div className="text-white p-4 flex flex-col justify-center flex-1 font-bold text-lg select-none text-left">
+                  Silky Card #16
+                  <p className="font-normal text-sm mt-2">Custom Silk params</p>
+                </div>
+              </SilkyCard>
             </div>
           </div>
         );
@@ -2115,6 +2476,404 @@ export default function ComponentsPage() {
             </div>
           </>
         );
+      case 'text-swap':
+        return (
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '36px',
+            justifyContent: 'center',
+            padding: '32px',
+            backgroundColor: '#050505',
+            borderRadius: '8px',
+            minHeight: '300px'
+          }}>
+            {/* First (original) item */}
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  fontWeight: 700,
+                  fontSize: "3rem",
+                  lineHeight: 1.1,
+                }}
+              >
+                <TextSwap
+                  texts={[
+                    "Next.js",
+                    "Tailwind",
+                    "Framer Motion",
+                    "GSAP",
+                    "Namer UI",
+                  ]}
+                  mainClassName="px-3 py-2 bg-[#00a0d8] overflow-hidden py-1 md:py-2 justify-center rounded-lg"
+                  staggerFrom="last"
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "-120%" }}
+                  staggerDuration={0.025}
+                  splitLevelClassName="overflow-hidden"
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                  rotationInterval={2000}
+                  style={{
+                    boxShadow: 'none',
+                    background: "#00a0d8",
+                    color: "#fff",
+                    fontWeight: 700,
+                    fontSize: "2.4rem",
+                    minHeight: 100,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Second (purple, Hebrew) item */}
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                direction: "rtl",
+              }}
+            >
+              <div
+                style={{
+                  fontWeight: 700,
+                  fontSize: "3rem",
+                  lineHeight: 1.1,
+                }}
+              >
+                <TextSwap
+                  texts={[
+                    "מדבר",
+                    "בלוברי לום",
+                    "פיתוח אתרים",
+                    "נמר",
+                  ]}
+                  mainClassName="px-3 py-2 bg-[#7c3aed] overflow-hidden py-1 md:py-2 justify-center rounded-[32px]"
+                  staggerFrom="first"
+                  initial={{ y: "-100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "120%" }}
+                  staggerDuration={0.05}
+                  splitLevelClassName="overflow-hidden"
+                  transition={{ type: "spring", damping: 18, stiffness: 180, mass: 0.8 }}
+                  rotationInterval={1800}
+                  style={{
+                    boxShadow: 'none',
+                    background: "#7c3aed",
+                    color: "#111014",
+                    fontWeight: 700,
+                    fontSize: "2.4rem",
+                    minHeight: 100,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "32px",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      case 'floating-label-input':
+        return (
+          <div
+            style={{
+              minHeight: 300,
+              background: '#050505',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '32px',
+              boxSizing: 'border-box',
+            }}
+          >
+            {/* Inputs row */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: '32px',
+                justifyContent: 'center',
+                alignItems: 'flex-start',
+                width: '100%',
+                maxWidth: 1440,
+              }}
+            >
+              <div style={{ maxWidth: 260, minWidth: 180, flex: '1 1 180px', display: 'flex', alignItems: 'center' }}>
+                <FloatingLabelInput
+                  label="Username"
+                  value={username}
+                  onValueChange={setUsername}
+                />
+              </div>
+              <div style={{ maxWidth: 260, minWidth: 180, flex: '1 1 180px', display: 'flex', alignItems: 'center' }}>
+                <FloatingLabelInput
+                  label="אימייל"
+                  value={email}
+                  isRTL
+                  onValueChange={setEmail}
+                  type="email"
+                  rounding="0px"
+                  inputHeight="72px"
+                  inputFontSize="1.5rem"
+                  labelFontSize="1.125rem"
+                  labelActiveFontSize="14px"
+                  foregroundColor="#fff"
+                  mutedForegroundColor="#aaa"
+                  accentColor="#a259ff"
+                />
+              </div>
+              <div style={{ maxWidth: 260, minWidth: 180, flex: '1 1 180px', display: 'flex', alignItems: 'center' }}>
+                <FloatingLabelInput
+                  label="Password"
+                  value={password}
+                  onValueChange={setPassword}
+                  type="password"
+                />
+              </div>
+              <div style={{ maxWidth: 260, minWidth: 180, flex: '1 1 180px', display: 'flex', alignItems: 'center' }}>
+                <FloatingLabelInput
+                  label="Additional Info"
+                  value={info}
+                  onValueChange={setInfo}
+                  parentBackground="#050505"
+                  inputOutlineColor="#707070"
+                  inputFocusOutlineColor="#00a0d8"
+                  outlineWidth="3px"
+                  rounding="10px"
+                  accentColor="#fff"
+                  foregroundColor="#00a0d8"
+                  mutedForegroundColor="#909090"
+                  labelActiveFontSize="15px"
+                  textarea={true}
+                />
+              </div>
+            </div>
+            {/* Labels column, stacked and centered below */}
+            <div
+              style={{
+                marginTop: 32,
+                color: "#fafafa",
+                width: "100%",
+                maxWidth: 340,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                fontSize: '0.96rem',
+                alignItems: 'stretch',
+              }}
+            >
+              <div>
+                <strong>Username:</strong> {username || <span style={{ opacity: 0.5 }}>—</span>}
+              </div>
+              <div>
+                <strong>Email:</strong> {email || <span style={{ opacity: 0.5 }}>—</span>}
+              </div>
+              <div>
+                <strong>Password:</strong> {password || <span style={{ opacity: 0.5 }}>—</span>}
+              </div>
+              <div>
+                <strong>Additional Info:</strong> {info || <span style={{ opacity: 0.5 }}>—</span>}
+              </div>
+            </div>
+          </div>
+        );
+      case 'login-form':
+        return (
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '36px',
+            justifyContent: 'center',
+            padding: '32px',
+            backgroundColor: '#050505',
+            borderRadius: '8px',
+            minHeight: '300px'
+          }}>
+            {/* 1. Default */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 0 }}>
+              <span style={{
+                color: '#aaa',
+                fontSize: '14px',
+                marginBottom: '12px',
+                fontWeight: 500,
+                letterSpacing: '0.01em'
+              }}>
+                No icon outline
+              </span>
+              <LoginForm
+                cardOutlineStyle="double-radius"
+                iconUrl="https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/456x456px-logo.png"
+                iconOutlineWidth="0px"
+                iconPadding="0px"
+                onSubmit={data => alert(JSON.stringify(data, null, 2))}
+              />
+            </div>
+
+            {/* 2. Hebrew, custom color, no rounding */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 0 }}>
+              <span style={{
+                color: '#aaa',
+                fontSize: '14px',
+                marginBottom: '12px',
+                fontWeight: 500,
+                letterSpacing: '0.01em'
+              }}>
+                RTL, custom colors, no rounding, custom width
+              </span>
+              <LoginForm
+                mode="signup"
+                cardOutlineStyle="single-radius"
+                cardRounding="0px"
+                cardBorderWidth="2px"
+                iconUrl="https://raw.githubusercontent.com/Northstrix/blueberry-loom/refs/heads/main/public/icon.webp"
+                iconHref="https://blueberry-loom.netlify.app/"
+                iconBackground="#fff"
+                iconRounding="0px"
+                iconOutlineWidth="2px"
+                iconOutlineEnabled={true}
+                floatingLabelInputProps={{
+                  accentColor: "#fff",
+                  inputFocusOutlineColor: "#7c3aed",
+                  outlineWidth: "2px",
+                  foregroundColor: "#fff",
+                  mutedForegroundColor: "#aaa",
+                  rounding: "0px",
+                  inputPadding: "16px",
+                  inputFontSize: "1.1rem",
+                  labelFontSize: "1.1rem",
+                  labelActiveFontSize: "13px",
+                  labelPadding: "0 8px",
+                  labelActivePadding: "0 7px",
+                  inputHeight: "48px",
+                }}
+                chronicleButtonProps={{
+                  hoverColor: "#7c3aed",
+                  hoverForeground: "#fff",
+                  borderRadius: "0px",
+                }}
+                buttonRounding="0px"
+                titleFontSize="2.15rem"
+                titleFontWeight={800}
+                subtitleFontSize="1.01rem"
+                subtitleFontWeight={500}
+                switchFontSize="1.08rem"
+                switchFontWeight={500}
+                isRTL={true}
+                logInTop="שלום!"
+                register="וולקום!"
+                signInToYourAccount="התחבר לחשבון שלך"
+                createAnAccount="צור חשבון"
+                emailLabel="אימייל"
+                passwordLabel="סיסמה"
+                confirmPasswordLabel="אשר סיסמה"
+                noAccount="אין לך חשבון? "
+                createOne="צור אחד"
+                alreadyHaveAccount="כבר יש לך חשבון? "
+                logInBottom="התחבר"
+                loginButtonLabel="התחבר"
+                registerButtonLabel="הירשם"
+                switchToSignupLabel="צור אחד"
+                switchToSigninLabel="התחבר"
+                switchLinkHoverColor="#fff"
+                containerStyle={{
+                  maxWidth: "340px"
+                }}
+                onSubmit={data => alert(JSON.stringify(data, null, 2))}
+              />
+            </div>
+
+            {/* 3. Custom color, custom rounding */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 0 }}>
+              <span style={{
+                color: '#aaa',
+                fontSize: '14px',
+                marginBottom: '12px',
+                fontWeight: 500,
+                letterSpacing: '0.01em'
+              }}>
+                Custom colors, custom rounding, custom width
+              </span>
+              <LoginForm
+                cardOutlineStyle="single-radius"
+                cardRounding="18px"
+                cardBorderWidth="2px"
+                cardBorderColor="#00a0d8"
+                cardHoverBorderColor="#7c3aed"
+                cardBackground="#fff"
+                iconUrl="https://raw.githubusercontent.com/Northstrix/blueberry-loom/refs/heads/main/public/icon.webp"
+                iconHref="https://blueberry-loom.netlify.app/"
+                iconOutlineEnabled={true}
+                iconOutlineColor="#00a0d8"
+                iconOutlineWidth="2px"
+                iconHoverOutlineColor="#7c3aed"
+                iconBackground="#fff"
+                floatingLabelInputProps={{
+                  accentColor: "#222",
+                  parentBackground: "#fff",
+                  inputOutlineColor: "#00a0d8",
+                  inputFocusOutlineColor: "#7c3aed",
+                  outlineWidth: "2px",
+                  foregroundColor: "#222",
+                  mutedForegroundColor: "#666",
+                  rounding: "10px",
+                  inputPadding: "18px",
+                  inputFontSize: "1.12rem",
+                  labelFontSize: "1.12rem",
+                  labelActiveFontSize: "13px",
+                  labelPadding: "0 10px",
+                  labelActivePadding: "0 9px",
+                  inputHeight: "52px",
+                }}
+                chronicleButtonProps={{
+                  customBackground: "#00a0d8",
+                  customForeground: "#fff",
+                  hoverColor: "#7c3aed",
+                  hoverForeground: "#fff",
+                  borderRadius: "10px",
+                  fontSize: "1.12rem",
+                  fontFamily: "inherit",
+                }}
+                buttonRounding="10px"
+                titleFontSize="2.3rem"
+                titleFontWeight={800}
+                subtitleFontSize="1.08rem"
+                subtitleFontWeight={500}
+                switchFontSize="1.08rem"
+                switchFontWeight={500}
+                logInTop="Light Login"
+                register="Light Register"
+                signInToYourAccount="Sign in to your light account"
+                createAnAccount="Create a light account"
+                loginButtonLabel="Sign in"
+                registerButtonLabel="Sign up"
+                switchToSignupLabel="Sign up here"
+                switchToSigninLabel="Sign in here"
+                titleColor="#1a1a1a"
+                subtitleColor="#444"
+                switchColor="#00a0d8"
+                switchLinkHoverColor="#7c3aed"
+                containerStyle={{
+                  maxWidth: "414px"
+                }}
+                onSubmit={data => alert(JSON.stringify(data, null, 2))}
+              />
+            </div>
+          </div>
+        );
       case 'sequence-hero-section':
         return (
           <>
@@ -2778,6 +3537,518 @@ export default function ComponentsPage() {
                 uniqueId="main-demo"
               />
             </div>
+          </div>
+        );
+      case 'custom-checkbox':
+        return (
+          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-col gap-10 items-center justify-center relative">
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "40px", width: "100%", justifyContent: "center" }}>
+              {/* Checkbox group LTR (horizontal) */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Checkbox group (LTR, horizontal)</div>
+                <CustomCheckbox
+                  options={customCheckboxLTROptions}
+                  values={customCheckboxSelectedLTR}
+                  onGroupChange={setCustomCheckboxSelectedLTR}
+                  direction="ltr"
+                  groupGap={18}
+                  groupDirection="row"
+                />
+                <div style={{ color: "#aaa", margin: "40px 0 10px 0", fontSize: 15 }}>Checkbox group (LTR, vertical)</div>
+                <CustomCheckbox
+                  options={customCheckboxLTROptions}
+                  values={customCheckboxSelectedLTR}
+                  onGroupChange={setCustomCheckboxSelectedLTR}
+                  direction="ltr"
+                  groupGap={18}
+                  groupDirection="column"
+                />
+              </div>
+              {/* Checkbox group RTL (Hebrew) */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Checkbox group (RTL, Hebrew, horizontal)</div>
+                <CustomCheckbox
+                  options={customCheckboxRTLOptions}
+                  values={customCheckboxSelectedRTL}
+                  onGroupChange={setCustomCheckboxSelectedRTL}
+                  direction="rtl"
+                  groupGap={18}
+                  groupDirection="row"
+                />
+                <div style={{ color: "#aaa", margin: "40px 0 10px 0", fontSize: 15 }}>Checkbox group (RTL, Hebrew, vertical)</div>
+                <CustomCheckbox
+                  options={customCheckboxRTLOptions}
+                  values={customCheckboxSelectedRTL}
+                  onGroupChange={setCustomCheckboxSelectedRTL}
+                  direction="rtl"
+                  groupGap={18}
+                  groupDirection="column"
+                />
+              </div>
+              {/* Custom gap, background, text color, font size, max selection */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Custom gap, background, text color, font size, checkmark appearance duration 2s</div>
+                <CustomCheckbox
+                  options={customCheckboxMaxOptions.map((opt) => ({
+                    ...opt,
+                    checkboxProps: {
+                      accentColor: "#fff",
+                      backgroundColor: "#7c3aed",
+                      borderColor: "#fff",
+                      outlineHoverColor: "#aaa",
+                      labelColor: "#7c3aed",
+                      labelFontSize: 22,
+                      checkmarkColor: "#333",
+                      borderRadius: 16,
+                      checkmarkDuration: 2,
+                      labelSpacing: 20,
+                    }
+                  }))}
+                  values={customCheckboxSelectedMax}
+                  onGroupChange={setCustomCheckboxSelectedMax}
+                  direction="ltr"
+                  groupGap={50}
+                  groupDirection="row"
+                />
+              </div>
+              {/* 5-item group, only three can be selected */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>5-item group, only three can be selected</div>
+                <CustomCheckbox
+                  options={customCheckboxFiveOptions}
+                  values={customCheckboxSelectedFive}
+                  onGroupChange={setCustomCheckboxSelectedFive}
+                  direction="ltr"
+                  groupGap={12}
+                  groupDirection="row"
+                  maxSelected={3}
+                />
+                <div style={{ color: "#aaa", margin: "18px 0 10px 0", fontSize: 15 }}>5-item group, vertical, only three can be selected</div>
+                <CustomCheckbox
+                  options={customCheckboxFiveOptions}
+                  values={customCheckboxSelectedFive}
+                  onGroupChange={setCustomCheckboxSelectedFive}
+                  direction="ltr"
+                  groupGap={12}
+                  groupDirection="column"
+                  maxSelected={3}
+                />
+              </div>
+              {/* Disabled per item group, vertical */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Disabled per item in group (vertical)</div>
+                <CustomCheckbox
+                  options={customCheckboxDisabledGroupOptions}
+                  values={customCheckboxSelectedDisabledGroup}
+                  onGroupChange={setCustomCheckboxSelectedDisabledGroup}
+                  direction="ltr"
+                  groupGap={12}
+                  groupDirection="column"
+                />
+              </div>
+              {/* Disabled default */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Disabled checkbox (default)</div>
+                <CustomCheckbox
+                  checked={customCheckboxCheckedDisabled}
+                  onChange={setCustomCheckboxCheckedDisabled}
+                  label="Disabled example"
+                  disabled
+                />
+              </div>
+              {/* Disabled with white outline (red outline on hover) */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Disabled checkbox with white outline (red outline on hover)</div>
+                <CustomCheckbox
+                  checked={customCheckboxCheckedDisabledWhiteRed}
+                  onChange={setCustomCheckboxCheckedDisabledWhiteRed}
+                  label="Disabled, white/red outline"
+                  disabled
+                  outlineColorDisabled="#fff"
+                  outlineHoverColorDisabled="#ff2800"
+                  disabledBackgroundColor="#2e2e2e"
+                  disabledBorderColor="#363636"
+                  disabledCheckmarkColor="#ff2800"
+                />
+              </div>
+              {/* No outline */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>No outline (borderWidth = 0)</div>
+                <CustomCheckbox
+                  checked={customCheckboxCheckedNoOutline}
+                  onChange={setCustomCheckboxCheckedNoOutline}
+                  label="No outline"
+                  borderRadius={0}
+                  accentColor="#ff2800"
+                  borderColor="#ff2800"
+                  outlineHoverColor="#ff8400"
+                  backgroundColor="#232323"
+                  labelColor="#ff2800"
+                  labelFontSize={18}
+                  labelSpacing={12}
+                  checkmarkDuration={0.5}
+                  borderWidth={0}
+                />
+              </div>
+              {/* 5px outline, full rounding */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>5px outline, full rounding</div>
+                <CustomCheckbox
+                  checked={customCheckboxCheckedFullRounding}
+                  onChange={setCustomCheckboxCheckedFullRounding}
+                  label="5px outline"
+                  borderRadius={100}
+                  accentColor="#00bb3f"
+                  borderColor="#00bb3f"
+                  outlineHoverColor="#fff"
+                  backgroundColor="#232323"
+                  labelFontSize={18}
+                  labelSpacing={12}
+                  checkmarkDuration={0.7}
+                  borderWidth={5}
+                />
+              </div>
+              {/* Default options, no rounding */}
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Default options, no rounding</div>
+                <CustomCheckbox
+                  checked={customCheckboxCheckedNoRounding}
+                  onChange={setCustomCheckboxCheckedNoRounding}
+                  label="No rounding (borderRadius = 0)"
+                  borderRadius={0}
+                />
+              </div>
+            </div>
+            {/* Single checkboxes below all groups */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%", alignItems: "center", marginTop: "32px" }}>
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Single checkbox (LTR)</div>
+                <CustomCheckbox
+                  checked={customCheckboxCheckedLTR}
+                  onChange={setCustomCheckboxCheckedLTR}
+                  label="I agree to the terms I never read and probably never will."
+                  direction="ltr"
+                  checkmarkDuration={0.4}
+                />
+              </div>
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Single checkbox (RTL, Hebrew)</div>
+                <CustomCheckbox
+                  checked={customCheckboxCheckedRTL}
+                  onChange={setCustomCheckboxCheckedRTL}
+                  label="אני מסכים לתנאים שמעולם לא קראתי וסביר להניח שלעולם לא אקרא."
+                  direction="rtl"
+                  accentColor="#7c3aed"
+                  labelFontSize={22}
+                  checkmarkDuration={0.6}
+                  labelSpacing={12}
+                />
+              </div>
+              <div style={{ minWidth: 260 }}>
+                <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Single checkbox (RTL, Levantine Arabic, mirrored check, black checkmark)</div>
+                <CustomCheckbox
+                  checked={customCheckboxCheckedAR}
+                  onChange={setCustomCheckboxCheckedAR}
+                  label="أنا أوافق على الشروط التي لم أقرأها أبداً وربما لن أقرأها."
+                  direction="rtl"
+                  accentColor="#00bb3f"
+                  checkmarkColor="#050505"
+                  labelFontSize={18}
+                  checkmarkDuration={0.8}
+                  mirrorCheckmark
+                  labelSpacing={18}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      case 'form-card':
+        return (
+          <div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+            {/* DARK */}
+            <FormCard
+              id="dark-default"
+              name="Dark Default"
+              description="Dark default. Both buttons light. Text size: md."
+              visits={1500}
+              responses={234}
+            />
+            <FormCard
+              id="dark-blue"
+              name="Blue Shade"
+              description="Dark blue bg, blue accent, blue badge. Outlined button: blue border/text."
+              cardBackground="#16223a"
+              accentColor="#3b82f6"
+              accentCircleOutlineColor="#3b82f6"
+              accentCircleSize={18}
+              badgeText="Blue"
+              badgeColor="#fff"
+              badgeBackground="#3b82f6"
+              badgeBorderColor="#fff"
+              visits={4200}
+              responses={512}
+              viewResponsesLabel="View"
+              deleteLabel="Delete"
+              onCardClick={id => toast.info(`Card clicked: ${id}`)}
+              onFilledButtonClick={id => toast.info(`Filled button click ${id}`)}
+              onOutlinedButtonClick={id => toast.info(`Outlined button click ${id}`)}
+              buttonPropsViewResponses={{
+                customBackground: "#fff",
+                customForeground: "#16223a",
+                hoverColor: "#3b82f6",
+                hoverForeground: "#fff",
+              }}
+              buttonPropsDelete={{
+                customBackground: "#fff",
+                customForeground: "#3b82f6",
+                hoverColor: "#3b82f6",
+                hoverForeground: "#fff",
+                outlinedButtonBackgroundOnHover: "#16223a",
+              }}
+            />
+            <FormCard
+              id="dark-double"
+              name="Double Radius Dark"
+              description="Dark double-radius: outer 8px, inner 24px, border 3px. Custom metrics labels."
+              cardBackground="#23272e"
+              accentColor="#10b981"
+              accentCircleOutlineColor="#10b981"
+              accentCircleSize={22}
+              cardOutlineStyle="double-radius"
+              cardDoubleOuterRounding="8px"
+              cardDoubleInnerRounding="24px"
+              cardDoubleBorderWidth="3px"
+              cardDoubleBorderColor="#10b981"
+              cardDoubleHoverBorderColor="#3b82f6"
+              badgeText="Green"
+              badgeColor="#fff"
+              badgeBackground="#10b981"
+              badgeBorderColor="#fff"
+              visits={800}
+              responses={120}
+              visitsLabel="Seen"
+              responsesLabel="Answers"
+              responseRateLabel="Ratio"
+              viewResponsesLabel="Stats"
+              deleteLabel="Clear"
+              onCardClick={id => toast.info(`Card clicked: ${id}`)}
+              onFilledButtonClick={id => toast.info(`Filled button click ${id}`)}
+              onOutlinedButtonClick={id => toast.info(`Outlined button click ${id}`)}
+              buttonPropsViewResponses={{
+                customBackground: "#fff",
+                customForeground: "#23272e",
+                hoverColor: "#10b981",
+                hoverForeground: "#fff",
+              }}
+              buttonPropsDelete={{
+                customBackground: "#fff",
+                customForeground: "#10b981",
+                hoverColor: "#10b981",
+                hoverForeground: "#fff",
+                outlinedButtonBackgroundOnHover: "#23272e",
+              }}
+            />
+            <FormCard
+              id="dark-orange"
+              name="Orange"
+              description="Dark orange bg, orange accent, text size: lg. Custom metrics."
+              cardBackground="#2d1f10"
+              accentColor="#ff8400"
+              accentCircleOutlineColor="#ff8400"
+              accentCircleSize={24}
+              textSize="lg"
+              badgeText="Hot"
+              badgeColor="#fff"
+              badgeBackground="#ff8400"
+              badgeBorderColor="#fff"
+              visits={10000}
+              responses={900}
+              viewResponsesLabel="Go"
+              deleteLabel="Erase"
+              onCardClick={id => toast.info(`Card clicked: ${id}`)}
+              onFilledButtonClick={id => toast.info(`Filled button click ${id}`)}
+              onOutlinedButtonClick={id => toast.info(`Outlined button click ${id}`)}
+              buttonPropsViewResponses={{
+                customBackground: "#fff",
+                customForeground: "#2d1f10",
+                hoverColor: "#ff8400",
+                hoverForeground: "#fff",
+              }}
+              buttonPropsDelete={{
+                customBackground: "#fff",
+                customForeground: "#ff8400",
+                hoverColor: "#ff8400",
+                hoverForeground: "#fff",
+                outlinedButtonBackgroundOnHover: "#2d1f10",
+              }}
+            />
+            <FormCard
+              id="dark-noround"
+              name="No Rounding Dark"
+              description="No rounding anywhere. Card bg #18181b, accent #fff, text size: md."
+              cardBackground="#18181b"
+              cardBorderRadius="0"
+              accentColor="#fff"
+              accentCircleOutlineColor="#fff"
+              accentCircleSize={16}
+              badgeText="Rect"
+              badgeColor="#fff"
+              badgeBackground="#18181b"
+              badgeBorderColor="#fff"
+              badgeBorderRadius="0"
+              buttonBorderRadius="0"
+              visits={123}
+              responses={0}
+              viewResponsesLabel="See"
+              deleteLabel="Wipe"
+              onCardClick={id => toast.info(`Card clicked: ${id}`)}
+              onFilledButtonClick={id => toast.info(`Filled button click ${id}`)}
+              onOutlinedButtonClick={id => toast.info(`Outlined button click ${id}`)}
+              buttonPropsViewResponses={{}}
+              buttonPropsDelete={{
+                borderRadius: "0",
+              }}
+            />
+            <FormCard
+              id="dark-custommetrics"
+              name="Custom Metrics"
+              description="Dark bg, custom badge, custom metrics color."
+              cardBackground="#292524"
+              accentColor="#f472b6"
+              accentCircleOutlineColor="#f472b6"
+              accentCircleSize={20}
+              badgeText="Pink"
+              badgeColor="#f472b6"
+              badgeBackground="#292524"
+              badgeBorderColor="#f472b6"
+              metricsValueColor="#f472b6"
+              metricsLabelColor="#f472b6"
+              visits={999}
+              responses={333}
+              viewResponsesLabel="Show"
+              deleteLabel="Purge"
+              onCardClick={id => toast.info(`Card clicked: ${id}`)}
+              onFilledButtonClick={id => toast.info(`Filled button click ${id}`)}
+              onOutlinedButtonClick={id => toast.info(`Outlined button click ${id}`)}
+              buttonPropsViewResponses={{
+                customBackground: "#fff",
+                customForeground: "#292524",
+                hoverColor: "#f472b6",
+                hoverForeground: "#fff",
+              }}
+              buttonPropsDelete={{
+                customBackground: "#fff",
+                customForeground: "#f472b6",
+                hoverColor: "#f472b6",
+                hoverForeground: "#000",
+                outlinedButtonBackgroundOnHover: "#fff",
+              }}
+            />
+            {/* LIGHT */}
+            <FormCard
+              id="light-default"
+              name="Light Default"
+              description="Light default. Both buttons dark. Text size: md."
+              cardBackground="#fff"
+              cardBorderColor="#2e2e2e"
+              cardHoverBorderColor="#363636"
+              visits={1200}
+              responses={100}
+              viewResponsesLabel="Open"
+              deleteLabel="Remove"
+              onCardClick={id => toast.info(`Card clicked: ${id}`)}
+              onFilledButtonClick={id => toast.info(`Filled button click ${id}`)}
+              onOutlinedButtonClick={id => toast.info(`Outlined button click ${id}`)}
+              buttonPropsViewResponses={{
+                customBackground: "#222",
+                customForeground: "#fff",
+              }}
+              buttonPropsDelete={{
+                customBackground: "#222",
+                customForeground: "#222",
+              }}
+            />
+            <FormCard
+              id="light-blue"
+              name="Light Blue"
+              description="Light blue bg, blue accent, blue badge, text size: md. Both buttons dark."
+              cardBackground="#e0f2fe"
+              cardBorderColor="#2e2e2e"
+              cardHoverBorderColor="#363636"
+              accentColor="#3b82f6"
+              accentCircleOutlineColor="#3b82f6"
+              accentCircleSize={18}
+              badgeText="Blue"
+              badgeColor="#3b82f6"
+              badgeBackground="#fff"
+              badgeBorderColor="#3b82f6"
+              visits={888}
+              responses={44}
+              viewResponsesLabel="See"
+              deleteLabel="Delete"
+              onCardClick={id => toast.info(`Card clicked: ${id}`)}
+              onFilledButtonClick={id => toast.info(`Filled button click ${id}`)}
+              onOutlinedButtonClick={id => toast.info(`Outlined button click ${id}`)}
+              buttonPropsViewResponses={{
+                customBackground: "#2e2e2e",
+                customForeground: "#fff",
+                hoverColor: "#3b82f6",
+                hoverForeground: "#fff",
+              }}
+              buttonPropsDelete={{
+                customBackground: "#2e2e2e",
+                customForeground: "#2e2e2e",
+                hoverColor: "#3b82f6",
+                hoverForeground: "#fff",
+                outlinedButtonBackgroundOnHover: "#e0f2fe",
+              }}
+            />
+            <FormCard
+              id="light-double"
+              name="Double Radius Light"
+              description="Light double-radius: outer 12.56px, inner 12px. Both buttons dark. Custom metrics labels."
+              cardBackground="#fff1f2"
+              cardBorderColor="#2e2e2e"
+              cardHoverBorderColor="#363636"
+              accentColor="#ff2800"
+              accentCircleOutlineColor="#ff2800"
+              accentCircleSize={20}
+              cardOutlineStyle="double-radius"
+              cardDoubleOuterRounding="12.56px"
+              cardDoubleInnerRounding="12px"
+              cardDoubleBorderWidth="1px"
+              cardDoubleBorderColor="#2e2e2e"
+              cardDoubleHoverBorderColor="#363636"
+              badgeText="Private"
+              badgeColor="#fff"
+              badgeBackground="#ff2800"
+              badgeBorderColor="#fff"
+              buttonBorderRadius="100px"
+              visits={123}
+              responses={99}
+              visitsLabel="Views"
+              responsesLabel="Replies"
+              responseRateLabel="Engagement"
+              viewResponsesLabel="Stats"
+              deleteLabel="Clear"
+              onCardClick={id => toast.info(`Card clicked: ${id}`)}
+              onFilledButtonClick={id => toast.info(`Filled button click ${id}`)}
+              onOutlinedButtonClick={id => toast.info(`Outlined button click ${id}`)}
+              buttonPropsViewResponses={{
+                customBackground: "#2e2e2e",
+                customForeground: "#fff",
+                hoverColor: "#ff2800",
+                hoverForeground: "#fff",
+              }}
+              buttonPropsDelete={{
+                customBackground: "#2e2e2e",
+                customForeground: "#2e2e2e",
+                hoverColor: "#ff2800",
+                hoverForeground: "#fff",
+                outlinedButtonBackgroundOnHover: "#fff1f2",
+                borderRadius: "0",
+              }}
+            />
           </div>
         );
       case 'dreamy-input':
