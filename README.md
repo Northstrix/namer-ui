@@ -1,5 +1,5 @@
 # Namer UI
-Namer UI is a collection of reusable components designed to empower developers in creating beautiful user interfaces.
+Namer UI is a collection of reusable components designed to empower developers to create beautiful UIs.
 
 Check it out at https://namer-ui.netlify.app/
 
