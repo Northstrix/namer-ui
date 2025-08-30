@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 180 0% 4%;
+    --lightened-background: #141414;
+    --foreground: 0 0% 98%;
+    --card: 180 0% 4%;
+    --card-foreground: 0 0% 98%;
+    --popover: 180 0% 4%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 222 70% 34%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 200 100% 49%;
+    --lightened-accent: #39bdff;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --hovered-border: #333;
+    --input: 0 0% 15%;
+    --ring: 200 100% 49%;
+    --radius: 0.5rem;
+
+    --scroll-element-foreground: #888;
+
+    --radio-group-bg-default: transparent;
+    --radio-group-bg-active: hsl(var(--foreground));
+    --radio-group-bg-hover: hsl(var(--accent));
+    --radio-group-fg-default: hsl(var(--foreground));
+    --radio-group-fg-active: hsl(var(--background));
+    --radio-group-fg-hover: hsl(var(--accent-foreground));
+
+  --language-selector-list-bg: #111;
+  --language-selector-center-line-bg: #242424;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--border));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--accent));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent) / 0.8);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--accent)) hsl(var(--border));
+}
