@@ -84,6 +84,6 @@ The existence of this project (at least in its current form) wouldn’t’ve bee
 
 </br>
 The credit for each individual component (where applicable) is available on that component’s dedicated page.
-</br>
+</br></br>
 
 Inspired by [x/ui](https://ui.3x.gl/)
