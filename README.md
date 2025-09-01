@@ -11,6 +11,9 @@ SourceForge page: https://sourceforge.net/projects/namer-ui/
 
 ![Alt Hero Section](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/landing-page.png)
 
+## Disclaimer
+All product names, logos, brand identifiers, and trademarks displayed on the image below are the sole property of their respective owners. These items are used for demonstrational and illustrative purposes only. The Namer UI is not affiliated with, endorsed by, or sponsored by any of the companies whose products are showcased here. This website does not present a commercial offer of any kind. The store name is fictional; any resemblance to existing business(es) is entirely coincidental and unintentional.
+
 ![Alt Capabilities Showcase Section](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/capabilities-showcase.png)
 
 ![Alt Components Page](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/components-page.png)
