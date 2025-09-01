@@ -35,6 +35,10 @@ import PositionAwareButtonPreviewDemo from '@/app/the-actual-components/position
 import PositionAwareButtonFullPageDemo from '@/app/the-actual-components/position-aware-button/demo-full-page';
 import BaubleToggleFullPageDemo from '@/app/the-actual-components/bauble-toggle/demo-full-page';
 import LoginFormFullPageDemo from '@/app/the-actual-components/login-form/demo-full-page';
+import AnimatedTestimonialsFullPageDemo from "@/app/the-actual-components/animated-testimonials/demo-full-page";
+import TextSwapPreviewDemo from '@/app/the-actual-components/text-swap/demo-preview';
+import TextSwapFullPageDemo from '@/app/the-actual-components/text-swap/demo-full-page';
+
 import { TranslationKey } from "./translations";
 
 export interface ComponentMetadata {
@@ -46,6 +50,7 @@ export interface ComponentMetadata {
   dependencies?: string;
   credit?: string;
   usage: string;
+  includeClassMerger?: boolean;
   code: string;
   props: Array<{
     name: string;
@@ -3453,6 +3458,7 @@ import React, { useState, useRef } from "react";
 interface HalomotButtonProps {
   gradient?: string;
   inscription: string;
+  fontWeight?: string;
   onClick?: () => void;
   fillWidth?: boolean;
   fixedWidth?: string;
@@ -3470,6 +3476,7 @@ interface HalomotButtonProps {
 const HalomotButton: React.FC<HalomotButtonProps> = ({
   gradient = "linear-gradient(135deg, #4776cb, #a19fe5, #6cc606)",
   inscription,
+  fontWeight = "bold",
   onClick,
   fillWidth = false,
   fixedWidth,
@@ -3498,7 +3505,7 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
     border: "0",
     borderRadius: outerBorderRadius,
     color: textColor,
-    fontWeight: "bold",
+    fontWeight, // USE PROP HERE
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -3519,13 +3526,11 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
     borderRadius: innerBorderRadius,
     width: "100%",
     height: "100%",
-    transition: hoverTextColor
-      ? "color 0.3s, background 300ms"
-      : "background 300ms",
+    transition: hoverTextColor ? "color 0.3s, background 300ms" : "background 300ms",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontWeight: "bold",
+    fontWeight, // USE PROP HERE
     color: delayedColor ? delayedColor : textColor,
     whiteSpace: "nowrap",
     fontFamily: "inherit",
@@ -3599,6 +3604,7 @@ export default HalomotButton;
 `,
     props: [
       { name: "inscription", type: "string", description: "halomot_button_prop_inscription", required: true },
+      { name: 'fontWeight', type: 'string', defaultValue: '"bold"', description: 'halomot_button_prop_fontWeight', required: false },
       { name: "onClick", type: "() => void", description: "halomot_button_prop_onClick", required: true },
       { name: "gradient", type: "string", defaultValue: "linear-gradient(135deg, #4776cb, #a19fe5, #6cc606)", description: "halomot_button_prop_gradient", required: false },
       { name: "backgroundColor", type: "string", defaultValue: "#000", description: "halomot_button_prop_backgroundColor", required: false },
@@ -11002,5 +11008,1025 @@ export default LoginForm;
       { name: 'switchToSigninLabel', type: 'string', defaultValue: '"Sign in"', description: 'login_form_prop_switchToSigninLabel', required: false },
     ],
     isPreviewImage: true,
+  },
+  {
+    id: "animated-testimonials",
+    title: "animated_testimonials_title",
+    description: "animated_testimonials_desc",
+
+    demoFullPage: AnimatedTestimonialsFullPageDemo,
+    noPadding: true,
+    dependencies: `npm install framer-motion
+npm install @tabler/icons-react --legacy-peer-deps`,
+    disclaimer: 'animated_testimonials_disclaimer',
+    credit: `[Animated Testimonials](https://ui.aceternity.com/components/animated-testimonials) by [Aceternity UI](https://ui.aceternity.com/)
+[Text Reveal Animation](https://codepen.io/swatiparge/pen/LYVMEag) by [Swati Parge](https://codepen.io/swatiparge)
+
+Used photos:
+
+- Photo by [Ilya Pavlov](https://unsplash.com/@ilyapavlov?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/woman-standing-beside-lights-xE87C_OvVO4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+- Photo by [Bave Pictures](https://unsplash.com/@bavepictures?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/man-in-gray-crew-neck-t-shirt-standing-beside-white-wall-MbYgpI1D-cA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+- Photo by [Allef Vinicius](https://unsplash.com/@seteph?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/closed-eye-woman-wearing-brown-hat-YbzfTr0pwLE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)`,
+    usage: `// Path to the "AnimatedTestimonials.tsx" file
+
+import AnimatedTestimonials from "@/app/the-actual-components/animated-testimonials/AnimatedTestimonials";
+
+export default function AnimatedTestimonialsDemo() {
+  return (
+    <div className="w-full flex flex-col gap-16">
+      
+      {/* ================= LIGHT THEME ================= */}
+      <div className="bg-[#f1f1f7] z-10 p-20 rounded-lg min-h-[300px] flex items-center justify-center relative">
+        <div
+          className="flex items-center justify-center relative"
+          style={{ maxWidth: "1456px" }}
+        >
+          <AnimatedTestimonials
+            testimonials={[
+              {
+                quote:
+                  "I was impressed by the food — every dish is bursting with flavor! And I could really tell that they use high-quality ingredients. The staff was friendly and attentive, going the extra mile. I'll definitely be back for more!",
+                name: "Tamar Mendelson",
+                designation: "Restaurant Critic",
+                src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop",
+              },
+              {
+                quote:
+                  "This place exceeded all expectations! The atmosphere is inviting, and the staff truly goes above and beyond to ensure a fantastic visit. I'll definitely keep returning for more exceptional dining experience.",
+                name: "Joe Charlescraft",
+                designation: "Frequent Visitor",
+                src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop",
+              },
+              {
+                quote:
+                  "Shining Yam is a hidden gem! From the moment I walked in, I knew I was in for a treat. The impeccable service and overall attention to detail created a memorable experience. I highly recommend it!",
+                name: "Martina Edelweist",
+                designation: "Satisfied Customer",
+                src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop",
+              },
+            ]}
+            colors={{
+              name: "#0a0a0a",
+              position: "#454545",
+              testimony: "#171717",
+              arrowBackground: "#141414",
+              arrowForeground: "#f1f1f7",
+              arrowHoverForeground: "#00A6FB",
+            }}
+            desktopVersionBottomThreshold={1024}
+            fontSizes={{
+              name: "28px",
+              position: "20px",
+              testimony: "20px",
+            }}
+            spacing={{
+              nameTop: "0",
+              nameBottom: "10px",
+              positionTop: "0",
+              positionBottom: "0.5em",
+              testimonyTop: "1.24em",
+              testimonyBottom: "1em",
+              lineHeight: "1.56",
+            }}
+            imageAspectRatio={1.05}
+          />
+        </div>
+      </div>
+
+      {/* ================= DARK THEME ================= */}
+      <div className="bg-[#050505] z-10 p-16 rounded-lg min-h-[300px] flex items-center justify-center relative">
+        <div
+          className="flex items-center justify-center relative"
+          style={{ maxWidth: "1024px" }}
+        >
+          <AnimatedTestimonials
+            testimonials={[
+              {
+                quote:
+                  "I was impressed by the food — every dish is bursting with flavor! And I could really tell that they use high-quality ingredients. The staff was friendly and attentive, going the extra mile. I'll definitely be back for more!",
+                name: "Tamar Mendelson",
+                designation: "Restaurant Critic",
+                src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop",
+              },
+              {
+                quote:
+                  "This place exceeded all expectations! The atmosphere is inviting, and the staff truly goes above and beyond to ensure a fantastic visit. I'll definitely keep returning for more exceptional dining experience.",
+                name: "Joe Charlescraft",
+                designation: "Frequent Visitor",
+                src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop",
+              },
+              {
+                quote:
+                  "Shining Yam is a hidden gem! From the moment I walked in, I knew I was in for a treat. The impeccable service and overall attention to detail created a memorable experience. I highly recommend it!",
+                name: "Martina Edelweist",
+                designation: "Satisfied Customer",
+                src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop",
+              },
+            ]}
+            colors={{
+              name: "#f7f7ff",
+              position: "#e1e1e1",
+              testimony: "#f1f1f7",
+              arrowBackground: "#0582CA",
+              arrowForeground: "#141414",
+              arrowHoverForeground: "#f7f7ff",
+            }}
+            desktopVersionBottomThreshold={1024}
+            fontSizes={{
+              name: "28px",
+              position: "20px",
+              testimony: "20px",
+            }}
+            spacing={{
+              nameTop: "0",
+              nameBottom: "10px",
+              positionTop: "0",
+              positionBottom: "0.5em",
+              testimonyTop: "1.24em",
+              testimonyBottom: "1em",
+              lineHeight: "1.56",
+            }}
+            imageAspectRatio={1.05}
+          />
+        </div>
+      </div>
+
+      {/* ================= RTL (HEBREW) ================= */}
+      <div className="bg-[#f1f1f7] z-10 p-16 rounded-lg min-h-[300px] flex items-center justify-center relative">
+        <div
+          className="flex items-center justify-center relative"
+          style={{ maxWidth: "1200px" }}
+        >
+          <AnimatedTestimonials
+            testimonials={[
+              {
+                quote:
+                  "הייתי מרותק מהאוכל — כל מנה מלאה בטעם! והייתי יכול לראות באמת שהם משתמשים במרכיבים של איכות גבוהה. הצוות היה ידידותי ותשומת לב, הולך עד הסוף. אני בהחלט אחזור ליותר!",
+                name: "תמר מנדלסון",
+                designation: "מבקר מסעדות",
+                src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop",
+              },
+              {
+                quote:
+                  "מקום זה עלה על כל הציפיות! האווירה מזמינה, והצוות באמת הולך מעבר לכל גבול כדי להבטיח ביקור מדהים. אני בהחלט אמשיך לחזור לחוויית אכילה יוצאת דופן.",
+                name: "ג'ו צ'רלסקראפט",
+                designation: "מבקר תדיר",
+                src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop",
+              },
+              {
+                quote:
+                  "שיינין ים הוא פנינה מוסתרת! מהרגע שנכנסתי, ידעתי שאני בדרך למתנה. השירות המושלם והתשומת הלב הכללית לפרטים יצרו חוויה זכורה. אני ממליץ מאוד עליו!",
+                name: "מרטינה אדלווייסט",
+                designation: "לקוח מרוצה",
+                src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop",
+              },
+            ]}
+            colors={{
+              name: "#0a0a0a",
+              position: "#454545",
+              testimony: "#171717",
+              arrowBackground: "#141414",
+              arrowForeground: "#f1f1f7",
+              arrowHoverForeground: "#00A6FB",
+            }}
+            desktopVersionBottomThreshold={1024}
+            fontSizes={{
+              name: "32px",
+              position: "21px",
+              testimony: "21px",
+            }}
+            spacing={{
+              nameTop: "0",
+              nameBottom: "12px",
+              positionTop: "0",
+              positionBottom: "0.5em",
+              testimonyTop: "1.24em",
+              testimonyBottom: "1em",
+              lineHeight: "1.56",
+            }}
+            imageAspectRatio={1.05}
+            isRTL={true}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}`,
+    code: `"use client";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
+import gsap from "gsap";
+
+type Testimonial = { quote: string; name: string; designation: string; src: string };
+
+type AnimatedTestimonialsProps = {
+  testimonials: Testimonial[];
+  autoplay?: boolean;
+  colors?: { name?: string; position?: string; testimony?: string; arrowBackground?: string; arrowForeground?: string; arrowHoverForeground?: string };
+  fontSizes?: { name?: string; position?: string; testimony?: string };
+  spacing?: { top?: string; bottom?: string; lineHeight?: string; nameTop?: string; nameBottom?: string; positionTop?: string; positionBottom?: string; testimonyTop?: string; testimonyBottom?: string };
+  desktopVersionBottomThreshold?: number;
+  maxImageWidth?: number;
+  imageWidthPercentage?: number;
+  mobile?: { fontSizes?: { name?: string; position?: string; testimony?: string }; spacing?: { top?: string; bottom?: string; lineHeight?: string; nameTop?: string; nameBottom?: string; positionTop?: string; positionBottom?: string; testimonyTop?: string; testimonyBottom?: string } };
+  imageAspectRatio?: number;
+  isRTL?: boolean;
+  arrowButtonSize?: number;
+  arrowIconSize?: number;
+  arrowGap?: number;
+};
+
+export const AnimatedTestimonials = ({
+  testimonials,
+  autoplay = false,
+  colors = { name: "black", position: "gray-500", testimony: "gray-500", arrowBackground: "gray-100", arrowForeground: "black", arrowHoverForeground: "white" },
+  fontSizes = { name: "2xl", position: "sm", testimony: "lg" },
+  spacing = { top: "20", bottom: "20", lineHeight: "1.5", nameTop: "0", nameBottom: "0.5em", positionTop: "0", positionBottom: "0.25em", testimonyTop: "1em", testimonyBottom: "1em" },
+  desktopVersionBottomThreshold = 1024,
+  mobile = {},
+  imageAspectRatio = 1,
+  isRTL = false,
+  arrowButtonSize = 44,
+  arrowIconSize = 32,
+  arrowGap = 12,
+}: AnimatedTestimonialsProps) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 = next, -1 = prev
+  const [isMobileView, setIsMobileView] = useState(false);
+  const [hoveredArrow, setHoveredArrow] = useState<"prev" | "next" | null>(null);
+  const [componentWidth, setComponentWidth] = useState(0);
+  const [userInteracted, setUserInteracted] = useState(false);
+
+  const componentRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const designationRef = useRef<HTMLParagraphElement>(null);
+  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const currentFontSizes = isMobileView && mobile.fontSizes ? mobile.fontSizes : fontSizes;
+  const currentSpacing = { ...spacing, ...(isMobileView && mobile.spacing ? mobile.spacing : {}) };
+
+  const activeTestimonial = useMemo(() => testimonials[activeIndex], [activeIndex, testimonials]);
+
+  // Handlers
+  const updateTestimonial = useCallback((dir: number) => {
+    setDirection(dir);
+    setActiveIndex((prev) => (prev + dir + testimonials.length) % testimonials.length);
+  }, [testimonials.length]);
+
+  const handleNext = () => { updateTestimonial(1); stopAutoplay(); setUserInteracted(true); };
+  const handlePrev = () => { updateTestimonial(-1); stopAutoplay(); setUserInteracted(true); };
+  const isActive = (index: number) => index === activeIndex;
+
+  const stopAutoplay = useCallback(() => {
+    if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
+  }, []);
+
+  // Autoplay
+  useEffect(() => {
+    if (autoplay && !userInteracted) {
+      autoplayIntervalRef.current = setInterval(() => updateTestimonial(1), 5000);
+    }
+    return () => { if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current); };
+  }, [autoplay, updateTestimonial, userInteracted]);
+
+  // Resize
+  const handleResize = useCallback(() => {
+    if (componentRef.current) {
+      setComponentWidth(componentRef.current.offsetWidth);
+      setIsMobileView(componentRef.current.offsetWidth < desktopVersionBottomThreshold);
+    }
+  }, [desktopVersionBottomThreshold]);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (componentRef.current) resizeObserver.observe(componentRef.current);
+    handleResize();
+    return () => { if (componentRef.current) resizeObserver.unobserve(componentRef.current); };
+  }, [handleResize]);
+
+  // Random rotation for images
+  const randomRotateY = () => Math.floor(Math.random() * 21) - 10;
+
+  // Arrows style
+  const arrowStyle = () => ({ backgroundColor: colors.arrowBackground, width: \`\${arrowButtonSize}px\`, height: \`\${arrowButtonSize}px\` });
+  const iconArrowStyle = (arrowType: "prev" | "next") => ({ color: hoveredArrow === arrowType ? colors.arrowHoverForeground : colors.arrowForeground, height: \`\${arrowIconSize}px\`, width: \`\${arrowIconSize}px\` });
+
+  // Grid gap 
+  const calculateGap = (width: number) => {
+    const minWidth = 1024; const maxWidth = 1456; const minGap = 60; const maxGap = 86;
+    if (width <= minWidth) return minGap;
+    if (width >= maxWidth) return Math.max(minGap, maxGap + 0.06018 * (width - maxWidth));
+    return minGap + ((maxGap - minGap) * (width - minWidth)) / (maxWidth - minWidth);
+  };
+
+  // Text animations like CircularTestimonials
+  const wrapLines = (element: HTMLElement, text: string) => {
+    element.innerHTML = "";
+    const parent = document.createElement("div");
+    parent.classList.add("split-parent");
+    const child = document.createElement("div");
+    child.classList.add("split-child");
+    child.textContent = text;
+    parent.appendChild(child);
+    element.appendChild(parent);
+    return child;
+  };
+
+  const animateNameAndDesignation = useCallback(() => {
+    if (!nameRef.current || !designationRef.current) return;
+    const nameChild = wrapLines(nameRef.current, activeTestimonial.name);
+    const designationChild = wrapLines(designationRef.current, activeTestimonial.designation);
+    // FIX for RTL: animation direction ONLY depends on user direction, not flipped
+    const fromY = direction === 1 ? -100 : 100;
+    gsap.fromTo(nameChild, { yPercent: fromY, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1, ease: "power4.out" });
+    gsap.fromTo(designationChild, { yPercent: fromY, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1, ease: "power4.out", delay: 0.05 });
+  }, [activeTestimonial, direction]);
+
+  useEffect(() => { animateNameAndDesignation(); }, [activeTestimonial, animateNameAndDesignation]);
+
+  return (
+    <div ref={componentRef} className={\`w-full mx-auto antialiased font-sans py-\${currentSpacing.top} pb-\${currentSpacing.bottom}\`} style={{ lineHeight: currentSpacing.lineHeight, backgroundColor: "transparent", direction: isRTL ? "rtl" : "ltr" }}>
+      <div className="relative" style={{ display: "grid", gridTemplateColumns: isMobileView ? "1fr" : isRTL ? "1fr 1fr" : "1fr 1fr", gap: \`\${calculateGap(componentWidth)}px\` }}>
+        {/* Image side with EXACT motion animation */}
+        <div className="w-full">
+          <div className="relative" style={{ paddingTop: \`\${(1 / imageAspectRatio) * 100}%\` }}>
+            <AnimatePresence>
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  key={testimonial.src}
+                  initial={{ opacity: 0, scale: 0.9, z: -100, rotate: randomRotateY() }}
+                  animate={{
+                    opacity: isActive(index) ? 1 : 0.7,
+                    scale: isActive(index) ? 1 : 0.95,
+                    z: isActive(index) ? 0 : -100,
+                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    zIndex: isActive(index) ? 999 : testimonials.length + 2 - index,
+                    y: isActive(index) ? [0, -80, 0] : 0,
+                  }}
+                  exit={{ opacity: 0, scale: 0.9, z: 100, rotate: randomRotateY() }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="absolute inset-0 origin-bottom"
+                >
+                  <Image src={testimonial.src} alt={testimonial.name} layout="fill" objectFit="cover" draggable={false} className="h-full w-full rounded-3xl object-cover object-center" />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+        {/* Text side */}
+        <div className="flex justify-between flex-col py-4 w-full">
+          <div>
+            <h3 ref={nameRef} className="font-bold" style={{ fontSize: currentFontSizes.name, color: colors.name, marginTop: currentSpacing.nameTop, marginBottom: currentSpacing.nameBottom, textAlign: isRTL ? "right" : "left" }}></h3>
+            <p ref={designationRef} style={{ fontSize: currentFontSizes.position, color: colors.position, marginTop: currentSpacing.positionTop, marginBottom: currentSpacing.positionBottom, textAlign: isRTL ? "right" : "left" }}></p>
+            <motion.p key={activeIndex} style={{ fontSize: currentFontSizes.testimony, color: colors.testimony, marginTop: currentSpacing.testimonyTop, marginBottom: currentSpacing.testimonyBottom, textAlign: isRTL ? "right" : "left" }}>
+              {activeTestimonial.quote.split(" ").map((word, index) => (
+                <motion.span key={index} initial={{ filter: "blur(10px)", opacity: 0, y: 5 }} animate={{ filter: "blur(0px)", opacity: 1, y: 0 }} transition={{ duration: 0.2, ease: "easeInOut", delay: 0.02 * index }} className="inline-block">{word}&nbsp;</motion.span>
+              ))}
+            </motion.p>
+          </div>
+          {/* Arrows */}
+          <div className={\`flex \${isMobileView ? "pt-12" : "md:pt-0"} w-full\`} style={{ gap: \`\${arrowGap}px\` }}>
+            {isRTL ? (
+              <>
+                <button onClick={handlePrev} className="rounded-full flex items-center justify-center" style={arrowStyle()} onMouseEnter={() => setHoveredArrow("prev")} onMouseLeave={() => setHoveredArrow(null)}>
+                  <IconArrowRight style={{ ...iconArrowStyle("prev"), transform: hoveredArrow === "prev" ? "rotate(-12deg)" : "rotate(0deg)", transition: "color 0.3s, transform 0.3s" }} />
+                </button>
+                <button onClick={handleNext} className="rounded-full flex items-center justify-center" style={arrowStyle()} onMouseEnter={() => setHoveredArrow("next")} onMouseLeave={() => setHoveredArrow(null)}>
+                  <IconArrowLeft style={{ ...iconArrowStyle("next"), transform: hoveredArrow === "next" ? "rotate(12deg)" : "rotate(0deg)", transition: "color 0.3s, transform 0.3s" }} />
+                </button>
+              </>
+            ) : (
+              <>
+                <button onClick={handlePrev} className="rounded-full flex items-center justify-center" style={arrowStyle()} onMouseEnter={() => setHoveredArrow("prev")} onMouseLeave={() => setHoveredArrow(null)}>
+                  <IconArrowLeft style={{ ...iconArrowStyle("prev"), transform: hoveredArrow === "prev" ? "rotate(12deg)" : "rotate(0deg)", transition: "color 0.3s, transform 0.3s" }} />
+                </button>
+                <button onClick={handleNext} className="rounded-full flex items-center justify-center" style={arrowStyle()} onMouseEnter={() => setHoveredArrow("next")} onMouseLeave={() => setHoveredArrow(null)}>
+                  <IconArrowRight style={{ ...iconArrowStyle("next"), transform: hoveredArrow === "next" ? "rotate(-12deg)" : "rotate(0deg)", transition: "color 0.3s, transform 0.3s" }} />
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+      <style jsx>{\`
+        .split-parent { overflow: hidden; }
+        .split-child { display: inline-block; }
+      \`}</style>
+    </div>
+  );
+};
+
+export default AnimatedTestimonials;`,
+    props: [
+      { name: 'testimonials', type: 'Testimonial[]', description: 'animated_testimonials_prop_testimonials', required: true },
+      { name: 'autoplay', type: 'boolean', defaultValue: 'false', description: 'animated_testimonials_prop_autoplay', required: false },
+      { name: 'autoplayInterval', type: 'number', defaultValue: '5000', description: 'animated_testimonials_prop_autoplayInterval', required: false },
+      { name: 'colors', type: 'Colors', description: 'animated_testimonials_prop_colors', required: false },
+      { name: 'fontSizes', type: 'FontSizes', description: 'animated_testimonials_prop_fontSizes', required: false },
+      { name: 'spacing', type: 'Spacing', description: 'animated_testimonials_prop_spacing', required: false },
+      { name: 'desktopVersionBottomThreshold', type: 'number', defaultValue: '1024', description: 'animated_testimonials_prop_desktopThreshold', required: false },
+      { name: 'mobile', type: 'MobileConfig', description: 'animated_testimonials_prop_mobile', required: false },
+      { name: 'maxImageWidth', type: 'number', description: 'animated_testimonials_prop_maxImageWidth', required: false },
+      { name: 'imageWidthPercentage', type: 'number', description: 'animated_testimonials_prop_imageWidthPercentage', required: false },
+      { name: 'imageAspectRatio', type: 'number', defaultValue: '1', description: 'animated_testimonials_prop_imageAspectRatio', required: false },
+      { name: 'isRTL', type: 'boolean', defaultValue: 'false', description: 'animated_testimonials_prop_isRTL', required: false },
+      { name: 'arrowButtonSize', type: 'number', defaultValue: '44', description: 'animated_testimonials_prop_arrowButtonSize', required: false },
+      { name: 'arrowIconSize', type: 'number', defaultValue: '32', description: 'animated_testimonials_prop_arrowIconSize', required: false },
+      { name: 'arrowGap', type: 'number', defaultValue: '12', description: 'animated_testimonials_prop_arrowGap', required: false }
+    ],
+    isPreviewImage: true,
+  },
+  {
+    id: "text-swap",
+    title: "text_swap_title",
+    description: "text_swap_desc",
+    demo: TextSwapPreviewDemo,
+    demoFullPage: TextSwapFullPageDemo,
+    dependencies: `npm install gsap --legacy-peer-deps
+npm install clsx tailwind-merge framer-motion`,
+    credit: `[Text Rotate](https://www.fancycomponents.dev/docs/components/text/text-rotate) by [Fancy Components](https://www.fancycomponents.dev/)`,
+    usage: `// Path to the "TextSwap.tsx" file
+
+import TextSwap from "@/app/the-actual-components/text-swap/TextSwap";
+import { useState, useEffect } from "react";
+
+export default function TextSwapDemo() {
+  const [renderKey, setRenderKey] = useState(0);
+
+  // Force re-render when component reenters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setRenderKey((k) => k + 1);
+          }
+        });
+      },
+      { root: null, threshold: 0.1 }
+    );
+    const el = document.getElementById("textswap-demo-wrapper");
+    if (el) observer.observe(el);
+    return () => {
+      if (el) observer.unobserve(el);
+    };
+  }, []);
+
+  return (
+    <div
+      id="textswap-demo-wrapper"
+      key={renderKey}
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "36px",
+        justifyContent: "center",
+      }}
+    >
+      {/* First (original, English) item */}
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: "3rem",
+            lineHeight: 1,
+          }}
+        >
+          <TextSwap
+            texts={["Next.js", "Tailwind", "Framer Motion", "GSAP", "Namer UI"]}
+            mainClassName="px-3 py-2 bg-[#00a0d8] overflow-hidden justify-center rounded-lg"
+            staggerFrom="last"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-120%" }}
+            staggerDuration={0.025}
+            splitLevelClassName="overflow-hidden inline-flex items-center justify-center"
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            rotationInterval={2000}
+            style={{
+              boxShadow: "none",
+              background: "#00a0d8",
+              color: "#fff",
+              fontWeight: 700,
+              fontSize: "2.4rem",
+              minHeight: 100,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              lineHeight: 1,
+              textAlign: "center",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Second (purple, Hebrew RTL) item */}
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          direction: "rtl",
+        }}
+      >
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: "3rem",
+            lineHeight: 1,
+          }}
+        >
+          <TextSwap
+            texts={["מדבר", "בלוברי לום", "פיתוח אתרים", "נמר"]}
+            mainClassName="px-3 py-2 bg-[#7c3aed] overflow-hidden justify-center rounded-[32px]"
+            staggerFrom="first"
+            initial={{ y: "-100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "120%" }}
+            staggerDuration={0.05}
+            splitLevelClassName="translate-y-[-2.5px] overflow-hidden inline-flex items-center justify-center"
+            transition={{
+              type: "spring",
+              damping: 18,
+              stiffness: 180,
+              mass: 0.8,
+            }}
+            rotationInterval={1800}
+            style={{
+              boxShadow: "none",
+              background: "#7c3aed",
+              color: "#111014",
+              fontWeight: 700,
+              fontSize: "2.4rem",
+              minHeight: 100,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              lineHeight: 1,
+              textAlign: "center",
+              borderRadius: "32px",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}`,
+    includeClassMerger: true,
+    code: `"use client";
+import { ElementType, forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
+import { AnimatePresence, AnimatePresenceProps, motion, MotionProps, Transition } from "framer-motion";
+import gsap from "gsap";
+import { cn } from "@/lib/utils";
+
+// Split text into characters with support for Unicode and emojis
+const splitIntoCharacters = (text: string): string[] => {
+  if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
+    const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+    return Array.from(segmenter.segment(text), ({ segment }) => segment);
+  }
+  return Array.from(text);
+};
+
+interface TextRotateProps {
+  texts: string[];
+  as?: ElementType;
+  rotationInterval?: number;
+  initial?: MotionProps["initial"] | MotionProps["initial"][];
+  animate?: MotionProps["animate"] | MotionProps["animate"][];
+  exit?: MotionProps["exit"] | MotionProps["exit"][];
+  animatePresenceMode?: AnimatePresenceProps["mode"];
+  animatePresenceInitial?: boolean;
+  staggerDuration?: number;
+  staggerFrom?: "first" | "last" | "center" | number | "random";
+  transition?: Transition;
+  loop?: boolean;
+  auto?: boolean;
+  splitBy?: "words" | "characters" | "lines" | string;
+  onNext?: (index: number) => void;
+  mainClassName?: string;
+  splitLevelClassName?: string;
+  elementLevelClassName?: string;
+  style?: React.CSSProperties; 
+}
+
+export interface TextRotateRef {
+  next: () => void;
+  previous: () => void;
+  jumpTo: (index: number) => void;
+  reset: () => void;
+}
+
+interface WordObject {
+  characters: string[];
+  needsSpace: boolean;
+}
+
+const WIDTH_BUFFER = 4;
+
+type Step = "idle" | "exiting" | "resizing" | "entering";
+
+const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
+  (
+    {
+      texts,
+      as = "p",
+      transition = { type: "spring", damping: 25, stiffness: 300 },
+      initial = { y: "100%", opacity: 0 },
+      animate = { y: 0, opacity: 1 },
+      exit = { y: "-120%", opacity: 0 },
+      animatePresenceMode = "wait",
+      animatePresenceInitial = false,
+      rotationInterval = 2000,
+      staggerDuration = 0,
+      staggerFrom = "first",
+      loop = true,
+      auto = true,
+      splitBy = "characters",
+      onNext,
+      mainClassName,
+      splitLevelClassName,
+      elementLevelClassName,
+      ...props
+    },
+    ref
+  ) => {
+    // State for sequencing
+    const [step, setStep] = useState<Step>("idle");
+    const [currentTextIndex, setCurrentTextIndex] = useState(0);
+    const [nextTextIndex, setNextTextIndex] = useState<number | null>(null);
+    const [showText, setShowText] = useState(true);
+    const [fixedHeight, setFixedHeight] = useState<number | null>(null);
+
+    const containerRef = useRef<HTMLDivElement>(null);
+    const measureRef = useRef<HTMLSpanElement>(null);
+    const allMeasureRefs = useRef<Array<HTMLSpanElement | null>>([]);
+
+    // Split text for animation
+    const elements = useMemo(() => {
+      const currentText =
+        typeof nextTextIndex === "number" ? texts[nextTextIndex] : texts[currentTextIndex];
+      if (splitBy === "characters") {
+        const text = currentText.split(" ");
+        return text.map((word, i) => ({
+          characters: splitIntoCharacters(word),
+          needsSpace: i !== text.length - 1,
+        }));
+      }
+      return splitBy === "words"
+        ? currentText.split(" ")
+        : splitBy === "lines"
+        ? currentText.split("\n")
+        : currentText.split(splitBy);
+    }, [texts, currentTextIndex, nextTextIndex, splitBy]);
+
+    // Calculate stagger delay for each text segment
+    const getStaggerDelay = useCallback(
+      (index: number, totalChars: number) => {
+        const total = totalChars;
+        if (staggerFrom === "first") return index * staggerDuration;
+        if (staggerFrom === "last") return (total - 1 - index) * staggerDuration;
+        if (staggerFrom === "center") {
+          const center = Math.floor(total / 2);
+          return Math.abs(center - index) * staggerDuration;
+        }
+        if (staggerFrom === "random") {
+          const randomIndex = Math.floor(Math.random() * total);
+          return Math.abs(randomIndex - index) * staggerDuration;
+        }
+        return Math.abs((staggerFrom as number) - index) * staggerDuration;
+      },
+      [staggerFrom, staggerDuration]
+    );
+
+    // Get animation props for each text segment
+    const getAnimationProps = useCallback(
+      (index: number) => {
+        const getProp = (
+          prop:
+            | MotionProps["initial"]
+            | MotionProps["initial"][]
+            | MotionProps["animate"]
+            | MotionProps["animate"][]
+            | MotionProps["exit"]
+            | MotionProps["exit"][]
+        ) => (Array.isArray(prop) ? prop[index % prop.length] : prop);
+        return {
+          initial: getProp(initial) as MotionProps["initial"],
+          animate: getProp(animate) as MotionProps["animate"],
+          exit: getProp(exit) as MotionProps["exit"],
+        };
+      },
+      [initial, animate, exit]
+    );
+
+    // Navigation methods (trigger sequence)
+    const goToIndex = useCallback(
+      (targetIndex: number) => {
+        if (targetIndex === currentTextIndex || step !== "idle") return;
+        setNextTextIndex(targetIndex);
+        setStep("exiting");
+        setShowText(false); // triggers AnimatePresence exit
+      },
+      [currentTextIndex, step]
+    );
+
+    const next = useCallback(() => {
+      const nextIndex =
+        currentTextIndex === texts.length - 1
+          ? loop
+            ? 0
+            : currentTextIndex
+          : currentTextIndex + 1;
+      goToIndex(nextIndex);
+    }, [currentTextIndex, texts.length, loop, goToIndex]);
+
+    const previous = useCallback(() => {
+      const prevIndex =
+        currentTextIndex === 0
+          ? loop
+            ? texts.length - 1
+            : currentTextIndex
+          : currentTextIndex - 1;
+      goToIndex(prevIndex);
+    }, [currentTextIndex, texts.length, loop, goToIndex]);
+
+    const jumpTo = useCallback(
+      (index: number) => {
+        const validIndex = Math.max(0, Math.min(index, texts.length - 1));
+        goToIndex(validIndex);
+      },
+      [texts.length, goToIndex]
+    );
+
+    const reset = useCallback(() => {
+      goToIndex(0);
+    }, [goToIndex]);
+
+    // Expose all navigation functions via ref
+    useImperativeHandle(
+      ref,
+      () => ({
+        next,
+        previous,
+        jumpTo,
+        reset,
+      }),
+      [next, previous, jumpTo, reset]
+    );
+
+    // Auto-rotate text (only when idle)
+    useEffect(() => {
+      if (!auto || step !== "idle") return;
+      const intervalId = setInterval(() => {
+        next();
+      }, rotationInterval);
+      return () => clearInterval(intervalId);
+    }, [auto, rotationInterval, next, step]);
+
+    // On mount, measure all possible text heights and set fixedHeight
+    useEffect(() => {
+      if (!allMeasureRefs.current.length) return;
+      let maxHeight = 0;
+      allMeasureRefs.current.forEach((ref) => {
+        if (ref) {
+          const h = ref.getBoundingClientRect().height;
+          if (h > maxHeight) maxHeight = h;
+        }
+      });
+      setFixedHeight(maxHeight);
+    }, [texts, mainClassName, splitBy]);
+
+    // When AnimatePresence exit finishes, animate width
+    const handleTextExitComplete = useCallback(() => {
+      setStep("resizing");
+      requestAnimationFrame(() => {
+        if (!containerRef.current || !measureRef.current) return;
+        const targetWidth = measureRef.current.getBoundingClientRect().width + WIDTH_BUFFER;
+        gsap.to(containerRef.current, {
+          width: targetWidth,
+          duration: 0.2,
+          ease: "power1.inOut",
+          onComplete: () => {
+            setStep("entering");
+            setCurrentTextIndex(nextTextIndex!);
+            setNextTextIndex(null);
+            setShowText(true);
+          },
+        });
+      });
+    }, [nextTextIndex]);
+
+    // On mount, set initial width
+    useEffect(() => {
+      if (!containerRef.current || !measureRef.current) return;
+      containerRef.current.style.width = \`\${
+        measureRef.current.getBoundingClientRect().width + WIDTH_BUFFER
+      }px\`;
+    }, []);
+
+    // After text enter, go back to idle
+    useEffect(() => {
+      if (step === "entering" && showText) {
+        const timeout = setTimeout(() => {
+          setStep("idle");
+          if (typeof onNext === "function") onNext(currentTextIndex);
+        }, 250);
+        return () => clearTimeout(timeout);
+      }
+    }, [step, showText, currentTextIndex, onNext]);
+
+    // Custom motion component to render the text as a custom HTML tag provided via prop
+    const MotionComponent = useMemo(() => motion(as ?? "p"), [as]);
+
+    return (
+      <>
+        {/* Hidden spans for height measurement (once, on mount) */}
+        <span
+          style={{
+            position: "absolute",
+            left: -9999,
+            top: 0,
+            opacity: 0,
+            pointerEvents: "none",
+            whiteSpace: "pre",
+            font: "inherit",
+            fontSize: "inherit",
+            fontWeight: "inherit",
+            fontFamily: "inherit",
+            padding: "inherit",
+            margin: "inherit",
+            boxSizing: "border-box",
+            visibility: "hidden",
+            height: "auto",
+          }}
+        >
+          {texts.map((t, i) => (
+            <span
+                ref={(el) => {
+                  allMeasureRefs.current[i] = el;
+                }}
+              key={i}
+              className={mainClassName}
+            >
+              {t}
+            </span>
+          ))}
+        </span>
+        <div
+          ref={containerRef}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            overflow: "hidden",
+            verticalAlign: "middle",
+            width: "auto",
+            height: fixedHeight ? \`\${fixedHeight}px\` : undefined,
+            minHeight: fixedHeight ? \`\${fixedHeight}px\` : undefined,
+            maxHeight: fixedHeight ? \`\${fixedHeight}px\` : undefined,
+          }}
+          className={cn("relative", mainClassName)}
+        >
+          {/* Hidden span for measuring width */}
+          <span
+            ref={measureRef}
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              opacity: 0,
+              pointerEvents: "none",
+              whiteSpace: "pre",
+              font: "inherit",
+              fontSize: "inherit",
+              fontWeight: "inherit",
+              fontFamily: "inherit",
+              padding: "inherit",
+              margin: "inherit",
+              boxSizing: "border-box",
+              visibility: "hidden",
+              height: 0,
+            }}
+            className={mainClassName}
+          >
+            {typeof nextTextIndex === "number" && step === "resizing"
+              ? texts[nextTextIndex]
+              : texts[currentTextIndex]}
+          </span>
+          <MotionComponent
+            className={cn("flex whitespace-nowrap w-full", mainClassName)}
+            transition={transition}
+            layout
+            {...props}
+          >
+            <span className="sr-only">{texts[currentTextIndex]}</span>
+            <AnimatePresence
+              mode={animatePresenceMode}
+              initial={animatePresenceInitial}
+              onExitComplete={handleTextExitComplete}
+            >
+              {showText && (
+                <motion.span
+                  key={
+                    typeof nextTextIndex === "number" && step === "entering"
+                      ? nextTextIndex
+                      : currentTextIndex
+                  }
+                  className={cn(
+                    "flex whitespace-nowrap",
+                    splitBy === "lines" && "flex-col w-full"
+                  )}
+                  aria-hidden
+                  layout
+                >
+                  {(splitBy === "characters"
+                    ? (elements as WordObject[])
+                    : (elements as string[]).map((el, i) => ({
+                        characters: [el],
+                        needsSpace: i !== (elements as string[]).length - 1,
+                      }))
+                  ).map((wordObj, wordIndex, array) => {
+                    const previousCharsCount = array
+                      .slice(0, wordIndex)
+                      .reduce((sum, word) => sum + word.characters.length, 0);
+                    return (
+                      <span
+                        key={wordIndex}
+                        className={cn("inline-flex whitespace-nowrap", splitLevelClassName)}
+                      >
+                        {wordObj.characters.map((char, charIndex) => {
+                          const totalIndex = previousCharsCount + charIndex;
+                          const animationProps = getAnimationProps(totalIndex);
+                          return (
+                            <span key={totalIndex} className={cn(elementLevelClassName)}>
+                              <motion.span
+                                {...animationProps}
+                                key={charIndex}
+                                transition={{
+                                  ...transition,
+                                  delay: getStaggerDelay(
+                                    previousCharsCount + charIndex,
+                                    array.reduce(
+                                      (sum, word) => sum + word.characters.length,
+                                      0
+                                    )
+                                  ),
+                                }}
+                                className={"inline-block"}
+                              >
+                                {char}
+                              </motion.span>
+                            </span>
+                          );
+                        })}
+                        {wordObj.needsSpace && (
+                          <span className="whitespace-pre"> </span>
+                        )}
+                      </span>
+                    );
+                  })}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </MotionComponent>
+        </div>
+      </>
+    );
+  }
+);
+
+TextRotate.displayName = "TextRotate";
+export default TextRotate;`,
+    props: [
+      { name: 'texts', type: 'string[]', description: 'text_swap_prop_texts', required: true },
+      { name: 'as', type: 'ElementType', defaultValue: '"p"', description: 'text_swap_prop_as', required: false },
+      { name: 'rotationInterval', type: 'number', defaultValue: '2000', description: 'text_swap_prop_rotationInterval', required: false },
+      { name: 'initial', type: 'MotionProps["initial"] | MotionProps["initial"][]', description: 'text_swap_prop_initial', required: false },
+      { name: 'animate', type: 'MotionProps["animate"] | MotionProps["animate"][]', description: 'text_swap_prop_animate', required: false },
+      { name: 'exit', type: 'MotionProps["exit"] | MotionProps["exit"][]', description: 'text_swap_prop_exit', required: false },
+      { name: 'animatePresenceMode', type: 'AnimatePresenceProps["mode"]', defaultValue: '"wait"', description: 'text_swap_prop_animatePresenceMode', required: false },
+      { name: 'animatePresenceInitial', type: 'boolean', defaultValue: 'false', description: 'text_swap_prop_animatePresenceInitial', required: false },
+      { name: 'staggerDuration', type: 'number', defaultValue: '0', description: 'text_swap_prop_staggerDuration', required: false },
+      { name: 'staggerFrom', type: '"first" | "last" | "center" | number | "random"', defaultValue: '"first"', description: 'text_swap_prop_staggerFrom', required: false },
+      { name: 'transition', type: 'Transition', defaultValue: '{ type: "spring", damping: 25, stiffness: 300 }', description: 'text_swap_prop_transition', required: false },
+      { name: 'loop', type: 'boolean', defaultValue: 'true', description: 'text_swap_prop_loop', required: false },
+      { name: 'auto', type: 'boolean', defaultValue: 'true', description: 'text_swap_prop_auto', required: false },
+      { name: 'splitBy', type: '"words" | "characters" | "lines" | string', defaultValue: '"characters"', description: 'text_swap_prop_splitBy', required: false },
+      { name: 'onNext', type: '(index: number) => void', description: 'text_swap_prop_onNext', required: false },
+      { name: 'mainClassName', type: 'string', description: 'text_swap_prop_mainClassName', required: false },
+      { name: 'splitLevelClassName', type: 'string', description: 'text_swap_prop_splitLevelClassName', required: false },
+      { name: 'elementLevelClassName', type: 'string', description: 'text_swap_prop_elementLevelClassName', required: false },
+      { name: 'style', type: 'React.CSSProperties', description: 'text_swap_prop_style', required: false }
+    ],
   },
 ];

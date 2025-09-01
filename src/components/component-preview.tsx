@@ -8,14 +8,10 @@ import { useTranslation } from "@/context/app-context";
 import { cn } from '@/lib/utils';
 import useIsRTL from '@/hooks/useIsRTL';
 
-interface ComponentPreviewProps {
-  demo: React.ReactNode;
-  componentCode: string;
-  componentCodeFilename: string;
-  noPadding?: boolean;
-}
+// -------------------------------------------
+// SVG Icons
+// -------------------------------------------
 
-// Original Clapperboard SVG component
 const ClapperboardSVG = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -29,7 +25,6 @@ const ClapperboardSVG = () => (
   </svg>
 );
 
-// Horizontally mirrored Clapperboard SVG component
 const ClapperboardSVGMirrored = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -44,7 +39,6 @@ const ClapperboardSVGMirrored = () => (
   </svg>
 );
 
-// Original FileCode SVG component
 const FileCodeSVG = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -58,7 +52,6 @@ const FileCodeSVG = () => (
   </svg>
 );
 
-// Horizontally mirrored FileCode SVG component
 const FileCodeSVGMirrored = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -73,18 +66,26 @@ const FileCodeSVGMirrored = () => (
   </svg>
 );
 
+// -------------------------------------------
+// Props
+// -------------------------------------------
 interface ComponentPreviewProps {
   demo: React.ReactNode;
   componentCode: string;
   componentCodeFilename: string;
   noPadding?: boolean;
+  utilsSnippet?: string; // optional injected block if present
 }
 
+// -------------------------------------------
+// Main ComponentPreview
+// -------------------------------------------
 export function ComponentPreview({ 
   demo, 
   componentCode,
   componentCodeFilename,
   noPadding = false,
+  utilsSnippet,
 }: ComponentPreviewProps) {
   const t = useTranslation();
   const [activeTab, setActiveTab] = useState('preview');
@@ -97,26 +98,39 @@ export function ComponentPreview({
 
   return (
     <div className="w-full space-y-4">
+      {/* Tab switcher */}
       <RadioGroup
         options={options}
         value={activeTab}
         onChange={setActiveTab}
       />
       
+      {/* Tab content */}
       <div>
         {activeTab === 'preview' && (
           <Card className={cn("border-dashed overflow-hidden", noPadding && "p-0")}>
-            <CardContent className={cn(
-              "flex items-center justify-center min-h-[300px]",
-              !noPadding && "p-8",
-              noPadding && "p-0"
-            )}>
+            <CardContent 
+              className={cn(
+                "flex items-center justify-center min-h-[300px]",
+                !noPadding && "p-8",
+                noPadding && "p-0"
+              )}
+            >
               {demo}
             </CardContent>
           </Card>
         )}
+
         {activeTab === 'code' && (
-          <CodeBlock code={componentCode} filename={componentCodeFilename} />
+          <>
+            {/* Conditionally show utilsSnippet with ONLY bottom spacing */}
+            {utilsSnippet && (
+              <div className="mb-4">
+                <CodeBlock code={utilsSnippet} filename="lib/utils.ts" />
+              </div>
+            )}
+            <CodeBlock code={componentCode} filename={componentCodeFilename} />
+          </>
         )}
       </div>
     </div>
