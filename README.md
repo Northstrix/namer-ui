@@ -74,6 +74,8 @@ The existence of this project (at least in its current form) wouldn’t’ve bee
 
 [radix-ui](https://www.npmjs.com/package/radix-ui)
 
+[i18next](https://www.npmjs.com/package/i18next)
+
 [Animate.css](https://www.npmjs.com/package/animate.css)
 
 [Lucide React](https://www.npmjs.com/package/lucide-react)
