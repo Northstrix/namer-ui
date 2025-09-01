@@ -9,7 +9,9 @@ The outdated version is hosted at: https://namer-ui.netlify.app/
 
 SourceForge page: https://sourceforge.net/projects/namer-ui/
 
-![Alt Landing Page](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/landing-page.png)
+![Alt Hero Section](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/landing-page.png)
+
+![Alt Capabilities Showcase Section](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/capabilities-showcase.png)
 
 ![Alt Components Page](https://raw.githubusercontent.com/Northstrix/namer-ui/refs/heads/main/screenshots/components-page.png)
 
