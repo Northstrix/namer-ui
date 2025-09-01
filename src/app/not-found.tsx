@@ -1,5 +1,4 @@
 "use client";
-
 import { Suspense, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useRouter } from "next/navigation";
@@ -17,23 +16,21 @@ export default function NotFound() {
     return () => clearTimeout(t);
   }, []);
 
-  // Function to recalculate card positioning
+  // Function to recalc card position
   const recalcPosition = () => {
     if (typeof window === "undefined" || !cardRef.current) return;
     const viewportHeight = window.innerHeight;
     const cardHeight = cardRef.current.offsetHeight;
-    const top = Math.max((viewportHeight - cardHeight) / 2, 20); // ensure at least 20px top spacing
+    const top = Math.max((viewportHeight - cardHeight) / 2, 20);
     setCardTop(top);
   };
 
-  // Recalculate position on mount, after 1s, and on resize
+  // Position recalc
   useEffect(() => {
     if (!showContent) return;
-
-    recalcPosition(); // initial measure
-    const timeout = setTimeout(() => recalcPosition(), 1000); // second measure after layout settles
+    recalcPosition();
+    const timeout = setTimeout(() => recalcPosition(), 1000);
     window.addEventListener("resize", recalcPosition);
-
     return () => {
       clearTimeout(timeout);
       window.removeEventListener("resize", recalcPosition);
@@ -45,23 +42,20 @@ export default function NotFound() {
     if (!showContent || !containerRef.current) return;
     const particles = containerRef.current.querySelectorAll<HTMLSpanElement>(".particle");
     const anims = ["float", "floatReverse", "float2", "floatReverse2"];
-
     particles.forEach((particle, i) => {
       const size = Math.floor(Math.random() * 20) + 10; // 10–30px
       particle.style.fontSize = `${size}px`;
       particle.style.filter = `blur(${(i + 1) * 0.02}px)`;
       particle.style.top = `${Math.random() * 100}%`;
       particle.style.left = `${Math.random() * 100}%`;
-
       const anim = anims[Math.floor(Math.random() * anims.length)];
-      const duration = Math.random() * 8 + 8; // 8s–16s
+      const duration = Math.random() * 8 + 8; // 8–16s
       const delay = Math.random();
       let yTo = 0;
       if (anim === "float") yTo = 180;
       if (anim === "floatReverse") yTo = -180;
       if (anim === "float2") yTo = 28;
       if (anim === "floatReverse2") yTo = -28;
-
       gsap.fromTo(
         particle,
         { y: 0 },
@@ -76,7 +70,6 @@ export default function NotFound() {
       );
     });
 
-    // Slide in animation for card
     if (cardRef.current) {
       gsap.fromTo(
         cardRef.current,
@@ -86,10 +79,27 @@ export default function NotFound() {
     }
   }, [showContent]);
 
-  // Floating particles distribution
+  // Floating 404 numbers
   const particles: string[] = [];
   for (let i = 0; i < 60; i++) particles.push("4");
   for (let i = 0; i < 60; i++) particles.push("0");
+
+  // Anchor click handler
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Respect middle-click, new tab, ctrl/cmd-click, right-click
+    if (
+      e.defaultPrevented ||
+      e.button !== 0 || // only left click
+      e.metaKey ||
+      e.altKey ||
+      e.ctrlKey ||
+      e.shiftKey
+    ) {
+      return;
+    }
+    e.preventDefault();
+    router.push("/");
+  };
 
   return (
     <Suspense fallback={null}>
@@ -103,7 +113,7 @@ export default function NotFound() {
               </span>
             ))}
 
-            {/* Centered Card */}
+            {/* Centered content */}
             <article
               className="content"
               ref={cardRef}
@@ -111,14 +121,18 @@ export default function NotFound() {
             >
               <h1 className="title">404</h1>
               <p className="subtitle">Page Not Found</p>
-              <p className="back-link" onClick={() => router.push("/")}>
+              <a
+                className="back-link"
+                href="/"
+                onClick={handleAnchorClick}
+              >
                 Return Home
-              </p>
+              </a>
             </article>
           </>
         )}
 
-        {/* Styles */}
+        {/* Styles remain the same */}
         <style jsx>{`
           :root {
             --color: #8c8c8c;
@@ -142,11 +156,11 @@ export default function NotFound() {
             font-family: Arial, sans-serif;
             overflow: hidden;
           }
-          /* Card styling */
+          /* Card */
           .content {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%); /* only horizontal centering */
+            transform: translateX(-50%);
             background: var(--bg-card);
             text-align: center;
             border: 1px solid #262626;
@@ -195,7 +209,7 @@ export default function NotFound() {
           .back-link:hover {
             color: var(--color);
           }
-          /* Floating number style */
+          /* Floating numbers */
           .particle {
             position: absolute;
             display: block;

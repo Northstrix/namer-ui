@@ -3,7 +3,14 @@
 import { notFound, useParams } from "next/navigation";
 import { componentsMetadata } from "@/lib/component-meta";
 import { ComponentPreview } from "@/components/component-preview";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/card/card";
 import { useTranslation } from "@/context/app-context";
@@ -21,6 +28,7 @@ export default function ComponentPage() {
   const isRTL = useIsRTL();
 
   const component = componentsMetadata.find((c) => c.id === slug);
+
   if (!component) {
     notFound();
   }
@@ -54,12 +62,19 @@ export default function ComponentPage() {
           isRTL={isRTL}
           icon={
             <AlertTriangle
-              className={cn("h-4 w-4", alertVariant === "default" ? "text-foreground" : "")}
+              className={cn(
+                "h-4 w-4",
+                alertVariant === "default" ? "text-foreground" : ""
+              )}
               style={isRTL ? { transform: "rotateY(180deg)" } : undefined}
             />
           }
           title={t("disclaimer")}
-          description={<span className="text-foreground/90">{t(component.disclaimer)}</span>}
+          description={
+            <span className="text-foreground/90">
+              {t(component.disclaimer)}
+            </span>
+          }
           borderRadius="var(--radius)"
           borderColor="hsl(var(--border))"
           titleColor="hsl(var(--foreground))"
@@ -76,6 +91,14 @@ export default function ComponentPage() {
           componentCode={component.code}
           componentCodeFilename={`${component.id}.tsx`}
           noPadding={component.noPadding}
+          utilsSnippet={
+            component.includeClassMerger ? `import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+ 
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}` : undefined
+          }
         />
       </div>
 
@@ -87,11 +110,19 @@ export default function ComponentPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className={cn(isRTL && "text-right")}>{t("prop")}</TableHead>
-                  <TableHead className={cn(isRTL && "text-right")}>{t("type")}</TableHead>
-                  <TableHead className={cn(isRTL && "text-right")}>{t("default")}</TableHead>
+                  <TableHead className={cn(isRTL && "text-right")}>
+                    {t("prop")}
+                  </TableHead>
+                  <TableHead className={cn(isRTL && "text-right")}>
+                    {t("type")}
+                  </TableHead>
+                  <TableHead className={cn(isRTL && "text-right")}>
+                    {t("default")}
+                  </TableHead>
                   <TableHead>{t("required")}</TableHead>
-                  <TableHead className={cn("w-[40%]", isRTL && "text-right")}>
+                  <TableHead
+                    className={cn("w-[40%]", isRTL && "text-right")}
+                  >
                     {t("description")}
                   </TableHead>
                 </TableRow>
@@ -102,10 +133,18 @@ export default function ComponentPage() {
                     <TableCell>
                       <code className="font-mono text-accent">{prop.name}</code>
                     </TableCell>
-                    <TableCell style={{ direction: "ltr" }} className={cn(isRTL && "text-right")}>
-                      <code className="font-mono text-sm text-muted-foreground">{prop.type}</code>
+                    <TableCell
+                      style={{ direction: "ltr" }}
+                      className={cn(isRTL && "text-right")}
+                    >
+                      <code className="font-mono text-sm text-muted-foreground">
+                        {prop.type}
+                      </code>
                     </TableCell>
-                    <TableCell style={{ direction: "ltr" }} className={cn(isRTL && "text-right")}>
+                    <TableCell
+                      style={{ direction: "ltr" }}
+                      className={cn(isRTL && "text-right")}
+                    >
                       {prop.defaultValue ? (
                         <Badge variant="secondary">{prop.defaultValue}</Badge>
                       ) : (
@@ -137,7 +176,9 @@ export default function ComponentPage() {
       {/* DEPENDENCIES */}
       {component.dependencies && (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold tracking-tight">{t("dependencies")}</h2>
+          <h2 className="text-2xl font-bold tracking-tight">
+            {t("dependencies")}
+          </h2>
           <Card>
             <CardContent className="pt-6">
               <p
@@ -166,7 +207,10 @@ export default function ComponentPage() {
             <CardContent className="pt-6">
               <p
                 style={{ direction: "ltr" }}
-                className={cn("text-sm text-muted-foreground whitespace-pre-wrap", isRTL && "text-right")}
+                className={cn(
+                  "text-sm text-muted-foreground whitespace-pre-wrap",
+                  isRTL && "text-right"
+                )}
                 dangerouslySetInnerHTML={{
                   __html: component.credit
                     .replace(/\n/g, "<br />")

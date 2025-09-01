@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 interface HalomotButtonProps {
   gradient?: string;
   inscription: string;
+  fontWeight?: string;
   onClick?: () => void;
   fillWidth?: boolean;
   fixedWidth?: string;
@@ -21,6 +22,7 @@ interface HalomotButtonProps {
 const HalomotButton: React.FC<HalomotButtonProps> = ({
   gradient = "linear-gradient(135deg, #4776cb, #a19fe5, #6cc606)",
   inscription,
+  fontWeight = "bold",
   onClick,
   fillWidth = false,
   fixedWidth,
@@ -49,7 +51,7 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
     border: "0",
     borderRadius: outerBorderRadius,
     color: textColor,
-    fontWeight: "bold",
+    fontWeight, // USE PROP HERE
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -70,13 +72,11 @@ const HalomotButton: React.FC<HalomotButtonProps> = ({
     borderRadius: innerBorderRadius,
     width: "100%",
     height: "100%",
-    transition: hoverTextColor
-      ? "color 0.3s, background 300ms"
-      : "background 300ms",
+    transition: hoverTextColor ? "color 0.3s, background 300ms" : "background 300ms",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontWeight: "bold",
+    fontWeight, // USE PROP HERE
     color: delayedColor ? delayedColor : textColor,
     whiteSpace: "nowrap",
     fontFamily: "inherit",
