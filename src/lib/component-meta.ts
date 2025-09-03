@@ -38,6 +38,8 @@ import LoginFormFullPageDemo from '@/app/the-actual-components/login-form/demo-f
 import AnimatedTestimonialsFullPageDemo from "@/app/the-actual-components/animated-testimonials/demo-full-page";
 import TextSwapPreviewDemo from '@/app/the-actual-components/text-swap/demo-preview';
 import TextSwapFullPageDemo from '@/app/the-actual-components/text-swap/demo-full-page';
+import CustomCheckboxPreviewDemo from '@/app/the-actual-components/custom-checkbox/demo-preview';
+import CustomCheckboxFullPageDemo from '@/app/the-actual-components/custom-checkbox/demo-full-page';
 
 import { TranslationKey } from "./translations";
 
@@ -11492,6 +11494,7 @@ export default function TextSwapDemo() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          direction: "ltr",
         }}
       >
         <div
@@ -12027,6 +12030,735 @@ export default TextRotate;`,
       { name: 'splitLevelClassName', type: 'string', description: 'text_swap_prop_splitLevelClassName', required: false },
       { name: 'elementLevelClassName', type: 'string', description: 'text_swap_prop_elementLevelClassName', required: false },
       { name: 'style', type: 'React.CSSProperties', description: 'text_swap_prop_style', required: false }
+    ],
+  },
+  {
+    id: "custom-checkbox",
+    title: "custom_checkbox_title",
+    description: "custom_checkbox_desc",
+    demo: CustomCheckboxPreviewDemo,
+    demoFullPage: CustomCheckboxFullPageDemo,
+    dependencies: 'npm install framer-motion',
+    credit: `[Custom Checkbox](https://21st.dev/Edil-ozi/custom-checkbox/default) by [Edil Ozi](https://21st.dev/Edil-ozi)
+[チェックしないと押せないボタン](https://codepen.io/ash_creator/pen/JjZReNm) by [あしざわ - Webクリエイター](https://codepen.io/ash_creator)`,
+    usage: `// Path to the "CustomCheckbox.tsx" file
+import CustomCheckbox from '@/app/the-actual-components/custom-checkbox/CustomCheckbox'
+
+const [customCheckboxCheckedLTR, setCustomCheckboxCheckedLTR] = useState(false);
+const [customCheckboxCheckedRTL, setCustomCheckboxCheckedRTL] = useState(false);
+const [customCheckboxCheckedAR, setCustomCheckboxCheckedAR] = useState(false);
+const [customCheckboxCheckedNoOutline, setCustomCheckboxCheckedNoOutline] = useState(false);
+const [customCheckboxCheckedFullRounding, setCustomCheckboxCheckedFullRounding] = useState(false);
+const [customCheckboxCheckedNoRounding, setCustomCheckboxCheckedNoRounding] = useState(false);
+
+// Disabled checkboxes
+const [customCheckboxCheckedDisabled, setCustomCheckboxCheckedDisabled] = useState(false);
+const [customCheckboxCheckedDisabledWhiteRed, setCustomCheckboxCheckedDisabledWhiteRed] = useState(false);
+
+// LTR group
+const [customCheckboxSelectedLTR, setCustomCheckboxSelectedLTR] = useState<string[]>([]);
+const customCheckboxLTROptions = [
+  { value: "next", label: "Next.js" },
+  { value: "ts", label: "TypeScript" },
+  { value: "namer", label: "Namer UI" }
+];
+
+// RTL group
+const [customCheckboxSelectedRTL, setCustomCheckboxSelectedRTL] = useState<string[]>([]);
+const customCheckboxRTLOptions = [
+  { value: "midbar", label: "מדבר" },
+  { value: "lakhash", label: "לחש" },
+  { value: "blueberryloom", label: "בלוברי לום" }
+];
+
+// Max selection group
+const [customCheckboxSelectedMax, setCustomCheckboxSelectedMax] = useState<string[]>([]);
+const customCheckboxMaxOptions = [
+  { value: "one", label: "1st" },
+  { value: "two", label: "2nd" },
+  { value: "three", label: "3rd" }
+];
+
+// 5-item group, only three can be selected
+const [customCheckboxSelectedFive, setCustomCheckboxSelectedFive] = useState<string[]>([]);
+const customCheckboxFiveOptions = [
+  { value: "one", label: "One" },
+  { value: "two", label: "Two" },
+  { value: "three", label: "Three" },
+  { value: "four", label: "Four" },
+  { value: "five", label: "Five" }
+];
+
+// Disabled per item group
+const [customCheckboxSelectedDisabledGroup, setCustomCheckboxSelectedDisabledGroup] = useState<string[]>([]);
+const customCheckboxDisabledGroupOptions = [
+  { value: "a", label: "Enabled" },
+  { value: "b", label: "Disabled", checkboxProps: { disabled: true } },
+  { value: "c", label: "Enabled" }
+];
+
+<div className="bg-[#050505] p-8 rounded-lg min-h-[300px] flex flex-col gap-10 items-center justify-center relative">
+  <div style={{ display: "flex", flexWrap: "wrap", gap: "40px", width: "100%", justifyContent: "center" }}>
+    {/* Checkbox group LTR (horizontal) */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Checkbox group (LTR, horizontal)</div>
+      <CustomCheckbox
+        options={customCheckboxLTROptions}
+        values={customCheckboxSelectedLTR}
+        onGroupChange={setCustomCheckboxSelectedLTR}
+        direction="ltr"
+        groupGap={18}
+        groupDirection="row"
+      />
+      <div style={{direction: "ltr"}}>
+        <div style={{ color: "#aaa", margin: "40px 0 10px 0", fontSize: 15 }}>Checkbox group (LTR, vertical)</div>
+        <CustomCheckbox
+          options={customCheckboxLTROptions}
+          values={customCheckboxSelectedLTR}
+          onGroupChange={setCustomCheckboxSelectedLTR}
+          direction="ltr"
+          groupGap={18}
+          groupDirection="column"
+        />
+      </div>
+    </div>
+    {/* Checkbox group RTL (Hebrew) */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Checkbox group (RTL, Hebrew, horizontal)</div>
+      <CustomCheckbox
+        options={customCheckboxRTLOptions}
+        values={customCheckboxSelectedRTL}
+        onGroupChange={setCustomCheckboxSelectedRTL}
+        direction="rtl"
+        groupGap={18}
+        groupDirection="row"
+      />
+      <div style={{direction: "ltr"}}>
+        <div style={{ color: "#aaa", margin: "40px 0 10px 0", fontSize: 15 }}>Checkbox group (RTL, Hebrew, vertical)</div>
+        <CustomCheckbox
+          options={customCheckboxRTLOptions}
+          values={customCheckboxSelectedRTL}
+          onGroupChange={setCustomCheckboxSelectedRTL}
+          direction="rtl"
+          groupGap={18}
+          groupDirection="column"
+        />
+      </div>
+    </div>
+    {/* Custom gap, background, text color, font size, max selection */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Custom gap, background, text color, font size, font weight, checkmark appearance duration 2s</div>
+      <CustomCheckbox
+        options={customCheckboxMaxOptions.map((opt) => ({
+          ...opt,
+          checkboxProps: {
+            accentColor: "#fff",
+            backgroundColor: "#7c3aed",
+            borderColor: "#fff",
+            outlineHoverColor: "#aaa",
+            labelColor: "#7c3aed",
+            labelFontSize: 22,
+            labelFontWeight: 800,
+            checkmarkColor: "#333",
+            borderRadius: 16,
+            checkmarkDuration: 2,
+            labelSpacing: 20,
+          }
+        }))}
+        values={customCheckboxSelectedMax}
+        onGroupChange={setCustomCheckboxSelectedMax}
+        direction="ltr"
+        groupGap={50}
+        groupDirection="row"
+      />
+    </div>
+    {/* 5-item group, only three can be selected */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>5-item group, only three can be selected</div>
+      <CustomCheckbox
+        options={customCheckboxFiveOptions}
+        values={customCheckboxSelectedFive}
+        onGroupChange={setCustomCheckboxSelectedFive}
+        direction="ltr"
+        groupGap={12}
+        groupDirection="row"
+        maxSelected={3}
+      />
+      <div style={{ color: "#aaa", margin: "18px 0 10px 0", fontSize: 15 }}>5-item group, vertical, only three can be selected</div>
+      <CustomCheckbox
+        options={customCheckboxFiveOptions}
+        values={customCheckboxSelectedFive}
+        onGroupChange={setCustomCheckboxSelectedFive}
+        direction="ltr"
+        groupGap={12}
+        groupDirection="column"
+        maxSelected={3}
+      />
+    </div>
+    {/* Disabled per item group, vertical */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Disabled per item in group (vertical)</div>
+      <CustomCheckbox
+        options={customCheckboxDisabledGroupOptions}
+        values={customCheckboxSelectedDisabledGroup}
+        onGroupChange={setCustomCheckboxSelectedDisabledGroup}
+        direction="ltr"
+        groupGap={12}
+        groupDirection="column"
+      />
+    </div>
+    {/* Disabled default */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Disabled checkbox (default)</div>
+      <CustomCheckbox
+        checked={customCheckboxCheckedDisabled}
+        onChange={setCustomCheckboxCheckedDisabled}
+        label="Disabled example"
+        disabled
+      />
+    </div>
+    {/* Disabled with white outline (red outline on hover) */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Disabled checkbox with white outline (red outline on hover)</div>
+      <CustomCheckbox
+        checked={customCheckboxCheckedDisabledWhiteRed}
+        onChange={setCustomCheckboxCheckedDisabledWhiteRed}
+        label="Disabled, white/red outline"
+        disabled
+        outlineColorDisabled="#fff"
+        outlineHoverColorDisabled="#ff2800"
+        disabledBackgroundColor="#2e2e2e"
+        disabledBorderColor="#363636"
+        disabledCheckmarkColor="#ff2800"
+      />
+    </div>
+    {/* No outline */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>No outline (borderWidth = 0)</div>
+      <CustomCheckbox
+        checked={customCheckboxCheckedNoOutline}
+        onChange={setCustomCheckboxCheckedNoOutline}
+        label="No outline"
+        borderRadius={0}
+        accentColor="#ff2800"
+        borderColor="#ff2800"
+        outlineHoverColor="#ff8400"
+        backgroundColor="#232323"
+        labelColor="#ff2800"
+        labelFontSize={18}
+        labelSpacing={12}
+        checkmarkDuration={0.5}
+        borderWidth={0}
+      />
+    </div>
+    {/* 5px outline, full rounding */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>5px outline, full rounding</div>
+      <CustomCheckbox
+        checked={customCheckboxCheckedFullRounding}
+        onChange={setCustomCheckboxCheckedFullRounding}
+        label="5px outline"
+        borderRadius={100}
+        accentColor="#00bb3f"
+        borderColor="#00bb3f"
+        outlineHoverColor="#fff"
+        backgroundColor="#232323"
+        labelFontSize={18}
+        labelSpacing={12}
+        checkmarkDuration={0.7}
+        borderWidth={5}
+      />
+    </div>
+    {/* Default options, no rounding */}
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Default options, no rounding</div>
+      <CustomCheckbox
+        checked={customCheckboxCheckedNoRounding}
+        onChange={setCustomCheckboxCheckedNoRounding}
+        label="No rounding (borderRadius = 0)"
+        borderRadius={0}
+      />
+    </div>
+  </div>
+  {/* Single checkboxes below all groups */}
+  <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%", alignItems: "center", marginTop: "32px" }}>
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Single checkbox (LTR)</div>
+      <CustomCheckbox
+        checked={customCheckboxCheckedLTR}
+        onChange={setCustomCheckboxCheckedLTR}
+        label="I agree to the terms I never read and probably never will."
+        direction="ltr"
+        checkmarkDuration={0.4}
+      />
+    </div>
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Single checkbox (RTL, Hebrew)</div>
+      <CustomCheckbox
+        checked={customCheckboxCheckedRTL}
+        onChange={setCustomCheckboxCheckedRTL}
+        label="אני מסכים לתנאים שמעולם לא קראתי וסביר להניח שלעולם לא אקרא."
+        direction="rtl"
+        accentColor="#7c3aed"
+        labelFontSize={22}
+        checkmarkDuration={0.6}
+        labelSpacing={12}
+      />
+    </div>
+    <div style={{ minWidth: 260 }}>
+      <div style={{ color: "#aaa", marginBottom: 10, fontSize: 15 }}>Single checkbox (RTL, Levantine Arabic, mirrored check, black checkmark)</div>
+      <CustomCheckbox
+        checked={customCheckboxCheckedAR}
+        onChange={setCustomCheckboxCheckedAR}
+        label="أنا أوافق على الشروط التي لم أقرأها أبداً وربما لن أقرأها."
+        direction="rtl"
+        accentColor="#00bb3f"
+        checkmarkColor="#050505"
+        labelFontSize={18}
+        checkmarkDuration={0.8}
+        mirrorCheckmark
+        labelSpacing={18}
+      />
+    </div>
+  </div>
+</div>`,
+    code: `"use client";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+
+export interface CustomCheckboxProps {
+  checked?: boolean;
+  onChange?: (checked: boolean) => void;
+  label?: React.ReactNode;
+  direction?: "ltr" | "rtl";
+  accentColor?: string;
+  checkmarkColor?: string;
+  backgroundColor?: string;
+  borderColor?: string;
+  borderRadius?: number | string;
+  borderWidth?: number | string;
+  size?: number;
+  labelColor?: string;
+  labelFontSize?: number | string;
+  labelFontWeight?: number | string;
+  labelSpacing?: number;
+  disabled?: boolean;
+  style?: React.CSSProperties;
+  className?: string;
+  checkmarkDuration?: number;
+  mirrorCheckmark?: boolean;
+  checkedCoversOutline?: boolean;
+  outlineTransition?: string;
+  outlineHoverColor?: string;
+  outlineHoverColorDisabled?: string;
+  outlineColorDisabled?: string;
+  borderStyle?: string;
+  disabledBackgroundColor?: string;
+  disabledBorderColor?: string;
+  disabledCheckmarkColor?: string;
+
+  // Group
+  options?: {
+    value: string;
+    label: React.ReactNode;
+    checkboxProps?: Partial<CustomCheckboxProps>;
+  }[];
+  values?: string[];
+  onGroupChange?: (values: string[]) => void;
+  maxSelected?: number;
+  groupGap?: number;
+  groupDirection?: "row" | "column";
+}
+
+const DEFAULTS = {
+  accentColor: "#00a0d8",
+  checkmarkColor: "#fff",
+  backgroundColor: "#2e2e2e",
+  borderColor: "#363636",
+  borderRadius: 8,
+  borderWidth: 2,
+  size: 24,
+  labelColor: "#fff",
+  labelFontSize: 16,
+  labelFontWeight: 400,
+  labelSpacing: 12, // increased gap for clarity
+  checkmarkDuration: 0.32,
+  outlineTransition: "border-color 0.3s ease-in-out",
+  outlineHoverColor: "#494949",
+  outlineHoverColorDisabled: "#494949",
+  outlineColorDisabled: undefined, // fallback to disabledBorderColor/borderColor
+  borderStyle: "solid",
+  disabledBackgroundColor: undefined, // fallback to backgroundColor
+  disabledBorderColor: undefined,     // fallback to borderColor
+  disabledCheckmarkColor: undefined,  // fallback to checkmarkColor
+  groupGap: 18,
+  groupDirection: "row" as "row" | "column",
+};
+
+const SingleCheckbox: React.FC<
+  CustomCheckboxProps & { hovered?: boolean }
+> = ({
+  checked = false,
+  label,
+  direction = "ltr",
+  accentColor = DEFAULTS.accentColor,
+  checkmarkColor = DEFAULTS.checkmarkColor,
+  backgroundColor = DEFAULTS.backgroundColor,
+  borderColor = DEFAULTS.borderColor,
+  borderRadius = DEFAULTS.borderRadius,
+  borderWidth = DEFAULTS.borderWidth,
+  size = DEFAULTS.size,
+  labelColor = DEFAULTS.labelColor,
+  labelFontSize = DEFAULTS.labelFontSize,
+  labelFontWeight = DEFAULTS.labelFontWeight,
+  labelSpacing = DEFAULTS.labelSpacing,
+  disabled = false,
+  checkmarkDuration = DEFAULTS.checkmarkDuration,
+  mirrorCheckmark = false,
+  checkedCoversOutline = true,
+  outlineTransition = DEFAULTS.outlineTransition,
+  outlineHoverColor = DEFAULTS.outlineHoverColor,
+  outlineHoverColorDisabled = DEFAULTS.outlineHoverColorDisabled,
+  outlineColorDisabled = DEFAULTS.outlineColorDisabled,
+  borderStyle = DEFAULTS.borderStyle,
+  disabledBackgroundColor,
+  disabledBorderColor,
+  disabledCheckmarkColor,
+  hovered = false,
+}) => {
+  const flexDirection = direction === "rtl" ? "row-reverse" : "row";
+
+  // Use fallback to normal colors if disabled colors are not provided
+  const resolvedDisabledBackgroundColor = disabledBackgroundColor ?? backgroundColor;
+  const resolvedDisabledBorderColor = disabledBorderColor ?? borderColor;
+  const resolvedDisabledCheckmarkColor = disabledCheckmarkColor ?? checkmarkColor;
+  const resolvedOutlineColorDisabled = outlineColorDisabled ?? resolvedDisabledBorderColor;
+
+  // --- OUTLINE COLOR LOGIC ---
+  let borderCol: string;
+  if (disabled) {
+    borderCol = hovered
+      ? (outlineHoverColorDisabled ?? outlineHoverColor)
+      : resolvedOutlineColorDisabled;
+  } else {
+    borderCol = checkedCoversOutline
+      ? checked
+        ? accentColor
+        : hovered
+        ? outlineHoverColor
+        : borderColor
+      : hovered
+      ? outlineHoverColor
+      : borderColor;
+  }
+  const border =
+    borderWidth === 0 ? "none" : \`\${borderWidth}px \${borderStyle} \${borderCol}\`;
+
+  // --- BACKGROUND COLOR LOGIC ---
+  const boxBg = disabled
+    ? resolvedDisabledBackgroundColor
+    : checked
+    ? checkedCoversOutline
+      ? accentColor
+      : \`linear-gradient(\${accentColor} 0 0) padding-box, \${backgroundColor} border-box\`
+    : backgroundColor;
+
+  // --- CHECKBOX RENDER ---
+  const checkboxEl = (
+    <span
+      style={{
+        width: size,
+        height: size,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: boxBg,
+        border,
+        borderRadius:
+          typeof borderRadius === "number"
+            ? \`\${borderRadius}px\`
+            : borderRadius,
+        transition: \`background 0.18s, \${outlineTransition}\`,
+        position: "relative",
+        boxSizing: "border-box",
+        flexShrink: 0,
+        outline: "none",
+        pointerEvents: "none", // label handles all clicks
+        opacity: 1,
+      }}
+      tabIndex={-1}
+      role="presentation"
+      aria-hidden="true"
+    >
+      <motion.svg
+        width={size * 0.75}
+        height={size * 0.75}
+        viewBox="0 0 24 24"
+        stroke={disabled ? resolvedDisabledCheckmarkColor : checkmarkColor}
+        strokeWidth={3}
+        fill="none"
+        style={{
+          display: "block",
+          pointerEvents: "none",
+          transform: mirrorCheckmark ? "scaleX(-1)" : "none",
+        }}
+      >
+        <motion.path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5 13l4 4L19 7"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={
+            checked
+              ? { pathLength: 1, opacity: 1 }
+              : { pathLength: 0, opacity: 0 }
+          }
+          transition={{
+            duration: checkmarkDuration,
+            ease: [0.4, 0, 0.2, 1],
+          }}
+        />
+      </motion.svg>
+      {hovered && (
+        // Overlay appears only on hover
+        <span
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius:
+              typeof borderRadius === "number"
+                ? \`\${borderRadius}px\`
+                : borderRadius,
+            background: "rgba(24,24,27,0.18)",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
+      )}
+    </span>
+  );
+
+  const labelEl =
+    label && (
+      <span
+        style={{
+          color: labelColor,
+          fontSize: labelFontSize,
+          fontWeight: labelFontWeight,
+          lineHeight: 1.5,
+          whiteSpace: "pre-line",
+          direction,
+          textAlign: direction === "rtl" ? "right" : "left",
+          cursor: disabled ? "not-allowed" : "pointer",
+          userSelect: "text",
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      >
+        {label}
+      </span>
+    );
+
+  const children = direction === "rtl" ? [labelEl, checkboxEl] : [checkboxEl, labelEl];
+  return (
+    <span
+      dir={direction}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        flexDirection,
+        gap: labelSpacing,
+        cursor: disabled ? "not-allowed" : "pointer",
+        userSelect: "text",
+        opacity: disabled ? 0.5 : 1,
+        position: "relative",
+      }}
+      tabIndex={-1}
+      role="presentation"
+      aria-hidden="true"
+    >
+      {children}
+    </span>
+  );
+};
+
+const CustomCheckbox: React.FC<CustomCheckboxProps> = (props) => {
+  // GROUP MODE
+  if (props.options && props.values && props.onGroupChange) {
+    const {
+      options,
+      values,
+      onGroupChange,
+      direction = "ltr",
+      maxSelected,
+      groupGap = DEFAULTS.groupGap,
+      groupDirection = DEFAULTS.groupDirection,
+    } = props;
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+    // For vertical layout and RTL, align items to the right
+    const isVertical = groupDirection === "column";
+    const isRTL = direction === "rtl";
+    const groupAlignItems = isVertical && isRTL ? "flex-end" : "flex-start";
+
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: groupDirection,
+          gap: groupGap,
+          alignItems: groupAlignItems,
+        }}
+      >
+        {options.map((opt, idx) => {
+          const isChecked = values.includes(opt.value);
+          // Only disable if not checked and maxSelected reached
+          const isDisabled =
+            !!opt.checkboxProps?.disabled ||
+            (!isChecked &&
+              typeof maxSelected === "number" &&
+              values.length >= maxSelected);
+
+          return (
+            <label
+              key={opt.value}
+              dir={direction}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                flexDirection: direction === "rtl" ? "row-reverse" : "row",
+                gap: opt.checkboxProps?.labelSpacing ?? DEFAULTS.labelSpacing,
+                cursor: isDisabled ? "not-allowed" : "pointer",
+                userSelect: "text",
+                opacity: isDisabled ? 0.5 : 1,
+                position: "relative",
+              }}
+              tabIndex={isDisabled ? -1 : 0}
+              onMouseEnter={() => setHoveredIndex(idx)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              onClick={e => {
+                if (!isDisabled) {
+                  e.preventDefault();
+                  if (isChecked) {
+                    onGroupChange(values.filter(v => v !== opt.value));
+                  } else {
+                    onGroupChange([...values, opt.value]);
+                  }
+                }
+              }}
+              onKeyDown={e => {
+                if ((e.key === " " || e.key === "Enter") && !isDisabled) {
+                  e.preventDefault();
+                  if (isChecked) {
+                    onGroupChange(values.filter(v => v !== opt.value));
+                  } else {
+                    onGroupChange([...values, opt.value]);
+                  }
+                }
+              }}
+              role="checkbox"
+              aria-checked={isChecked}
+              aria-disabled={isDisabled}
+            >
+              <SingleCheckbox
+                {...opt.checkboxProps}
+                checked={isChecked}
+                disabled={isDisabled}
+                direction={direction}
+                label={opt.label}
+                hovered={hoveredIndex === idx}
+              />
+            </label>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // SINGLE MODE
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <label
+      dir={props.direction ?? "ltr"}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        flexDirection: props.direction === "rtl" ? "row-reverse" : "row",
+        gap: props.labelSpacing ?? DEFAULTS.labelSpacing,
+        cursor: props.disabled ? "not-allowed" : "pointer",
+        userSelect: "text",
+        opacity: props.disabled ? 0.5 : 1,
+        position: "relative",
+        ...props.style,
+      }}
+      className={props.className}
+      tabIndex={props.disabled ? -1 : 0}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={e => {
+        if (!props.disabled && props.onChange) {
+          e.preventDefault();
+          props.onChange(!props.checked);
+        }
+      }}
+      onKeyDown={e => {
+        if (
+          (e.key === " " || e.key === "Enter") &&
+          !props.disabled &&
+          props.onChange
+        ) {
+          e.preventDefault();
+          props.onChange(!props.checked);
+        }
+      }}
+      role="checkbox"
+      aria-checked={props.checked}
+      aria-disabled={props.disabled}
+    >
+      <SingleCheckbox {...props} hovered={hovered} />
+    </label>
+  );
+};
+
+export default CustomCheckbox;
+`,
+    props: [
+      { name: "checked", type: "boolean", description: "custom_checkbox_prop_checked", required: false },
+      { name: "onChange", type: "(checked: boolean) => void", description: "custom_checkbox_prop_onchange", required: false },
+      { name: "label", type: "React.ReactNode", description: "custom_checkbox_prop_label", required: false },
+      { name: "direction", type: "\"ltr\" | \"rtl\"", defaultValue: "\"ltr\"", description: "custom_checkbox_prop_direction", required: false },
+      { name: "accentColor", type: "string", defaultValue: "#00a0d8", description: "custom_checkbox_prop_accentcolor", required: false },
+      { name: "checkmarkColor", type: "string", defaultValue: "#fff", description: "custom_checkbox_prop_checkmarkcolor", required: false },
+      { name: "backgroundColor", type: "string", defaultValue: "#2e2e2e", description: "custom_checkbox_prop_backgroundcolor", required: false },
+      { name: "borderColor", type: "string", defaultValue: "#363636", description: "custom_checkbox_prop_bordercolor", required: false },
+      { name: "borderRadius", type: "number | string", defaultValue: "8", description: "custom_checkbox_prop_borderradius", required: false },
+      { name: "borderWidth", type: "number | string", defaultValue: "2", description: "custom_checkbox_prop_borderwidth", required: false },
+      { name: "size", type: "number", defaultValue: "24", description: "custom_checkbox_prop_size", required: false },
+      { name: "labelColor", type: "string", defaultValue: "#fff", description: "custom_checkbox_prop_labelcolor", required: false },
+      { name: "labelFontSize", type: "number | string", defaultValue: "16", description: "custom_checkbox_prop_labelfontsize", required: false },
+      { name: "labelFontWeight", type: "number | string", defaultValue: "400", description: "custom_checkbox_prop_labelfontweight", required: false },
+      { name: "labelSpacing", type: "number", defaultValue: "12", description: "custom_checkbox_prop_labelspacing", required: false },
+      { name: "disabled", type: "boolean", description: "custom_checkbox_prop_disabled", required: false },
+      { name: "style", type: "React.CSSProperties", description: "custom_checkbox_prop_style", required: false },
+      { name: "className", type: "string", description: "custom_checkbox_prop_classname", required: false },
+      { name: "checkmarkDuration", type: "number", defaultValue: "0.32", description: "custom_checkbox_prop_checkmarkduration", required: false },
+      { name: "mirrorCheckmark", type: "boolean", defaultValue: "false", description: "custom_checkbox_prop_mirrorcheckmark", required: false },
+      { name: "checkedCoversOutline", type: "boolean", defaultValue: "true", description: "custom_checkbox_prop_checkedcoversoutline", required: false },
+      { name: "outlineTransition", type: "string", defaultValue: "border-color 0.3s ease-in-out", description: "custom_checkbox_prop_outlinetransition", required: false },
+      { name: "outlineHoverColor", type: "string", defaultValue: "#494949", description: "custom_checkbox_prop_outlinehovercolor", required: false },
+      { name: "outlineHoverColorDisabled", type: "string", defaultValue: "#494949", description: "custom_checkbox_prop_outlinehovercolor_disabled", required: false },
+      { name: "outlineColorDisabled", type: "string", description: "custom_checkbox_prop_outlinecolordisabled", required: false },
+      { name: "borderStyle", type: "string", defaultValue: "solid", description: "custom_checkbox_prop_borderstyle", required: false },
+      { name: "disabledBackgroundColor", type: "string", description: "custom_checkbox_prop_disabledbg", required: false },
+      { name: "disabledBorderColor", type: "string", description: "custom_checkbox_prop_disabledbordercolor", required: false },
+      { name: "disabledCheckmarkColor", type: "string", description: "custom_checkbox_prop_disabledcheckmarkcolor", required: false },
+      { name: "options", type: "{ value: string; label: React.ReactNode; checkboxProps?: Partial<CustomCheckboxProps>; }[]", description: "custom_checkbox_prop_options", required: false },
+      { name: "values", type: "string[]", description: "custom_checkbox_prop_values", required: false },
+      { name: "onGroupChange", type: "(values: string[]) => void", description: "custom_checkbox_prop_ongroupchange", required: false },
+      { name: "maxSelected", type: "number", description: "custom_checkbox_prop_maxselected", required: false },
+      { name: "groupGap", type: "number", defaultValue: "18", description: "custom_checkbox_prop_groupgap", required: false },
+      { name: "groupDirection", type: "\"row\" | \"column\"", defaultValue: "\"row\"", description: "custom_checkbox_prop_groupdirection", required: false },
     ],
   },
 ];
