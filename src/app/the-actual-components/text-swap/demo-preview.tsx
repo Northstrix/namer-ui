@@ -56,6 +56,7 @@ export default function TextSwapPreview() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            direction: "ltr",
           }}
         >
           <div

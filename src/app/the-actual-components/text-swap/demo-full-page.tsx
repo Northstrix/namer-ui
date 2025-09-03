@@ -42,6 +42,7 @@ export default function TextSwapDemo() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          direction: "ltr",
         }}
       >
         <div
