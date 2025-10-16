@@ -103,6 +103,7 @@ export default function LandingPage() {
                     link: "https://namer-ui-for-vue.netlify.app/",
                     external: true,
                   },
+                  { name: t("showcase"), link: getLinkWithLang("/showcase") },
                 ]}
                 homeRoute={getLinkWithLang("/")}
                 scrolledBg="hsl(var(--background))"

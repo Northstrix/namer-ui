@@ -304,7 +304,7 @@ export default function TruncatingNavbar({
   shortcutKey = "K",
   onShortcut,
   fontSize = "0.875rem",
-  desktopThreshold = 910,
+  desktopThreshold = 940,
   zIndex = 10,
   placeholderText = "Search components...",
   scrollContainerRef,

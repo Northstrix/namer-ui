@@ -77,6 +77,10 @@ The existence of this project (at least in its current form) wouldn’t’ve bee
 
 [Satellite animation](https://codepen.io/Emile_Dvl/pen/RwVeVy) by [Emile Duval](https://codepen.io/Emile_Dvl)
 
+[AnimateIcons](https://animateicons.vercel.app/)
+
+[File Upload](https://ui.aceternity.com/components/file-upload) by [Aceternity UI](https://ui.aceternity.com/)
+
 [radix-ui](https://www.npmjs.com/package/radix-ui)
 
 [i18next](https://www.npmjs.com/package/i18next)

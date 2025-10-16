@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { componentsMetadata } from "@/lib/component-meta";
+import { showcaseItems } from "@/app/(showcase)/showcase/page";
 import { db } from "@/lib/firebase";
 import {
   doc,
@@ -24,6 +25,14 @@ const get21stDevLinkEvents = (
 ) =>
   components.flatMap(({ id }) =>
     langs.map((lang) => `${id}:21st-dev-link:clicked:${lang}`)
+  );
+
+const getShowcaseCardClickEvent = (
+  components: { id: string }[], // use id from showcaseItems
+  langs: Language[]
+) =>
+  components.flatMap(({ id }) =>
+    langs.map((lang) => `showcase-card:${id}:clicked:${lang}`)
   );
 
 const cleanMetricKey = (str: string) =>
@@ -105,6 +114,8 @@ export default function NextjsAppMetrics() {
     metrics.push(...get21stDevLinkEvents(componentsMetadata, LANGUAGES).map(cleanMetricKey));
 
     metrics.push(...CUSTOM_EVENTS.map(cleanMetricKey));
+
+    metrics.push(...getShowcaseCardClickEvent(showcaseItems, LANGUAGES).map(cleanMetricKey));
 
     await initializeFields(metrics);
 

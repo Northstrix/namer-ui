@@ -1,9 +1,7 @@
 'use client';
+import React, { ReactNode, useEffect, useRef } from 'react';
 
-import React, { ReactNode } from 'react';
-
-export interface RefinedChronicleButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface RefinedChronicleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: 'default' | 'outline' | 'ghost';
   size?: 'default' | 'sm' | 'lg';
@@ -25,27 +23,19 @@ export interface RefinedChronicleButtonProps
   iconStrokeWidth?: number;
   iconTextGap?: string | number;
   isRTL?: boolean;
+  width?: string | number;
+  disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 function separateContent(children: ReactNode): ReactNode[] {
-  // Return elements exactly as passed, preserving order and type
-  if (typeof children === 'string' || typeof children === 'number') {
-    return [children];
-  }
-  if (Array.isArray(children)) {
-    return children;
-  }
-  if (React.isValidElement(children)) {
-    return [children];
-  }
+  if (typeof children === 'string' || typeof children === 'number') return [children];
+  if (Array.isArray(children)) return children;
+  if (React.isValidElement(children)) return [children];
   return [children];
 }
 
-const RefinedChronicleButton = React.forwardRef<
-  HTMLButtonElement,
-  RefinedChronicleButtonProps
->(
+const RefinedChronicleButton = React.forwardRef<HTMLButtonElement, RefinedChronicleButtonProps>(
   (
     {
       children,
@@ -69,29 +59,37 @@ const RefinedChronicleButton = React.forwardRef<
       iconStrokeWidth = 2,
       iconTextGap = '0.5rem',
       isRTL = false,
+      width = 'auto',
+      disabled = false,
       className,
       onClick,
       ...props
     },
     ref
   ) => {
-    // Separate children preserving exact original order and types, no icon vs text prioritization
-    const contentChildren = separateContent(children);
+    const internalRef = useRef<HTMLButtonElement | null>(null);
+    const buttonRef = (ref as React.RefObject<HTMLButtonElement>) || internalRef;
 
+    const contentChildren = separateContent(children);
     const buttonClasses = `RefinedchronicleButton variant-${variant} ${
       size !== 'default' ? `size-${size}` : ''
     } ${className ?? ''}`;
 
-    const gapValue =
-      typeof iconTextGap === 'number' ? `${iconTextGap}px` : iconTextGap;
+    const gapValue = typeof iconTextGap === 'number' ? `${iconTextGap}px` : iconTextGap;
     const showBorder = borderVisible || variant === 'outline';
     const showHoverBorder = hoverBorderVisible || variant === 'outline';
+
     const resolvedBorder = showBorder
-      ? `${typeof borderWidth === 'number' ? borderWidth + 'px' : borderWidth} solid ${
-          borderColor
-        }`
+      ? `${typeof borderWidth === 'number' ? borderWidth + 'px' : borderWidth} solid ${borderColor}`
       : '0px solid transparent';
     const resolvedHoverBorderColor = showHoverBorder ? hoverBorderColor : 'transparent';
+
+    const resolvedFontSize =
+      typeof fontSize === 'number'
+        ? `${fontSize}px`
+        : typeof fontSize === 'string'
+        ? fontSize
+        : '1rem';
 
     const baseStyle: React.CSSProperties = {
       display: 'inline-flex',
@@ -99,20 +97,23 @@ const RefinedChronicleButton = React.forwardRef<
       justifyContent: 'center',
       gap: gapValue,
       lineHeight: 1,
-      cursor: 'pointer',
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      opacity: disabled ? 0.6 : 1,
       borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius,
       backgroundColor,
       color: textColor,
       border: resolvedBorder,
-      fontSize: typeof fontSize === 'number' ? `${fontSize}px` : fontSize,
+      fontSize: resolvedFontSize,
       fontWeight,
       height: typeof buttonHeight === 'number' ? `${buttonHeight}px` : buttonHeight,
       padding,
-      transition: 'background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out',
+      transition:
+        'background-color 0.25s ease-in-out, color 0.25s ease-in-out, border-color 0.25s ease-in-out, opacity 0.25s ease-in-out, transform 0.25s ease-in-out',
       direction: isRTL ? 'rtl' : 'ltr',
       userSelect: 'none',
       overflow: 'hidden',
       position: 'relative',
+      width: typeof width === 'number' ? `${width}px` : width,
     };
 
     const hoverStyle: React.CSSProperties = {
@@ -133,24 +134,61 @@ const RefinedChronicleButton = React.forwardRef<
         'color 0.3s ease-in-out, transform 0.55s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.35s linear 0.2s',
     };
 
-    const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-      Object.assign(e.currentTarget.style, hoverStyle);
+    const applyBaseStyle = (el: HTMLButtonElement | null) => {
+      if (!el) return;
+      Object.assign(el.style, baseStyle);
     };
+
+    const applyHoverStyle = (el: HTMLButtonElement | null) => {
+      if (!el) return;
+      if (disabled) {
+        applyBaseStyle(el);
+        return;
+      }
+      Object.assign(el.style, hoverStyle);
+    };
+
+    useEffect(() => {
+      const el = buttonRef.current;
+      if (!el) return;
+      if (disabled) {
+        el.style.pointerEvents = 'none';
+        applyBaseStyle(el);
+        el.classList.remove('hover');
+      } else {
+        el.style.pointerEvents = '';
+        applyBaseStyle(el);
+      }
+      el.style.cursor = disabled ? 'not-allowed' : 'pointer';
+      el.style.opacity = String(disabled ? 0.6 : 1);
+    }, [disabled, buttonRef]);
+
+    const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (disabled) return;
+      applyHoverStyle(e.currentTarget);
+    };
+
     const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
-      Object.assign(e.currentTarget.style, baseStyle);
+      applyBaseStyle(e.currentTarget);
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLButtonElement>) => {
+      applyBaseStyle(e.currentTarget);
     };
 
     return (
       <>
         <button
           {...props}
-          ref={ref}
+          ref={buttonRef as React.RefObject<HTMLButtonElement>}
           className={buttonClasses}
           type="button"
           style={baseStyle}
-          onClick={onClick}
+          disabled={disabled}
+          onClick={(e) => !disabled && onClick?.(e)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onBlur={handleBlur}
         >
           {variant === 'default' ? (
             <span className="flip-wrapper">
@@ -159,10 +197,8 @@ const RefinedChronicleButton = React.forwardRef<
                   {contentChildren.map((child, i) =>
                     React.isValidElement(child)
                       ? React.cloneElement(child, {
-                          key: i,
-                          size: iconSize,
-                          strokeWidth: iconStrokeWidth,
-                          style: { display: 'inline-block' },
+                          key: `${i}-front`,
+                          style: { display: 'inline-block', ...(child.props.style || {}) },
                         })
                       : child
                   )}
@@ -173,10 +209,8 @@ const RefinedChronicleButton = React.forwardRef<
                   {contentChildren.map((child, i) =>
                     React.isValidElement(child)
                       ? React.cloneElement(child, {
-                          key: i,
-                          size: iconSize,
-                          strokeWidth: iconStrokeWidth,
-                          style: { display: 'inline-block' },
+                          key: `${i}-back`,
+                          style: { display: 'inline-block', ...(child.props.style || {}) },
                         })
                       : child
                   )}
@@ -189,9 +223,7 @@ const RefinedChronicleButton = React.forwardRef<
                 React.isValidElement(child)
                   ? React.cloneElement(child, {
                       key: i,
-                      size: iconSize,
-                      strokeWidth: iconStrokeWidth,
-                      style: { display: 'inline-block' },
+                      style: { display: 'inline-block', ...(child.props.style || {}) },
                     })
                   : child
               )}
@@ -199,7 +231,6 @@ const RefinedChronicleButton = React.forwardRef<
           )}
         </button>
 
-        {/* 🔥 Inline persistent CSS for flip animation */}
         <style jsx>{`
           .RefinedchronicleButton {
             border-radius: var(--radius, 8px);
@@ -209,13 +240,17 @@ const RefinedChronicleButton = React.forwardRef<
             line-height: 1;
             cursor: pointer;
             font-weight: 500;
-            transition: background 0.3s ease-in-out,
-              color 0.3s ease-in-out,
-              border-color 0.3s ease-in-out;
+            transition: background 0.25s ease-in-out, color 0.25s ease-in-out,
+              border-color 0.25s ease-in-out, opacity 0.25s ease-in-out,
+              transform 0.25s ease-in-out;
             position: relative;
             height: 2.5rem;
             gap: 0.5rem;
             overflow: hidden;
+          }
+          .RefinedchronicleButton:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
           }
           .RefinedchronicleButton.variant-default {
             background: transparent;
@@ -239,20 +274,20 @@ const RefinedChronicleButton = React.forwardRef<
             padding-left: 0.75rem;
             padding-right: 0.75rem;
           }
-          .RefinedchronicleButton .flip-wrapper {
+          .flip-wrapper {
             position: relative;
             display: block;
             perspective: 108px;
           }
-          .RefinedchronicleButton .flip-wrapper span {
+          .flip-wrapper span {
             display: block;
           }
-          .RefinedchronicleButton .flip-wrapper span:nth-of-type(2) {
+          .flip-wrapper span:nth-of-type(2) {
             position: absolute;
             top: 0;
             left: 0;
           }
-          .RefinedchronicleButton .flip-wrapper em {
+          .flip-wrapper em {
             font-style: normal;
             display: inline-flex;
             align-items: center;
@@ -265,21 +300,21 @@ const RefinedChronicleButton = React.forwardRef<
               transform 0.55s cubic-bezier(0.645, 0.045, 0.355, 1),
               opacity 0.35s linear 0.2s;
           }
-          .RefinedchronicleButton .flip-wrapper span:nth-of-type(1) em {
+          .flip-wrapper span:nth-of-type(1) em {
             transform-origin: top;
             opacity: 1;
             transform: rotateX(0deg);
           }
-          .RefinedchronicleButton .flip-wrapper span:nth-of-type(2) em {
+          .flip-wrapper span:nth-of-type(2) em {
             opacity: 0;
             transform: rotateX(-90deg) scaleX(0.9) translate3d(0, 10px, 0);
             transform-origin: bottom;
           }
-          .RefinedchronicleButton:hover .flip-wrapper span:nth-of-type(1) em {
+          .RefinedchronicleButton:not(:disabled):hover .flip-wrapper span:nth-of-type(1) em {
             opacity: 0;
             transform: rotateX(90deg) scaleX(0.9) translate3d(0, -10px, 0);
           }
-          .RefinedchronicleButton:hover .flip-wrapper span:nth-of-type(2) em {
+          .RefinedchronicleButton:not(:disabled):hover .flip-wrapper span:nth-of-type(2) em {
             opacity: 1;
             transform: rotateX(0deg) scaleX(1) translateZ(0);
             transition: color 0.3s ease-in-out,
@@ -293,5 +328,4 @@ const RefinedChronicleButton = React.forwardRef<
 );
 
 RefinedChronicleButton.displayName = 'RefinedChronicleButton';
-
 export default RefinedChronicleButton;
