@@ -41,6 +41,8 @@ import TextSwapFullPageDemo from '@/app/the-actual-components/text-swap/demo-ful
 import CustomCheckboxPreviewDemo from '@/app/the-actual-components/custom-checkbox/demo-preview';
 import CustomCheckboxFullPageDemo from '@/app/the-actual-components/custom-checkbox/demo-full-page';
 import SatelliteToastFullPageDemo from '@/app/the-actual-components/satellite-toast/demo-full-page';
+import CalendarPreviewDemo from '@/app/the-actual-components/calendar/demo-preview';
+import CalendarFullPageDemo from '@/app/the-actual-components/calendar/demo-full-page';
 
 import { TranslationKey } from "./translations";
 
@@ -13500,5 +13502,989 @@ SatelliteToast.displayName = "SatelliteToast";
       { name: 'firstContainerVerticalStartMarginAdjustment', type: 'string', defaultValue: '"8px"', description: 'satellite_toast_prop_firstContainerVerticalStartMarginAdjustment', required: false },
     ],
     isPreviewImage: true,
+  },
+  {
+    id: 'calendar',
+    title: 'calendar_title',
+    description: 'calendar_desc',
+    demo: CalendarPreviewDemo,
+    demoFullPage: CalendarFullPageDemo,
+    dependencies: `npm install react-swipeable
+npm install framer-motion
+npm install lucide-react`,
+    credit: `[Calendar](https://21st.dev/designali-in/calendar/default) by [Ali Imam](https://21st.dev/dalim)
+
+[Coach Scheduling Card](https://21st.dev/isaiahbjork/coach-scheduling-card/default) by [Isaiah](https://21st.dev/isaiahbjork)
+
+[Gooey Text Morphing](https://21st.dev/victorwelander/gooey-text-morphing/default) by [Victor Welander](https://21st.dev/victorwelander)
+
+[Morphing Text](https://21st.dev/dillionverma/morphing-text/default) by [Magic UI](https://21st.dev/magicui)`,
+    usage: `// Path to the "Calendar.tsx" file
+import { Calendar } from "@/app/the-actual-components/calendar/Calendar.tsx";
+import React, { useState } from "react";
+
+export default function CalendarMegaDemo() {
+  const [selectedIt, setSelectedIt] = useState<Date[]>([]);
+
+  const italianDayNames = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
+  const spanishDayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+  const cantoneseDayNames = ["日", "一", "二", "三", "四", "五", "六"];
+
+  const italianMonthNames = [
+    "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+    "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
+  ];
+  const spanishMonthNames = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+  ];
+  const cantoneseMonthNames = [
+    "一月", "二月", "三月", "四月", "五月", "六月",
+    "七月", "八月", "九月", "十月", "十一月", "十二月",
+  ];
+
+  const logSelect = (date: Date | Date[]) => console.log("Selected:", date);
+  const logDaySelect = (date: Date, all: Date[]) =>
+    console.log("Day selected:", date, "All:", all);
+  const logDayUnselect = (date: Date, all: Date[]) =>
+    console.log("Day unselected:", date, "All:", all);
+  const logMonthChange = (date: Date) =>
+    console.log("Month changed to:", date.toDateString());
+
+  return (
+    <div
+      style={{
+        display: "flex-column",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        gap: 36,
+      }}
+    >
+    <div style={{ textAlign: 'center', color: '#eee', fontSize: 20, marginBottom: 40, direction: "ltr" }}>This component supports swipe gesture on touchscreens.</div>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        gap: 36,
+      }}
+    >
+      <div style={{ color: "#fff", textAlign: "center", width: 350 }}>
+        <p style={{ marginBottom: 12, fontSize: 14, color: "#aaa", direction: "ltr" }}>
+          Outline #242424, radius 8px, day button 36×36, 8px gap between day buttons, single-day selection,
+          active colors: background #00A7FA, border #00A7FA, text #000000. Pre-selected date: today.
+        </p>
+        <Calendar
+          isRTL={false}
+          selected={new Date()}
+          onSelect={logSelect}
+          onDaySelect={logDaySelect}
+          onDayUnselect={logDayUnselect}
+          onMonthChange={logMonthChange}
+          custom={{
+            bgColor: "#000000",
+            outlineColor: "#242424",
+            outlineWidth: 1,
+            outlineRadius: 8,
+            padding: "24px",
+            dayButtonWidth: 36,
+            dayButtonHeight: 36,
+            horizontalGap: 8,
+            verticalGap: 8,
+            dayBorderRadius: 8,
+            navBorderRadius: 8,
+            dayButtonFontSize: "14px",
+            weekLabelFontSize: "13px",
+            monthYearFontSize: "16px",
+            dayFontWeight: "500",
+            weekLabelFontWeight: "600",
+            monthYearFontWeight: "700",
+            chevronIconSize: 16,
+            chevronStrokeWidth: 2,
+            dayButtondefaultBg: "transparent",
+            dayButtondefaultBorder: "#242424",
+            dayButtondefaultText: "#ccc",
+            dayButtonhoverBg: "#242424",
+            dayButtonhoverBorder: "#242424",
+            dayButtonhoverText: "#fff",
+            dayButtonactiveBg: "#00A7FA",
+            dayButtonactiveBorder: "#00A7FA",
+            dayButtonactiveText: "#000000",
+            navButtondefaultBg: "#000000",
+            navButtondefaultBorder: "#242424",
+            navButtondefaultText: "#ccc",
+            navButtonhoverBg: "#242424",
+            navButtonhoverBorder: "#242424",
+            navButtonhoverText: "#fff",
+          }}
+        />
+      </div>
+
+      <div style={{ color: "#fff", textAlign: "center", direction: "rtl", width: 328 }}>
+        <p style={{ marginBottom: 12, fontSize: 14, color: "#aaa", direction: "ltr" }}>
+          Outline #262626, radius 16px, circular day/nav buttons, 8px gap between day buttons, RTL layout,
+          active colors: background #6e30e5, border #894aff, text #fff, weekday 6 disabled.
+        </p>
+        <Calendar
+          isRTL
+          onSelect={logSelect}
+          onDaySelect={logDaySelect}
+          onDayUnselect={logDayUnselect}
+          onMonthChange={logMonthChange}
+          disabledWeekdays={[6]}
+          custom={{
+            bgColor: "#0a0a0a",
+            outlineColor: "#262626",
+            outlineWidth: 1,
+            outlineRadius: 16,
+            padding: "20px",
+            dayButtonWidth: 34,
+            dayButtonHeight: 34,
+            horizontalGap: 8,
+            verticalGap: 8,
+            dayBorderRadius: 50,
+            navBorderRadius: 50,
+            dayButtonFontSize: "14px",
+            weekLabelFontSize: "16px",
+            monthYearFontSize: "16px",
+            dayFontWeight: "500",
+            weekLabelFontWeight: "600",
+            monthYearFontWeight: "700",
+            chevronIconSize: 16,
+            chevronStrokeWidth: 2,
+            dayButtondefaultBg: "transparent",
+            dayButtondefaultBorder: "#262626",
+            dayButtondefaultText: "#ccc",
+            dayButtonhoverBg: "#161616",
+            dayButtonhoverBorder: "#363636",
+            dayButtonhoverText: "#fff",
+            dayButtonactiveBg: "#6e30e5",
+            dayButtonactiveBorder: "#894aff",
+            dayButtonactiveText: "#fff",
+            navButtondefaultBg: "#0a0a0a",
+            navButtondefaultBorder: "#262626",
+            navButtondefaultText: "#ccc",
+            navButtonhoverBg: "#161616",
+            navButtonhoverBorder: "#363636",
+            navButtonhoverText: "#fff",
+          }}
+        />
+      </div>
+
+      <div style={{ color: "#fff", textAlign: "center", width: 304 }}>
+        <p style={{ marginBottom: 12, fontSize: 14, color: "#aaa", direction: "ltr" }}>
+          Outline #2e2e2e, square day buttons 32×32, 7×14px gap between day buttons, circular nav buttons,
+          multiple selection mode with 5-day limit, disablePastMonths true,
+          active colors: background #d400ff, border #9b19b9, text #fff.
+        </p>
+        <Calendar
+          isRTL={false}
+          selected={selectedIt}
+          onSelect={(dates) => setSelectedIt(Array.isArray(dates) ? dates : [dates])}
+          onDaySelect={logDaySelect}
+          onDayUnselect={logDayUnselect}
+          onMonthChange={logMonthChange}
+          selectionMode="limited"
+          limitCount={5}
+          disablePastMonths
+          dayNames={italianDayNames}
+          monthNames={italianMonthNames}
+          custom={{
+            bgColor: "#141414",
+            outlineColor: "#2e2e2e",
+            outlineWidth: 1,
+            outlineRadius: 6,
+            padding: "18px",
+            dayButtonWidth: 32,
+            dayButtonHeight: 32,
+            horizontalGap: 7,
+            verticalGap: 14,
+            dayBorderRadius: 0,
+            navBorderRadius: 50,
+            dayButtonFontSize: "13px",
+            weekLabelFontSize: "12px",
+            monthYearFontSize: "15px",
+            dayFontWeight: "500",
+            weekLabelFontWeight: "600",
+            monthYearFontWeight: "700",
+            chevronIconSize: 16,
+            chevronStrokeWidth: 2,
+            dayButtondefaultBg: "transparent",
+            dayButtondefaultBorder: "#2e2e2e",
+            dayButtondefaultText: "#aaa",
+            dayButtonhoverBg: "#2e2e2e",
+            dayButtonhoverBorder: "#2e2e2e",
+            dayButtonhoverText: "#fff",
+            dayButtonactiveBg: "#d400ff",
+            dayButtonactiveBorder: "#9b19b9",
+            dayButtonactiveText: "#fff",
+            navButtondefaultBg: "#000000",
+            navButtondefaultBorder: "#2e2e2e",
+            navButtondefaultText: "#ccc",
+            navButtonhoverBg: "#2e2e2e",
+            navButtonhoverBorder: "#2e2e2e",
+            navButtonhoverText: "#fff",
+          }}
+        />
+      </div>
+
+      <div style={{ color: "#fff", textAlign: "center", width: 458 }}>
+        <p style={{ marginBottom: 12, fontSize: 14, color: "#aaa", direction: "ltr" }}>
+          Outline #363636, rectangular day buttons 48×32, 14×7px gap between day buttons,
+          weekLabelTrim has a vlaue of 2, disablePastMonths true, past dates disabled, active colors: background #26acff,
+          border #6fbfff, text #1a1a1a.
+        </p>
+
+        <Calendar
+          isRTL={false}
+          onSelect={logSelect}
+          dayNames={spanishDayNames}
+          monthNames={spanishMonthNames}
+          weekLabelTrim={2}
+          disablePastMonths
+          referenceDate={new Date()}
+          disableBeforeReference
+          custom={{
+            bgColor: "#1a1a1a",
+            outlineColor: "#363636",
+            outlineWidth: 1,
+            outlineRadius: 6,
+            padding: "18px",
+            dayButtonWidth: 48,
+            dayButtonHeight: 32,
+            horizontalGap: 14,
+            verticalGap: 7,
+            dayBorderRadius: 6,
+            navBorderRadius: 6,
+            dayButtonFontSize: "12px",
+            weekLabelFontSize: "13px",
+            monthYearFontSize: "14px",
+            dayFontWeight: "500",
+            weekLabelFontWeight: "600",
+            monthYearFontWeight: "700",
+            chevronIconSize: 16,
+            chevronStrokeWidth: 2,
+            dayButtondefaultBg: "transparent",
+            dayButtondefaultBorder: "#363636",
+            dayButtondefaultText: "#bbb",
+            dayButtonhoverBg: "#363636",
+            dayButtonhoverBorder: "#363636",
+            dayButtonhoverText: "#fff",
+            dayButtonactiveBg: "#26acff",
+            dayButtonactiveBorder: "#6fbfff",
+            dayButtonactiveText: "#1a1a1a",
+            navButtondefaultBg: "#1a1a1a",
+            navButtondefaultBorder: "#363636",
+            navButtondefaultText: "#bbb",
+            navButtonhoverBg: "#363636",
+            navButtonhoverBorder: "#363636",
+            navButtonhoverText: "#fff",
+          }}
+        />
+      </div>
+
+      <div style={{ color: "#fff", textAlign: "center", width: 316 }}>
+        <p style={{ marginBottom: 12, fontSize: 14, color: "#aaa", direction: "ltr" }}>
+          Outline #3a3a3a, day button radius 10px, day button size 34×34, 6px gap between day buttons, disableFutureMonths true,
+          default background #ff3b5b, hover background #ffde3b, active background #fff.
+        </p>
+        <Calendar
+          isRTL={false}
+          onSelect={logSelect}
+          disableFutureMonths
+          dayNames={cantoneseDayNames}
+          monthNames={cantoneseMonthNames}
+          custom={{
+            bgColor: "#202020",
+            outlineColor: "#3a3a3a",
+            outlineWidth: 1,
+            outlineRadius: 6,
+            padding: "20px",
+            dayButtonWidth: 34,
+            dayButtonHeight: 34,
+            navButtonWidth: 42,
+            navButtonHeight: 28,
+            horizontalGap: 6,
+            verticalGap: 6,
+            dayBorderRadius: 10,
+            navBorderRadius: 50,
+            dayButtonFontSize: "14px",
+            weekLabelFontSize: "16px",
+            monthYearFontSize: "18px",
+            dayFontWeight: "500",
+            weekLabelFontWeight: "600",
+            monthYearFontWeight: "700",
+            chevronIconSize: 22,
+            chevronStrokeWidth: 2,
+            dayButtondefaultBg: "#ff3b5b",
+            dayButtondefaultBorder: "#ba3244",
+            dayButtondefaultText: "#000000",
+            dayButtonhoverBg: "#ffde3b",
+            dayButtonhoverBorder: "#ff7c3b",
+            dayButtonhoverText: "#000000",
+            dayButtonactiveBg: "#fff",
+            dayButtonactiveBorder: "#aaa",
+            dayButtonactiveText: "#202020",
+            navButtondefaultBg: "#111",
+            navButtondefaultBorder: "#646464",
+            navButtondefaultText: "#aaa",
+            navButtonhoverBg: "#3a3a3a",
+            navButtonhoverBorder: "#aaaaaa",
+            navButtonhoverText: "#fff",
+          }}
+        />
+      </div>
+    </div>
+    </div>
+  );
+}`,
+    code: `"use client";
+    
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSwipeable } from "react-swipeable";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+function BlurText({
+  texts,
+  className,
+  monthYearColor,
+  monthYearFontSize,
+  monthYearFontWeight,
+}: {
+  texts: string[];
+  className?: string;
+  monthYearColor?: string;
+  monthYearFontSize?: string | number;
+  monthYearFontWeight?: string | number;
+}) {
+  const [display, setDisplay] = useState(texts[0] || "");
+
+  useEffect(() => {
+    if (texts[0] && texts[0] !== display) setDisplay(texts[0]);
+  }, [texts, display]);
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.span
+        key={display}
+        initial={{ opacity: 0, filter: "blur(4px)" }}
+        animate={{ opacity: 1, filter: "blur(0px)" }}
+        exit={{ opacity: 0, filter: "blur(4px)" }}
+        transition={{ duration: 0.36 }}
+        className={\`inline-block \${className || ""}\`}
+        style={{
+          color: monthYearColor,
+          fontSize: monthYearFontSize,
+          fontWeight: monthYearFontWeight,
+        }}
+      >
+        {display}
+      </motion.span>
+    </AnimatePresence>
+  );
+}
+
+function isSameDay(a: Date, b: Date) {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+export type SelectionMode = "none" | "single" | "multiple" | "limited";
+
+export interface CalendarCustomProps {
+  bgColor?: string;
+  outlineColor?: string;
+  outlineWidth?: number;
+  outlineRadius?: number | string;
+  padding?: string;
+  dayButtonWidth?: number;
+  dayButtonHeight?: number;
+  navButtonWidth?: number;
+  navButtonHeight?: number;
+  horizontalGap?: number;
+  verticalGap?: number;
+  headerSpacing?: number;
+  dayButtonFontSize?: string;
+  weekLabelFontSize?: string;
+  monthYearFontSize?: string;
+  dayFontWeight?: string;
+  weekLabelFontWeight?: string;
+  monthYearFontWeight?: string;
+  dayBorderWidth?: number;
+  dayBorderRadius?: number | string;
+  navBorderWidth?: number;
+  navBorderRadius?: number | string;
+  chevronIconSize?: number;
+  chevronStrokeWidth?: number;
+  transitionDuration?: number;
+  dayButtondefaultBg?: string;
+  dayButtondefaultText?: string;
+  dayButtondefaultBorder?: string;
+  dayButtonhoverBg?: string;
+  dayButtonhoverText?: string;
+  dayButtonhoverBorder?: string;
+  dayButtonactiveBg?: string;
+  dayButtonactiveText?: string;
+  dayButtonactiveBorder?: string;
+  navButtondefaultBg?: string;
+  navButtondefaultText?: string;
+  navButtondefaultBorder?: string;
+  navButtonhoverBg?: string;
+  navButtonhoverText?: string;
+  navButtonhoverBorder?: string;
+  weekLabelColor?: string;
+  monthYearColor?: string;
+}
+
+export interface CalendarProps {
+  isRTL?: boolean;
+  selected?: Date | Date[];
+  onSelect?: (date: Date | Date[]) => void;
+  onDaySelect?: (date: Date, all: Date[]) => void;
+  onDayUnselect?: (date: Date, all: Date[]) => void;
+  onMonthChange?: (date: Date) => void;
+  disabledDates?: Date[];
+  disabledWeekdays?: number[];
+  disableAll?: boolean;
+  referenceDate?: Date;
+  disablePastDates?: boolean;
+  disableFutureDates?: boolean;
+  includeReferenceDate?: boolean;
+  disablePastMonths?: boolean;
+  disableFutureMonths?: boolean;
+  minDate?: Date;
+  maxDate?: Date;
+  selectionMode?: SelectionMode;
+  limitCount?: number;
+  dayNames?: string[];
+  monthNames?: string[];
+  monthTrim?: number;
+  weekLabelTrim?: number;
+  custom?: CalendarCustomProps;
+  disableBeforeReference?: boolean;
+  disableAfterReference?: boolean;
+}
+
+export function Calendar({
+  isRTL = false,
+  selected,
+  onSelect,
+  onDaySelect,
+  onDayUnselect,
+  onMonthChange,
+  disabledDates = [],
+  disabledWeekdays = [],
+  disableAll = false,
+  referenceDate,
+  disablePastDates = false,
+  disableFutureDates = false,
+  includeReferenceDate = false,
+  disablePastMonths = false,
+  disableFutureMonths = false,
+  minDate,
+  maxDate,
+  selectionMode = "single",
+  limitCount,
+  dayNames,
+  monthNames,
+  monthTrim,
+  weekLabelTrim,
+  custom,
+  disableBeforeReference = false,
+  disableAfterReference = false,
+}: CalendarProps) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const refDate = referenceDate
+    ? new Date(referenceDate)
+    : new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  const defaultLTR = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const defaultRTL = ["א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳", "ש׳"];
+  const labels = dayNames || (isRTL ? defaultRTL : defaultLTR);
+
+  const monthsLTR = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const monthsRTL = [
+    "ינואר",
+    "פברואר",
+    "מרץ",
+    "אפריל",
+    "מאי",
+    "יוני",
+    "יולי",
+    "אוגוסט",
+    "ספטמבר",
+    "אוקטובר",
+    "נובמבר",
+    "דצמבר",
+  ];
+  const months = monthNames || (isRTL ? monthsRTL : monthsLTR);
+
+  const {
+    bgColor = "#0f0f0f",
+    outlineColor = "#2e2e2e",
+    outlineWidth = 1,
+    outlineRadius = 8,
+    padding = "16px",
+    dayButtonWidth = 36,
+    dayButtonHeight = 36,
+    navButtonWidth = 28,
+    navButtonHeight = 28,
+    horizontalGap = 8,
+    verticalGap = 8,
+    headerSpacing = 12,
+    dayButtonFontSize = "14px",
+    weekLabelFontSize = "13px",
+    monthYearFontSize = "16px",
+    dayFontWeight = "500",
+    weekLabelFontWeight = "600",
+    monthYearFontWeight = "700",
+    dayBorderWidth = 1,
+    dayBorderRadius = 6,
+    navBorderWidth = 1,
+    navBorderRadius = 6,
+    chevronIconSize = 16,
+    chevronStrokeWidth = 2,
+    transitionDuration = 0.3,
+    dayButtondefaultBg = "transparent",
+    dayButtondefaultText = "#fff",
+    dayButtondefaultBorder = "#444",
+    dayButtonhoverBg = "#1e1e1e",
+    dayButtonhoverText = "#fff",
+    dayButtonhoverBorder = "#555",
+    dayButtonactiveBg = "#555",
+    dayButtonactiveText = "#fff",
+    dayButtonactiveBorder = "#777",
+    navButtondefaultBg = "#111",
+    navButtondefaultText = "#fff",
+    navButtondefaultBorder = "#333",
+    navButtonhoverBg = "#222",
+    navButtonhoverText = "#fff",
+    navButtonhoverBorder = "#555",
+    weekLabelColor = "#a1a1aa",
+    monthYearColor = "#ffffff",
+  } = custom || {};
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDates, setSelectedDates] = useState<Date[]>(
+    Array.isArray(selected) ? selected : selected ? [selected] : []
+  );
+  const [direction, setDirection] = useState<"next" | "prev">("next");
+
+  const monthIndex = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = months[monthIndex];
+  const trimmedMonth =
+    monthTrim && currentMonth.length > monthTrim
+      ? currentMonth.slice(0, monthTrim)
+      : currentMonth;
+
+  const firstDayOfMonth = new Date(currentYear, monthIndex, 1);
+  const daysInMonth = new Date(currentYear, monthIndex + 1, 0).getDate();
+  const firstDayOfWeek = firstDayOfMonth.getDay();
+
+  const totalWidth =
+    outlineWidth * 2 +
+    7 * dayButtonWidth +
+    6 * horizontalGap +
+    2 * parseInt(padding);
+
+  const limitFull =
+    selectionMode === "limited" && limitCount && selectedDates.length >= limitCount;
+
+  // ✅ Fixed: Reference rules exclude the reference date unless explicitly included
+  const isDateDisabled = (d: Date) => {
+    const dd = new Date(d);
+    dd.setHours(0, 0, 0, 0);
+
+    const past = disablePastDates && dd < today;
+    const future = disableFutureDates && dd > today;
+    const week = disabledWeekdays.includes(dd.getDay());
+    const dateMatch = disabledDates.some((x) => isSameDay(dd, x));
+    const beforeMin = minDate && dd < minDate;
+    const afterMax = maxDate && dd > maxDate;
+
+    let beforeRef = false;
+    let afterRef = false;
+
+    if (disableBeforeReference) {
+      beforeRef = includeReferenceDate ? dd <= refDate : dd < refDate;
+    }
+    if (disableAfterReference) {
+      afterRef = includeReferenceDate ? dd >= refDate : dd > refDate;
+    }
+
+    // ✅ Ensure reference date itself is NOT disabled unless included explicitly
+    if (isSameDay(dd, refDate) && !includeReferenceDate) {
+      beforeRef = false;
+      afterRef = false;
+    }
+
+    return past || future || week || dateMatch || beforeMin || afterMax || beforeRef || afterRef;
+  };
+
+  const isSelected = (d: Date) => selectedDates.some((s) => isSameDay(d, s));
+
+  const handleDayClick = (day: number) => {
+    if (disableAll) return;
+    const date = new Date(currentYear, monthIndex, day, 12);
+    if (isDateDisabled(date)) return;
+    if (selectionMode === "none") return;
+
+    setSelectedDates((prev) => {
+      const exists = prev.some((x) => isSameDay(x, date));
+      let next: Date[];
+
+      if (exists) {
+        next = prev.filter((x) => !isSameDay(x, date));
+        onDayUnselect?.(date, next);
+        onSelect?.(next);
+      } else if (limitFull && selectionMode === "limited") {
+        return prev;
+      } else if (selectionMode === "single") {
+        next = [date];
+        onDaySelect?.(date, next);
+        onSelect?.(date);
+      } else {
+        next = [...prev, date];
+        onDaySelect?.(date, next);
+        onSelect?.(next);
+      }
+      return next;
+    });
+  };
+
+  function canGoPrev() {
+    const prev = new Date(currentYear, monthIndex - 1, 1);
+    if (disablePastMonths && prev < new Date(today.getFullYear(), today.getMonth(), 1))
+      return false;
+    if (minDate) {
+      const minMonth = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+      if (prev < minMonth) return false;
+    }
+    return true;
+  }
+
+  function canGoNext() {
+    const next = new Date(currentYear, monthIndex + 1, 1);
+    if (disableFutureMonths && next > new Date(today.getFullYear(), today.getMonth(), 1))
+      return false;
+    if (maxDate) {
+      const maxMonth = new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+      if (next > maxMonth) return false;
+    }
+    return true;
+  }
+
+  const goPrev = () => {
+    if (!canGoPrev()) return;
+    const newDate = new Date(currentYear, monthIndex - 1, 1);
+    setDirection("prev");
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate);
+  };
+
+  const goNext = () => {
+    if (!canGoNext()) return;
+    const newDate = new Date(currentYear, monthIndex + 1, 1);
+    setDirection("next");
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate);
+  };
+
+  const goPrevUsingGesture = () => {
+    if (!canGoPrev()) return;
+    const newDate = isRTL
+      ? new Date(currentYear, monthIndex + 1, 1) // RTL: swipe right → previous month visually, next in logic
+      : new Date(currentYear, monthIndex - 1, 1); // LTR: swipe right → previous month
+    setDirection(isRTL ? "prev" : "next");
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate);
+  };
+
+  const goNextUsingGesture = () => {
+    if (!canGoNext()) return;
+    const newDate = isRTL
+      ? new Date(currentYear, monthIndex - 1, 1) // RTL: swipe left → next month visually, previous in logic
+      : new Date(currentYear, monthIndex + 1, 1); // LTR: swipe left → next month
+    setDirection(isRTL ? "next" : "prev");
+    setCurrentDate(newDate);
+    onMonthChange?.(newDate);
+  };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: goNextUsingGesture,
+    onSwipedRight: goPrevUsingGesture,
+  });
+
+  const renderDays = () => {
+    const nodes: JSX.Element[] = [];
+
+    for (let i = 0; i < 7; i++) {
+      let label = labels[i];
+      if (weekLabelTrim && label.length > weekLabelTrim)
+        label = label.slice(0, weekLabelTrim);
+      nodes.push(
+        <div
+          key={\`header-\${i}\`}
+          style={{
+            width: dayButtonWidth,
+            height: dayButtonHeight,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: weekLabelFontSize,
+            fontWeight: weekLabelFontWeight,
+            color: weekLabelColor,
+            marginBottom: verticalGap / 2,
+            userSelect: "none",
+          }}
+        >
+          {label}
+        </div>
+      );
+    }
+
+    for (let i = 0; i < firstDayOfWeek; i++)
+      nodes.push(
+        <div key={\`empty-\${i}\`} style={{ width: dayButtonWidth, height: dayButtonHeight }} />
+      );
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(currentYear, monthIndex, day, 12);
+      const disabled = isDateDisabled(date);
+      const selected = isSelected(date);
+      const hardDisabled = limitFull && !selected && selectionMode === "limited";
+      const isDisabled = Boolean(disableAll || disabled || hardDisabled);
+
+      nodes.push(
+        <div key={\`day-\${day}\`} style={{ width: dayButtonWidth, height: dayButtonHeight }}>
+          <button
+            disabled={!!isDisabled}
+            onClick={() => handleDayClick(day)}
+            style={{
+              width: dayButtonWidth,
+              height: dayButtonHeight,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: dayBorderRadius,
+              borderWidth: dayBorderWidth,
+              borderStyle: "solid",
+              borderColor: selected ? dayButtonactiveBorder : dayButtondefaultBorder,
+              backgroundColor: selected ? dayButtonactiveBg : dayButtondefaultBg,
+              color: selected ? dayButtonactiveText : dayButtondefaultText,
+              fontSize: dayButtonFontSize,
+              fontWeight: dayFontWeight,
+              lineHeight: 1,
+              textAlign: "center",
+              cursor: isDisabled ? "not-allowed" : "pointer",
+              opacity: isDisabled ? 0.4 : 1,
+              transition: \`all \${transitionDuration}s ease\`,
+            }}
+            onMouseEnter={(e) => {
+              if (!selected && !isDisabled) {
+                e.currentTarget.style.backgroundColor = dayButtonhoverBg!;
+                e.currentTarget.style.borderColor = dayButtonhoverBorder!;
+                e.currentTarget.style.color = dayButtonhoverText!;
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!selected) {
+                e.currentTarget.style.backgroundColor = dayButtondefaultBg!;
+                e.currentTarget.style.borderColor = dayButtondefaultBorder!;
+                e.currentTarget.style.color = dayButtondefaultText!;
+              }
+            }}
+          >
+            {day}
+          </button>
+        </div>
+      );
+    }
+
+    return nodes;
+  };
+
+  return (
+    <div
+      {...handlers}
+      dir={isRTL ? "rtl" : "ltr"}
+      style={{
+        backgroundColor: bgColor,
+        border: \`\${outlineWidth}px solid \${outlineColor}\`,
+        borderRadius: outlineRadius,
+        padding,
+        width: totalWidth,
+        overflow: "hidden", // ✅ Prevent animation overflow
+      }}
+    >
+      <div
+        className="flex justify-between items-center"
+        style={{ marginBottom: headerSpacing }}
+      >
+        <BlurText
+          texts={[\`\${trimmedMonth} \${currentYear}\`]}
+          monthYearColor={monthYearColor}
+          monthYearFontSize={monthYearFontSize}
+          monthYearFontWeight={monthYearFontWeight}
+        />
+        <div className="flex items-center gap-2">
+          <button
+            onClick={goPrev}
+            disabled={!canGoPrev()}
+            style={{
+              width: navButtonWidth,
+              height: navButtonHeight,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: navBorderRadius,
+              borderWidth: navBorderWidth,
+              borderStyle: "solid",
+              borderColor: navButtondefaultBorder,
+              backgroundColor: navButtondefaultBg,
+              color: navButtondefaultText,
+              opacity: canGoPrev() ? 1 : 0.4,
+              cursor: canGoPrev() ? "pointer" : "not-allowed",
+              transition: \`all \${transitionDuration}s ease\`,
+            }}
+            onMouseEnter={(e) => {
+              if (canGoPrev()) {
+                e.currentTarget.style.backgroundColor = navButtonhoverBg!;
+                e.currentTarget.style.borderColor = navButtonhoverBorder!;
+                e.currentTarget.style.color = navButtonhoverText!;
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = navButtondefaultBg!;
+              e.currentTarget.style.borderColor = navButtondefaultBorder!;
+              e.currentTarget.style.color = navButtondefaultText!;
+            }}
+          >
+            {isRTL ? (
+              <ChevronRight size={chevronIconSize} strokeWidth={chevronStrokeWidth} />
+            ) : (
+              <ChevronLeft size={chevronIconSize} strokeWidth={chevronStrokeWidth} />
+            )}
+          </button>
+
+          <button
+            onClick={goNext}
+            disabled={!canGoNext()}
+            style={{
+              width: navButtonWidth,
+              height: navButtonHeight,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: navBorderRadius,
+              borderWidth: navBorderWidth,
+              borderStyle: "solid",
+              borderColor: navButtondefaultBorder,
+              backgroundColor: navButtondefaultBg,
+              color: navButtondefaultText,
+              opacity: canGoNext() ? 1 : 0.4,
+              cursor: canGoNext() ? "pointer" : "not-allowed",
+              transition: \`all \${transitionDuration}s ease\`,
+            }}
+            onMouseEnter={(e) => {
+              if (canGoNext()) {
+                e.currentTarget.style.backgroundColor = navButtonhoverBg!;
+                e.currentTarget.style.borderColor = navButtonhoverBorder!;
+                e.currentTarget.style.color = navButtonhoverText!;
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = navButtondefaultBg!;
+              e.currentTarget.style.borderColor = navButtondefaultBorder!;
+              e.currentTarget.style.color = navButtondefaultText!;
+            }}
+          >
+            {isRTL ? (
+              <ChevronLeft size={chevronIconSize} strokeWidth={chevronStrokeWidth} />
+            ) : (
+              <ChevronRight size={chevronIconSize} strokeWidth={chevronStrokeWidth} />
+            )}
+          </button>
+        </div>
+      </div>
+
+      <AnimatePresence mode="wait" custom={direction}>
+        <motion.div
+          key={\`\${monthIndex}-\${currentYear}\`}
+          custom={direction}
+          variants={{
+            enter: (d: "next" | "prev") => ({
+              x: isRTL ? (d === "next" ? 40 : -40) : d === "next" ? -40 : 40,
+              opacity: 0,
+            }),
+            center: { x: 0, opacity: 1 },
+            exit: (d: "next" | "prev") => ({
+              x: isRTL ? (d === "next" ? -40 : 40) : d === "next" ? 40 : -40,
+              opacity: 0,
+            }),
+          }}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.3 }}
+          className="grid grid-cols-7 text-center w-full"
+          style={{ gap: \`\${verticalGap}px \${horizontalGap}px\` }}
+        >
+          {renderDays()}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}`,
+    props: [
+      { name: "isRTL", type: "boolean", description: "calendar_prop_isRTL", required: false },
+      { name: "selected", type: "Date | Date[]", description: "calendar_prop_selected", required: false },
+      { name: "onSelect", type: "(date: Date | Date[]) => void", description: "calendar_prop_onSelect", required: false },
+      { name: "onDaySelect", type: "(date: Date, all: Date[]) => void", description: "calendar_prop_onDaySelect", required: false },
+      { name: "onDayUnselect", type: "(date: Date, all: Date[]) => void", description: "calendar_prop_onDayUnselect", required: false },
+      { name: "onMonthChange", type: "(date: Date) => void", description: "calendar_prop_onMonthChange", required: false },
+      { name: "disabledDates", type: "Date[]", description: "calendar_prop_disabledDates", required: false },
+      { name: "disabledWeekdays", type: "number[]", description: "calendar_prop_disabledWeekdays", required: false },
+      { name: "disableAll", type: "boolean", description: "calendar_prop_disableAll", required: false },
+      { name: "referenceDate", type: "Date", description: "calendar_prop_referenceDate", required: false },
+      { name: "disablePastDates", type: "boolean", description: "calendar_prop_disablePastDates", required: false },
+      { name: "disableFutureDates", type: "boolean", description: "calendar_prop_disableFutureDates", required: false },
+      { name: "includeReferenceDate", type: "boolean", description: "calendar_prop_includeReferenceDate", required: false },
+      { name: "disablePastMonths", type: "boolean", description: "calendar_prop_disablePastMonths", required: false },
+      { name: "disableFutureMonths", type: "boolean", description: "calendar_prop_disableFutureMonths", required: false },
+      { name: "minDate", type: "Date", description: "calendar_prop_minDate", required: false },
+      { name: "maxDate", type: "Date", description: "calendar_prop_maxDate", required: false },
+      { name: "selectionMode", type: "\"none\" | \"single\" | \"multiple\" | \"limited\"", description: "calendar_prop_selectionMode", required: false },
+      { name: "limitCount", type: "number", description: "calendar_prop_limitCount", required: false },
+      { name: "dayNames", type: "string[]", description: "calendar_prop_dayNames", required: false },
+      { name: "monthNames", type: "string[]", description: "calendar_prop_monthNames", required: false },
+      { name: "monthTrim", type: "number", description: "calendar_prop_monthTrim", required: false },
+      { name: "weekLabelTrim", type: "number", description: "calendar_prop_weekLabelTrim", required: false },
+      { name: "custom", type: "CalendarCustomProps", description: "calendar_prop_custom", required: false },
+      { name: "disableBeforeReference", type: "boolean", description: "calendar_prop_disableBeforeReference", required: false },
+      { name: "disableAfterReference", type: "boolean", description: "calendar_prop_disableAfterReference", required: false }
+    ],
   },
 ];
