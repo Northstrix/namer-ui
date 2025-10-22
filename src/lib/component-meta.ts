@@ -45,6 +45,8 @@ import CalendarPreviewDemo from '@/app/the-actual-components/calendar/demo-previ
 import CalendarFullPageDemo from '@/app/the-actual-components/calendar/demo-full-page';
 import SubmitCardPreviewDemo from '@/app/the-actual-components/submit-card/demo-preview';
 import SubmitCardFullPageDemo from '@/app/the-actual-components/submit-card/demo-full-page';
+import HalloweenSubmitCardPreviewDemo from '@/app/the-actual-components/halloween-submit-card/demo-preview';
+import HalloweenSubmitCardFullPageDemo from '@/app/the-actual-components/halloween-submit-card/demo-full-page';
 
 import { TranslationKey } from "./translations";
 
@@ -12809,13 +12811,9 @@ export default CustomCheckbox;
     demoFullPage: SatelliteToastFullPageDemo,
     dependencies: `npm install framer-motion react-dom`,
     credit: `[Splashed Toast Notifications - CSS](https://codepen.io/josetxu/pen/OJGXdzY) by [Josetxu](https://codepen.io/josetxu/pen/OJGXdzY)
-
 [Push Notifications](https://codepen.io/FlorinPop17/pen/xxORmaB) by [Florin Pop](https://codepen.io/FlorinPop17)
-
 [bg bars](https://21st.dev/to_be_deleted/bg-bars/default) by [Moazam](https://21st.dev/muhammadnadeemmn9485134)
-
 [Satellite animation](https://codepen.io/Emile_Dvl/pen/RwVeVy) by [Emile Duval](https://codepen.io/Emile_Dvl)
-
 [tabler-icons-react](https://www.npmjs.com/package/tabler-icons-react)`,
     usage: `// Path to the "SatelliteToast.tsx" file
 
@@ -13515,11 +13513,8 @@ SatelliteToast.displayName = "SatelliteToast";
 npm install framer-motion
 npm install lucide-react`,
     credit: `[Calendar](https://21st.dev/designali-in/calendar/default) by [Ali Imam](https://21st.dev/dalim)
-
 [Coach Scheduling Card](https://21st.dev/isaiahbjork/coach-scheduling-card/default) by [Isaiah](https://21st.dev/isaiahbjork)
-
 [Gooey Text Morphing](https://21st.dev/victorwelander/gooey-text-morphing/default) by [Victor Welander](https://21st.dev/victorwelander)
-
 [Morphing Text](https://21st.dev/dillionverma/morphing-text/default) by [Magic UI](https://21st.dev/magicui)`,
     usage: `// Path to the "Calendar.tsx" file
 import { Calendar } from "@/app/the-actual-components/calendar/Calendar.tsx";
@@ -14498,9 +14493,7 @@ export function Calendar({
     dependencies: `npm install framer-motion
 npm install clsx tailwind-merge`,
     credit: `[AnimateIcons](https://animateicons.vercel.app/)
-
 [Bento Grid](https://ui.aceternity.com/components/bento-grid) by [Aceternity UI](https://ui.aceternity.com/)
-
 [File Upload](https://ui.aceternity.com/components/file-upload) by [Aceternity UI](https://ui.aceternity.com/)`,
     usage: `// Path to the "SubmitCard.tsx" file
 import SubmitCard from "@/app/the-actual-components/submit-card/SubmitCard";
@@ -14970,6 +14963,496 @@ export default function SubmitCard({
       { name: "dashedBorderColor", type: "string", defaultValue: "#00a7fa", description: "submit_card_prop_dashedBorderColor", required: false },
       { name: "textHoverShift", type: "number", defaultValue: "6", description: "submit_card_prop_textHoverShift", required: false },
       { name: "borderRadius", type: "string", defaultValue: "8px", description: "submit_card_prop_borderRadius", required: false },
+    ],
+  },
+  {
+    id: 'halloween-submit-card',
+    title: 'halloween_submit_card_title',
+    description: 'halloween_submit_card_desc',
+    demo: HalloweenSubmitCardPreviewDemo,
+    demoFullPage: HalloweenSubmitCardFullPageDemo,
+    dependencies: `npm install framer-motion
+npm install clsx tailwind-merge`,
+    credit: `[AnimateIcons](https://animateicons.vercel.app/)
+[Bento Grid](https://ui.aceternity.com/components/bento-grid) by [Aceternity UI](https://ui.aceternity.com/)
+[File Upload](https://ui.aceternity.com/components/file-upload) by [Aceternity UI](https://ui.aceternity.com/)
+[Vercel app border hover effect](https://codepen.io/Juxtopposed/pen/xxQNozB) by [Juxtopposed](https://codepen.io/Juxtopposed)`,
+    usage: `// Path to the "HalloweenSubmitCard.tsx" file
+import HalloweenSubmitCard from "@/app/the-actual-components/halloween-submit-card/HalloweenSubmitCard";
+import React from "react";
+
+export default function HalloweenSubmitCardDemo() {
+  return (
+    <div className="flex flex-wrap gap-16 justify-start">
+      {/* 1. LTR — Default Color Theme (uses component defaults) */}
+      <div style={{ maxWidth: 376 }}>
+        <HalloweenSubmitCard
+          link="https://blueberry-loom-form-loader.netlify.app/form/bWF4aW0uYm9ydC5kZXZlbEBnbWFpbC5jb20=/Far247Squ6?key=Im5uylqLi3BwlN909sLP1Y3vY6nRwMixa8D6BGpj6Uz5B4b9OO)YZSyKWvCGeX65a6Yfsc2ZdUAEWrue3FXDDg=="
+          title="Submit Your Project"
+          description="Made a project that uses at least one Namer UI component? Submit it now for a chance to get featured!"
+          useDrawIcon
+        />
+      </div>
+
+      {/* 2. RTL — Deep Purple Theme */}
+      <div style={{ maxWidth: 376 }}>
+        <HalloweenSubmitCard
+          link="https://blueberry-loom-form-loader.netlify.app/form/bWF4aW0uYm9ydC5kZXZlbEBnbWFpbC5jb20=/Far247Squ6?key=Im5uylqLi3BwlN909sLP1Y3vY6nRwMixa8D6BGpj6Uz5B4b9OO)YZSyKWvCGeX65a6Yfsc2ZdUAEWrue3FXDDg=="
+          title="שלח את הפרויקט שלך"
+          description="יצרת פרויקט המשתמש בלפחות רכיב אחד של נמר UI? שלח אותו עכשיו כדי לקבל הזדמנות להופיע!"
+          accent="#a800ff"
+          accentAdjacentColor="#5c00b3"
+          accentGlow="rgba(160, 0, 255, 0.85)"
+          secondInteractiveColor="#3c005c"
+          cardBg="#0a0010"
+          innerBg="#190028"
+          textTitle="#f4e9ff"
+          textDesc="#c8a2ff"
+          isRTL
+          useDrawIcon
+          initialRotation={3.7}
+          innerBorderColor="rgba(160, 0, 255, 0.55)"
+          bodyGlow="rgba(160, 0, 255, 0.35)"
+          squareBgColor="#f4e9ff"
+          squareGlow="rgba(160, 0, 255, 0.45)"
+        />
+      </div>
+
+      {/* 3. LTR — Blue Light Theme Variant */}
+      <div style={{ maxWidth: 376 }}>
+        <HalloweenSubmitCard
+          link="https://blueberry-loom-form-loader.netlify.app/form/bWF4aW0uYm9ydC5kZXZlbEBnbWFpbC5jb20=/Far247Squ6?key=Im5uylqLi3BwlN909sLP1Y3vY6nRwMixa8D6BGpj6Uz5B4b9OO)YZSyKWvCGeX65a6Yfsc2ZdUAEWrue3FXDDg=="
+          title="Envía tu proyecto"
+          description="¿Has creado un proyecto que utilice al menos un componente de Namer UI? ¡Envíalo ahora para tener la oportunidad de ser destacado!"
+          accent="#00A7FA"
+          accentAdjacentColor="#0091E2"
+          accentGlow="rgba(0, 167, 250, 0.85)"
+          secondInteractiveColor="#66C9FF"
+          cardBg="#E1F3FF"
+          innerBg="#F4FAFF"
+          innerBorderColor="rgba(0, 167, 250, 0.4)"
+          textTitle="#0C2E4A"
+          textDesc="#1172A5"
+          bodyGlow="rgba(0, 167, 250, 0.25)"
+          squareGlow="rgba(0, 140, 230, 0.4)"
+          squareBgColor="#001B3C"
+          isRTL={false}
+          centerText
+          enableGlow
+          initialRotation={2.8}
+        />
+      </div>
+
+      {/* 4. LTR — Image Card, Default Theme */}
+      <div style={{ maxWidth: 376 }}>
+        <HalloweenSubmitCard
+          link="https://clandestine-beauty-salon-landing-page.netlify.app/"
+          title="Clandestine"
+          description="A modern beauty salon landing page template featuring an appointment reservation UI and multilingual support."
+          imageSrc="https://github.com/Northstrix/namer-ui/blob/main/public/showcase/clandestine.webp?raw=true"
+          enableGlow
+          innerBg="#000"
+          isRTL={false}
+          initialRotation={1.8}
+        />
+      </div>
+    </div>
+  );
+}`,
+    includeClassMerger: true,
+    code: `"use client";
+    
+import {
+  motion,
+  Variants,
+  useAnimation,
+  useReducedMotion,
+} from "framer-motion";
+import {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useState,
+  useId,
+  CSSProperties,
+} from "react";
+import { cn } from "@/lib/utils";
+
+// ---------------------------------------------------------------------------
+// Plus Icons (identical visual fidelity)
+// ---------------------------------------------------------------------------
+export interface PlusIconHandle {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+}
+
+interface PlusIconProps extends React.HTMLAttributes<HTMLDivElement> {
+  size?: number;
+  color?: string;
+}
+
+const PlusIconDraw = forwardRef<PlusIconHandle, PlusIconProps>(
+  (
+    { onMouseEnter, onMouseLeave, className, size = 42, color = "#ff7518", ...props },
+    ref
+  ) => {
+    const controls = useAnimation();
+    const reduced = useReducedMotion();
+    const isControlled = useRef(false);
+
+    useImperativeHandle(ref, () => {
+      isControlled.current = true;
+      return {
+        startAnimation: () =>
+          reduced ? controls.start("normal") : controls.start("animate"),
+        stopAnimation: () => controls.start("normal"),
+      };
+    });
+
+    const handleEnter = useCallback(() => {
+      if (reduced) return;
+      if (!isControlled.current) controls.start("animate");
+      else onMouseEnter?.(undefined as any);
+    }, [controls, reduced, onMouseEnter]);
+
+    const handleLeave = useCallback(() => {
+      if (!isControlled.current) controls.start("normal");
+      else onMouseLeave?.(undefined as any);
+    }, [controls, onMouseLeave]);
+
+    const plusVariants: Variants = {
+      normal: { scale: 1, rotate: 0 },
+      animate: {
+        scale: [1, 1.2, 0.85, 1],
+        rotate: [0, 10, -10, 0],
+        transition: { duration: 1, ease: "easeInOut" },
+      },
+    };
+
+    const lineVariants: Variants = {
+      normal: { pathLength: 1, opacity: 1 },
+      animate: {
+        pathLength: [0, 1],
+        transition: { duration: 0.6, ease: "easeInOut" },
+      },
+    };
+
+    return (
+      <motion.div
+        className={cn("inline-flex items-center justify-center", className)}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        {...props}
+      >
+        <motion.svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          animate={controls}
+          initial="normal"
+          variants={plusVariants}
+          className="draw-icon"
+        >
+          <motion.path d="M5 12h14" variants={lineVariants} />
+          <motion.path d="M12 5v14" variants={lineVariants} />
+        </motion.svg>
+      </motion.div>
+    );
+  }
+);
+PlusIconDraw.displayName = "PlusIconDraw";
+
+export const PlusIconRotate: React.FC<{
+  size?: number;
+  color?: string;
+  durationMs?: number;
+  isSpinningCW?: boolean;
+}> = ({ size = 42, color = "#ff7518", durationMs = 400, isSpinningCW = false }) => {
+  const spin: CSSProperties = {
+    animation: \`\${isSpinningCW ? "spinCW" : "spinCCW"} \${
+      durationMs / 1000
+    }s ease-in-out 1\`,
+    transformOrigin: "center",
+  };
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={spin}
+    >
+      <path d="M5 12h14" />
+      <path d="M12 5v14" />
+      <style>{\`
+        @keyframes spinCW { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spinCCW { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+      \`}</style>
+    </svg>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// Enhanced Halloween Card
+// ---------------------------------------------------------------------------
+interface HalloweenSubmitCardProps {
+  id?: string;
+  isRTL?: boolean;
+  link: string;
+  title: string;
+  description: string;
+  imageSrc?: string;
+  useDrawIcon?: boolean;
+
+  accent?: string;
+  accentAdjacentColor?: string;
+  accentGlow?: string;
+  secondInteractiveColor?: string;
+  cardBg?: string;
+  innerBg?: string;
+  textTitle?: string;
+  textDesc?: string;
+
+  enableGlow?: boolean;
+  innerBorderColor?: string;
+  squareBgColor?: string;
+  bodyGlow?: string;
+  squareGlow?: string;
+
+  initialRotation?: number;
+  gradientStops?: { start?: number; mid?: number; end?: number };
+  centerText?: boolean;
+}
+
+export default function HalloweenSubmitCard({
+  id,
+  isRTL = false,
+  link,
+  title,
+  description,
+  imageSrc,
+  useDrawIcon = false,
+
+  accent = "#ff7518",
+  accentAdjacentColor = "#b13d00",
+  accentGlow = "rgba(255,117,24,0.9)",
+  secondInteractiveColor = "#5f1907",
+  cardBg = "#0a0501",
+  innerBg = "#110903",
+  textTitle = "#fffbe6",
+  textDesc = "#ffa94d",
+
+  enableGlow = true,
+  innerBorderColor = "rgba(255,117,24,0.5)",
+  squareBgColor = "#fdf5d4",
+  bodyGlow = "rgba(255,130,0,0.3)",
+  squareGlow = "rgba(255,117,24,0.5)",
+
+  initialRotation = 2.5,
+  gradientStops = { start: 0, mid: 50, end: 90 },
+  centerText = false,
+}: HalloweenSubmitCardProps) {
+  const componentId = id ?? useId();
+  const plusIconRef = useRef<PlusIconHandle>(null);
+  const [hover, setHover] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [angle, setAngle] = useState(initialRotation);
+
+  const showImage = !!imageSrc && !imageError;
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    setAngle(Math.atan2(-x, y));
+  };
+
+  // ---------------------------------------------------------------
+  // Fixed gradient background: both layers are transparent-safe
+  // Uses alpha channel instead of solid cardBg to prevent black overlay
+  // ---------------------------------------------------------------
+  const gradient = \`linear-gradient(to bottom, \${cardBg}CC, \${cardBg}CC), 
+    linear-gradient(\${angle}rad, 
+    \${accent} \${gradientStops.start}%, 
+    \${accentAdjacentColor} \${gradientStops.mid}%, 
+    \${secondInteractiveColor} \${gradientStops.end}%)\`;
+  
+  const baseShadow = enableGlow
+    ? \`0 0 0 1px rgba(255,255,255,0.08), 0 0 20px \${bodyGlow}, 0 0 40px \${bodyGlow}\`
+    : \`0 0 0 1px rgba(255,255,255,0.08)\`;
+
+  const hoverShadow = enableGlow
+    ? \`0 0 35px \${accentGlow}, 0 0 80px \${accentGlow}, inset 0 0 20px \${accentGlow}\`
+    : baseShadow;
+
+  const cardShadow = hover ? hoverShadow : baseShadow;
+  const textAlign = centerText ? "center" : isRTL ? "right" : "left";
+
+  return (
+    <motion.a
+      id={componentId}
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      dir={isRTL ? "rtl" : "ltr"}
+      className="group block transition-all duration-400"
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => {
+        setHover(true);
+        plusIconRef.current?.startAnimation();
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+        plusIconRef.current?.stopAnimation();
+      }}
+      style={{
+        width: 360,
+        display: "flex",
+        flexDirection: "column",
+        padding: 16,
+        borderRadius: "16px",
+        backgroundImage: gradient,
+        backgroundOrigin: "border-box",
+        backgroundClip: "padding-box,border-box",
+        boxShadow: cardShadow,
+        border: "2px solid transparent",
+        transition: "box-shadow .45s ease, transform .45s ease",
+        cursor: "pointer",
+        backgroundColor: "transparent",
+      }}
+    >
+      <div
+        className={cn("relative w-full grid place-items-center overflow-hidden")}
+        style={{
+          aspectRatio: "16/10",
+          borderRadius: "16px",
+          backgroundColor: innerBg,
+          border: \`2px solid \${innerBorderColor}\`,
+          transform: isRTL ? "scaleX(-1)" : "none",
+          transition: "all 0.5s ease",
+        }}
+      >
+        {showImage ? (
+          <img
+            src={imageSrc}
+            alt={title}
+            className="w-full h-full object-cover"
+            style={{ borderRadius: "16px" }}
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <>
+            <div
+              className="absolute h-1/2 aspect-square border-dashed transition-opacity"
+              style={{
+                border: \`2px dashed \${accent}\`,
+                borderRadius: "16px",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%,-50%)",
+                opacity: hover ? 1 : 0,
+                transition: "opacity .5s ease",
+              }}
+            ></div>
+            <div
+              className="absolute"
+              style={{
+                height: "50%",
+                aspectRatio: "1/1",
+                top: "50%",
+                left: "50%",
+                transform: hover
+                  ? "translate(calc(-50% + 15px), calc(-50% - 15px))"
+                  : "translate(-50%,-50%)",
+                backgroundColor: squareBgColor,
+                border: \`1px solid \${innerBorderColor}\`,
+                borderRadius: "16px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "transform .5s ease, box-shadow .5s ease",
+                boxShadow: enableGlow
+                  ? hover
+                    ? \`0 0 40px \${squareGlow}\`
+                    : \`0 0 20px \${squareGlow}\`
+                  : "none",
+              }}
+            >
+              {useDrawIcon ? (
+                <PlusIconDraw ref={plusIconRef} color={accent} />
+              ) : (
+                <PlusIconRotate color={accent} isSpinningCW={hover} />
+              )}
+            </div>
+          </>
+        )}
+      </div>
+
+      <div
+        className="pt-4 font-sans transition-transform duration-300"
+        style={{
+          textAlign,
+          transform: hover ? \`translateX(\${isRTL ? -6 : 6}px)\` : "none",
+        }}
+      >
+        <h3
+          className="text-[22px] mb-2 font-semibold"
+          style={{
+            color: textTitle,
+            textShadow: \`0 0 8px \${accent}\`,
+          }}
+        >
+          {title}
+        </h3>
+        <p
+          className="text-base"
+          style={{
+            color: textDesc,
+            textAlign,
+          }}
+        >
+          {description}
+        </p>
+      </div>
+    </motion.a>
+  );
+}`,
+    props: [
+      { name: "id", type: "string", description: "halloween_submit_card_prop_id", required: false },
+      { name: "isRTL", type: "boolean", defaultValue: "false", description: "halloween_submit_card_prop_isRTL", required: false },
+      { name: "link", type: "string", description: "halloween_submit_card_prop_link", required: true },
+      { name: "title", type: "string", description: "halloween_submit_card_prop_title", required: true },
+      { name: "description", type: "string", description: "halloween_submit_card_prop_description", required: true },
+      { name: "imageSrc", type: "string", description: "halloween_submit_card_prop_imageSrc", required: false },
+      { name: "useDrawIcon", type: "boolean", defaultValue: "false", description: "halloween_submit_card_prop_useDrawIcon", required: false },
+      { name: "accent", type: "string", defaultValue: "#ff7518", description: "halloween_submit_card_prop_accent", required: false },
+      { name: "accentAdjacentColor", type: "string", defaultValue: "#b13d00", description: "halloween_submit_card_prop_accentAdjacentColor", required: false },
+      { name: "accentGlow", type: "string", defaultValue: "rgba(255,117,24,0.9)", description: "halloween_submit_card_prop_accentGlow", required: false },
+      { name: "secondInteractiveColor", type: "string", defaultValue: "#5f1907", description: "halloween_submit_card_prop_secondInteractiveColor", required: false },
+      { name: "cardBg", type: "string", defaultValue: "#0a0501", description: "halloween_submit_card_prop_cardBg", required: false },
+      { name: "innerBg", type: "string", defaultValue: "#110903", description: "halloween_submit_card_prop_innerBg", required: false },
+      { name: "textTitle", type: "string", defaultValue: "#fffbe6", description: "halloween_submit_card_prop_textTitle", required: false },
+      { name: "textDesc", type: "string", defaultValue: "#ffa94d", description: "halloween_submit_card_prop_textDesc", required: false },
+      { name: "enableGlow", type: "boolean", defaultValue: "true", description: "halloween_submit_card_prop_enableGlow", required: false },
+      { name: "innerBorderColor", type: "string", defaultValue: "rgba(255,117,24,0.5)", description: "halloween_submit_card_prop_innerBorderColor", required: false },
+      { name: "squareBgColor", type: "string", defaultValue: "#fdf5d4", description: "halloween_submit_card_prop_squareBgColor", required: false },
+      { name: "bodyGlow", type: "string", defaultValue: "rgba(255,130,0,0.3)", description: "halloween_submit_card_prop_bodyGlow", required: false },
+      { name: "squareGlow", type: "string", defaultValue: "rgba(255,117,24,0.5)", description: "halloween_submit_card_prop_squareGlow", required: false },
+      { name: "initialRotation", type: "number", defaultValue: "2.5", description: "halloween_submit_card_prop_initialRotation", required: false },
+      { name: "gradientStops", type: "{ start?: number; mid?: number; end?: number }", defaultValue: "{ start: 0, mid: 50, end: 90 }", description: "halloween_submit_card_prop_gradientStops", required: false },
+      { name: "centerText", type: "boolean", defaultValue: "false", description: "halloween_submit_card_prop_centerText", required: false }
     ],
   },
 ];

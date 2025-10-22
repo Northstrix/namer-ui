@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import SubmitCard from "@/app/the-actual-components/submit-card/SubmitCard";
+import HalloweenSubmitCard from "@/app/the-actual-components/halloween-submit-card/HalloweenSubmitCard";
 import { useTranslation, useApp } from "@/context/app-context";
 import useIsRTL from "@/hooks/useIsRTL";
 
@@ -21,7 +21,7 @@ function getScale(height: number): number {
   return lerp(0.24, 1, t);
 }
 
-export default function SubmitCardDemo() {
+export default function HalloweenSubmitCardDemo() {
   const { lang } = useApp();
   const t = useTranslation();
   const isRTL = useIsRTL();
@@ -84,22 +84,27 @@ export default function SubmitCardDemo() {
           }}
         >
           <div style={{ maxWidth: 364 }}>
-            <SubmitCard
+            <HalloweenSubmitCard
               link="https://blueberry-loom-form-loader.netlify.app/form/bWF4aW0uYm9ydC5kZXZlbEBnbWFpbC5jb20=/Far247Squ6?key=Im5uylqLi3BwlN909sLP1Y3vY6nRwMixa8D6BGpj6Uz5B4b9OO)YZSyKWvCGeX65a6Yfsc2ZdUAEWrue3FXDDg=="
               title={t("submit_card_note_preview_title")}
               description={t("submit_card_note_preview_description")}
-              backgroundColor="#f9f9f9"
-              borderColor="#cccccc"
-              innerBorderColor="#d5d5d5"
-              innerAreaBgColor="#e1e1e1"
-              squareBgColor="#222222"
-              plusIconColor="#00a7fa"
-              dashedBorderColor="#d500ff"
-              titleColor="#222222"
-              descriptionColor="#555555"
+              accent="#00A7FA"
+              accentAdjacentColor="#0091E2"
+              accentGlow="rgba(0, 167, 250, 0.85)"
+              secondInteractiveColor="#66C9FF"
+              cardBg="#E1F3FF"
+              innerBg="#F4FAFF"
+              innerBorderColor="rgba(0, 167, 250, 0.4)"
+              textTitle="#0C2E4A"
+              textDesc="#1172A5"
+              bodyGlow="rgba(0, 167, 250, 0.25)"
+              squareGlow="rgba(0, 140, 230, 0.4)"
+              squareBgColor="#001B3C"
               isRTL={isRTL}
-              useDrawIcon
+              enableGlow
+              initialRotation={isRTL ? 3.7 : 1.4}
             />
+
           </div>
         </div>
       </div>
