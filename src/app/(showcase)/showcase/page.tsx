@@ -26,6 +26,13 @@ export const showcaseItems: ShowcaseItem[] = [
     image: "/showcase/clandestine.webp",
     link: "https://clandestine-beauty-salon-landing-page.netlify.app/",
   },
+  {
+    id: "nof",
+    name: "showcase_item_2_title",
+    description: "showcase_item_2_description",
+    image: "/showcase/nof.webp",
+    link: "https://nofpg.netlify.app/",
+  },
 ];
 
 const ShowcaseCard: React.FC<{ item: ShowcaseItem; isRTL: boolean; t: (k: string, p?: any) => string }> = ({

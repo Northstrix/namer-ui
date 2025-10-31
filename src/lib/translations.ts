@@ -890,6 +890,8 @@ export const dictionaries = {
     "submit_your_project_description": "Made a project that uses at least one Namer UI component? Submit it now for a chance to get featured on this page!",
     "showcase_item_1_title": "Clandestine",
     "showcase_item_1_description": "A modern beauty salon landing page template featuring an appointment reservation UI and multilingual support.",
+    "showcase_item_2_title": "Nof",
+    "showcase_item_2_description": "A modern color palette generator that lets you create a complete color palette from just one base color.",
   },
   he: {
     'namer_ui': 'נמר UI',
@@ -1778,7 +1780,9 @@ export const dictionaries = {
     "submit_your_project_title": "שלח את הפרויקט שלך",
     "submit_your_project_description": "יצרת פרויקט המשתמש בלפחות רכיב אחד של נמר UI? שלח אותו עכשיו כדי לקבל הזדמנות להופיע בעמוד זה!",
     "showcase_item_1_title": "קלאנדסטין",
-    "showcase_item_1_description": "תבנית עמוד נחיתה מודרנית למכון יופי הכוללת ממשק להזמנת תורים ותמיכה רב-לשונית."
+    "showcase_item_1_description": "תבנית עמוד נחיתה מודרנית למכון יופי הכוללת ממשק להזמנת תורים ותמיכה רב-לשונית.",
+    "showcase_item_2_title": "נוף",
+    "showcase_item_2_description": "מחולל פלטת צבעים מודרני שמאפשר לך ליצור פלטת צבעים שלמה מתוך צבע בסיס אחד בלבד.",
   },
   es: {
     'namer_ui': 'Namer UI',
@@ -2667,7 +2671,9 @@ export const dictionaries = {
     "submit_your_project_title": "Enviar su proyecto",
     "submit_your_project_description": "¿Hizo un proyecto utilizando al menos un componente de Namer UI? ¡Envíelo ahora para tener la oportunidad de aparecer en esta página!",
     "showcase_item_1_title": "Clandestine",
-    "showcase_item_1_description": "Una plantilla moderna para página de aterrizaje de salón de belleza que incluye una interfaz de reserva de citas y soporte multilingüe."
+    "showcase_item_1_description": "Una plantilla moderna para página de aterrizaje de salón de belleza que incluye una interfaz de reserva de citas y soporte multilingüe.",
+    "showcase_item_2_title": "Nof",
+    "showcase_item_2_description": "Un generador moderno de paletas de colores que te permite crear una paleta de colores completa a partir de un solo color base.",
   },
 };
 
