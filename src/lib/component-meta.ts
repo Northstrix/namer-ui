@@ -47,7 +47,8 @@ import SubmitCardPreviewDemo from '@/app/the-actual-components/submit-card/demo-
 import SubmitCardFullPageDemo from '@/app/the-actual-components/submit-card/demo-full-page';
 import HalloweenSubmitCardPreviewDemo from '@/app/the-actual-components/halloween-submit-card/demo-preview';
 import HalloweenSubmitCardFullPageDemo from '@/app/the-actual-components/halloween-submit-card/demo-full-page';
-
+import CustomSliderPreviewDemo from "@/app/the-actual-components/custom-slider/demo-preview";
+import CustomSliderFullPageDemo from "@/app/the-actual-components/custom-slider/demo-full-page";
 import { TranslationKey } from "./translations";
 
 export interface ComponentMetadata {
@@ -15453,6 +15454,457 @@ export default function HalloweenSubmitCard({
       { name: "initialRotation", type: "number", defaultValue: "2.5", description: "halloween_submit_card_prop_initialRotation", required: false },
       { name: "gradientStops", type: "{ start?: number; mid?: number; end?: number }", defaultValue: "{ start: 0, mid: 50, end: 90 }", description: "halloween_submit_card_prop_gradientStops", required: false },
       { name: "centerText", type: "boolean", defaultValue: "false", description: "halloween_submit_card_prop_centerText", required: false }
+    ],
+  },
+  {
+    id: 'custom-slider',
+    title: 'custom_slider_title',
+    description: 'custom_slider_desc',
+    demo: CustomSliderPreviewDemo,
+    demoFullPage: CustomSliderFullPageDemo,
+    credit: `[radix-ui](https://www.npmjs.com/package/radix-ui)`,
+    usage: `// Path to the "CustomSlider.tsx" file
+import { CustomSlider } from '@/app/the-actual-components/custom-slider/CustomSlider';
+import React, { useState } from 'react';
+
+export default function DemoFullPage() {
+  const [temperature, setTemperature] = useState(76);
+  const [aperture, setAperture] = useState(0.5);
+  const [volume, setVolume] = useState(10);
+  const [brightness, setBrightness] = useState(40);
+  const [contrast, setContrast] = useState(25);
+
+  const labelCommonStyle: React.CSSProperties = {
+    marginBottom: 8,
+    color: '#fafafa',
+    userSelect: 'none' as any,
+  };
+
+  return (
+    <div>
+      <div
+        style={{
+          display: 'grid',
+          gap: 32,  // gap between label+slider groups
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 480px))',
+          justifyContent: 'center',
+        }}
+      >
+        {/* Temperature */}
+        <div style={{ minWidth: 240, maxWidth: 480, display: 'flex', flexDirection: 'column' }}>
+          <label style={{ ...labelCommonStyle, textAlign: 'left' }}>
+            <span>Temperature</span>{' '}
+            <span style={{ fontWeight: 400 }}>({temperature}°F)</span>
+          </label>
+          <CustomSlider
+            id="temperature"
+            min={32}
+            max={212}
+            value={temperature}
+            onValueChange={setTemperature}
+            isRTL={false}
+          />
+        </div>
+
+        {/* Aperture */}
+        <div style={{ minWidth: 240, maxWidth: 480, display: 'flex', flexDirection: 'column' }}>
+          <label style={{ ...labelCommonStyle, textAlign: 'left' }}>
+            <span>Aperture</span>{' '}
+            <span style={{ fontWeight: 400 }}>{aperture.toFixed(2)}</span>
+          </label>
+          <CustomSlider
+            id="aperture"
+            min={0.1}
+            max={2.8}
+            step={0.01}
+            value={aperture}
+            onValueChange={setAperture}
+            colorTrackBackground="#444"
+            colorFillDefault="#AAA"
+            colorFillHover="#EEE"
+            colorFillActive="#FFF"
+            colorThumbDefault="#D000FA"
+            colorThumbHover="#A600C8"
+            colorThumbActive="#FFF"
+            colorThumbBorderDefault="#E049FF"
+            colorThumbBorderHover="#D000FA"
+            colorThumbBorderActive="#A600C8"
+            isRTL={false}
+            trackFillBorderRadius="4px"
+            thumbBorderRadius="50%"
+            thumbWidth="26px"
+            thumbHeight="26px"
+            trackHeight="12px"
+            thumbBorderWidth="5px"
+            keyStep={0.05}
+          />
+        </div>
+
+        {/* Volume */}
+        <div style={{ minWidth: 240, maxWidth: 480, display: 'flex', flexDirection: 'column' }}>
+          <label style={{ ...labelCommonStyle, textAlign: 'left' }}>
+            <span>Volume</span>{' '}
+            <span style={{ fontWeight: 400 }}>({volume}%)</span>
+          </label>
+          <CustomSlider
+            id="volume"
+            min={0}
+            max={100}
+            value={volume}
+            onValueChange={setVolume}
+            colorTrackBackground="#222831"
+            colorFillDefault="#00ADB5"
+            colorFillHover="#00BCD4"
+            colorFillActive="#FFF"
+            colorThumbDefault="#EEEEEE"
+            colorThumbHover="#B2EBF2"
+            colorThumbActive="#80DEEA"
+            colorThumbBorderDefault="#0097A7"
+            colorThumbBorderHover="#00838F"
+            colorThumbBorderActive="#006064"
+            isRTL={false}
+            trackFillBorderRadius="10px"
+            thumbBorderRadius="30%"
+            thumbWidth="22px"
+            thumbHeight="22px"
+          />
+        </div>
+
+        {/* Brightness */}
+        <div
+          style={{
+            minWidth: 240,
+            maxWidth: 480,
+            display: 'flex',
+            flexDirection: 'column',
+            direction: 'rtl',
+          }}
+        >
+          <label
+            style={{
+              ...labelCommonStyle,
+              textAlign: 'right',
+              direction: 'rtl',
+            }}
+          >
+            <span>בהירות</span>{' '}
+            <span style={{ fontWeight: 400 }}>({brightness}%)</span>
+          </label>
+          <CustomSlider
+            id="brightness"
+            min={0}
+            max={100}
+            value={brightness}
+            onValueChange={setBrightness}
+            colorTrackBackground="#1c2a23"
+            colorFillDefault="#2ecc71"
+            colorFillHover="#27ae60"
+            colorFillActive="#229954"
+            colorThumbDefault="#a8dda8"
+            colorThumbHover="#78c679"
+            colorThumbActive="#fff"
+            colorThumbBorderDefault="#27ae60"
+            colorThumbBorderHover="#1e8449"
+            colorThumbBorderActive="#1b6b3a"
+            isRTL={true}
+            trackFillBorderRadius="6px"
+            thumbBorderRadius="12px"
+            thumbBorderWidth="6px"
+            thumbWidth="22px"
+            thumbHeight="28px"
+          />
+        </div>
+
+        {/* Contrast */}
+        <div
+          style={{
+            minWidth: 240,
+            maxWidth: 480,
+            display: 'flex',
+            flexDirection: 'column',
+            direction: 'rtl',
+          }}
+        >
+          <label
+            style={{
+              ...labelCommonStyle,
+              textAlign: 'right',
+              direction: 'rtl',
+            }}
+          >
+            <span>ניגודיות</span>{' '}
+            <span style={{ fontWeight: 400 }}>({contrast}%)</span>
+          </label>
+          <CustomSlider
+            id="contrast"
+            min={0}
+            max={100}
+            value={contrast}
+            onValueChange={setContrast}
+            colorTrackBackground="#3a2b1f"
+            colorFillDefault="#ff6600"
+            colorFillHover="#e65c00"
+            colorFillActive="#cc5200"
+            colorThumbDefault="#ffbf80"
+            colorThumbHover="#242424"
+            colorThumbActive="#e65c00"
+            colorThumbBorderDefault="#ff9933"
+            colorThumbBorderHover="#cc7a00"
+            colorThumbBorderActive="#fff"
+            isRTL={true}
+            trackFillBorderRadius="6px"
+            thumbBorderRadius="6px"
+            thumbWidth="28px"
+            thumbHeight="22px"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}`,
+    code: `'use client';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+
+export interface CustomSliderProps {
+  id: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  value: number;
+  onValueChange: (value: number) => void;
+  disabled?: boolean;
+  trackHeight?: string;
+  thumbWidth?: string;
+  thumbHeight?: string;
+  width?: string;
+  trackFillBorderRadius?: string;
+  thumbBorderRadius?: string;
+  thumbBorderWidth?: string;
+  colorTrackBackground?: string;
+  colorFillDefault?: string;
+  colorFillHover?: string;
+  colorFillActive?: string;
+  colorThumbDefault?: string;
+  colorThumbHover?: string;
+  colorThumbActive?: string;
+  colorThumbBorderDefault?: string;
+  colorThumbBorderHover?: string;
+  colorThumbBorderActive?: string;
+  ariaLabel?: string;
+  isRTL?: boolean;
+  keyStep?: number;
+}
+
+export function CustomSlider({
+  id,
+  min = 0,
+  max = 100,
+  step = 1,
+  value,
+  onValueChange,
+  disabled = false,
+  trackHeight = '8px',
+  thumbWidth = '20px',
+  thumbHeight = '20px',
+  width = '100%',
+  trackFillBorderRadius = '8px',
+  thumbBorderRadius = '50%',
+  thumbBorderWidth = '2px',
+  colorTrackBackground = '#262626',
+  colorFillDefault = '#00A7FA',
+  colorFillHover = '#55C7FF',
+  colorFillActive = '#55C7FF',
+  colorThumbDefault = '#262626',
+  colorThumbHover = '#121212',
+  colorThumbActive = '#262626',
+  colorThumbBorderDefault = '#0083C4',
+  colorThumbBorderHover = '#0079B5',
+  colorThumbBorderActive = '#FFFFFF',
+  ariaLabel = 'slider',
+  isRTL = false,
+  keyStep = 1,
+}: CustomSliderProps) {
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const getPercentage = useCallback(() => {
+    return ((value - min) / (max - min)) * 100;
+  }, [value, min, max]);
+
+  const handleInteraction = useCallback(
+    (clientX: number) => {
+      if (disabled || !sliderRef.current) return;
+      const rect = sliderRef.current.getBoundingClientRect();
+      let percentage;
+      if (isRTL) {
+        percentage = ((rect.right - clientX) / rect.width) * 100;
+      } else {
+        percentage = ((clientX - rect.left) / rect.width) * 100;
+      }
+      percentage = Math.max(0, Math.min(100, percentage));
+      let newValue = min + (percentage / 100) * (max - min);
+      if (step !== 0) newValue = Math.round(newValue / step) * step;
+      newValue = Math.max(min, Math.min(max, newValue));
+      onValueChange(newValue);
+    },
+    [disabled, min, max, step, onValueChange, isRTL]
+  );
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    setIsDragging(true);
+    handleInteraction(e.clientX);
+    sliderRef.current?.focus();
+  };
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (isDragging) handleInteraction(e.clientX);
+    },
+    [isDragging, handleInteraction]
+  );
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      const direction = (e.key === 'ArrowRight' ? 1 : -1) * (isRTL ? -1 : 1);
+      const increment = keyStep ?? step;
+      const newValue = Math.max(min, Math.min(max, value + direction * increment));
+      onValueChange(newValue);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [handleMouseMove, handleMouseUp]);
+
+  const percentage = getPercentage();
+  const fillColor = isFocused ? colorFillActive : isHovered ? colorFillHover : colorFillDefault;
+  const thumbColor = isFocused ? colorThumbActive : isHovered ? colorThumbHover : colorThumbDefault;
+  const thumbBorderColor = isFocused ? colorThumbBorderActive : isHovered ? colorThumbBorderHover : colorThumbBorderDefault;
+
+  // All classNames prefixed with the unique id
+  const wrapperClasses = \`namer-ui-custom-slider-\${id}-custom-slider-wrapper\${disabled ? ' disabled' : ''}\`;
+  const trackClass = \`namer-ui-custom-slider-\${id}-slider-track\`;
+  const rangeClass = \`namer-ui-custom-slider-\${id}-slider-range\`;
+  const thumbClass = \`namer-ui-custom-slider-\${id}-slider-thumb\`;
+
+  return (
+    <div>
+      <style>{\`
+        .\${wrapperClasses} {
+          position: relative;
+          width: \${width};
+          height: \${thumbHeight};
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          touch-action: none;
+          outline: none;
+          border-radius: \${trackFillBorderRadius};
+        }
+        .\${wrapperClasses}.disabled {
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+        .\${trackClass}, .\${rangeClass} {
+          position: absolute;
+          height: \${trackHeight};
+          border-radius: \${trackFillBorderRadius};
+          top: 50%;
+          transform: translateY(-50%);
+          width: 100%;
+          transition: background-color 0.3s ease;
+        }
+        .\${trackClass} {
+          background-color: \${colorTrackBackground};
+        }
+        .\${rangeClass} {
+          background-color: \${fillColor};
+          width: \${percentage}%;
+        }
+        .\${thumbClass} {
+          position: absolute;
+          width: \${thumbWidth};
+          height: \${thumbHeight};
+          border-radius: \${thumbBorderRadius};
+          top: 50%;
+          transform: translateY(-50%);
+          background-color: \${thumbColor};
+          border: \${thumbBorderWidth} solid \${thumbBorderColor};
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          transition: background-color 0.3s ease, border-color 0.3s ease;
+          \${isRTL
+            ? \`right: calc(\${percentage}% - \${thumbWidth} / 2);\`
+            : \`left: calc(\${percentage}% - \${thumbWidth} / 2);\`}
+        }
+      \`}</style>
+
+      <div
+        ref={sliderRef}
+        className={wrapperClasses}
+        onMouseDown={handleMouseDown}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onKeyDown={handleKeyDown}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        tabIndex={disabled ? -1 : 0}
+        role="slider"
+        aria-label={ariaLabel}
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={value}
+        aria-disabled={disabled}
+        dir={isRTL ? 'rtl' : 'ltr'}
+      >
+        <div className={trackClass} />
+        <div className={rangeClass} />
+        <div className={thumbClass} />
+      </div>
+    </div>
+  );
+}`,
+    props: [
+      { "name": "id", "type": "string", "description": "custom_slider_prop_id", "required": true },
+      { "name": "min", "type": "number", "description": "custom_slider_prop_min", "required": false, "defaultValue": "0" },
+      { "name": "max", "type": "number", "description": "custom_slider_prop_max", "required": false, "defaultValue": "100" },
+      { "name": "step", "type": "number", "description": "custom_slider_prop_step", "required": false, "defaultValue": "1" },
+      { "name": "value", "type": "number", "description": "custom_slider_prop_value", "required": true },
+      { "name": "onValueChange", "type": "(value: number) => void", "description": "custom_slider_prop_onValueChange", "required": true },
+      { "name": "disabled", "type": "boolean", "description": "custom_slider_prop_disabled", "required": false, "defaultValue": "false" },
+      { "name": "trackHeight", "type": "string", "description": "custom_slider_prop_trackHeight", "required": false, "defaultValue": "'8px'" },
+      { "name": "thumbWidth", "type": "string", "description": "custom_slider_prop_thumbWidth", "required": false, "defaultValue": "'20px'" },
+      { "name": "thumbHeight", "type": "string", "description": "custom_slider_prop_thumbHeight", "required": false, "defaultValue": "'20px'" },
+      { "name": "width", "type": "string", "description": "custom_slider_prop_width", "required": false, "defaultValue": "'100%'" },
+      { "name": "trackFillBorderRadius", "type": "string", "description": "custom_slider_prop_trackFillBorderRadius", "required": false, "defaultValue": "'8px'" },
+      { "name": "thumbBorderRadius", "type": "string", "description": "custom_slider_prop_thumbBorderRadius", "required": false, "defaultValue": "'50%'" },
+      { "name": "thumbBorderWidth", "type": "string", "description": "custom_slider_prop_thumbBorderWidth", "required": false, "defaultValue": "'2px'" },
+      { "name": "colorTrackBackground", "type": "string", "description": "custom_slider_prop_colorTrackBackground", "required": false, "defaultValue": "'#262626'" },
+      { "name": "colorFillDefault", "type": "string", "description": "custom_slider_prop_colorFillDefault", "required": false, "defaultValue": "'#00A7FA'" },
+      { "name": "colorFillHover", "type": "string", "description": "custom_slider_prop_colorFillHover", "required": false, "defaultValue": "'#55C7FF'" },
+      { "name": "colorFillActive", "type": "string", "description": "custom_slider_prop_colorFillActive", "required": false, "defaultValue": "'#55C7FF'" },
+      { "name": "colorThumbDefault", "type": "string", "description": "custom_slider_prop_colorThumbDefault", "required": false, "defaultValue": "'#262626'" },
+      { "name": "colorThumbHover", "type": "string", "description": "custom_slider_prop_colorThumbHover", "required": false, "defaultValue": "'#121212'" },
+      { "name": "colorThumbActive", "type": "string", "description": "custom_slider_prop_colorThumbActive", "required": false, "defaultValue": "'#262626'" },
+      { "name": "colorThumbBorderDefault", "type": "string", "description": "custom_slider_prop_colorThumbBorderDefault", "required": false, "defaultValue": "'#0083C4'" },
+      { "name": "colorThumbBorderHover", "type": "string", "description": "custom_slider_prop_colorThumbBorderHover", "required": false, "defaultValue": "'#0079B5'" },
+      { "name": "colorThumbBorderActive", "type": "string", "description": "custom_slider_prop_colorThumbBorderActive", "required": false, "defaultValue": "'#FFFFFF'" },
+      { "name": "ariaLabel", "type": "string", "description": "custom_slider_prop_ariaLabel", "required": false, "defaultValue": "'slider'" },
+      { "name": "isRTL", "type": "boolean", "description": "custom_slider_prop_isRTL", "required": false, "defaultValue": "false" },
+      { "name": "keyStep", "type": "number", "description": "custom_slider_prop_keyStep", "required": false, "defaultValue": "1" }
     ],
   },
 ];
