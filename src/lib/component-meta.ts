@@ -1284,9 +1284,7 @@ export default RefinedChronicleButton;
     id: "circular-testimonials",
     title: "circular_testimonials_title",
     description: "circular_testimonials_desc",
-
     demoFullPage: CircularTestimonialsFullPageDemo,
-    noPadding: true,
     dependencies: "npm install framer-motion gsap lucide-react",
     disclaimer: 'circular_testimonials_disclaimer',
     credit: `[Animated Testimonials](https://ui.aceternity.com/components/animated-testimonials) by [Aceternity UI](https://ui.aceternity.com/)
@@ -1294,505 +1292,790 @@ export default RefinedChronicleButton;
 
 Used photos:
 
-- Photo by [Ilya Pavlov](https://unsplash.com/@ilyapavlov?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/woman-standing-beside-lights-xE87C_OvVO4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
-- Photo by [Bave Pictures](https://unsplash.com/@bavepictures?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/man-in-gray-crew-neck-t-shirt-standing-beside-white-wall-MbYgpI1D-cA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
-- Photo by [Allef Vinicius](https://unsplash.com/@seteph?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/closed-eye-woman-wearing-brown-hat-YbzfTr0pwLE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)`,
+- Photo by [Airam Dato-on](https://www.pexels.com/@airamdphoto/) from [Pexels](https://www.pexels.com/photo/woman-in-beige-shirt-leaning-on-chain-linked-fence-9637730/)
+- Photo by [Tnarg](https://www.pexels.com/@tnarg/) from [Pexels](https://www.pexels.com/photo/redhead-woman-posing-with-hand-in-hair-5131658/)
+- Photo by [Jonas Svidras](https://www.pexels.com/@jonas-svidras/) from [Pexels](https://www.pexels.com/photo/woman-wearing-black-spaghetti-strap-top-555787/)`,
     usage: `// Path to the "CircularTestimonials.tsx" file
-    
 import { CircularTestimonials } from "@/app/the-actual-components/circular-testimonials/CircularTestimonials";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 
-export default function CircularTestimonialsDemo() {
-  const darkTestimonials = [
-    {
-      id: "dark-testimonial-1",
-      quote:
-        "I was impressed by the food! And I could really tell that they use high-quality ingredients. The staff was friendly and attentive. I'll definitely be back for more!",
-      name: "Tamar Mendelson",
-      designation: "Restaurant Critic",
-      src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop",
-    },
-    {
-      id: "dark-testimonial-2",
-      quote:
-        "This place exceeded all expectations! The atmosphere is inviting, and the staff truly goes above and beyond. I'll keep returning for more exceptional dining experience.",
-      name: "Joe Charlescraft",
-      designation: "Frequent Visitor",
-      src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop",
-    },
-    {
-      id: "dark-testimonial-3",
-      quote:
-        "Shining Yam is a hidden gem! The impeccable service and overall attention to detail created a memorable experience. I highly recommend it!",
-      name: "Martina Edelweist",
-      designation: "Satisfied Customer",
-      src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop",
-    },
-  ];
+function LimitedWidthWrapper({
+  children,
+  padding = 24,
+  outlined = true,
+}: {
+  children: React.ReactNode;
+  padding?: number;
+  outlined?: boolean;
+}) {
 
   return (
-    <div className="w-full">
-      <div className="bg-[#050505] p-8 md:p-16 rounded-lg min-h-[300px] flex flex-wrap gap-6 items-center justify-center relative">
+    <div
+      className="mx-auto relative"
+      style={{
+        width: "100%",
+        maxWidth: \`1400px\`,
+        paddingLeft: \`\${padding}px\`,
+        paddingRight: \`\${padding}px\`,
+        outline: outlined ? "1px solid #262626" : "none",
+        borderRadius: "8px",
+        boxSizing: "border-box",
+        backgroundColor: "transparent",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+export default function CircularTestimonialsDemo() {
+
+  const measureRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  const lerp = (
+    x: number,
+    x0: number,
+    x1: number,
+    y0: number,
+    y1: number
+  ): number => y0 + ((x - x0) * (y1 - y0)) / (x1 - x0);
+
+  const WIDTH_MAX = 1352;
+  const WIDTH_MIN = 1174;
+  const STYLES_MAX = {
+    gap: 4.9,
+    imageWidth: 77.3,
+    imageContainerTranslateX: 76,
+    testimonialTextTranslateY: 56,
+    arrowContainerTranslateY: 325,
+    mb: 156,
+  };
+  const STYLES_MIN = {
+    gap: 4.4,
+    imageWidth: 78,
+    imageContainerTranslateX: 64,
+    testimonialTextTranslateY: 19,
+    arrowContainerTranslateY: 349,
+    mb: 94,
+  };
+
+  const dynamicStyles = {
+    gap: \`\${lerp(
+      containerWidth,
+      WIDTH_MIN,
+      WIDTH_MAX,
+      STYLES_MIN.gap,
+      STYLES_MAX.gap
+    ).toFixed(2)}rem\`,
+    imageWidth: \`\${lerp(
+      containerWidth,
+      WIDTH_MIN,
+      WIDTH_MAX,
+      STYLES_MIN.imageWidth,
+      STYLES_MAX.imageWidth
+    ).toFixed(2)}%\`,
+    imageContainerTranslateX: \`\${lerp(
+      containerWidth,
+      WIDTH_MIN,
+      WIDTH_MAX,
+      STYLES_MIN.imageContainerTranslateX,
+      STYLES_MAX.imageContainerTranslateX
+    ).toFixed(2)}px\`,
+    testimonialTextTranslateY: \`\${lerp(
+      containerWidth,
+      WIDTH_MIN,
+      WIDTH_MAX,
+      STYLES_MIN.testimonialTextTranslateY,
+      STYLES_MAX.testimonialTextTranslateY
+    ).toFixed(2)}px\`,
+    arrowContainerTranslateY: \`\${lerp(
+      containerWidth,
+      WIDTH_MIN,
+      WIDTH_MAX,
+      STYLES_MIN.arrowContainerTranslateY,
+      STYLES_MAX.arrowContainerTranslateY
+    ).toFixed(2)}px\`,
+    mb: \`\${lerp(
+      containerWidth,
+      WIDTH_MIN,
+      WIDTH_MAX,
+      STYLES_MIN.mb,
+      STYLES_MAX.mb
+    ).toFixed(2)}px\`,
+  };
+
+const darkTestimonials = [
+  {
+    id: "dark-testimonial-1",
+    quote: "As a beauty creator, I look for services that truly stand out, and Clandestine never disappoints. Their expert coloring adds depth and shine on camera, while their makeup artistry enhances my features with elegance, giving me results I trust and proudly share with my audience.",
+    name: "Naomi Bright",
+    designation: "Beauty Influencer",
+    src: "https://raw.githubusercontent.com/Northstrix/clandestine-beauty-salon-landing-page-template/refs/heads/main/public/images/testimonials/naomi-bright.webp",
+  },
+  {
+    id: "dark-testimonial-2",
+    quote: "What keeps me coming back is the calming atmosphere paired with treatments that feel truly transformative. The hot stone massage eases away built-up tension, while Clandestine’s makeup artistry highlights my natural features with elegance. What stands out most is the seamless blend of relaxation and artistry that leaves me with a refined sense of elegance.",
+    name: "Talia Lewin",
+    designation: "Frequent Visitor",
+    src: "https://raw.githubusercontent.com/Northstrix/clandestine-beauty-salon-landing-page-template/refs/heads/main/public/images/testimonials/talia-lewin.webp",
+  },
+  {
+    id: "dark-testimonial-3",
+    quote: "For my career, looking sharp is non-negotiable, and Clandestine helps me maintain that edge. Their facials keep my skin balanced and ready for the spotlight, while the calming atmosphere lets me relax and recharge between shoots, so I can confidently show up even at the most demanding events.",
+    name: "Hannah Miller",
+    designation: "Professional Model",
+    src: "https://raw.githubusercontent.com/Northstrix/clandestine-beauty-salon-landing-page-template/refs/heads/main/public/images/testimonials/hannah-miller.webp",
+  },
+];
+
+
+  // Track size of the testimonial container using ResizeObserver
+  useEffect(() => {
+    if (!measureRef.current) return;
+    const element = measureRef.current;
+
+    const updateWidth = () => {
+      const newWidth = element.getBoundingClientRect().width || 0;
+      setContainerWidth(newWidth);
+    };
+
+    updateWidth();
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      className="flex flex-col items-center justify-center py-16"
+      style={{ backgroundColor: "transparent" }}
+    >
+      <div
+        className="text-sm text-gray-400 mb-8"
+        style={{
+          textAlign: "left",
+          width: "100%",
+          maxWidth: "1400px",
+          padding: 0,
+          direction: 'ltr',
+        }}
+      >
+        <p>Wrapper width: {containerWidth > 0 ? containerWidth + 48 : 1400}px</p>
+        <p>Wrapper padding: 24px</p>
+        <p>Testimonial container width: {Math.round(containerWidth)}px</p>
+        <p>Gap: {parseFloat(dynamicStyles.gap).toFixed(2)}rem</p>
+        <p>Image width: {parseFloat(dynamicStyles.imageWidth).toFixed(2)}%</p>
+        <p>
+          Image container X translate:{" "}
+          {parseFloat(dynamicStyles.imageContainerTranslateX).toFixed(2)}px
+        </p>
+        <p>
+          Text container Y translate:{" "}
+          {parseFloat(dynamicStyles.testimonialTextTranslateY).toFixed(2)}px
+        </p>
+        <p>
+          Arrow container Y translate:{" "}
+          {parseFloat(dynamicStyles.arrowContainerTranslateY).toFixed(2)}px
+        </p>
+        <p>Margin bottom: {parseFloat(dynamicStyles.mb).toFixed(2)}px</p>
+          {containerWidth >= 1174 ? (<></>) : (
+            <p style={{ color: "#ccc", fontSize: "16px", marginTop: "24px" }}>
+              This demo isn't optimized for the testimonial container width below 1174px!
+            </p>
+          )}
+      </div>
+
+      <LimitedWidthWrapper
+        padding={24}
+        outlined={true}
+      >
         <div
-          className="items-center justify-center relative flex"
-          style={{ maxWidth: "1024px" }}
+          ref={measureRef}
+          className="flex flex-wrap justify-center pt-[40px] pb-6 items-center relative"
+          style={{
+            marginBottom: dynamicStyles.mb,
+            backgroundColor: "transparent",
+            width: "100%",
+          }}
         >
           <CircularTestimonials
             testimonials={darkTestimonials}
-            autoplay={true}
+            autoplay
             autoplayInterval={7000}
+            gap={dynamicStyles.gap}
+            imageWidth={dynamicStyles.imageWidth}
+            imageContainerTranslateX={dynamicStyles.imageContainerTranslateX}
+            testimonialTextTranslateY={dynamicStyles.testimonialTextTranslateY}
+            arrowContainerTranslateY={dynamicStyles.arrowContainerTranslateY}
             colors={{
               name: "#fafafa",
               designation: "#aaa",
               testimony: "#fff",
-              arrowBackground: "#00A7FA",
+              arrowBackground: "#00a7fa",
               arrowForeground: "#0a0a0a",
               arrowHoverBackground: "#fff",
             }}
             fontSizes={{
-              name: "28px",
-              designation: "20px",
-              quote: "20px",
+              name: "22px",
+              designation: "15.25px",
+              quote: "17.675px",
             }}
           />
         </div>
-      </div>
+      </LimitedWidthWrapper>
     </div>
   );
 }`,
     code: `"use client";
     
-    import { useEffect, useRef, useState, useMemo, useCallback } from "react";
-    import gsap from "gsap";
-    import { ArrowLeft, ArrowRight } from "lucide-react";
-    import { motion } from "framer-motion";
-    
-    interface Testimonial {
-      id: string;
-      quote: string;
-      name: string;
-      designation: string;
-      src: string;
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import gsap from "gsap";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+interface Testimonial {
+  id: string;
+  quote: string;
+  name: string;
+  designation: string;
+  src: string;
+}
+
+interface Colors {
+  name?: string;
+  designation?: string;
+  testimony?: string;
+  arrowBackground?: string;
+  arrowHoverBackground?: string;
+  arrowForeground?: string; // normal foreground
+  arrowForegroundHover?: string; // hover foreground
+}
+
+interface FontSizes {
+  name?: string;
+  designation?: string;
+  quote?: string;
+}
+
+interface CircularTestimonialsProps {
+  testimonials: Testimonial[];
+  autoplay?: boolean;
+  autoplayInterval?: number;
+  colors?: Colors;
+  fontSizes?: FontSizes;
+  isRTL?: boolean;
+  gap?: string;
+  imageWidth?: string;
+  imageBorderRadius?: string;
+  imageAspectRatio?: string;
+  imageContainerTranslateX?: string;
+  testimonialTextTranslateY?: string;
+  arrowContainerTranslateY?: string;
+  imageContainerBorderEnabled?: boolean;
+  imageContainerBorderColor?: string;
+  imageContainerBorderHoverColor?: string;
+  imageContainerBorderWidth?: string;
+  imageContainerPerspective?: string;
+  arrowBorderRadius?: string;
+  arrowIconSize?: number;
+  arrowBorderEnabled?: boolean;
+  arrowBorderColor?: string;
+  arrowBorderHoverColor?: string;
+  arrowBorderWidth?: string;
+  arrowButtonWidth?: string;
+  arrowButtonHeight?: string;
+  arrowIconStrokeWidth?: number;
+}
+
+export function CircularTestimonials({
+  testimonials,
+  autoplay = true,
+  autoplayInterval = 5000,
+  colors = {},
+  fontSizes = {},
+  isRTL = false,
+  gap = "4.7rem",
+  imageWidth = "77%",
+  imageBorderRadius = "1.5rem",
+  imageAspectRatio = "1 / 1",
+  imageContainerTranslateX = "76px",
+  testimonialTextTranslateY = "56px",
+  arrowContainerTranslateY = "99px",
+  imageContainerBorderEnabled = false,
+  imageContainerBorderColor = "#262626",
+  imageContainerBorderHoverColor = "#444",
+  imageContainerBorderWidth = "1px",
+  imageContainerPerspective = "1000px",
+  arrowBorderRadius = "50%",
+  arrowIconSize = 26,
+  arrowBorderEnabled = false,
+  arrowBorderColor = "#262626",
+  arrowBorderHoverColor = "#00A7FA",
+  arrowBorderWidth = "1px",
+  arrowButtonWidth = "44px",
+  arrowButtonHeight = "44px",
+  arrowIconStrokeWidth = 2,
+}: CircularTestimonialsProps) {
+  // Colors & Fonts
+  const colorName = colors.name ?? "#000";
+  const colorDesignation = colors.designation ?? "#6b7280";
+  const colorTestimony = colors.testimony ?? "#4b5563";
+  const colorArrowBg = colors.arrowBackground ?? "#141414";
+  const colorArrowHoverBg = colors.arrowHoverBackground ?? "#00a6fb";
+  const colorArrowFg = colors.arrowForeground ?? "#fafafa";
+  const colorArrowFgHover = colors.arrowForegroundHover ?? "#000";
+
+  const fontSizeName = fontSizes.name ?? "1.5rem";
+  const fontSizeDesignation = fontSizes.designation ?? "0.925rem";
+  const fontSizeQuote = fontSizes.quote ?? "1.125rem";
+
+  // State
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [hoverPrev, setHoverPrev] = useState(false);
+  const [hoverNext, setHoverNext] = useState(false);
+  // Autoplay active state controls interval toggle
+  const [isAutoplayActive, setIsAutoplayActive] = useState(autoplay);
+
+  // Refs
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const designationRef = useRef<HTMLParagraphElement>(null);
+  const autoplayIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Derived data
+  const testimonialsLength = useMemo(() => testimonials.length, [testimonials]);
+  const activeTestimonial = useMemo(
+    () => testimonials[activeIndex],
+    [activeIndex, testimonials]
+  );
+
+  // Styles
+  const nameStyle = useMemo(() => ({ color: colorName, fontSize: fontSizeName }), [colorName, fontSizeName]);
+  const designationStyle = useMemo(() => ({ color: colorDesignation, fontSize: fontSizeDesignation }), [colorDesignation, fontSizeDesignation]);
+  const quoteStyle = useMemo(() => ({ color: colorTestimony, fontSize: fontSizeQuote }), [colorTestimony, fontSizeQuote]);
+  const [hoveredImages, setHoveredImages] = useState<boolean[]>(
+    new Array(testimonials.length).fill(false)
+  );
+
+  const commonArrowStyles = {
+    borderStyle: arrowBorderEnabled ? "solid" : "none",
+    borderWidth: arrowBorderEnabled ? arrowBorderWidth : undefined,
+    borderColor: arrowBorderEnabled ? (hoverPrev ? arrowBorderHoverColor : arrowBorderColor) : undefined,
+    transition: "background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease",
+    width: arrowButtonWidth,
+    height: arrowButtonHeight,
+    borderRadius: arrowBorderRadius,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+  };
+
+  const prevArrowStyle = useMemo(() => ({
+    ...commonArrowStyles,
+    backgroundColor: hoverPrev ? colorArrowHoverBg : colorArrowBg,
+    borderColor: arrowBorderEnabled ? (hoverPrev ? arrowBorderHoverColor : arrowBorderColor) : undefined,
+  }), [hoverPrev, colorArrowBg, colorArrowHoverBg, arrowBorderEnabled, arrowBorderColor, arrowBorderHoverColor, arrowBorderWidth, arrowButtonWidth, arrowButtonHeight]);
+
+  const nextArrowStyle = useMemo(() => ({
+    ...commonArrowStyles,
+    backgroundColor: hoverNext ? colorArrowHoverBg : colorArrowBg,
+    borderColor: arrowBorderEnabled ? (hoverNext ? arrowBorderHoverColor : arrowBorderColor) : undefined,
+  }), [hoverNext, colorArrowBg, colorArrowHoverBg, arrowBorderEnabled, arrowBorderColor, arrowBorderHoverColor, arrowBorderWidth, arrowButtonWidth, arrowButtonHeight]);
+
+  // Compute gap base on width to keep layout consistent
+  const calculateGap = useCallback((width: number) => {
+    const minWidth = 1024;
+    const maxWidth = 1456;
+    const minGap = 60;
+    const maxGap = 86;
+    if (width <= minWidth) return minGap;
+    if (width >= maxWidth) return Math.max(minGap, maxGap + 0.06018 * (width - maxWidth));
+    return minGap + ((maxGap - minGap) * (width - minWidth)) / (maxWidth - minWidth);
+  }, []);
+
+  // Update active testimonial index & direction
+  const updateTestimonial = useCallback((dir: number) => {
+    setDirection(dir);
+    setActiveIndex(prev => (prev + dir + testimonialsLength) % testimonialsLength);
+  }, [testimonialsLength]);
+
+  // Animate Images with GSAP
+  const animateImages = useCallback(() => {
+    if (!imageContainerRef.current) return;
+
+    const containerWidth = imageContainerRef.current.offsetWidth;
+    const gapValue = calculateGap(containerWidth);
+    const maxStickUp = gapValue * 0.8;
+
+    testimonials.forEach((_, index) => {
+      const img = imageContainerRef.current!.querySelector(\`[data-index="\${index}"]\`) as HTMLElement;
+      if (!img) return;
+
+      let offset = index - activeIndex;
+      if (isRTL) offset = -offset;
+      if (offset > testimonialsLength / 2) offset -= testimonialsLength;
+      if (offset < -testimonialsLength / 2) offset += testimonialsLength;
+
+      const zIndex = testimonialsLength - Math.abs(offset);
+      const opacity = offset === 0 ? 1 : 0.7;
+      const scale = offset === 0 ? 1 : 0.85;
+
+      let translateX = "0%";
+      let translateY = "0%";
+      let rotateY = 0;
+
+      if (offset > 0) {
+        translateX = "20%";
+        translateY = \`-\${(maxStickUp / img.offsetHeight) * 100}%\`;
+        rotateY = -15;
+      } else if (offset < 0) {
+        translateX = "-20%";
+        translateY = \`-\${(maxStickUp / img.offsetHeight) * 100}%\`;
+        rotateY = 15;
+      }
+
+      gsap.to(img, {
+        zIndex,
+        opacity,
+        scale,
+        x: translateX,
+        y: translateY,
+        rotateY,
+        duration: 0.8,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+    });
+  }, [activeIndex, calculateGap, testimonials, testimonialsLength, isRTL]);
+
+  // Helper: wrap lines for animation effect
+  const wrapLines = (element: HTMLElement, text: string) => {
+    element.innerHTML = "";
+    const parent = document.createElement("div");
+    parent.classList.add("split-parent");
+    const child = document.createElement("div");
+    child.classList.add("split-child");
+    child.textContent = text;
+    parent.appendChild(child);
+    element.appendChild(parent);
+    return child;
+  };
+
+  // Animate name and designation on testimonial change
+  const animateNameAndDesignation = useCallback(() => {
+    if (!nameRef.current || !designationRef.current) return;
+
+    const nameChild = wrapLines(nameRef.current, activeTestimonial.name);
+    const designationChild = wrapLines(designationRef.current, activeTestimonial.designation);
+
+    const fromY = direction === 1 ? -100 : 100;
+
+    gsap.fromTo(nameChild, { yPercent: fromY, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1, ease: "power4.out" });
+    gsap.fromTo(designationChild, { yPercent: fromY, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1, ease: "power4.out", delay: 0.05 });
+  }, [activeTestimonial, direction]);
+
+  // Stop autoplay helper
+  const stopAutoplay = useCallback(() => {
+    if (autoplayIntervalRef.current) {
+      clearInterval(autoplayIntervalRef.current);
+      autoplayIntervalRef.current = null;
     }
-    interface Colors {
-      name?: string;
-      designation?: string;
-      testimony?: string;
-      arrowBackground?: string;
-      arrowForeground?: string;
-      arrowHoverBackground?: string;
+    setIsAutoplayActive(false);
+  }, []);
+
+  // Navigation handlers, stop autoplay on manual action
+  const handleNext = useCallback(() => {
+    updateTestimonial(1);
+    stopAutoplay();
+  }, [updateTestimonial, stopAutoplay]);
+
+  const handlePrev = useCallback(() => {
+    updateTestimonial(-1);
+    stopAutoplay();
+  }, [updateTestimonial, stopAutoplay]);
+
+  // Animate on active index changes
+  useEffect(() => {
+    animateImages();
+    animateNameAndDesignation();
+  }, [activeIndex, animateImages, animateNameAndDesignation]);
+
+  // Manage autoplay timer and window resize animations
+  useEffect(() => {
+    if (isAutoplayActive) {
+      autoplayIntervalRef.current = setInterval(() => {
+        // Use handleNext so autoplay animations are same as manual clicks
+        updateTestimonial(1);
+      }, autoplayInterval);
     }
-    interface FontSizes {
-      name?: string;
-      designation?: string;
-      quote?: string;
-    }
-    interface CircularTestimonialsProps {
-      testimonials: Testimonial[];
-      autoplay?: boolean;
-      autoplayInterval?: number;
-      colors?: Colors;
-      fontSizes?: FontSizes;
-      isRTL?: boolean;
-    }
-    
-    export function CircularTestimonials({
-      testimonials,
-      autoplay = true,
-      autoplayInterval = 5000,
-      colors = {},
-      fontSizes = {},
-      isRTL = false,
-    }: CircularTestimonialsProps) {
-      const colorName = colors.name ?? "#000";
-      const colorDesignation = colors.designation ?? "#6b7280";
-      const colorTestimony = colors.testimony ?? "#4b5563";
-      const colorArrowBg = colors.arrowBackground ?? "#141414";
-      const colorArrowFg = colors.arrowForeground ?? "#f1f1f7";
-      const colorArrowHoverBg = colors.arrowHoverBackground ?? "#00a6fb";
-      const fontSizeName = fontSizes.name ?? "1.5rem";
-      const fontSizeDesignation = fontSizes.designation ?? "0.925rem";
-      const fontSizeQuote = fontSizes.quote ?? "1.125rem";
-    
-      const [activeIndex, setActiveIndex] = useState(0);
-      const [direction, setDirection] = useState(1);
-      const [hoverPrev, setHoverPrev] = useState(false);
-      const [hoverNext, setHoverNext] = useState(false);
-    
-      const imageContainerRef = useRef<HTMLDivElement>(null);
-      const nameRef = useRef<HTMLHeadingElement>(null);
-      const designationRef = useRef<HTMLParagraphElement>(null);
-      const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
-    
-      const testimonialsLength = useMemo(() => testimonials.length, [testimonials]);
-      const activeTestimonial = useMemo(
-        () => testimonials[activeIndex],
-        [activeIndex, testimonials]
-      );
-    
-      const nameStyle = useMemo(
-        () => ({ color: colorName, fontSize: fontSizeName }),
-        [colorName, fontSizeName]
-      );
-      const designationStyle = useMemo(
-        () => ({ color: colorDesignation, fontSize: fontSizeDesignation }),
-        [colorDesignation, fontSizeDesignation]
-      );
-      const quoteStyle = useMemo(
-        () => ({ color: colorTestimony, fontSize: fontSizeQuote }),
-        [colorTestimony, fontSizeQuote]
-      );
-      const prevArrowStyle = useMemo(
-        () => ({ backgroundColor: hoverPrev ? colorArrowHoverBg : colorArrowBg }),
-        [hoverPrev, colorArrowBg, colorArrowHoverBg]
-      );
-      const nextArrowStyle = useMemo(
-        () => ({ backgroundColor: hoverNext ? colorArrowHoverBg : colorArrowBg }),
-        [hoverNext, colorArrowBg, colorArrowHoverBg]
-      );
-    
-      const calculateGap = useCallback((width: number) => {
-        const minWidth = 1024;
-        const maxWidth = 1456;
-        const minGap = 60;
-        const maxGap = 86;
-        if (width <= minWidth) return minGap;
-        if (width >= maxWidth)
-          return Math.max(minGap, maxGap + 0.06018 * (width - maxWidth));
-        return (
-          minGap +
-          ((maxGap - minGap) * (width - minWidth)) / (maxWidth - minWidth)
-        );
-      }, []);
-    
-      const updateTestimonial = useCallback(
-        (dir: number) => {
-          setDirection(dir);
-          setActiveIndex(
-            (prev) => (prev + dir + testimonialsLength) % testimonialsLength
-          );
-        },
-        [testimonialsLength]
-      );
-    
-      const animateImages = useCallback(() => {
-        if (!imageContainerRef.current) return;
-        const containerWidth = imageContainerRef.current.offsetWidth;
-        const gap = calculateGap(containerWidth);
-        const maxStickUp = gap * 0.8;
-    
-        testimonials.forEach((_, index) => {
-          const img = imageContainerRef.current!.querySelector(
-            \`[data-index="\${index}"]\`
-          ) as HTMLElement;
-          if (!img) return;
-          let offset = index - activeIndex;
-    
-          if (isRTL) {
-            offset = -offset; // flip image direction for RTL
-          }
-    
-          if (offset > testimonialsLength / 2) offset -= testimonialsLength;
-          if (offset < -testimonialsLength / 2) offset += testimonialsLength;
-    
-          const zIndex = testimonialsLength - Math.abs(offset);
-          const opacity = offset === 0 ? 1 : 0.7;
-          const scale = offset === 0 ? 1 : 0.85;
-    
-          let translateX = "0%";
-          let translateY = "0%";
-          let rotateY = 0;
-          if (offset > 0) {
-            translateX = "20%";
-            translateY = \`-\${(maxStickUp / img.offsetHeight) * 100}%\`;
-            rotateY = -15;
-          } else if (offset < 0) {
-            translateX = "-20%";
-            translateY = \`-\${(maxStickUp / img.offsetHeight) * 100}%\`;
-            rotateY = 15;
-          }
-    
-          gsap.to(img, {
-            zIndex,
-            opacity,
-            scale,
-            x: translateX,
-            y: translateY,
-            rotateY,
-            duration: 0.8,
-            ease: "power3.out",
-          });
-        });
-      }, [activeIndex, calculateGap, testimonials, testimonialsLength, isRTL]);
-    
-      const wrapLines = (element: HTMLElement, text: string) => {
-        element.innerHTML = "";
-        const parent = document.createElement("div");
-        parent.classList.add("split-parent");
-        const child = document.createElement("div");
-        child.classList.add("split-child");
-        child.textContent = text;
-        parent.appendChild(child);
-        element.appendChild(parent);
-        return child;
-      };
-    
-      const animateNameAndDesignation = useCallback(() => {
-        if (!nameRef.current || !designationRef.current) return;
-        const nameChild = wrapLines(nameRef.current, activeTestimonial.name);
-        const designationChild = wrapLines(
-          designationRef.current,
-          activeTestimonial.designation
-        );
-    
-        // Visual direction for text animation remains correct
-        const visualDir = direction;
-        const fromY = visualDir === 1 ? -100 : 100; // swapped earlier
-    
-        gsap.fromTo(
-          nameChild,
-          { yPercent: fromY, opacity: 0 },
-          { yPercent: 0, opacity: 1, duration: 1, ease: "power4.out" }
-        );
-    
-        gsap.fromTo(
-          designationChild,
-          { yPercent: fromY, opacity: 0 },
-          {
-            yPercent: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "power4.out",
-            delay: 0.05,
-          }
-        );
-      }, [activeTestimonial, direction, isRTL]);
-    
-    // Always increment by 1 for next, decrement by 1 for prev
-    const handleNext = useCallback(() => {
-      updateTestimonial(1);
-      stopAutoplay();
-    }, [updateTestimonial]);
-    
-    const handlePrev = useCallback(() => {
-      updateTestimonial(-1);
-      stopAutoplay();
-    }, [updateTestimonial]);
-    
-    
-      const stopAutoplay = useCallback(() => {
-        if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
-      }, []);
-    
-      useEffect(() => {
-        animateImages();
-        animateNameAndDesignation();
-      }, [activeIndex, activeTestimonial, animateImages, animateNameAndDesignation]);
-    
-      useEffect(() => {
-        if (autoplay) {
-          autoplayIntervalRef.current = setInterval(
-            () => updateTestimonial(1),
-            autoplayInterval
-          );
-        }
-        const handleResize = () => animateImages();
-        window.addEventListener("resize", handleResize);
-        return () => {
-          if (autoplayIntervalRef.current)
-            clearInterval(autoplayIntervalRef.current);
-          window.removeEventListener("resize", handleResize);
-          gsap.killTweensOf("[data-index]");
-        };
-      }, [
-        autoplay,
-        autoplayInterval,
-        updateTestimonial,
-        animateImages,
-        animateNameAndDesignation,
-        isRTL,
-      ]);
-    
-      return (
-        <div style={{ direction: isRTL ? "rtl" : "ltr" }}>
-          <div className="testimonial-container">
-            <div className="testimonial-grid">
-              <div className="image-container" ref={imageContainerRef}>
-                {testimonials.map((testimonial, index) => (
-                  <img
-                    key={testimonial.id}
-                    src={testimonial.src}
-                    alt={testimonial.name}
-                    className="testimonial-image"
-                    data-index={index}
-                    style={{
-                      opacity: index === activeIndex ? 1 : 0.7,
-                      zIndex: testimonialsLength - Math.abs(index - activeIndex),
-                    }}
-                  />
-                ))}
-              </div>
-              <div className="testimonial-content">
-                <div>
-                  <h3 className="name" ref={nameRef} style={nameStyle}></h3>
-                  <p
-                    className="designation"
-                    ref={designationRef}
-                    style={designationStyle}
-                  ></p>
-                  <motion.p
-                    key={activeTestimonial.id}
-                    className="quote"
-                    style={quoteStyle}
+
+    const handleResize = () => {
+      animateImages();
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      if (autoplayIntervalRef.current) {
+        clearInterval(autoplayIntervalRef.current);
+        autoplayIntervalRef.current = null;
+      }
+      window.removeEventListener("resize", handleResize);
+      gsap.killTweensOf("[data-index]");
+    };
+  }, [isAutoplayActive, autoplayInterval, updateTestimonial, animateImages]);
+
+  // Calculate container translateX based on RTL setting
+  const imageContainerTransform = useMemo(() => {
+    const match = imageContainerTranslateX.match(/-?\d+(\.\d+)?/);
+    if (!match) return imageContainerTranslateX;
+    const num = parseFloat(match[0]);
+    const unit = imageContainerTranslateX.replace(match[0], "");
+    const final = isRTL ? -num : num;
+    return \`\${final}\${unit}\`;
+  }, [isRTL, imageContainerTranslateX]);
+
+  const handleImageMouseEnter = (index: number) => {
+    setHoveredImages(prev => {
+      const updated = [...prev];
+      updated[index] = true;
+      return updated;
+    });
+  };
+
+  const handleImageMouseLeave = (index: number) => {
+    setHoveredImages(prev => {
+      const updated = [...prev];
+      updated[index] = false;
+      return updated;
+    });
+  };
+
+  return (
+    <div style={{ direction: isRTL ? "rtl" : "ltr" }}>
+      <div className="testimonial-container">
+        <div className="testimonial-grid">
+          <div className="image-container" ref={imageContainerRef} style={{ transform: \`translateX(\${imageContainerTransform})\` }}>
+            {testimonials.map((testimonial, index) => {
+              const isHovered = hoveredImages[index];
+              const borderActive = imageContainerBorderEnabled;
+              const borderColor = borderActive
+                ? isHovered
+                  ? imageContainerBorderHoverColor
+                  : imageContainerBorderColor
+                : "transparent";
+
+              return (
+                <img
+                  key={testimonial.id}
+                  src={testimonial.src}
+                  alt={testimonial.name}
+                  className="testimonial-image"
+                  data-index={index}
+                  onMouseEnter={() => handleImageMouseEnter(index)}
+                  onMouseLeave={() => handleImageMouseLeave(index)}
+                  style={{
+                    opacity: index === activeIndex ? 1 : 0.7,
+                    zIndex: testimonialsLength - Math.abs(index - activeIndex),
+                    borderStyle: borderActive ? "solid" : "none",
+                    borderWidth: borderActive ? imageContainerBorderWidth : undefined,
+                    borderColor,
+                    transition: "border-color 0.3s ease, opacity 0.3s ease",
+                  }}
+                  loading="lazy"
+                  decoding="async"
+                />
+              );
+            })}
+          </div>
+          <div className="testimonial-content" style={{ transform: \`translateY(\${testimonialTextTranslateY})\` }}>
+            <div>
+              <h3 className="name" ref={nameRef} style={nameStyle}></h3>
+              <p className="designation" ref={designationRef} style={designationStyle}></p>
+              <motion.p key={activeTestimonial.id} className="quote" style={quoteStyle}>
+                {activeTestimonial.quote.split(" ").map((word, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ filter: "blur(10px)", opacity: 0, y: 5 }}
+                    animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2, ease: "easeInOut", delay: 0.02 * index }}
+                    className="inline-block"
                   >
-                    {activeTestimonial.quote.split(" ").map((word, index) => (
-                      <motion.span
-                        key={index}
-                        initial={{ filter: "blur(10px)", opacity: 0, y: 5 }}
-                        animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                        transition={{
-                          duration: 0.2,
-                          ease: "easeInOut",
-                          delay: 0.02 * index,
-                        }}
-                        className="inline-block"
-                      >
-                        {word}&nbsp;
-                      </motion.span>
-                    ))}
-                  </motion.p>
-                </div>
-                <div className="arrow-buttons">
-                  {isRTL ? (
-                    <>
-                      <button
-                        className="arrow-button prev-button"
-                        onClick={handlePrev}
-                        style={prevArrowStyle}
-                        onMouseEnter={() => setHoverPrev(true)}
-                        onMouseLeave={() => setHoverPrev(false)}
-                      >
-                        <ArrowRight size={44} color={colorArrowFg} />
-                      </button>
-                      <button
-                        className="arrow-button next-button"
-                        onClick={handleNext}
-                        style={nextArrowStyle}
-                        onMouseEnter={() => setHoverNext(true)}
-                        onMouseLeave={() => setHoverNext(false)}
-                      >
-                        <ArrowLeft size={44} color={colorArrowFg} />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        className="arrow-button prev-button"
-                        onClick={handlePrev}
-                        style={prevArrowStyle}
-                        onMouseEnter={() => setHoverPrev(true)}
-                        onMouseLeave={() => setHoverPrev(false)}
-                      >
-                        <ArrowLeft size={44} color={colorArrowFg} />
-                      </button>
-                      <button
-                        className="arrow-button next-button"
-                        onClick={handleNext}
-                        style={nextArrowStyle}
-                        onMouseEnter={() => setHoverNext(true)}
-                        onMouseLeave={() => setHoverNext(false)}
-                      >
-                        <ArrowRight size={44} color={colorArrowFg} />
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
+                    {word}&nbsp;
+                  </motion.span>
+                ))}
+              </motion.p>
             </div>
-            <style jsx>{\`
-              .testimonial-container {
-                width: 100%;
-                max-width: 56rem;
-                padding: 2rem;
-              }
-              .testimonial-grid {
-                display: grid;
-                gap: 5rem;
-              }
-              .image-container {
-                position: relative;
-                width: 100%;
-                height: 24rem;
-                perspective: 1000px;
-              }
-              .testimonial-image {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 1.5rem;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                transition: opacity 0.3s ease;
-              }
-              .testimonial-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-              }
-              .name {
-                font-weight: bold;
-                margin-bottom: 0.25rem;
-              }
-              .designation {
-                margin-bottom: 2rem;
-              }
-              .quote {
-                line-height: 1.75;
-              }
-              .arrow-buttons {
-                display: flex;
-                gap: 1.5rem;
-                padding-top: 3rem;
-              }
-              .arrow-button {
-                width: 2.7rem;
-                height: 2.7rem;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                border: none;
-              }
-              .split-parent {
-                overflow: hidden;
-              }
-              .split-child {
-                display: inline-block;
-              }
-              @media (min-width: 768px) {
-                .testimonial-grid {
-                  grid-template-columns: 1fr 1fr;
-                }
-                .arrow-buttons {
-                  padding-top: 0;
-                }
-              }
-            \`}</style>
+            <div className="arrow-buttons" style={{ top: arrowContainerTranslateY, position: "absolute" }}>
+              {isRTL ? (
+                <>
+                  <button
+                    className="arrow-button prev-button"
+                    onClick={handlePrev}
+                    style={prevArrowStyle}
+                    onMouseEnter={() => setHoverPrev(true)}
+                    onMouseLeave={() => setHoverPrev(false)}
+                  >
+                    <ArrowRight
+                      size={arrowIconSize}
+                      color={hoverPrev ? colorArrowFgHover : colorArrowFg}
+                      strokeWidth={arrowIconStrokeWidth}
+                    />
+                  </button>
+
+                  <button
+                    className="arrow-button next-button"
+                    onClick={handleNext}
+                    style={nextArrowStyle}
+                    onMouseEnter={() => setHoverNext(true)}
+                    onMouseLeave={() => setHoverNext(false)}
+                  >
+                    <ArrowLeft
+                      size={arrowIconSize}
+                      color={hoverNext ? colorArrowFgHover : colorArrowFg}
+                      strokeWidth={arrowIconStrokeWidth}
+                    />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    className="arrow-button prev-button"
+                    onClick={handlePrev}
+                    style={prevArrowStyle}
+                    onMouseEnter={() => setHoverPrev(true)}
+                    onMouseLeave={() => setHoverPrev(false)}
+                  >
+                    <ArrowLeft
+                      size={arrowIconSize}
+                      color={hoverPrev ? colorArrowFgHover : colorArrowFg}
+                      strokeWidth={arrowIconStrokeWidth}
+                    />
+                  </button>
+
+                  <button
+                    className="arrow-button next-button"
+                    onClick={handleNext}
+                    style={nextArrowStyle}
+                    onMouseEnter={() => setHoverNext(true)}
+                    onMouseLeave={() => setHoverNext(false)}
+                  >
+                    <ArrowRight
+                      size={arrowIconSize}
+                      color={hoverNext ? colorArrowFgHover : colorArrowFg}
+                      strokeWidth={arrowIconStrokeWidth}
+                    />
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      );
-    }
-    
-    export default CircularTestimonials;
+      </div>
+      <style jsx>{\`
+        .testimonial-container {
+          width: 100%;
+          min-height: 336px;
+        }
+        .testimonial-grid {
+          display: grid;
+          gap: \${gap};
+        }
+        .image-container {
+          position: relative;
+          perspective: \${imageContainerPerspective};
+        }
+        .testimonial-image {
+          position: absolute;
+          width: \${imageWidth};
+          height: auto;
+          aspect-ratio: \${imageAspectRatio};
+          object-fit: cover;
+          border-radius: \${imageBorderRadius};
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          transition: opacity 0.3s ease;
+        }
+        .testimonial-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          position: relative;
+        }
+        .name {
+          font-weight: bold;
+          margin-bottom: 0.25rem;
+        }
+        .designation {
+          margin-bottom: 2rem;
+        }
+        .quote {
+          line-height: 1.75;
+        }
+        .arrow-buttons {
+          display: flex;
+          gap: 16px;
+          padding-top: 3rem;
+        }
+        .arrow-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background-color 0.3s, color 0.3s;
+          border: none;
+        }
+        .split-parent {
+          overflow: hidden;
+        }
+        .split-child {
+          display: inline-block;
+        }
+        @media (min-width: 768px) {
+          .testimonial-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+          .arrow-buttons {
+            padding-top: 0;
+          }
+        }
+      \`}</style>
+    </div>
+  );
+}
+
+export default CircularTestimonials;
 `,
     props: [
-      { name: 'testimonials', type: 'Testimonial[]', description: 'circular_testimonials_prop_testimonials', required: true },
-      { name: 'autoplay', type: 'boolean', defaultValue: 'true', description: 'circular_testimonials_prop_autoplay', required: false },
-      { name: 'autoplayInterval', type: 'number', defaultValue: '5000', description: 'circular_testimonials_prop_autoplayInterval', required: false },
-      { name: 'colors', type: 'Colors', description: 'circular_testimonials_prop_colors', required: false },
-      { name: 'fontSizes', type: 'FontSizes', description: 'circular_testimonials_prop_fontSizes', required: false },
-      { name: 'isRTL', type: 'boolean', description: 'circular_testimonials_prop_isRTL', required: false }
+      { name: "testimonials", type: "Testimonial[]", description: "circular_testimonials_prop_testimonials", required: true },
+      { name: "autoplay", type: "boolean", defaultValue: "true", description: "circular_testimonials_prop_autoplay", required: false },
+      { name: "autoplayInterval", type: "number", defaultValue: "5000", description: "circular_testimonials_prop_autoplayInterval", required: false },
+      { name: "colors", type: "object", description: "circular_testimonials_prop_colors", required: false },
+      { name: "fontSizes", type: "object", description: "circular_testimonials_prop_fontSizes", required: false },
+      { name: "isRTL", type: "boolean", defaultValue: "false", description: "circular_testimonials_prop_isRTL", required: false },
+      { name: "gap", type: "string", defaultValue: "\"4.7rem\"", description: "circular_testimonials_prop_gap", required: false },
+      { name: "imageWidth", type: "string", defaultValue: "\"77%\"", description: "circular_testimonials_prop_imageWidth", required: false },
+      { name: "imageBorderRadius", type: "string", defaultValue: "\"1.5rem\"", description: "circular_testimonials_prop_imageBorderRadius", required: false },
+      { name: "imageAspectRatio", type: "string", defaultValue: "\"1 / 1\"", description: "circular_testimonials_prop_imageAspectRatio", required: false },
+      { name: "imageContainerTranslateX", type: "string", defaultValue: "\"76px\"", description: "circular_testimonials_prop_imageContainerTranslateX", required: false },
+      { name: "testimonialTextTranslateY", type: "string", defaultValue: "\"56px\"", description: "circular_testimonials_prop_testimonialTextTranslateY", required: false },
+      { name: "arrowContainerTranslateY", type: "string", defaultValue: "\"99px\"", description: "circular_testimonials_prop_arrowContainerTranslateY", required: false },
+      { name: "imageContainerBorderEnabled", type: "boolean", defaultValue: "false", description: "circular_testimonials_prop_imageContainerBorderEnabled", required: false },
+      { name: "imageContainerBorderColor", type: "string", defaultValue: "\"#262626\"", description: "circular_testimonials_prop_imageContainerBorderColor", required: false },
+      { name: "imageContainerBorderHoverColor", type: "string", defaultValue: "\"#444\"", description: "circular_testimonials_prop_imageContainerBorderHoverColor", required: false },
+      { name: "imageContainerBorderWidth", type: "string", defaultValue: "\"1px\"", description: "circular_testimonials_prop_imageContainerBorderWidth", required: false },
+      { name: "imageContainerPerspective", type: "string", defaultValue: "\"1000px\"", description: "circular_testimonials_prop_imageContainerPerspective", required: false },
+      { name: "arrowBorderRadius", type: "string", defaultValue: "\"50%\"", description: "circular_testimonials_prop_arrowBorderRadius", required: false },
+      { name: "arrowIconSize", type: "number", defaultValue: "26", description: "circular_testimonials_prop_arrowIconSize", required: false },
+      { name: "arrowBorderEnabled", type: "boolean", defaultValue: "false", description: "circular_testimonials_prop_arrowBorderEnabled", required: false },
+      { name: "arrowBorderColor", type: "string", defaultValue: "\"#262626\"", description: "circular_testimonials_prop_arrowBorderColor", required: false },
+      { name: "arrowBorderHoverColor", type: "string", defaultValue: "\"#00A7FA\"", description: "circular_testimonials_prop_arrowBorderHoverColor", required: false },
+      { name: "arrowBorderWidth", type: "string", defaultValue: "\"1px\"", description: "circular_testimonials_prop_arrowBorderWidth", required: false },
+      { name: "arrowButtonWidth", type: "string", defaultValue: "\"44px\"", description: "circular_testimonials_prop_arrowButtonWidth", required: false },
+      { name: "arrowButtonHeight", type: "string", defaultValue: "\"44px\"", description: "circular_testimonials_prop_arrowButtonHeight", required: false },
+      { name: "arrowIconStrokeWidth", type: "number", defaultValue: "2", description: "circular_testimonials_prop_arrowIconStrokeWidth", required: false },
     ],
     isPreviewImage: true,
   },
