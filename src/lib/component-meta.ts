@@ -4146,7 +4146,8 @@ export default function ProjectShowcaseDemo() {
 }
 `,
     code: `"use client";
-import { motion, AnimatePresence } from "framer-motion";
+
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState, useCallback, useRef } from "react";
 import HalomotButton from "@/app/the-actual-components/halomot-button/HalomotButton";
@@ -4220,6 +4221,9 @@ type ProjectShowcaseProps = {
   halomotButtonOuterBorderRadius?: string;
   halomotButtonInnerBorderRadius?: string;
   halomotButtonHoverTextColor?: string;
+  imageContainerBorderWidth?: string;
+  inactiveImageOpacity?: number;
+  inactiveImageScale?: number;
 };
 
 export const ProjectShowcase = ({
@@ -4258,6 +4262,9 @@ export const ProjectShowcase = ({
   halomotButtonOuterBorderRadius = "6.34px",
   halomotButtonInnerBorderRadius = "6px",
   halomotButtonHoverTextColor,
+  imageContainerBorderWidth = "1px",
+  inactiveImageOpacity = 0.7,
+  inactiveImageScale = 0.95,
 }: ProjectShowcaseProps) => {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
@@ -4265,7 +4272,7 @@ export const ProjectShowcase = ({
   const [isMobileView, setIsMobileView] = useState(false);
   const [componentWidth, setComponentWidth] = useState(0);
   const componentRef = useRef<HTMLDivElement>(null);
-
+  const [isAutoplayActive, setIsAutoplayActive] = useState(autoplay);
   const currentFontSizes =
     isMobileView && mobile.fontSizes ? mobile.fontSizes : fontSizes;
   const currentSpacing = {
@@ -4273,26 +4280,38 @@ export const ProjectShowcase = ({
     ...(isMobileView && mobile.spacing ? mobile.spacing : {}),
   };
 
+  const shouldReduceMotion = useReducedMotion();
+
+  const stopAutoplay = useCallback(() => {
+    setIsAutoplayActive(false);
+  }, []);
+
   const handleNext = useCallback(() => {
     setDirection("forward");
     setChangeId((id) => id + 1);
     setActive((prev) => (prev + 1) % testimonials.length);
-  }, [testimonials.length]);
+    stopAutoplay();
+  }, [testimonials.length, stopAutoplay]);
 
   const handlePrev = useCallback(() => {
     setDirection("backward");
     setChangeId((id) => id + 1);
     setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  }, [testimonials.length]);
+    stopAutoplay();
+  }, [testimonials.length, stopAutoplay]);
 
   const isActive = (index: number) => index === active;
 
   useEffect(() => {
-    if (autoplay) {
-      const interval = setInterval(handleNext, 5000);
+    if (isAutoplayActive && !shouldReduceMotion) {
+      const interval = setInterval(() => {
+        setDirection("forward");
+        setChangeId((id) => id + 1);
+        setActive((prev) => (prev + 1) % testimonials.length);
+      }, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoplay, handleNext]);
+  }, [isAutoplayActive, testimonials.length, shouldReduceMotion]);
 
   const handleResize = useCallback(() => {
     if (componentRef.current) {
@@ -4378,13 +4397,11 @@ export const ProjectShowcase = ({
                     rotate: randomRotateY(),
                   }}
                   animate={{
-                    opacity: isActive(index) ? 1 : 0.7,
-                    scale: isActive(index) ? 1 : 0.95,
+                    opacity: isActive(index) ? 1 : inactiveImageOpacity,
+                    scale: isActive(index) ? 1 : inactiveImageScale,
                     z: isActive(index) ? 0 : -100,
                     rotate: isActive(index) ? 0 : randomRotateY(),
-                    zIndex: isActive(index)
-                      ? 999
-                      : testimonials.length + 2 - index,
+                    zIndex: isActive(index) ? 999 : testimonials.length + 2 - index,
                     y: isActive(index) ? [0, -80, 0] : 0,
                   }}
                   exit={{
@@ -4403,6 +4420,7 @@ export const ProjectShowcase = ({
                     innerRounding={innerRounding}
                     outlineColor={outlineColor}
                     hoverOutlineColor={hoverOutlineColor}
+                    imageContainerBorderWidth={imageContainerBorderWidth}
                   />
                 </motion.div>
               ))}
@@ -4538,6 +4556,7 @@ type ImageContainerProps = {
   innerRounding: string;
   outlineColor: string;
   hoverOutlineColor: string;
+  imageContainerBorderWidth: string;
 };
 
 const ImageContainer = ({
@@ -4547,12 +4566,13 @@ const ImageContainer = ({
   innerRounding,
   outlineColor,
   hoverOutlineColor,
+  imageContainerBorderWidth,
 }: ImageContainerProps) => (
   <div
     className="relative h-full w-full"
     style={{
       borderRadius: outerRounding,
-      padding: "1px",
+      padding: imageContainerBorderWidth,
       backgroundColor: outlineColor,
       transition: "background-color 0.3s ease-in-out",
     }}
@@ -4604,6 +4624,9 @@ export default ProjectShowcase;
       { name: "halomotButtonOuterBorderRadius", type: "string", description: "project_showcase_prop_halomotButtonOuterBorderRadius", required: false },
       { name: "halomotButtonInnerBorderRadius", type: "string", description: "project_showcase_prop_halomotButtonInnerBorderRadius", required: false },
       { name: "halomotButtonHoverTextColor", type: "string", description: "project_showcase_prop_halomotButtonHoverTextColor", required: false },
+      { name: "imageContainerBorderWidth", type: "string", defaultValue: "1px", description: "project_showcase_prop_imageContainerBorderWidth", required: false },
+      { name: "inactiveImageOpacity", type: "number", defaultValue: "0.7", description: "project_showcase_prop_inactiveImageOpacity", required: false },
+      { name: "inactiveImageScale", type: "number", defaultValue: "0.95", description: "project_showcase_prop_inactiveImageScale", required: false },
     ],
     isPreviewImage: true,
   },
