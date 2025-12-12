@@ -19,33 +19,117 @@ export default function ProjectShowcaseDemo() {
 
   // Testimonials (EN / HE / ES)
   const testimonialsEn = [
-    { name: "Blueberry Loom", quote: 'A cryptographically reinforced form builder that utilizes ML-KEM-1024, as well as the "ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512" authenticated encryption scheme to enable end-to-end encryption for enhanced data protection.', designation: "Next.js + Nuxt Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/blueberry-loom.webp", link: "https://blueberry-loom.netlify.app/" },
+    { name: "Blueberry Loom", quote: 'A cryptographically reinforced form builder that utilizes ML-KEM-1024, as well as the \"ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512\" authenticated encryption scheme to enable end-to-end encryption for form responses.', designation: "Next.js + Nuxt Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/blueberry-loom.webp", link: "https://blueberry-loom.netlify.app/" },
+    { name: "Nof", quote: 'A modern color palette generator that can pick matching colors, offers brightness control tools, and employs multiple color mixing modes—even enabling users to mix colors using a quadratic equation with an adjustable aperture.', designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/nof.webp", link: "https://nofpg.netlify.app/" },
+    { name: "Merucav", quote: 'A design tool that offers several customizable shaders, along with features for adding shapes, text, and icons to the canvas. It also makes it possible to apply noise to the entire canvas and blur it.', designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/merucav.webp", link: "https://merucav.netlify.app/" },
     { name: "Namer UI", quote: "A comprehensive collection of modern, attractive, and unique reusable TypeScript components crafted specifically for Next.js.", designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp", link: "https://namer-ui.netlify.app/" },
     { name: "Namer UI For Vue", quote: "A collection of customizable, reusable TypeScript, vanilla CSS components for Vue 3.", designation: "Vue Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp", link: "https://namer-ui-for-vue.netlify.app/" },
     { name: "React Cryptographic Toolkit", quote: "A web app that’s capable of encrypting user data, hashing strings, and calculating tags using the available HMAC algorithms. Please don’t judge me too harshly for it; this is the first React app I ever made.", designation: "React Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp", link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" },
-    { name: "PHA5E-Inspired Hero Section", quote: "An unorthodox, customizable component. I put it here just to demonstrate that I'm capable of creating an Angular app.", designation: "Angular Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/pha5e-inspired-hero-section.webp", link: "https://pha5e-inspired-hero-section.netlify.app/" },
-    { name: "Bootleg Website Localization Tool", quote: "A simple tool designed to localize websites created with the Bazium website builder, as well as their vanilla HTML/CSS/JS counterparts.", designation: "Vanilla HTML/CSS/JS Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/bwlt.webp", link: "https://codepen.io/Northstrix/full/mydWRJB" },
-    { name: "Plum Cave", quote: 'A cloud backup solution that employs the "ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512" authenticated encryption scheme for data encryption and ML-KEM-1024 for quantum-resistant key exchange.', designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/plum-cave.webp", link: "https://plum-cave.netlify.app/" },
+    { name: "Clandestine", quote: "A clean and modern beauty salon landing page template made using Next.js, Perplexity, and Firebase Studio.", designation: "React Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/clandestine.webp", link: "https://clandestine-beauty-salon-landing-page.netlify.app/" },
   ];
 
   const testimonialsHe = [
-    { name: "בלוברי לום", quote: 'בונה טפסים מחוזק קריפטוגרפית המשתמש ב-ML-KEM-1024 ובסכימת ההצפנה המאומתת "ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512" כדי לאפשר הצפנה מקצה לקצה להגנה משופרת על נתונים.', designation: "פרויקט Next.js ו-Nuxt", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/blueberry-loom.webp", link: "https://blueberry-loom.netlify.app/" },
-    { name: "נמר UI", quote: "אוסף מקיף של רכיבי TypeScript מודרניים, אטרקטיביים וייחודיים לשימוש חוזר המיועדים במיוחד ל-Next.js.", designation: "פרויקט Next.js", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp", link: "https://namer-ui.netlify.app/" },
-    { name: "נמר UI ל-Vue", quote: "אוסף של רכיבי TypeScript ו-CSS ונילה, הניתנים להתאמה אישית ולשימוש חוזר עבור Vue 3.", designation: "פרויקט Vue", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp", link: "https://namer-ui-for-vue.netlify.app/" },
-    { name: "React קריפטוגרפיק טולקיט", quote: "אפליקציית אינטרנט המסוגלת להצפין נתוני משתמש, לבצע האש של מחרוזות ולחשב תגיות באמצעות אלגוריתמי HMAC הזמינים. אל תשפטו אותי בחומרה - זוהי האפליקציה הראשונה שיצרתי ב-React.", designation: "פרויקט React", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp", link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" },
-    { name: "מקטע גיבור בהשראת PHA5E", quote: "רכיב לא שגרתי וניתן להתאמה אישית. הוספתי אותו כאן כדי להדגים שאני מסוגל ליצור אפליקציית Angular.", designation: "פרויקט Angular", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/pha5e-inspired-hero-section.webp", link: "https://pha5e-inspired-hero-section.netlify.app/" },
-    { name: "בוטלג וובסייט לוקליזיישן טול", quote: "כלי פשוט שנועד לבצע לוקליזציה לאתרים שנוצרו עם בוני האתרים Bazium, כמו גם לגרסאות ה-vanilla HTML/CSS/JS שלהם.", designation: "פרויקט HTML/CSS/JS וונילה", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/bwlt.webp", link: "https://codepen.io/Northstrix/full/mydWRJB" },
-    { name: "פלאם קייב", quote: 'פתרון גיבוי בענן המשתמש בסכימת הצפנה מאומתת "HMAC-SHA3-512 + CBC Serpent-256 + ChaCha20" להצפנת נתונים ו-ML-KEM-1024 לחילופי מפתחות עמידים לקוונטים.', designation: "פרויקט Next.js", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/plum-cave.webp", link: "https://plum-cave.netlify.app/" },
+    { 
+      name: "בלוברי לום", 
+      quote: 'יוצר טפסים עם חיזוק קריפטוגרפי המשתמש ב-ML-KEM-1024, בנוסף לסכמת ההצפנה המאומתת "ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512", כדי לאפשר הצפנה מקצה לקצה של תגובות בטפסים.', 
+      designation: "פרויקט Next.js + Nuxt", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/blueberry-loom.webp", 
+      link: "https://blueberry-loom.netlify.app/" 
+    },
+    { 
+      name: "נוף", 
+      quote: 'מחולל פלטת צבעים מודרני שיכול לבחור צבעים תואמים, מציע כלים לשליטה בבהירות, ומשתמש במצבי ערבוב צבעים שונים — ואף מאפשר למשתמשים לערבב צבעים באמצעות משוואה ריבועית עם מפתח מתכוונן.', 
+      designation: "פרויקט Next.js", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/nof.webp", 
+      link: "https://nofpg.netlify.app/" 
+    },
+    { 
+      name: "מרוכב", 
+      quote: 'כלי עיצוב המספק מספר שיידרים הניתנים להתאמה אישית, יחד עם אפשרויות להוספת צורות, טקסט ואייקונים על הקנבס. הוא גם מאפשר להוסיף רעש לכל הקנבס ולטשטש אותו.', 
+      designation: "פרויקט Next.js", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/merucav.webp", 
+      link: "https://merucav.netlify.app/" 
+    },
+    { 
+      name: "נמר UI", 
+      quote: "אוסף מקיף של רכיבי TypeScript מודרניים, ייחודיים וניתנים לשימוש חוזר, שעוצבו במיוחד עבור Next.js.", 
+      designation: "פרויקט Next.js", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp", 
+      link: "https://namer-ui.netlify.app/" 
+    },
+    { 
+      name: "נמר UI עבור Vue", 
+      quote: "אוסף של רכיבי TypeScript ו-CSS טהור, הניתנים להתאמה אישית ולשימוש חוזר, עבור Vue 3.", 
+      designation: "פרויקט Vue", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp", 
+      link: "https://namer-ui-for-vue.netlify.app/" 
+    },
+    { 
+      name: "React קריפטוגרפיק טולקיט", 
+      quote: "אפליקציית ווב שמסוגלת להצפין נתוני משתמשים, לגבות מחרוזות (hash), ולחשב תגיות באמצעות אלגוריתמי HMAC זמינים. בבקשה אל תשפטו אותי לחומרה — זו האפליקציה הראשונה שבניתי ב-React.", 
+      designation: "פרויקט React", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp", 
+      link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" 
+    },
+    { 
+      name: "קלאנדסטין", 
+      quote: "תבנית דף נחיתה נקייה ומודרנית לסלון יופי, שנוצרה באמצעות Next.js, Perplexity ו-Firebase Studio.", 
+      designation: "פרויקט React", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/clandestine.webp", 
+      link: "https://clandestine-beauty-salon-landing-page.netlify.app/" 
+    },
   ];
 
   const testimonialsEs = [
-    { name: "Blueberry Loom", quote: 'Un creador de formularios cripto-reforzado que usa ML-KEM-1024 y el esquema de cifrado autenticado "ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512" para habilitar el cifrado de extremo a extremo.', designation: "Proyecto Next.js + Nuxt", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/blueberry-loom.webp", link: "https://blueberry-loom.netlify.app/" },
-    { name: "Namer UI", quote: "Una colección completa de componentes de TypeScript reutilizables, modernos, atractivos y únicos, diseñados específicamente para Next.js.", designation: "Proyecto Next.js", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp", link: "https://namer-ui.netlify.app/" },
-    { name: "Namer UI para Vue", quote: "Una colección de componentes de TypeScript y CSS vanilla personalizables y reutilizables para Vue 3.", designation: "Proyecto Vue", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp", link: "https://namer-ui-for-vue.netlify.app/" },
-    { name: "React Cryptographic Toolkit", quote: "Una aplicación web capaz de cifrar datos de usuario, aplicar hash a cadenas y calcular etiquetas utilizando los algoritmos HMAC disponibles. Por favor, no me juzguen con demasiada dureza; esta es la primera aplicación de React que he creado.", designation: "Proyecto React", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp", link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" },
-    { name: "Sección de Héroe Inspirada en PHA5E", quote: "Un componente poco ortodoxo y personalizable. Lo puse aquí solo para demostrar que soy capaz de crear una aplicación en Angular.", designation: "Proyecto Angular", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/pha5e-inspired-hero-section.webp", link: "https://pha5e-inspired-hero-section.netlify.app/" },
-    { name: "Bootleg Website Localization Tool", quote: "Una herramienta sencilla diseñada para localizar sitios web creados con el constructor de sitios web Bazium, así como sus contrapartes de HTML/CSS/JS vanilla.", designation: "Proyecto Vanilla HTML/CSS/JS", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/bwlt.webp", link: "https://codepen.io/Northstrix/full/mydWRJB" },
-    { name: "Plum Cave", quote: 'Una solución de respaldo en la nube que emplea el esquema de cifrado autenticado "ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512" para el cifrado de datos y ML-KEM-1024 para el intercambio de claves resistente a la cuántica.', designation: "Proyecto Next.js", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/plum-cave.webp", link: "https://plum-cave.netlify.app/" },
+    { 
+      name: "Blueberry Loom", 
+      quote: 'Un creador de formularios reforzado criptográficamente que utiliza ML-KEM-1024, además del esquema de cifrado autenticado "ChaCha20 + Serpent-256 CBC + HMAC-SHA3-512", para habilitar el cifrado de extremo a extremo en las respuestas de formularios.', 
+      designation: "Proyecto Next.js + Nuxt", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/blueberry-loom.webp", 
+      link: "https://blueberry-loom.netlify.app/" 
+    },
+    { 
+      name: "Nof", 
+      quote: 'Un generador moderno de paletas de colores que puede seleccionar colores compatibles, ofrece herramientas de control de brillo y emplea múltiples modos de mezcla de colores; incluso permite a los usuarios mezclar colores usando una ecuación cuadrática con una apertura ajustable.', 
+      designation: "Proyecto Next.js", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/nof.webp", 
+      link: "https://nofpg.netlify.app/" 
+    },
+    { 
+      name: "Merucav", 
+      quote: 'Una herramienta de diseño que ofrece varios sombreadores personalizables, junto con funciones para agregar formas, texto e íconos al lienzo. También permite aplicar ruido a todo el lienzo y desenfocarlo.', 
+      designation: "Proyecto Next.js", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/merucav.webp", 
+      link: "https://merucav.netlify.app/" 
+    },
+    { 
+      name: "Namer UI", 
+      quote: "Una colección completa de componentes TypeScript modernos, atractivos y únicos, reutilizables y diseñados específicamente para Next.js.", 
+      designation: "Proyecto Next.js", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp", 
+      link: "https://namer-ui.netlify.app/" 
+    },
+    { 
+      name: "Namer UI For Vue", 
+      quote: "Una colección de componentes TypeScript y CSS puro, personalizables y reutilizables, para Vue 3.", 
+      designation: "Proyecto Vue", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp", 
+      link: "https://namer-ui-for-vue.netlify.app/" 
+    },
+    { 
+      name: "React Cryptographic Toolkit", 
+      quote: "Una aplicación web capaz de cifrar datos de usuario, generar hashes de cadenas y calcular etiquetas usando los algoritmos HMAC disponibles. Por favor, no me juzgues demasiado; esta fue la primera aplicación de React que hice.", 
+      designation: "Proyecto React", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp", 
+      link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" 
+    },
+    { 
+      name: "Clandestine", 
+      quote: "Una plantilla limpia y moderna para página de aterrizaje de salón de belleza, creada con Next.js, Perplexity y Firebase Studio.", 
+      designation: "Proyecto React", 
+      src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/clandestine.webp", 
+      link: "https://clandestine-beauty-salon-landing-page.netlify.app/" 
+    },
   ];
 
   const getButtonInscriptions = (locale: "en" | "he" | "es") => {
