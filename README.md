@@ -97,6 +97,8 @@ The existence of this project (at least in its current form) wouldn’t’ve bee
 
 [Perplexity](https://www.perplexity.ai/)
 
+[Google AI Studio](https://aistudio.google.com/)
+
 </br>
 The credit for each individual component (where applicable) is available on that component’s dedicated page.
 </br></br>
