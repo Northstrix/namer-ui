@@ -115,26 +115,37 @@ export default function Footer() {
     </Link>
   );
 
+  const GoogleAiStudioLink = (
+    <Link
+      href="https://aistudio.google.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-accent hover:underline"
+    >
+      Google AI Studio
+    </Link>
+  );
+
   let inscription: JSX.Element;
   if (lang === "he") {
     inscription = (
-      <span>
-        נוצר על ידי {NameLink} באמצעות {NextLink} {"‏"}, {PerplexityLink} ו‑
-        {FirebaseLink}
+      <span dir="rtl">
+        נבנה על ידי {NameLink} בעזרת {FirebaseLink} ,{PerplexityLink} ,
+        {NextLink} ו‑{GoogleAiStudioLink}
       </span>
     );
   } else if (lang === "es") {
     inscription = (
-      <span>
-        Hecho por {NameLink} usando {NextLink}, {PerplexityLink} y{" "}
-        {FirebaseLink}
+      <span dir="ltr">
+        Desarrollado por {NameLink} usando {NextLink}, {PerplexityLink},{" "}
+        {FirebaseLink} y {GoogleAiStudioLink}
       </span>
     );
   } else {
     inscription = (
-      <span>
-        Made by {NameLink} using {NextLink}, {PerplexityLink}, and{" "}
-        {FirebaseLink}
+      <span dir="ltr">
+        Built by {NameLink} using {NextLink}, {PerplexityLink}, {FirebaseLink}, and{" "}
+        {GoogleAiStudioLink}
       </span>
     );
   }
@@ -149,9 +160,7 @@ export default function Footer() {
       {/* Top inscription */}
       <p
         className={clsx(
-          "text-sm leading-relaxed",
-          isRTL ? "text-right" : "text-center",
-          "max-w-full"
+          "text-sm leading-relaxed max-w-full"
         )}
         dir={isRTL ? "rtl" : "ltr"}
         style={{ wordBreak: "break-word" }}

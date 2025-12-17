@@ -33,6 +33,34 @@ export const showcaseItems: ShowcaseItem[] = [
     image: "/showcase/nof.webp",
     link: "https://nofpg.netlify.app/",
   },
+  {
+    id: "nof-go",
+    name: "showcase_item_3_title",
+    description: "showcase_item_3_description",
+    image: "/showcase/nof-go.webp",
+    link: "https://northstrix.github.io/nof-go/",
+  },
+  {
+    id: "merucav",
+    name: "showcase_item_4_title",
+    description: "showcase_item_4_description",
+    image: "/showcase/merucav.webp",
+    link: "https://merucav.netlify.app/",
+  },
+  {
+    id: "kerach",
+    name: "showcase_item_5_title",
+    description: "showcase_item_5_description",
+    image: "/showcase/kerach.webp",
+    link: "https://kerach.netlify.app/",
+  },
+  {
+    id: "kerach-go",
+    name: "showcase_item_6_title",
+    description: "showcase_item_6_description",
+    image: "/showcase/kerach-go.webp",
+    link: "https://northstrix.github.io/kerach-go/",
+  },
 ];
 
 const ShowcaseCard: React.FC<{ item: ShowcaseItem; isRTL: boolean; t: (k: string, p?: any) => string }> = ({

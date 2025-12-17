@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useState, useCallback, useRef } from "react";
 import HalomotButton from "@/app/the-actual-components/halomot-button/HalomotButton";
 
@@ -436,11 +435,9 @@ const ImageContainer = ({
         borderRadius: innerRounding,
       }}
     >
-      <Image
+      <img
         src={src}
         alt={alt}
-        layout="fill"
-        objectFit="cover"
         draggable={false}
         className="h-full w-full object-cover object-center"
       />

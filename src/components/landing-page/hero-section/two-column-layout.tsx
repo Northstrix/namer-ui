@@ -102,12 +102,12 @@ export default function TwoColumnLayout({ scrollContainerRef }: TwoColumnLayoutP
     {
       text: t("hero_slider_hero_option_3"),
       imageUrl:
-        "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp",
+        "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/nof.webp",
     },
     {
       text: t("hero_slider_hero_option_4"),
       imageUrl:
-        "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/plum-cave.webp",
+        "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/merucav.webp",
     },
   ];
 

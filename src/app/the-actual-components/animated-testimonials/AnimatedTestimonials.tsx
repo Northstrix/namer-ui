@@ -1,7 +1,6 @@
 "use client";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import gsap from "gsap";
 
@@ -155,7 +154,7 @@ export const AnimatedTestimonials = ({
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <Image src={testimonial.src} alt={testimonial.name} layout="fill" objectFit="cover" draggable={false} className="h-full w-full rounded-3xl object-cover object-center" />
+                  <img src={testimonial.src} alt={testimonial.name} draggable={false} className="h-full w-full rounded-3xl object-cover object-center" />
                 </motion.div>
               ))}
             </AnimatePresence>

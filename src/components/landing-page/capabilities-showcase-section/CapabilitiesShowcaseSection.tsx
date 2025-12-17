@@ -254,10 +254,26 @@ export default function CapabilitiesShowcaseSection() {
                     activeOptionColor="#8b30d6" imageChangeInterval={5000}
                     title={t("hero_slider_hero_title")}
                     showcaseOptions={[
-                      { text: t("hero_slider_hero_option_1"), imageUrl: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/blueberry-loom.webp" },
-                      { text: t("hero_slider_hero_option_2"), imageUrl: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp" },
-                      { text: t("hero_slider_hero_option_3"), imageUrl: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/rct.webp" },
-                      { text: t("hero_slider_hero_option_4"), imageUrl: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/plum-cave.webp" }
+                      {
+                        text: t("hero_slider_hero_option_1"),
+                        imageUrl:
+                          "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/blueberry-loom.webp",
+                      },
+                      {
+                        text: t("hero_slider_hero_option_2"),
+                        imageUrl:
+                          "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp",
+                      },
+                      {
+                        text: t("hero_slider_hero_option_3"),
+                        imageUrl:
+                          "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/nof.webp",
+                      },
+                      {
+                        text: t("hero_slider_hero_option_4"),
+                        imageUrl:
+                          "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/merucav.webp",
+                      },
                     ]}
                     onOptionClick={(option) =>
                       toast({ title: t("namer_ui"), description: `${t("slider_hero_toast_clicked")}: ${option}.` })} />
