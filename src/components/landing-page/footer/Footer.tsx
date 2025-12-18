@@ -24,7 +24,7 @@ export default function Footer() {
   const [verifiedToolsLoaded, setVerifiedToolsLoaded] = useState(false);
   const [twelveToolsLoaded, setTwelveToolsLoaded] = useState(false);
   const [auraPlusPlusLoaded, setAuraPlusPlusLoaded] = useState(false);
-  const [startupFameLoaded, setStartupFameLoaded] = useState(false);
+  const [launchItLoaded, setLaunchItLoaded] = useState(false);
 
   // badge URLs for this app (Namer UI)
   const verifiedToolsImg = "https://www.verifiedtools.info/badge.png";
@@ -37,9 +37,9 @@ export default function Footer() {
     "https://auraplusplus.com/images/badges/featured-on-light.svg";
   const auraPlusPlusLink = "https://auraplusplus.com/projects/namer-ui";
 
-  const startupFameImg = "https://startupfa.me/badges/featured/dark.webp";
-  const startupFameLink =
-    "https://startupfa.me/s/namer-ui.vercel.app?utm_source=namer-ui.vercel.app";
+  // LaunchIt badge data
+  const launchItImg = "https://launchit.site/badges/featured-light-v2.svg";
+  const launchItLink = "https://launchit.site/launches/namer-ui";
 
   // responsive font size
   useEffect(() => {
@@ -191,37 +191,7 @@ export default function Footer() {
             onError={() => setVerifiedToolsLoaded(false)}
             style={{
               opacity: verifiedToolsLoaded ? 1 : 0.01,
-              height: verifiedToolsLoaded ? "62px" : "1px",
-              width: "auto",
-              borderRadius: 6,
-              objectFit: "contain",
-              transition: "opacity 0.2s ease-out",
-            }}
-          />
-        </a>
-
-        {/* Twelve Tools */}
-        <a
-          href={twelveToolsLoaded ? twelveToolsLink : undefined}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "inline-flex",
-            justifyContent: "center",
-            alignItems: "center",
-            textDecoration: "none",
-            pointerEvents: twelveToolsLoaded ? "auto" : "none",
-          }}
-        >
-          <img
-            src={twelveToolsImg}
-            alt={twelveToolsLoaded ? "Featured on Twelve Tools" : ""}
-            loading="lazy"
-            onLoad={() => setTwelveToolsLoaded(true)}
-            onError={() => setTwelveToolsLoaded(false)}
-            style={{
-              opacity: twelveToolsLoaded ? 1 : 0.01,
-              height: twelveToolsLoaded ? "54px" : "1px",
+              height: verifiedToolsLoaded ? "67px" : "1px",
               width: "auto",
               borderRadius: 6,
               objectFit: "contain",
@@ -275,9 +245,9 @@ export default function Footer() {
           </a>
         </div>
 
-        {/* Startup Fame */}
+        {/* LaunchIt Badge */}
         <a
-          href={startupFameLoaded ? startupFameLink : undefined}
+          href={launchItLoaded ? launchItLink : undefined}
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -285,22 +255,51 @@ export default function Footer() {
             justifyContent: "center",
             alignItems: "center",
             textDecoration: "none",
-            pointerEvents: startupFameLoaded ? "auto" : "none",
+            pointerEvents: launchItLoaded ? "auto" : "none",
           }}
         >
           <img
-            src={startupFameImg}
-            alt={
-              startupFameLoaded ? "Namer UI - Featured on Startup Fame" : ""
-            }
-            width={171}
+            src={launchItImg}
+            alt={launchItLoaded ? "Namer UI - Featured on LaunchIt" : ""}
+            width={250}
             height={54}
             loading="lazy"
-            onLoad={() => setStartupFameLoaded(true)}
-            onError={() => setStartupFameLoaded(false)}
+            onLoad={() => setLaunchItLoaded(true)}
+            onError={() => setLaunchItLoaded(false)}
             style={{
-              opacity: startupFameLoaded ? 1 : 0.01,
-              height: startupFameLoaded ? "54px" : "1px",
+              opacity: launchItLoaded ? 1 : 0.01,
+              height: launchItLoaded ? "54px" : "1px",
+              width: "auto",
+              borderRadius: 6,
+              objectFit: "contain",
+              transition: "opacity 0.2s ease-out",
+            }}
+          />
+        </a>
+
+        {/* Twelve Tools */}
+        <a
+          href={twelveToolsLoaded ? twelveToolsLink : undefined}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "inline-flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textDecoration: "none",
+            marginTop: "6px",
+            pointerEvents: twelveToolsLoaded ? "auto" : "none",
+          }}
+        >
+          <img
+            src={twelveToolsImg}
+            alt={twelveToolsLoaded ? "Featured on Twelve Tools" : ""}
+            loading="lazy"
+            onLoad={() => setTwelveToolsLoaded(true)}
+            onError={() => setTwelveToolsLoaded(false)}
+            style={{
+              opacity: twelveToolsLoaded ? 1 : 0.01,
+              height: twelveToolsLoaded ? "54px" : "1px",
               width: "auto",
               borderRadius: 6,
               objectFit: "contain",
