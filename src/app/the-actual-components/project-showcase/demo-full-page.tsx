@@ -24,7 +24,7 @@ export default function ProjectShowcaseDemo() {
     { name: "Merucav", quote: 'A design tool that offers several customizable shaders, along with features for adding shapes, text, and icons to the canvas. It also makes it possible to apply noise to the entire canvas and blur it.', designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/merucav.webp", link: "https://merucav.netlify.app/" },
     { name: "Namer UI", quote: "A comprehensive collection of modern, attractive, and unique reusable TypeScript components crafted specifically for Next.js.", designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp", link: "https://namer-ui.netlify.app/" },
     { name: "Namer UI For Vue", quote: "A collection of customizable, reusable TypeScript, vanilla CSS components for Vue 3.", designation: "Vue Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp", link: "https://namer-ui-for-vue.netlify.app/" },
-    { name: "React Cryptographic Toolkit", quote: "A web app that’s capable of encrypting user data, hashing strings, and calculating tags using the available HMAC algorithms. Please don’t judge me too harshly for it; this is the first React app I ever made.", designation: "React Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/react-cryptographic-toolkit.webp", link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" },
+    { name: "Kerach Tempo", quote: "An app that makes it possible to turn ordinary text into dynamic, shader-driven visuals and even export them as standalone HTML files.", designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/react-cryptographic-toolkit.webp", link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" },
     { name: "Clandestine", quote: "A clean and modern beauty salon landing page template made using Next.js, Perplexity, and Firebase Studio.", designation: "React Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/clandestine.webp", link: "https://clandestine-beauty-salon-landing-page.netlify.app/" },
   ];
 
@@ -65,9 +65,9 @@ export default function ProjectShowcaseDemo() {
       link: "https://namer-ui-for-vue.netlify.app/" 
     },
     { 
-      name: "React קריפטוגרפיק טולקיט", 
-      quote: "אפליקציית ווב שמסוגלת להצפין נתוני משתמשים, לגבות מחרוזות (hash), ולחשב תגיות באמצעות אלגוריתמי HMAC זמינים. בבקשה אל תשפטו אותי לחומרה — זו האפליקציה הראשונה שבניתי ב-React.", 
-      designation: "פרויקט React", 
+      name: "קרח טמפו", 
+      quote: "אפליקציה שמאפשרת להפוך טקסט רגיל לוויזואליים דינמיים המונעים על ידי שיידרים, ואף לייצא אותם כקובצי HTML עצמאיים.", 
+      designation: "פרויקט Next.js", 
       src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/react-cryptographic-toolkit.webp", 
       link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" 
     },
@@ -117,9 +117,9 @@ export default function ProjectShowcaseDemo() {
       link: "https://namer-ui-for-vue.netlify.app/" 
     },
     { 
-      name: "React Cryptographic Toolkit", 
-      quote: "Una aplicación web capaz de cifrar datos de usuario, generar hashes de cadenas y calcular etiquetas usando los algoritmos HMAC disponibles. Por favor, no me juzgues demasiado; esta fue la primera aplicación de React que hice.", 
-      designation: "Proyecto React", 
+      name: "Kerach Tempo", 
+      quote: "Una aplicación que hace posible convertir texto ordinario en visuales dinámicos impulsados por sombreadores, e incluso exportarlos como archivos HTML independientes.", 
+      designation: "Proyecto Next.js", 
       src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/react-cryptographic-toolkit.webp", 
       link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" 
     },
