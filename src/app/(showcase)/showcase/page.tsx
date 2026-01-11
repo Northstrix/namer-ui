@@ -61,6 +61,13 @@ export const showcaseItems: ShowcaseItem[] = [
     image: "/showcase/kerach-go.webp",
     link: "https://northstrix.github.io/kerach-go/",
   },
+  {
+    id: "kerach-tempo",
+    name: "showcase_item_7_title",
+    description: "showcase_item_7_description",
+    image: "/showcase/kerach-tempo.webp",
+    link: "https://kerach-tempo.netlify.app/",
+  },
 ];
 
 const ShowcaseCard: React.FC<{ item: ShowcaseItem; isRTL: boolean; t: (k: string, p?: any) => string }> = ({

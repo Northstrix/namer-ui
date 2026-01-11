@@ -1226,6 +1226,8 @@ export const dictionaries = {
     "showcase_item_5_description": "A web app that makes it possible to style text with several shader‑driven effects and fine‑tune their appearance in real time.",
     "showcase_item_6_title": "Kerach Go",
     "showcase_item_6_description": "A petite text shaderer that integrates Nof’s color tools, allowing users to conveniently adjust colors without leaving the app.",
+    "showcase_item_7_title": "Kerach Tempo",
+    "showcase_item_7_description": "A web app that lets you turn ordinary text into dynamic, shader‑driven visuals and export them as standalone HTML files.",
   },
   he: {
     'namer_ui': 'נמר UI',
@@ -2452,6 +2454,8 @@ export const dictionaries = {
     "showcase_item_5_description": "אפליקציית ווב המאפשרת לעצב טקסט באמצעות מגוון אפקטים מבוססי שיידרים ולכוונן את המראה שלהם בזמן אמת.",
     "showcase_item_6_title": "קרח Go",
     "showcase_item_6_description": "יישום טקסט שיידר קומפקטי המשולב בכלי הצבע של נוף, המאפשר לכוונן צבעים בקלות מבלי לצאת מהאפליקציה.",
+    "showcase_item_7_title": "קרח טמפו",
+    "showcase_item_7_description": "אפליקציית ווב שמאפשרת לך להפוך טקסט רגיל לוויזואליות דינמיות המונעות על ידי שאדרים ולייצא אותן כקובצי HTML עצמאיים.",
   },
   es: {
     'namer_ui': 'Namer UI',
@@ -3675,6 +3679,8 @@ export const dictionaries = {
     "showcase_item_5_description": "Una aplicación web que permite estilizar texto con varios efectos impulsados por shaders y ajustar su apariencia en tiempo real.",
     "showcase_item_6_title": "Kerach Go",
     "showcase_item_6_description": "Un pequeño generador de texto con shaders que integra las herramientas de color de Nof para ajustar colores sin salir de la app.",
+    "showcase_item_7_title": "Kerach Tempo",
+    "showcase_item_7_description": "Una aplicación web que te permite convertir texto común en visuales dinámicos impulsados por sombreadores y exportarlos como archivos HTML.",
   },
 };
 

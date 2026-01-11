@@ -25,7 +25,7 @@ export default function ProjectShowcaseDemo() {
     { name: "Namer UI", quote: "A comprehensive collection of modern, attractive, and unique reusable TypeScript components crafted specifically for Next.js.", designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui.webp", link: "https://namer-ui.netlify.app/" },
     { name: "Namer UI For Vue", quote: "A collection of customizable, reusable TypeScript, vanilla CSS components for Vue 3.", designation: "Vue Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/namer-ui-for-vue.webp", link: "https://namer-ui-for-vue.netlify.app/" },
     { name: "Kerach Tempo", quote: "An app that makes it possible to turn ordinary text into dynamic, shader-driven visuals and even export them as standalone HTML files.", designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/react-cryptographic-toolkit.webp", link: "https://northstrix.github.io/React-Cryptographic-Toolkit/" },
-    { name: "Clandestine", quote: "A clean and modern beauty salon landing page template made using Next.js, Perplexity, and Firebase Studio.", designation: "React Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/clandestine.webp", link: "https://clandestine-beauty-salon-landing-page.netlify.app/" },
+    { name: "Clandestine", quote: "A clean and modern beauty salon landing page template made using Next.js, Perplexity, and Firebase Studio.", designation: "Next.js Project", src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/clandestine.webp", link: "https://clandestine-beauty-salon-landing-page.netlify.app/" },
   ];
 
   const testimonialsHe = [
@@ -74,7 +74,7 @@ export default function ProjectShowcaseDemo() {
     { 
       name: "קלאנדסטין", 
       quote: "תבנית דף נחיתה נקייה ומודרנית לסלון יופי, שנוצרה באמצעות Next.js, Perplexity ו-Firebase Studio.", 
-      designation: "פרויקט React", 
+      designation: "פרויקט Next.js", 
       src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/clandestine.webp", 
       link: "https://clandestine-beauty-salon-landing-page.netlify.app/" 
     },
@@ -126,7 +126,7 @@ export default function ProjectShowcaseDemo() {
     { 
       name: "Clandestine", 
       quote: "Una plantilla limpia y moderna para página de aterrizaje de salón de belleza, creada con Next.js, Perplexity y Firebase Studio.", 
-      designation: "Proyecto React", 
+      designation: "Proyecto Next.js", 
       src: "https://raw.githubusercontent.com/Northstrix/my-portfolio/refs/heads/main/public/clandestine.webp", 
       link: "https://clandestine-beauty-salon-landing-page.netlify.app/" 
     },
