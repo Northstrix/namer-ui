@@ -53,6 +53,7 @@ import ColorCardPreviewDemo from "@/app/the-actual-components/color-card/demo-pr
 import ColorCardFullPageDemo from "@/app/the-actual-components/color-card/demo-full-page";
 import HolographicCardFullPageDemo from "@/app/the-actual-components/holographic-card/demo-full-page";
 import ColorPickerFullPageDemo from "@/app/the-actual-components/color-picker/demo-full-page";
+import WordCardFullPageDemo from "@/app/the-actual-components/word-card/demo-full-page";
 import { TranslationKey } from "./translations";
 
 export interface ComponentMetadata {
@@ -20105,6 +20106,1195 @@ export function CustomSlider({
       { name: "colorPreviewPosition", type: '"top" | "contrast" | "none"', defaultValue: '"contrast"', description: "color_picker_prop_colorPreviewPosition", required: false },
       { name: "previewWidth", type: "number | string", defaultValue: "44", description: "color_picker_prop_previewWidth", required: false },
       { name: "previewHeight", type: "number", defaultValue: "44", description: "color_picker_prop_previewHeight", required: false }
+    ],
+    isPreviewImage: true,
+  },
+  {
+    id: "word-card",
+    title: "word_card_title",
+    description: "word_card_desc",
+    demoFullPage: WordCardFullPageDemo,
+    dependencies: "npm install framer-motion lucide-react",
+    credit: `[Glowing Effect](https://ui.aceternity.com/components/glowing-effect) by [Aceternity UI](https://ui.aceternity.com/)
+[Glass Cards](https://codepen.io/RAFA3L/pen/NPKeYMo) by [Rafa](https://codepen.io/RAFA3L)
+[Design Wormhole](https://codepen.io/RAFA3L/pen/WbedLaw) by [Rafa](https://codepen.io/RAFA3L)
+[Accent Shard (On Hover)](https://codepen.io/Hyperplexed/pen/qBMYVoq) by [Hyperplexed](https://codepen.io/Hyperplexed)
+    `,
+    usage: `// Path to the "WordCard.tsx" file
+import WordCard from "@/app/the-actual-components/word-card/WordCard";
+
+export default function WordCardDemo() {
+  return (
+    <div 
+      className="w-full p-8 gap-4"
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gridAutoRows: 'min-content',
+        gap: '1rem',
+        padding: '2rem'
+      }}
+    >
+      {/* 1. Casa (Italian - with audio) */}
+      <div style={{width: '320px', breakInside: 'avoid'}}>
+        <WordCard
+          word="Casa"
+          translations={["House", "Home"]}
+          definition='Primarily refers to a physical dwelling place, but often carries an emotional sense of "home" as a place of belonging.'
+          audioUrl="/word-card-sounds/casa.wav"
+          cardTagLabel="Everyday Italian"
+          cardWidth="320px"
+        />
+      </div>
+
+      {/* 2. Mare (Italian - with audio) */}
+      <div style={{width: '320px', breakInside: 'avoid'}}>
+        <WordCard
+          word="Mare"
+          translations={["Sea"]}
+          definition="A large body of salt water, often expansive and deep, used to describe the open sea."
+          audioUrl="/word-card-sounds/mare.wav"
+          primaryColor="#0ea5e9"
+          cardTagLabel="Maritime"
+          wordWeight={900}
+          cardWidth="320px"
+          glowGradient={\`
+            radial-gradient(circle at 30% 30%, #a663eb 0%, #a663eb00 20%),
+            radial-gradient(circle at 70% 70%, #22d3ee 0%, #22d3ee00 25%),
+            radial-gradient(circle at 50% 50%, #a6ff00 0%, #a6ff0000 30%),
+            repeating-conic-gradient(
+              from 236.84deg at 50% 50%,
+              #a663eb 0%,
+              #22d3ee 10%,
+              #a6ff00 20%,
+              #a663eb 30%,
+              #22d3ee 40%,
+              #a6ff00 50%,
+              #a663eb 60%,
+              #22d3ee 70%,
+              #a6ff00 80%,
+              #a663eb 90%,
+              #22d3ee 100%
+            )
+          \`}
+        />
+      </div>
+
+      {/* 3. נמר */}
+      <div style={{ width: "320px", breakInside: "avoid" }}>
+        <WordCard
+          word="נמר"
+          translations={["Leopard", "Tiger"]}
+          definition="A swift, spotted wildcat known for its stealthy prowess and predatory spots, embodying cunning ambush and untamed agility."
+          primaryColor="#7c3aed"
+          lampEnabled={false}
+          glowEnabled={true}
+          borderColor="#e1e1e1"
+          cardBackground="linear-gradient(180deg, #faf5ff 0%, #f6edff 100%)"
+          wordColor="#1a1a1a"
+          translationTextColor="#1f1f1f"
+          definitionTextColor="#2b2b2b"
+          noteTextColor="#2b2b2b"
+          isWordRTL={true}
+          cardTagLabel="Wildlife"
+          cardWidth="320px"
+          cardPadding="2.25rem"
+
+          // stronger, darker translation + definition labels/icons
+          translationLabelColor="#35215f"
+          translationLabelSize="0.8rem"
+          translationLabelWeight={600}
+          translationIconColor="#5b21b6"
+          translationIconSize="1rem"
+          translationIconStrokeWidth={2}
+
+          definitionLabelColor="#35215f"
+          definitionLabelSize="0.8rem"
+          definitionLabelWeight={600}
+          definitionIconColor="#5b21b6"
+          definitionIconSize="1rem"
+          definitionIconStrokeWidth={2}
+
+          noteLabelColor="#2b2248"
+          noteLabelSize="0.8rem"
+
+          // stylish purple-accented tag
+          cardTagBackground="#ede9fe"
+          cardTagBorderColor="#d8b4fe"
+          cardTagTextColor="#5b21b6"
+          cardTagIconColor="#6d28d9"
+          cardTagIconSize="0.9rem"
+          cardTagRadius="0.75rem"
+
+          // luminous purple glow
+          glowGradient={\`
+            radial-gradient(circle at 30% 30%, #a855f7 0%, #a855f700 20%),
+            radial-gradient(circle at 70% 70%, #c084fc 0%, #c084fc00 25%),
+            radial-gradient(circle at 50% 50%, #8b5cf6 0%, #8b5cf600 30%),
+            repeating-conic-gradient(
+              from 236.84deg at 50% 50%,
+              #a855f7 0%,
+              #c084fc 10%,
+              #8b5cf6 20%,
+              #a855f7 30%,
+              #c084fc 40%,
+              #8b5cf6 50%,
+              #a855f7 60%,
+              #c084fc 70%,
+              #8b5cf6 80%,
+              #a855f7 90%,
+              #c084fc 100%
+            )
+          \`}
+        />
+      </div>
+
+      {/* 4. מדבר */}
+      <div style={{width: '320px', breakInside: 'avoid'}}>
+        <WordCard
+          word="מדבר"
+          translations={["Desert", "Wilderness"]}
+          definition="A pastoral wilderness, usually depicted as an arid steppe expanse where flocks graze sparsely, evoking isolation, divine testing, and revelation's echo."
+          primaryColor="#d95c09"
+          lampEnabled={true}
+          lampTopColor="#ffffff"
+          lampShadowColor="#eeeeee"
+          glowEnabled={false}
+          borderColor="#262626"
+          dotColor="rgba(255,255,255,0.12)"
+          dotOpacity={0.75}
+          cardBackground="radial-gradient(circle at 50% 25%, #2e2e2e 0%, #1d1d1d 90%)"
+          wordColor="#fff9f1"
+          cardTagLabel="Journey"
+          cardWidth="320px"
+          cardPadding="2.25rem"
+        />
+      </div>
+
+      {/* 5. 荒野 */}
+      <div style={{width: '320px', breakInside: 'avoid'}}>
+        <WordCard
+          word="荒野"
+          translations={["Wasteland", "Desolate field"]}
+          definition="Vast, barren expanse of uncultivated land, often desolate or rugged, untouched by human settlement—like a sprawling wilderness evoking isolation and raw nature."
+          primaryColor="#6366f1"
+          showCardTag={false}
+          borderRadius="0"
+          glowEnabled={true}
+          lampEnabled={false}
+          glowGradient="repeating-conic-gradient(from 236.84deg at 50% 50%, #6366f1 0%, #818cf8 25%, #6366f1 50%, #818cf8 75%, #6366f1 100%)"
+          cardWidth="320px"
+          cardPadding="2rem"
+          wordWeight={900}
+        />
+      </div>
+
+      {/* 6. Wild */}
+      <div style={{width: '320px', breakInside: 'avoid'}}>
+        <WordCard
+          word="Wild"
+          translations={["פראי", "בלתי מבוית"]}
+          definition="מעמד חופשי ולא גמור של פראות טבעית, כמו נופים עזים או מעשים בלי גבולות, שמעוררים בלי תנועה מחוקקי אדם."
+          note="המשקף את הרוח הבלתי נכנעת של הטבע והיצירה – מרחב חי וחשוף ללא גבולות."
+          primaryColor="#00ffa2"
+          cardBackground="linear-gradient(180deg, #012b2b 0%, #001818 100%)"
+          isCardRTL={true}
+          isWordRTL={true}
+          wordWeight={600}
+          cardWidth="320px"
+
+          /** Borders & layout */
+          borderWidth="2px"
+          borderColor="#003f36"
+          borderRadius="40px"
+          cardPadding="2rem"
+
+          /** Glow styling — more prominent, organic pattern */
+          glowEnabled={true}
+          glowBlur={4}
+          glowSpread={90}
+          glowProximity={70}
+          glowInactiveZone={0.05}
+          glowGradient={\`
+            radial-gradient(circle at 25% 40%, #00ffa2 0%, #00ffa200 20%),
+            radial-gradient(circle at 75% 60%, #13ffd2 0%, #13ffd200 25%),
+            radial-gradient(circle at 55% 55%, #09f3c5 0%, #09f3c500 35%),
+            radial-gradient(circle at 40% 70%, #00e2b0 0%, #00e2b000 30%),
+            repeating-conic-gradient(
+              from 240deg at 50% 50%,
+              #00ffa2 0%,
+              #13ffd2 10%,
+              #00bfa5 20%,
+              #00ffc2 30%,
+              #00ffa2 40%,
+              #13ffd2 55%,
+              #00bfa5 70%,
+              #00ffa2 85%,
+              #00e2b0 100%
+            )
+          \`}
+
+          /** Separator customization */
+          accentColor="#00ffb2"          // custom color for separator
+          separatorHeight="3px"
+          separatorMargin="1.25rem 0"
+
+          /** Typography colors */
+          wordColor="#e0ffee"
+          definitionTextColor="#caffef"
+          translationTextColor="#adffe3"
+          noteTextColor="#adffe3"
+          translationLabelColor="#8fffe0"
+          definitionLabelColor="#8fffe0"
+          noteLabelColor="#7fffd4"
+          translationLabelSize="0.75rem"
+          definitionLabelSize="0.75rem"
+          noteLabelSize="0.8rem"
+
+          /** Tag styling */
+          cardTagLabel="טבע פראי"
+          cardTagBackground="#003a34"
+          cardTagBorderColor="#00ddaa"
+          cardTagTextColor="#00ffbb"
+          cardTagIconColor="#00ffc2"
+          cardTagIconSize="1rem"
+          cardTagRadius="8px"
+          cardTagTextSize="0.65rem"
+          cardTagWeight={600}
+
+          /** Icon adjustments */
+          translationIconColor="#55ffd2"
+          translationIconSize="0.95rem"
+          definitionIconColor="#55ffd2"
+          definitionIconSize="0.95rem"
+          translationIconStrokeWidth={2}
+          definitionIconStrokeWidth={2}
+
+          /** Label text */
+          labelTranslationSingle="תרגום"
+          labelTranslationMultiple="תרגומים"
+          labelDefinition="הגדרה"
+          labelNote="הערה"
+          labelListen="האזן"
+        />
+      </div>
+
+      {/* 7. Edge */}
+      <div style={{width: '320px', breakInside: 'avoid'}}>
+        <WordCard
+          word="Edge"
+          translations={["קצה", "גבול"]}
+          definition="עיט שפיף או שבל חיצוני, גבול מדוחק שבו נשרכות יכולות על סף, או שבו נוגע עודן אחד לאחד באפס שפיף."
+          borderWidth="10px"
+          cardTagLabel="גבולות"
+          isCardRTL={true}
+          isWordRTL={true}
+          wordWeight={100}
+          cardWidth="320px"
+        />
+      </div>
+    </div>
+  );
+}
+`,
+    includeClassMerger: true,
+    code: `"use client";
+    
+    import React, {
+      useState,
+      useId,
+      memo,
+      useRef,
+      useCallback,
+      useEffect,
+      CSSProperties,
+    } from "react";
+    import { Volume2, BookOpen, Info, Dices } from "lucide-react";
+    import { cn } from "@/lib/utils";
+    import { animate } from "framer-motion";
+    
+    /* =========================================================
+       Internal GlowingEffect (YOUR WORKING VERSION - UNTOUCHED)
+       ========================================================= */
+    interface InternalGlowingEffectProps {
+      blur?: number;
+      inactiveZone?: number;
+      proximity?: number;
+      spread?: number;
+      glow?: boolean;
+      className?: string;
+      disabled?: boolean;
+      movementDuration?: number;
+      borderWidth?: number;
+      gradient?: string;
+      staticMode?: boolean;
+      staticAngle?: number;
+      borderRadius: string;
+    }
+    
+    const InternalGlowingEffect = memo(
+      ({
+        blur = 0,
+        inactiveZone = 0.7,
+        proximity = 0,
+        spread = 20,
+        className,
+        movementDuration = 2,
+        borderWidth = 1,
+        disabled = false,
+        gradient,
+        staticMode = false,
+        staticAngle = 0,
+        borderRadius,
+      }: InternalGlowingEffectProps) => {
+        const containerRef = useRef<HTMLDivElement>(null);
+        const lastPosition = useRef({ x: 0, y: 0 });
+        const animationFrameRef = useRef<number>(0);
+    
+        const handleMove = useCallback(
+          (e?: MouseEvent | { x: number; y: number }) => {
+            if (!containerRef.current || staticMode) return;
+            if (animationFrameRef.current)
+              cancelAnimationFrame(animationFrameRef.current);
+    
+            animationFrameRef.current = requestAnimationFrame(() => {
+              const element = containerRef.current!;
+              const { left, top, width, height } = element.getBoundingClientRect();
+              const mouseX = e?.x ?? lastPosition.current.x;
+              const mouseY = e?.y ?? lastPosition.current.y;
+              if (e) lastPosition.current = { x: mouseX, y: mouseY };
+    
+              const center = [left + width * 0.5, top + height * 0.5];
+              const distanceFromCenter = Math.hypot(
+                mouseX - center[0],
+                mouseY - center[1]
+              );
+              const inactiveRadius =
+                0.5 * Math.min(width, height) * inactiveZone;
+    
+              if (distanceFromCenter < inactiveRadius) {
+                element.style.setProperty("--active", "0");
+                return;
+              }
+    
+              const isActive =
+                mouseX > left - proximity &&
+                mouseX < left + width + proximity &&
+                mouseY > top - proximity &&
+                mouseY < top + height + proximity;
+    
+              element.style.setProperty("--active", isActive ? "1" : "0");
+              if (!isActive) return;
+    
+              const currentAngle =
+                parseFloat(element.style.getPropertyValue("--start")) || 0;
+              let targetAngle =
+                (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) /
+                  Math.PI +
+                90;
+              const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
+              const newAngle = currentAngle + angleDiff;
+    
+              animate(currentAngle, newAngle, {
+                duration: movementDuration,
+                ease: [0.16, 1, 0.3, 1],
+                onUpdate: (value) =>
+                  element.style.setProperty("--start", String(value)),
+              });
+            });
+          },
+          [inactiveZone, proximity, movementDuration, staticMode]
+        );
+    
+        useEffect(() => {
+          if (disabled) return;
+    
+          const element = containerRef.current;
+          if (!element) return;
+    
+          if (staticMode) {
+            element.style.setProperty("--start", String(staticAngle));
+            element.style.setProperty("--active", "1");
+            return;
+          }
+    
+          const handleScroll = () => handleMove();
+          const handlePointerMove = (e: PointerEvent) => handleMove(e);
+    
+          document.body.addEventListener("pointermove", handlePointerMove, {
+            passive: true,
+          });
+          window.addEventListener("scroll", handleScroll, { passive: true });
+    
+          return () => {
+            if (animationFrameRef.current)
+              cancelAnimationFrame(animationFrameRef.current);
+            document.body.removeEventListener("pointermove", handlePointerMove);
+            window.removeEventListener("scroll", handleScroll);
+          };
+        }, [handleMove, disabled, staticMode, staticAngle]);
+    
+        const fallbackGradient = \`
+          radial-gradient(circle, #a663eb 10%, #a663eb00 20%),
+          radial-gradient(circle at 40% 40%, #1aa6eb 5%, #1aa6eb00 15%),
+          radial-gradient(circle at 60% 60%, #a663eb 10%, #a663eb00 20%),
+          radial-gradient(circle at 40% 60%, #1aa6eb 10%, #1aa6eb00 20%),
+          repeating-conic-gradient(
+            from 236.84deg at 50% 50%,
+            #a663eb 0%,
+            #1aa6eb calc(25% / 5),
+            #a663eb calc(50% / 5),
+            #1aa6eb calc(75% / 5),
+            #a663eb calc(100% / 5)
+          )
+        \`;
+    
+        const finalGradient = gradient || fallbackGradient;
+    
+        return (
+          <div
+            ref={containerRef}
+            style={
+              {
+                "--blur": \`\${blur}px\`,
+                "--spread": spread,
+                "--start": staticMode ? staticAngle : "0",
+                "--active": staticMode ? "1" : "0",
+                "--glowingeffect-border-width": \`\${borderWidth}px\`,
+                "--repeating-conic-gradient-times": "5",
+                "--gradient": finalGradient,
+                borderRadius: borderRadius,
+              } as CSSProperties
+            }
+            className={cn(
+              "pointer-events-none absolute inset-0 rounded-[inherit] opacity-100 transition-opacity z-[9999]",
+              blur > 0 && "blur-[var(--blur)]",
+              className,
+              disabled && "hidden"
+            )}
+          >
+            <div
+              className={cn(
+                "glow",
+                "rounded-[inherit]",
+                'after:content-[""] after:rounded-[inherit] after:absolute after:inset-0',
+                "after:[border:var(--glowingeffect-border-width)_solid_transparent]",
+                "after:[background:var(--gradient)] after:[background-attachment:fixed]",
+                "after:opacity-[var(--active)] after:transition-opacity after:duration-300",
+                "after:[mask-clip:padding-box,border-box]",
+                "after:[mask-composite:intersect]",
+                "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]"
+              )}
+            />
+          </div>
+        );
+      }
+    );
+    
+    InternalGlowingEffect.displayName = "InternalGlowingEffect";
+    
+    /* =========================================================
+       COMPLETE WordCardProps (ALL CUSTOMIZABLE)
+       ========================================================= */
+    export interface WordCardProps {
+      word: string;
+      translations?: string[];
+      definition?: string;
+      note?: string;
+      audioUrl?: string;
+      cardId?: string;
+    
+      // SEPARATE ALIGNMENT CONTROL
+      isCardRTL?: boolean; // Card container direction
+      isWordRTL?: boolean; // Word text direction only
+    
+      // LAYOUT
+      cardWidth?: string;
+      cardPadding?: string;
+      borderWidth?: string;
+      borderRadius?: string;
+      borderColor?: string;
+      primaryColor?: string;
+      cardBackground?: string;
+    
+      // TYPOGRAPHY: WORD
+      wordWeight?: number | string;
+      wordFontSize?: string;
+      wordColor?: string;
+    
+      // TYPOGRAPHY: TRANSLATIONS
+      translationLabelWeight?: number | string;
+      translationLabelSize?: string;
+      translationLabelColor?: string;
+      translationTextWeight?: number | string;
+      translationTextSize?: string;
+      translationTextColor?: string;
+      translationIconColor?: string;
+      translationIconSize?: string;
+      translationIconStrokeWidth?: number;
+    
+      // TYPOGRAPHY: DEFINITION
+      definitionLabelWeight?: number | string;
+      definitionLabelSize?: string;
+      definitionLabelColor?: string;
+      definitionTextWeight?: number | string;
+      definitionTextSize?: string;
+      definitionTextColor?: string;
+      definitionIconColor?: string;
+      definitionIconSize?: string;
+      definitionIconStrokeWidth?: number;
+    
+      // TYPOGRAPHY: NOTE / INFO
+      noteLabelWeight?: number | string;
+      noteLabelSize?: string;
+      noteLabelColor?: string;
+      noteTextWeight?: number | string;
+      noteTextSize?: string;
+      noteTextColor?: string;
+      infoBorderRadius?: string;
+      infoBorderWidth?: string;
+      infoBorderColor?: string;
+      infoBackground?: string;
+      infoPadding?: string;
+      infoMarginTop?: string;
+    
+      // TYPOGRAPHY: LISTEN BUTTON
+      listenLabelWeight?: number | string;
+      listenLabelSize?: string;
+      listenLabelColor?: string;
+      listenIconColor?: string;
+    
+      // TYPOGRAPHY: TAG
+      cardTagWeight?: number | string;
+    
+      // GLOW (syncs borderWidth)
+      glowEnabled?: boolean;
+      glowGradient?: string;
+      glowBlur?: number;
+      glowSpread?: number;
+      glowProximity?: number;
+      glowInactiveZone?: number;
+      glowStaticMode?: boolean;
+      glowStaticAngle?: number;
+    
+      // DECORATIVE
+      lampEnabled?: boolean;
+      lampTopColor?: string;
+      lampTopWidth?: string;
+      lampShadowColor?: string;
+      dotOpacity?: number;
+      dotColor?: string;
+      dotSpacing?: string;
+      separatorHeight?: string;
+      separatorMargin?: string;
+      accentColor?: string;
+    
+      // UI
+      showCardTag?: boolean;
+      cardTagLabel?: string;
+      cardTagAlign?: "left" | "center" | "right";
+      cardTagMarginTop?: string;
+      cardTagMarginBottom?: string;
+      cardTagBackground?: string;
+      cardTagBorderColor?: string;
+      cardTagBorderWidth?: string;
+      cardTagTextColor?: string;
+      cardTagIconColor?: string;
+      cardTagIconSize?: string;
+      cardTagTextSize?: string;
+      cardTagRadius?: string;
+      labelTranslationSingle?: string;
+      labelTranslationMultiple?: string;
+      labelDefinition?: string;
+      labelNote?: string;
+      labelListen?: string;
+      labelClose?: string;
+      translationSeparator?: string;
+    
+      // SPACING
+      wordMarginTop?: string;
+      wordMarginBottom?: string;
+      translationBlockMarginTop?: string;
+      translationBlockMarginBottom?: string;
+      definitionBlockMarginTop?: string;
+      definitionBlockMarginBottom?: string;
+      infoBlockMarginTop?: string;
+    }
+    export default function WordCard({
+      word,
+      translations = [],
+      definition = "",
+      note = "",
+      audioUrl = "",
+      cardId: providedId,
+    
+      // ALIGNMENT
+      isCardRTL = false,
+      isWordRTL = false,
+    
+      // LAYOUT
+      cardWidth = "320px",
+      cardPadding = "2rem",
+      borderWidth = "1px",
+      borderRadius = "1.5rem",
+      borderColor = "#242424",
+      primaryColor = "#00A7FA",
+      cardBackground = "linear-gradient(180deg, rgba(20,20,20,0.92) 0%, rgba(10,10,10,0.96) 100%)",
+    
+      // TYPOGRAPHY
+      wordWeight = 700,
+      wordFontSize = "2.25rem",
+      wordColor = "white",
+    
+      translationLabelWeight = 400,
+      translationLabelSize = "0.625rem",
+      translationLabelColor = "rgba(255,255,255,0.7)",
+      translationTextWeight = 600,
+      translationTextSize = "0.875rem",
+      translationTextColor = "white",
+      translationIconColor = "white",
+      translationIconSize = "0.8rem",
+      translationIconStrokeWidth = 2,
+    
+      definitionLabelWeight = 400,
+      definitionLabelSize = "0.625rem",
+      definitionLabelColor = "rgba(255,255,255,0.7)",
+      definitionTextWeight = 400,
+      definitionTextSize = "0.875rem",
+      definitionTextColor = "rgba(255,255,255,0.6)",
+      definitionIconColor = "white",
+      definitionIconSize = "0.8rem",
+      definitionIconStrokeWidth = 2,
+    
+      noteLabelWeight = 700,
+      noteLabelSize = "0.75rem",
+      noteLabelColor = "rgba(255,255,255,0.8)",
+      noteTextWeight = 400,
+      noteTextSize = "0.75rem",
+      noteTextColor = "rgba(255,255,255,0.8)",
+      infoBorderRadius = "1rem",
+      infoBorderWidth = "1px",
+      infoBorderColor,
+      infoBackground,
+      infoPadding = "1rem",
+      infoMarginTop = "1rem",
+    
+      listenLabelWeight = 600,
+      listenLabelSize = "0.75rem",
+      listenLabelColor = "white",
+      listenIconColor = primaryColor,
+    
+      cardTagWeight = 600,
+    
+      // GLOW
+      glowEnabled = true,
+      glowGradient,
+      glowBlur = 0,
+      glowSpread = 80,
+      glowProximity = 64,
+      glowInactiveZone = 0.01,
+      glowStaticMode = false,
+      glowStaticAngle = 0,
+    
+      // DECORATIVE
+      lampEnabled = false,
+      lampTopColor = "#ffffff",
+      lampTopWidth = "70%",
+      lampShadowColor = "#ffffff80",
+      dotOpacity = 0.65,
+      dotColor = "rgba(255,255,255,0.1)",
+      dotSpacing = "clamp(1rem, 2.5vw, 1.3rem)",
+      separatorHeight = "2px",
+      separatorMargin = "2rem 0",
+      accentColor = "#5a5a5a",
+    
+      // UI
+      showCardTag = true,
+      cardTagLabel = "Word",
+      cardTagAlign = "left",
+      cardTagMarginTop = "0",
+      cardTagMarginBottom = "1.5rem",
+      cardTagBackground = "rgba(255,255,255,0.05)",
+      cardTagBorderColor = "rgba(255,255,255,0.1)",
+      cardTagBorderWidth = "1px",
+      cardTagTextColor = "rgba(255,255,255,0.7)",
+      cardTagIconColor = primaryColor,
+      cardTagIconSize = "0.75rem",
+      cardTagTextSize = "0.55rem",
+      cardTagRadius = "0.5rem",
+      labelTranslationSingle = "Translation",
+      labelTranslationMultiple = "Translations",
+      labelDefinition = "Definition",
+      labelNote = "Note",
+      labelListen = "Listen",
+      translationSeparator = ", ",
+    
+      // SPACING
+      wordMarginTop = "0",
+      wordMarginBottom = "1rem",
+      translationBlockMarginTop = "0.5rem",
+      translationBlockMarginBottom = "0.5rem",
+      definitionBlockMarginTop = "0.5rem",
+      definitionBlockMarginBottom = "0.5rem",
+    }: WordCardProps) {
+    
+      const [isPlaying, setIsPlaying] = useState(false);
+      const internalId = useId().replace(/:/g, "");
+      const cardId = providedId || \`card-\${internalId}\`;
+      const mainColor = primaryColor;
+    
+      const handlePlayAudio = () => {
+        if (!audioUrl) return;
+        setIsPlaying(true);
+        const audio = new Audio(audioUrl);
+        audio.play();
+        audio.onended = () => setIsPlaying(false);
+      };
+    
+      const translationLabel =
+        translations.length === 1 ? labelTranslationSingle : labelTranslationMultiple;
+      const renderedTranslations = translations.join(translationSeparator);
+      const tagJustifyClass =
+        cardTagAlign === "center"
+          ? "justify-center"
+          : cardTagAlign === "right"
+          ? "justify-end"
+          : "justify-start";
+    
+      return (
+        <div
+          id={cardId}
+          className="word-card-root relative"
+          style={{
+            width: cardWidth,
+          }}
+          dir={isCardRTL ? "rtl" : "ltr"}
+        >
+          <style>{\`
+            #\${cardId}.word-card-root {
+              position: relative;
+              height: auto;
+              font-family: var(--font-body, system-ui, sans-serif);
+            }
+            #\${cardId} .glass-container {
+              position: relative;
+              width: 100%;
+              height: 100%;
+              padding: \${cardPadding};
+              overflow: hidden;
+              background: \${cardBackground};
+              backdrop-filter: blur(12px);
+              display: flex;
+              flex-direction: column;
+              z-index: 10;
+            }
+            #\${cardId} .chronicle-dots {
+              position: absolute;
+              inset: 0;
+              pointer-events: none;
+              background-image: radial-gradient(\${dotColor} 1px, transparent 1px);
+              background-size: \${dotSpacing} \${dotSpacing};
+              opacity: \${dotOpacity};
+              z-index: 1;
+            }
+            #\${cardId} .lamp-effect-top {
+              position: absolute;
+              top: -1px;
+              left: 50%;
+              transform: translateX(-50%);
+              width: \${lampTopWidth};
+              height: 1px;
+              background: linear-gradient(90deg, transparent, \${lampTopColor}, transparent);
+              box-shadow: 0 1px 4px 0px \${lampTopColor}, 0 2px 10px 2px \${lampShadowColor};
+              z-index: 50;
+            }
+            #\${cardId} .vertical-glow-separator {
+              position: absolute;
+              left: -1px;
+              top: 65%;
+              width: 1px;
+              background: linear-gradient(
+                transparent,
+                transparent
+              );
+              opacity: 0;
+              transition: top 600ms ease, opacity 600ms ease;
+              z-index: 20;
+            }
+            #\${cardId} .glass-container:hover .vertical-glow-separator {
+              top: 25%;
+              opacity: 0.65;
+            }
+            #\${cardId} .lamp-effect {
+              position: relative;
+              width: 100%;
+              height: \${separatorHeight};
+              overflow: hidden;
+              margin: \${separatorMargin};
+            }
+            #\${cardId} .lamp-effect::before {
+              content: "";
+              position: absolute;
+              left: 50%;
+              top: 0;
+              transform: translateX(-50%);
+              width: 60%;
+              height: 100%;
+              background: linear-gradient(90deg, transparent, \${accentColor}, transparent);
+              opacity: 0.4;
+              transition: opacity 0.4s ease, width 0.4s ease;
+            }
+            #\${cardId} .glass-container:hover .lamp-effect::before {
+              opacity: 0.85;
+              width: 80%;
+            }
+            #\${cardId} .word-title {
+              font-size: \${wordFontSize};
+              color: \${wordColor};
+              text-align: center;
+              margin-top: \${wordMarginTop};
+              margin-bottom: \${wordMarginBottom};
+              font-weight: \${wordWeight};
+              font-family: var(--font-headline, system-ui, sans-serif);
+            }
+            #\${cardId} .viewport-scroll::-webkit-scrollbar { width: 6px; }
+            #\${cardId} .viewport-scroll::-webkit-scrollbar-track {
+              background: rgba(255,255,255,0.05);
+              border-radius: 3px;
+            }
+            #\${cardId} .viewport-scroll::-webkit-scrollbar-thumb {
+              background: rgba(255,255,255,0.3);
+              border-radius: 3px;
+              border: 1px solid rgba(0,0,0,0.3);
+            }
+            #\${cardId} .viewport-scroll::-webkit-scrollbar-thumb:hover {
+              background: rgba(255,255,255,0.5);
+            }
+          \`}</style>
+    
+          {glowEnabled && (
+            <InternalGlowingEffect
+              spread={glowSpread}
+              glow={true}
+              proximity={glowProximity}
+              inactiveZone={glowInactiveZone}
+              blur={glowBlur}
+              borderWidth={parseFloat(borderWidth) || 1}
+              gradient={glowGradient}
+              staticMode={glowStaticMode}
+              staticAngle={glowStaticAngle}
+              className="absolute inset-0 pointer-events-none"
+              borderRadius={borderRadius}
+            />
+          )}
+    
+          <div
+            className="glass-container"
+            style={{
+              borderWidth: borderWidth,
+              borderColor: borderColor || mainColor,
+              borderStyle: "solid",
+              borderRadius: borderRadius,
+            }}
+          >
+            {lampEnabled && <div className="lamp-effect-top" />}
+            <div className="vertical-glow-separator" />
+            <div className="chronicle-dots" />
+    
+            <div className="relative z-20 flex flex-col h-full">
+              {showCardTag && (
+                <div
+                  className={cn("flex items-center mb-2", tagJustifyClass)}
+                  style={{
+                    marginTop: cardTagMarginTop,
+                    marginBottom: cardTagMarginBottom,
+                  }}
+                >
+                  <div
+                    className="flex items-center gap-2 px-2 py-1"
+                    style={{
+                      background: cardTagBackground || "bg-white/5",
+                      borderColor: cardTagBorderColor || "rgba(255,255,255,0.1)",
+                      borderWidth: cardTagBorderWidth || "1px",
+                      borderStyle: "solid",
+                      borderRadius: cardTagRadius || "0.5rem",
+                    }}
+                  >
+                    <Dices
+                      className="icon-dice"
+                      style={{
+                        color: cardTagIconColor || mainColor,
+                        width: cardTagIconSize || "0.75rem",
+                        height: cardTagIconSize || "0.75rem",
+                        transform: isCardRTL ? "scaleX(-1)" : undefined,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontWeight: cardTagWeight,
+                        fontSize: cardTagTextSize || "0.55rem",
+                        color: cardTagTextColor || "rgba(255,255,255,0.7)",
+                        letterSpacing: "0.2em",
+                      }}
+                    >
+                      {cardTagLabel}
+                    </span>
+                  </div>
+                </div>
+              )}
+    
+              {/* Word + audio */}
+              <div
+                className="flex flex-col items-center"
+                dir={isWordRTL ? "rtl" : "ltr"}
+              >
+                <h2 className="word-title">{word}</h2>
+    
+                {audioUrl && (
+                  <button
+                    onClick={handlePlayAudio}
+                    disabled={isPlaying}
+                    className="mt-4 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-xs font-semibold flex items-center gap-2 hover:bg-white/10 transition-all"
+                    style={{
+                      fontWeight: listenLabelWeight,
+                      fontSize: listenLabelSize,
+                      color: listenLabelColor,
+                    }}
+                  >
+                    <span>{labelListen}</span>
+                    <Volume2
+                      className={cn("w-4 h-4", isPlaying && "animate-pulse")}
+                      style={{ color: listenIconColor }}
+                    />
+                  </button>
+                )}
+              </div>
+    
+              <div className="lamp-effect" />
+    
+              {/* Scroll Area */}
+              <div className="viewport-scroll overflow-y-auto pr-2 space-y-4 flex-1">
+                {translations.length > 0 && (
+                  <div
+                    style={{
+                      marginTop: translationBlockMarginTop,
+                      marginBottom: translationBlockMarginBottom,
+                    }}
+                  >
+                    <div className="flex items-center gap-2 mb-2 opacity-70">
+                      <BookOpen
+                        style={{
+                          color: translationIconColor,
+                          width: translationIconSize,
+                          height: translationIconSize,
+                        }}
+                        strokeWidth={translationIconStrokeWidth}
+                      />
+                      <span
+                        className="tracking-widest"
+                        style={{
+                          fontWeight: translationLabelWeight,
+                          fontSize: translationLabelSize,
+                          color: translationLabelColor,
+                        }}
+                      >
+                        {translationLabel}
+                      </span>
+                    </div>
+                    <p
+                      className="text-sm leading-snug"
+                      style={{
+                        fontWeight: translationTextWeight,
+                        fontSize: translationTextSize,
+                        color: translationTextColor,
+                      }}
+                    >
+                      {renderedTranslations}
+                    </p>
+                  </div>
+                )}
+    
+                {definition && (
+                  <div
+                    style={{
+                      marginTop: definitionBlockMarginTop,
+                      marginBottom: definitionBlockMarginBottom,
+                    }}
+                  >
+                    <div className="flex items-center gap-2 mb-2 opacity-70">
+                      <Info
+                        style={{
+                          color: definitionIconColor,
+                          width: definitionIconSize,
+                          height: definitionIconSize,
+                        }}
+                        strokeWidth={definitionIconStrokeWidth}
+                      />
+                      <span
+                        className="tracking-widest"
+                        style={{
+                          fontWeight: definitionLabelWeight,
+                          fontSize: definitionLabelSize,
+                          color: definitionLabelColor,
+                        }}
+                      >
+                        {labelDefinition}
+                      </span>
+                    </div>
+                    <p
+                      className="italic leading-relaxed"
+                      style={{
+                        fontWeight: definitionTextWeight,
+                        fontSize: definitionTextSize,
+                        color: definitionTextColor,
+                      }}
+                    >
+                      {definition}
+                    </p>
+                  </div>
+                )}
+    
+                {note && (
+                  <div
+                    style={{
+                      marginTop: infoMarginTop,
+                      padding: infoPadding,
+                      borderRadius: infoBorderRadius,
+                      borderWidth: infoBorderWidth,
+                      borderStyle: "solid",
+                      borderColor: infoBorderColor || \`\${mainColor}30\`,
+                      backgroundColor: infoBackground || \`\${mainColor}10\`,
+                    }}
+                  >
+                    <p
+                      className="leading-normal"
+                      style={{
+                        fontWeight: noteTextWeight,
+                        fontSize: noteTextSize,
+                        color: noteTextColor,
+                      }}
+                    >
+                      <span
+                        className={\`tracking-tight font-semibold \${
+                          isCardRTL ? "ml-1" : "mr-1"
+                        }\`}
+                        style={{
+                          fontWeight: noteLabelWeight,
+                          fontSize: noteLabelSize,
+                          color: noteLabelColor,
+                        }}
+                      >
+                        {labelNote}:
+                      </span>
+                      {note}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }`,
+    props: [
+      { name: "word", type: "string", description: "word_card_prop_word", required: true },
+      { name: "translations", type: "string[]", defaultValue: "[]", description: "word_card_prop_translations", required: false },
+      { name: "definition", type: "string", defaultValue: "''", description: "word_card_prop_definition", required: false },
+      { name: "note", type: "string", defaultValue: "''", description: "word_card_prop_note", required: false },
+      { name: "audioUrl", type: "string", defaultValue: "''", description: "word_card_prop_audioUrl", required: false },
+      { name: "cardId", type: "string", description: "word_card_prop_cardId", required: false },
+      { name: "isCardRTL", type: "boolean", defaultValue: "false", description: "word_card_prop_isCardRTL", required: false },
+      { name: "isWordRTL", type: "boolean", defaultValue: "false", description: "word_card_prop_isWordRTL", required: false },
+      { name: "cardWidth", type: "string", defaultValue: "'320px'", description: "word_card_prop_cardWidth", required: false },
+      { name: "cardPadding", type: "string", defaultValue: "'2rem'", description: "word_card_prop_cardPadding", required: false },
+      { name: "borderWidth", type: "string", defaultValue: "'1px'", description: "word_card_prop_borderWidth", required: false },
+      { name: "borderRadius", type: "string", defaultValue: "'1.5rem'", description: "word_card_prop_borderRadius", required: false },
+      { name: "borderColor", type: "string", defaultValue: "'#242424'", description: "word_card_prop_borderColor", required: false },
+      { name: "primaryColor", type: "string", defaultValue: "'#00A7FA'", description: "word_card_prop_primaryColor", required: false },
+      { name: "cardBackground", type: "string", defaultValue: "'linear-gradient(180deg, rgba(20,20,20,0.92) 0%, rgba(10,10,10,0.96) 100%)'", description: "word_card_prop_cardBackground", required: false },
+      { name: "wordWeight", type: "number | string", defaultValue: "700", description: "word_card_prop_wordWeight", required: false },
+      { name: "wordFontSize", type: "string", defaultValue: "'2.25rem'", description: "word_card_prop_wordFontSize", required: false },
+      { name: "wordColor", type: "string", defaultValue: "'white'", description: "word_card_prop_wordColor", required: false },
+      { name: "translationLabelWeight", type: "number | string", defaultValue: "400", description: "word_card_prop_translationLabelWeight", required: false },
+      { name: "translationLabelSize", type: "string", defaultValue: "'0.625rem'", description: "word_card_prop_translationLabelSize", required: false },
+      { name: "translationLabelColor", type: "string", defaultValue: "'rgba(255,255,255,0.7)'", description: "word_card_prop_translationLabelColor", required: false },
+      { name: "translationTextWeight", type: "number | string", defaultValue: "600", description: "word_card_prop_translationTextWeight", required: false },
+      { name: "translationTextSize", type: "string", defaultValue: "'0.875rem'", description: "word_card_prop_translationTextSize", required: false },
+      { name: "translationTextColor", type: "string", defaultValue: "'white'", description: "word_card_prop_translationTextColor", required: false },
+      { name: "translationIconColor", type: "string", defaultValue: "'white'", description: "word_card_prop_translationIconColor", required: false },
+      { name: "translationIconSize", type: "string", defaultValue: "'0.8rem'", description: "word_card_prop_translationIconSize", required: false },
+      { name: "translationIconStrokeWidth", type: "number", defaultValue: "2", description: "word_card_prop_translationIconStrokeWidth", required: false },
+      { name: "definitionLabelWeight", type: "number | string", defaultValue: "400", description: "word_card_prop_definitionLabelWeight", required: false },
+      { name: "definitionLabelSize", type: "string", defaultValue: "'0.625rem'", description: "word_card_prop_definitionLabelSize", required: false },
+      { name: "definitionLabelColor", type: "string", defaultValue: "'rgba(255,255,255,0.7)'", description: "word_card_prop_definitionLabelColor", required: false },
+      { name: "definitionTextWeight", type: "number | string", defaultValue: "400", description: "word_card_prop_definitionTextWeight", required: false },
+      { name: "definitionTextSize", type: "string", defaultValue: "'0.875rem'", description: "word_card_prop_definitionTextSize", required: false },
+      { name: "definitionTextColor", type: "string", defaultValue: "'rgba(255,255,255,0.6)'", description: "word_card_prop_definitionTextColor", required: false },
+      { name: "definitionIconColor", type: "string", defaultValue: "'white'", description: "word_card_prop_definitionIconColor", required: false },
+      { name: "definitionIconSize", type: "string", defaultValue: "'0.8rem'", description: "word_card_prop_definitionIconSize", required: false },
+      { name: "definitionIconStrokeWidth", type: "number", defaultValue: "2", description: "word_card_prop_definitionIconStrokeWidth", required: false },
+      { name: "noteLabelWeight", type: "number | string", defaultValue: "700", description: "word_card_prop_noteLabelWeight", required: false },
+      { name: "noteLabelSize", type: "string", defaultValue: "'0.75rem'", description: "word_card_prop_noteLabelSize", required: false },
+      { name: "noteLabelColor", type: "string", defaultValue: "'rgba(255,255,255,0.8)'", description: "word_card_prop_noteLabelColor", required: false },
+      { name: "noteTextWeight", type: "number | string", defaultValue: "400", description: "word_card_prop_noteTextWeight", required: false },
+      { name: "noteTextSize", type: "string", defaultValue: "'0.75rem'", description: "word_card_prop_noteTextSize", required: false },
+      { name: "noteTextColor", type: "string", defaultValue: "'rgba(255,255,255,0.8)'", description: "word_card_prop_noteTextColor", required: false },
+      { name: "infoBorderRadius", type: "string", defaultValue: "'1rem'", description: "word_card_prop_infoBorderRadius", required: false },
+      { name: "infoBorderWidth", type: "string", defaultValue: "'1px'", description: "word_card_prop_infoBorderWidth", required: false },
+      { name: "infoBorderColor", type: "string", description: "word_card_prop_infoBorderColor", required: false },
+      { name: "infoBackground", type: "string", description: "word_card_prop_infoBackground", required: false },
+      { name: "infoPadding", type: "string", defaultValue: "'1rem'", description: "word_card_prop_infoPadding", required: false },
+      { name: "infoMarginTop", type: "string", defaultValue: "'1rem'", description: "word_card_prop_infoMarginTop", required: false },
+      { name: "listenLabelWeight", type: "number | string", defaultValue: "600", description: "word_card_prop_listenLabelWeight", required: false },
+      { name: "listenLabelSize", type: "string", defaultValue: "'0.75rem'", description: "word_card_prop_listenLabelSize", required: false },
+      { name: "listenLabelColor", type: "string", defaultValue: "'white'", description: "word_card_prop_listenLabelColor", required: false },
+      { name: "listenIconColor", type: "string", defaultValue: "primaryColor", description: "word_card_prop_listenIconColor", required: false },
+      { name: "cardTagWeight", type: "number | string", defaultValue: "600", description: "word_card_prop_cardTagWeight", required: false },
+      { name: "glowEnabled", type: "boolean", defaultValue: "true", description: "word_card_prop_glowEnabled", required: false },
+      { name: "glowGradient", type: "string", description: "word_card_prop_glowGradient", required: false },
+      { name: "glowBlur", type: "number", defaultValue: "0", description: "word_card_prop_glowBlur", required: false },
+      { name: "glowSpread", type: "number", defaultValue: "80", description: "word_card_prop_glowSpread", required: false },
+      { name: "glowProximity", type: "number", defaultValue: "64", description: "word_card_prop_glowProximity", required: false },
+      { name: "glowInactiveZone", type: "number", defaultValue: "0.01", description: "word_card_prop_glowInactiveZone", required: false },
+      { name: "glowStaticMode", type: "boolean", defaultValue: "false", description: "word_card_prop_glowStaticMode", required: false },
+      { name: "glowStaticAngle", type: "number", defaultValue: "0", description: "word_card_prop_glowStaticAngle", required: false },
+      { name: "lampEnabled", type: "boolean", defaultValue: "false", description: "word_card_prop_lampEnabled", required: false },
+      { name: "lampTopColor", type: "string", defaultValue: "'#ffffff'", description: "word_card_prop_lampTopColor", required: false },
+      { name: "lampTopWidth", type: "string", defaultValue: "'70%'", description: "word_card_prop_lampTopWidth", required: false },
+      { name: "lampShadowColor", type: "string", defaultValue: "'#ffffff80'", description: "word_card_prop_lampShadowColor", required: false },
+      { name: "dotOpacity", type: "number", defaultValue: "0.65", description: "word_card_prop_dotOpacity", required: false },
+      { name: "dotColor", type: "string", defaultValue: "'rgba(255,255,255,0.1)'", description: "word_card_prop_dotColor", required: false },
+      { name: "dotSpacing", type: "string", defaultValue: "'clamp(1rem, 2.5vw, 1.3rem)'", description: "word_card_prop_dotSpacing", required: false },
+      { name: "separatorHeight", type: "string", defaultValue: "'2px'", description: "word_card_prop_separatorHeight", required: false },
+      { name: "separatorMargin", type: "string", defaultValue: "'2rem 0'", description: "word_card_prop_separatorMargin", required: false },
+      { name: "accentColor", type: "string", defaultValue: "'#5a5a5a'", description: "word_card_prop_accentColor", required: false },
+      { name: "showCardTag", type: "boolean", defaultValue: "true", description: "word_card_prop_showCardTag", required: false },
+      { name: "cardTagLabel", type: "string", defaultValue: "'Word'", description: "word_card_prop_cardTagLabel", required: false },
+      { name: "cardTagAlign", type: "'left' | 'center' | 'right'", defaultValue: "'left'", description: "word_card_prop_cardTagAlign", required: false },
+      { name: "cardTagMarginTop", type: "string", defaultValue: "'0'", description: "word_card_prop_cardTagMarginTop", required: false },
+      { name: "cardTagMarginBottom", type: "string", defaultValue: "'1.5rem'", description: "word_card_prop_cardTagMarginBottom", required: false },
+      { name: "cardTagBackground", type: "string", defaultValue: "'rgba(255,255,255,0.05)'", description: "word_card_prop_cardTagBackground", required: false },
+      { name: "cardTagBorderColor", type: "string", defaultValue: "'rgba(255,255,255,0.1)'", description: "word_card_prop_cardTagBorderColor", required: false },
+      { name: "cardTagBorderWidth", type: "string", defaultValue: "'1px'", description: "word_card_prop_cardTagBorderWidth", required: false },
+      { name: "cardTagTextColor", type: "string", defaultValue: "'rgba(255,255,255,0.7)'", description: "word_card_prop_cardTagTextColor", required: false },
+      { name: "cardTagIconColor", type: "string", defaultValue: "primaryColor", description: "word_card_prop_cardTagIconColor", required: false },
+      { name: "cardTagIconSize", type: "string", defaultValue: "'0.75rem'", description: "word_card_prop_cardTagIconSize", required: false },
+      { name: "cardTagTextSize", type: "string", defaultValue: "'0.55rem'", description: "word_card_prop_cardTagTextSize", required: false },
+      { name: "cardTagRadius", type: "string", defaultValue: "'0.5rem'", description: "word_card_prop_cardTagRadius", required: false },
+      { name: "labelTranslationSingle", type: "string", defaultValue: "'Translation'", description: "word_card_prop_labelTranslationSingle", required: false },
+      { name: "labelTranslationMultiple", type: "string", defaultValue: "'Translations'", description: "word_card_prop_labelTranslationMultiple", required: false },
+      { name: "labelDefinition", type: "string", defaultValue: "'Definition'", description: "word_card_prop_labelDefinition", required: false },
+      { name: "labelNote", type: "string", defaultValue: "'Note'", description: "word_card_prop_labelNote", required: false },
+      { name: "labelListen", type: "string", defaultValue: "'Listen'", description: "word_card_prop_labelListen", required: false },
+      { name: "labelClose", type: "string", description: "word_card_prop_labelClose", required: false },
+      { name: "translationSeparator", type: "string", defaultValue: "', '", description: "word_card_prop_translationSeparator", required: false },
+      { name: "wordMarginTop", type: "string", defaultValue: "'0'", description: "word_card_prop_wordMarginTop", required: false },
+      { name: "wordMarginBottom", type: "string", defaultValue: "'1rem'", description: "word_card_prop_wordMarginBottom", required: false },
+      { name: "translationBlockMarginTop", type: "string", defaultValue: "'0.5rem'", description: "word_card_prop_translationBlockMarginTop", required: false },
+      { name: "translationBlockMarginBottom", type: "string", defaultValue: "'0.5rem'", description: "word_card_prop_translationBlockMarginBottom", required: false },
+      { name: "definitionBlockMarginTop", type: "string", defaultValue: "'0.5rem'", description: "word_card_prop_definitionBlockMarginTop", required: false },
+      { name: "definitionBlockMarginBottom", type: "string", defaultValue: "'0.5rem'", description: "word_card_prop_definitionBlockMarginBottom", required: false },
+      { name: "infoBlockMarginTop", type: "string", description: "word_card_prop_infoBlockMarginTop", required: false }
     ],
     isPreviewImage: true,
   },
