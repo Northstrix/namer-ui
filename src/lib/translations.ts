@@ -1381,6 +1381,10 @@ export const dictionaries = {
     "showcase_item_6_description": "A petite text shaderer that integrates Nof’s color tools, allowing users to conveniently adjust colors without leaving the app.",
     "showcase_item_7_title": "Kerach Tempo",
     "showcase_item_7_description": "A web app that lets you turn ordinary text into dynamic, shader‑driven visuals and export them as standalone HTML files.",
+    "showcase_item_8_title": "Onda Sfasata",
+    "showcase_item_8_description": "An authentic Italian learning app featuring multiple levels of varying complexity and a dictionary for the available vocabulary.",
+    "showcase_item_9_title": "Free English Test",
+    "showcase_item_9_description": "A free English proficiency test offering tasks of various types and difficulty to evaluate English skills up to C2 level.",
   },
   he: {
     'namer_ui': 'נמר UI',
@@ -2762,6 +2766,10 @@ export const dictionaries = {
     "showcase_item_6_description": "יישום טקסט שיידר קומפקטי המשולב בכלי הצבע של נוף, המאפשר לכוונן צבעים בקלות מבלי לצאת מהאפליקציה.",
     "showcase_item_7_title": "קרח טמפו",
     "showcase_item_7_description": "אפליקציית ווב שמאפשרת לך להפוך טקסט רגיל לוויזואליות דינמיות המונעות על ידי שאדרים ולייצא אותן כקובצי HTML עצמאיים.",
+    "showcase_item_8_title": "אונדה ספסטה",
+    "showcase_item_8_description": "אפליקציה אותנטית ללימוד איטלקית הכוללת רמות מרובות בדרגות קושי שונות ומילון לאוצר המילים הזמין.",
+    "showcase_item_9_title": "מבחן אנגלית חינם",
+    "showcase_item_9_description": "מבחן מיומנות באנגלית חינמי המציע משימות מסוגים שונים וברמות קושי שונות להערכת רמת האנגלית עד C2.",
   },
   es: {
     'namer_ui': 'Namer UI',
@@ -4139,6 +4147,10 @@ export const dictionaries = {
     "showcase_item_6_description": "Un pequeño generador de texto con shaders que integra las herramientas de color de Nof para ajustar colores sin salir de la app.",
     "showcase_item_7_title": "Kerach Tempo",
     "showcase_item_7_description": "Una aplicación web que te permite convertir texto común en visuales dinámicos impulsados por sombreadores y exportarlos como archivos HTML.",
+    "showcase_item_8_title": "Onda Sfasata",
+    "showcase_item_8_description": "Una aplicación auténtica para aprender italiano con múltiples niveles de diferente complejidad y un diccionario del vocabulario disponible.",
+    "showcase_item_9_title": "Prueba de inglés gratuita",
+    "showcase_item_9_description": "Una prueba de dominio del inglés gratuita que ofrece tareas de varios tipos y niveles de dificultad para evaluar el nivel de inglés hasta C2.",
   },
 };
 

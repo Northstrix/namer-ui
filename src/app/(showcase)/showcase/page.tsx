@@ -68,6 +68,20 @@ export const showcaseItems: ShowcaseItem[] = [
     image: "/showcase/kerach-tempo.webp",
     link: "https://kerach-tempo.netlify.app/",
   },
+  {
+    id: "onda-sfasata",
+    name: "showcase_item_8_title",
+    description: "showcase_item_8_description",
+    image: "/showcase/onda-sfasata.webp",
+    link: "https://onda-sfasata.netlify.app/",
+  },
+  {
+    id: "free-english-test",
+    name: "showcase_item_9_title",
+    description: "showcase_item_9_description",
+    image: "/showcase/free-english-test.webp",
+    link: "https://free-english-test.vercel.app/",
+  },
 ];
 
 const ShowcaseCard: React.FC<{ item: ShowcaseItem; isRTL: boolean; t: (k: string, p?: any) => string }> = ({
