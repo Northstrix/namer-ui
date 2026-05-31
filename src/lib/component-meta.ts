@@ -55,6 +55,7 @@ import HolographicCardFullPageDemo from "@/app/the-actual-components/holographic
 import ColorPickerFullPageDemo from "@/app/the-actual-components/color-picker/demo-full-page";
 import WordCardFullPageDemo from "@/app/the-actual-components/word-card/demo-full-page";
 import ShimmerAccordionFullPageDemo from "@/app/the-actual-components/shimmer-accordion/demo-full-page";
+import FancySliderFullPageDemo from "@/app/the-actual-components/fancy-slider/demo-full-page";
 import { TranslationKey } from "./translations";
 
 export interface ComponentMetadata {
@@ -22518,6 +22519,1485 @@ export function ShimmerAccordion({
         required: false,
       },
     ],
+    isPreviewImage: true,
+  },
+  {
+    id: "fancy-slider",
+    title: "fancy_slider_title",
+    description: "fancy_slider_desc",
+    demoFullPage: FancySliderFullPageDemo,
+    dependencies: 'npm install clsx tailwind-merge',
+    credit: `[Electric Border](https://codepen.io/BalintFerenczy/pen/KwdoyEN) by [Bálint Ferenczy](https://codepen.io/BalintFerenczy)
+[すりガラスなプロフィールカード](https://codepen.io/ash_creator/pen/zYaPZLB) by [あしざわ - Webクリエイター](https://codepen.io/ash_creator)
+[Glassmorphic Music Player with Interactive Volume Control](https://codepen.io/Kan3an/pen/vEKxrWm) by [Kan3an](https://codepen.io/Kan3an)
+[SVG Image Blur](https://codepen.io/dstnation/pen/XmqOBV) by [Dustin Ko](https://codepen.io/dstnation)
+[Faking backdrop-filter using SVG filter](https://codepen.io/iamvdo/pen/VLOGdw) by [Vincent De Oliveira](https://codepen.io/iamvdo)
+Photo by [TOM](https://unsplash.com/@cr029?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/a-view-of-a-city-at-night-from-the-top-of-a-building--jYPVUm16BY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+`,
+    usage: `// Path to the "FancySlider.tsx" file
+
+import { FancySlider } from "@/app/the-actual-components/fancy-slider/FancySlider";
+import React, { useState, useEffect } from "react";
+
+export default function DemoFancySlider() {
+  const [mounted, setMounted] = useState(false);
+  const [value, setValue] = useState(71);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    setMounted(true);
+    
+    const checkDesktop = () => {
+      // Check container width (not window width)
+      const container = document.querySelector(".demo-fancy-slider-container");
+      const containerWidth = container ? (container as HTMLElement).offsetWidth : window.innerWidth;
+      setIsDesktop(containerWidth >= 640);
+    };
+
+    // Small timeout ensures the element is rendered in the DOM before calculating width
+    const timer = setTimeout(checkDesktop, 0);
+    window.addEventListener("resize", checkDesktop);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", checkDesktop);
+    };
+  }, []);
+
+  const handleChange = (v: number) => {
+    const newValue = Number(v.toFixed(2));
+    setValue(newValue);
+    console.log(\`Slider value: \${newValue}\`);
+  };
+
+  if (!mounted) return null;
+
+  return (
+    <main className="w-full bg-black flex justify-center overflow-x-hidden">
+      <div className="demo-fancy-slider-container w-full flex flex-col">
+        <div 
+          className="relative overflow-hidden flex justify-center items-center py-[100px]"
+          style={{ 
+            // Mobile: height is driven by content + 200px padding. Desktop: matches your original constraint.
+            height: isDesktop ? "auto" : "auto", 
+            minHeight: isDesktop ? "min(100vh - 2px, 1078px)" : "unset"
+          }}
+        >
+          {/* Background Layer */}
+          <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center">
+            <img
+              src="/fancy-slider-background-image.webp"
+              alt="Environment Backdrop"
+              // w-auto and min-w-max forces the image to preserve its true native width 
+              // object-cover preserves the aspect ratio while centering handles the rest
+              className="h-full w-auto min-w-max object-cover object-center"
+              style={{ 
+                filter: 'blur(3.75px)',
+              }}
+            />
+            <div
+              className="absolute inset-0 transition-all duration-500"
+              style={{
+                backgroundColor: "#000",
+                opacity: 0.25
+              }}
+            />
+          </div>
+
+          {/* Default slider */}
+          <div className="relative z-10 flex items-center justify-center">
+            <FancySlider
+              value={value}
+              onChange={handleChange}
+            />
+          {/* RTL slider with shekel sign, white-blue-purple gradient */}
+          {/*
+            <FancySlider
+              value={value}
+              onChange={handleChange}
+              config={{
+                min: 10,
+                max: 100,
+                step: 1,
+                density: 1.5,
+
+                paddingX: 36,
+                paddingY: 36,
+                bodyBorderRadius: "20px",
+                bodyBorderOpacity: 0.22,
+                bodyBackgroundColor: "#fff",
+                bodyOpacity: 0.1,
+                bodyBackdropBlur: 10.25,
+
+                trackBorderRadius: "8px",
+                trackWidth: 34,
+                trackHeight: 340,
+                trackUpperColor: "#ac25ff",
+                trackLowerColor: "#fff",
+                trackOpacity: 0.4,
+                trackBorderWidth: 1,
+                trackBorderOpacity: 0.14,
+                trackBorderColor: "#ffffff",
+                trackDeadzoneTop: 16,
+                trackDeadzoneBottom: 16,
+
+                knobBorderRadius: "14px",
+                knobSize: 30,
+                knobBlur: 6,
+                knobBackgroundColor: "##fff",
+                knobOpacity: 0.14,
+                knobBorderColor: "#ffffff",
+                knobBorderOpacity: 0.22,
+                knobBorderWidth: 1,
+                knobDotSize: 0,
+                knobHoverScale: 1.05,
+                knobActiveScale: 1.36,
+
+                mercuryMeltValue: 98,
+
+                scaleUnit: "₪",
+                scaleUnitPosition: "prefix",
+                scaleTickWidth: 22,
+                inactiveScaleColor: "#ffffffaa",
+                inactiveScaleOpacity: 0.5,
+                scaleFontSize: 11,
+                scaleFontWeight: "600",
+
+                fishScaleProximity: 92,
+                fishScaleMagnification: 0.2,
+                fishScaleLineMagnificationEnabled: false,
+
+                gradientColors: ["#fff", "#fff", "#25e5ff", "#ac25ff"],
+                gradientStops: [0, 0.5, 0.75, 1],
+
+                fishScaleTickTranslate: 20,
+
+                showScaleOnTheLeftSide: true,
+                swapScaleAndNumbers: true,
+                scaleSpacing: 16,
+              }}
+            />
+            */}
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}`,
+    includeClassMerger: true,
+    code: `"use client";
+
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
+import { cn } from "@/lib/utils";
+
+// ============== Config Types (fully flat, *Alpha → *Opacity) ==============
+
+export interface SliderConfig {
+  min: number;
+  max: number;
+  step: number;
+  density: number;
+
+  // Body Geometry
+  paddingX: number;
+  paddingY: number;
+  bodyBorderRadius: number | string;
+  bodyBorderWidth: number;
+  bodyBorderColor: string;
+  bodyBorderOpacity: number;
+  bodyBackgroundColor: string;
+  bodyOpacity: number;
+  bodyBackdropBlur: number;
+
+  // Track Geometry
+  trackBorderRadius: number | string;
+  trackWidth: number;
+  trackHeight: number;
+  trackUpperColor: string;
+  trackLowerColor: string;
+  trackOpacity: number;
+  trackBorderWidth: number;
+  trackBorderOpacity: number;
+  trackBorderColor: string;
+  trackDeadzoneTop: number;
+  trackDeadzoneBottom: number;
+
+  // Knob Geometry
+  knobBorderRadius: number | string;
+  knobSize: number;
+  knobBlur: number;
+  knobBackgroundColor: string;
+  knobOpacity: number;
+  knobBorderColor: string;
+  knobBorderOpacity: number;
+  knobBorderWidth: number;
+  knobDotSize: number;
+  knobDotBorderRadius: number | string;
+  knobHoverScale: number;
+  knobActiveScale: number;
+
+  // Physics & Visuals
+  mercuryMeltValue: number;
+  liquidGlowOpacity: number;
+
+  // Scale Readout
+  showScale: boolean;
+  scaleUnit: string;
+  scaleUnitPosition: "prefix" | "suffix";
+  unitVerticalAlign: "top" | "center" | "bottom";
+  scaleTickWidth: number;
+  scaleTickHeight: number;
+  inactiveScaleColor: string;
+  inactiveScaleOpacity: number;
+
+  // Scale Typography
+  scaleFontSize: number;
+  scaleFontWeight: string | number;
+
+  // Physics tuning
+  fishScaleProximity: number;
+  fishScaleMagnification: number;
+  fishScaleLineMagnificationEnabled: boolean;
+
+  // Color Proximity & Overrides
+  useColorOverrides: boolean;
+  textOverrideColor: string;
+  unitOverrideColor: string;
+  lineOverrideColor: string;
+
+  // Color Engine
+  gradientColors: string[];
+  gradientStops: number[];
+
+  // Granular Fish Scale Controls
+  fishScaleGlowColor: string;
+  fishScaleGlowOpacity: number;
+  fishScaleLineThicknessActive: number;
+  fishScaleLineThicknessInactive: number;
+  fishScaleTickScaleBoost: number;
+  fishScaleTickTranslate: number;
+
+  // RTL & Scale Position
+  showScaleOnTheLeftSide: boolean;
+  swapScaleAndNumbers?: boolean;
+  scaleSpacing: number;
+  scaleTranslateX?: number;
+}
+
+export interface FancySliderProps {
+  config?: Partial<SliderConfig>;
+  value: number;
+  onChange: (val: number) => void;
+}
+
+// ============== Utilities ==============
+
+const hexToRgb = (hex: string): [number, number, number] => {
+  const shorthandRegex = /^#?([a-f\\d])([a-f\\d])([a-f\\d])$/i;
+  const expanded = hex.replace(
+    shorthandRegex,
+    (_, r, g, b) => r + r + g + g + b + b
+  );
+  const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(expanded);
+  return result
+    ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)]
+    : [255, 255, 255];
+};
+
+const rgbToHex = (r: number, g: number, b: number) =>
+  "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
+const clamp = (n: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, n));
+
+const normalizeValue = (value: number, min: number, max: number, step: number) => {
+  const clamped = clamp(value, min, max);
+  const stepped = Math.round(clamped / step) * step;
+  return Number(clamp(stepped, min, max).toFixed(2));
+};
+
+const lerpColor = (start: string, end: string, t: number): string => {
+  const s = hexToRgb(start);
+  const e = hexToRgb(end);
+  const r = Math.round(s[0] + (e[0] - s[0]) * t);
+  const g = Math.round(s[1] + (e[1] - s[1]) * t);
+  const b = Math.round(s[2] + (e[2] - s[2]) * t);
+  return rgbToHex(r, g, b);
+};
+
+const getColorAtValue = (
+  value: number,
+  min: number,
+  max: number,
+  colors: string[],
+  stops: number[]
+): string => {
+  if (!colors.length) return "#ffffff";
+  if (colors.length === 1) return colors[0];
+
+  const norm = clamp((value - min) / (max - min || 1), 0, 1);
+
+  for (let i = 0; i < stops.length - 1; i++) {
+    const s0 = stops[i];
+    const s1 = stops[i + 1];
+    if (norm >= s0 && norm <= s1) {
+      const p = s1 === s0 ? 0 : (norm - s0) / (s1 - s0);
+      return lerpColor(colors[i], colors[i + 1], p);
+    }
+  }
+  return colors[colors.length - 1];
+};
+
+const parseToRgba = (colorStr: string, opacity: number): string => {
+  if (colorStr.startsWith("#")) {
+    const [r, g, b] = hexToRgb(colorStr);
+    return \`rgba(\${r}, \${g}, \${b}, \${opacity})\`;
+  }
+  return colorStr;
+};
+
+const buildBackdropStyle = (
+  supportsBackdropFilter: boolean,
+  colorHex: string,
+  opacity: number,
+  blurStrength: number,
+  borderColor: string,
+  borderOpacity: number,
+  borderWidth: number
+): CSSProperties => {
+  const background = parseToRgba(colorHex, opacity);
+  const borderRgba = parseToRgba(borderColor, borderOpacity);
+
+  if (supportsBackdropFilter) {
+    return {
+      background,
+      backgroundClip: "padding-box",
+      backdropFilter: \`blur(\${blurStrength}px) saturate(260%) brightness(1.25)\`,
+      WebkitBackdropFilter: \`blur(\${blurStrength}px) saturate(260%) brightness(1.25)\`,
+      borderColor: borderRgba,
+      borderWidth: \`\${borderWidth}px\`,
+      borderStyle: "solid",
+    };
+  }
+
+  return {
+    background: parseToRgba(colorHex, Math.min(0.95, opacity * 1.5)),
+    backgroundClip: "padding-box",
+    borderColor: parseToRgba(borderColor, Math.min(0.95, borderOpacity * 1.5)),
+    borderWidth: \`\${borderWidth}px\`,
+    borderStyle: "solid",
+  };
+};
+
+// ============== Default Config ==============
+
+const DEFAULT_CONFIG: SliderConfig = {
+  min: 20,
+  max: 110,
+  step: 0.01,
+  density: 2.5,
+
+  paddingX: 45,
+  paddingY: 46,
+  bodyBorderRadius: "999px",
+  bodyBorderWidth: 1,
+  bodyBorderColor: "#ffffff",
+  bodyBorderOpacity: 0.14,
+  bodyBackgroundColor: "#0a0a0a",
+  bodyOpacity: 0.36,
+  bodyBackdropBlur: 7.64,
+
+  trackBorderRadius: "99px",
+  trackWidth: 42,
+  trackHeight: 428,
+  trackUpperColor: "#ffffff",
+  trackLowerColor: "#000000",
+  trackOpacity: 0.22,
+  trackBorderWidth: 1,
+  trackBorderOpacity: 0.14,
+  trackBorderColor: "#ffffff",
+  trackDeadzoneTop: 21.25,
+  trackDeadzoneBottom: 21.25,
+
+  knobBorderRadius: "99px",
+  knobSize: 36,
+  knobBlur: 12,
+  knobBackgroundColor: "#0a0a0a",
+  knobOpacity: 0.32,
+  knobBorderColor: "#ffffff",
+  knobBorderOpacity: 0.14,
+  knobBorderWidth: 1,
+  knobDotSize: 10,
+  knobDotBorderRadius: 50,
+  knobHoverScale: 1.1,
+  knobActiveScale: 1.2,
+
+  mercuryMeltValue: 36,
+  liquidGlowOpacity: 0.5,
+
+  showScale: true,
+  scaleUnit: "° F",
+  scaleUnitPosition: "suffix",
+  unitVerticalAlign: "center",
+  scaleTickWidth: 20,
+  scaleTickHeight: 1.5,
+  inactiveScaleColor: "#ffffff66",
+  inactiveScaleOpacity: 0.4,
+  scaleFontSize: 12,
+  scaleFontWeight: "700",
+
+  fishScaleProximity: 70,
+  fishScaleMagnification: 0.4,
+  fishScaleLineMagnificationEnabled: true,
+
+  useColorOverrides: false,
+  textOverrideColor: "#ffffff",
+  unitOverrideColor: "#ffffff",
+  lineOverrideColor: "#ffffff",
+
+  gradientColors: ["#00eaff", "#0099ff", "#00ff73", "#ffdd00", "#ff8800", "#ff0044"],
+  gradientStops: [0, 0.25, 0.5, 0.7, 0.85, 1],
+
+  fishScaleGlowColor: "#00B9FA",
+  fishScaleGlowOpacity: 0.55,
+  fishScaleLineThicknessActive: 2.0,
+  fishScaleLineThicknessInactive: 1.5,
+  fishScaleTickScaleBoost: 0.6,
+  fishScaleTickTranslate: 8,
+
+  showScaleOnTheLeftSide: false,
+  swapScaleAndNumbers: false,
+  scaleSpacing: 48,
+  scaleTranslateX: 0,
+};
+
+// ============== Knob Component ==============
+
+const Knob: React.FC<{
+  uniqueId: string;
+  size: number;
+  radius: number | string;
+  blur: number;
+  glassColor: string;
+  glassOpacity: number;
+  borderColor: string;
+  borderOpacity: number;
+  borderWidth: number;
+  dotSize: number;
+  dotRadius: number | string;
+  hoverScale: number;
+  activeScale: number;
+  isHovered: boolean;
+  isDragging: boolean;
+  activeColor: string;
+  supportsBackdropFilter: boolean;
+}> = ({
+  uniqueId,
+  size,
+  radius,
+  blur,
+  glassColor,
+  glassOpacity,
+  borderColor,
+  borderOpacity,
+  borderWidth,
+  dotSize,
+  dotRadius,
+  hoverScale,
+  activeScale,
+  isHovered,
+  isDragging,
+  activeColor,
+  supportsBackdropFilter,
+}) => {
+  const knobStyle = useMemo(
+    () =>
+      buildBackdropStyle(
+        supportsBackdropFilter,
+        glassColor,
+        glassOpacity,
+        blur,
+        borderColor,
+        borderOpacity,
+        borderWidth
+      ),
+    [supportsBackdropFilter, glassColor, glassOpacity, blur, borderColor, borderOpacity, borderWidth]
+  );
+
+  const scale = isDragging ? activeScale : isHovered ? hoverScale : 1;
+
+  return (
+    <div
+      dir="ltr"
+      className={cn(
+        \`\${uniqueId}-knob\`,
+        "rounded-full w-full h-full flex items-center justify-center pointer-events-none aspect-square"
+      )}
+      style={{
+        ...knobStyle,
+        transition: "all 0.3s ease",
+        borderRadius: radius,
+        boxShadow: "none",
+        transform: \`scale(\${scale})\`,
+      }}
+    >
+      {dotSize > 0 && (
+        <div
+          style={{
+            backgroundColor: activeColor,
+            width: dotSize,
+            height: dotSize,
+            borderRadius: dotRadius,
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
+// ============== Invisible Drag Track ==============
+
+const InvisibleDragTrack: React.FC<{
+  uniqueId: string;
+  width: number;
+  height: number;
+  top: number;
+  left: number;
+  onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}> = ({
+  uniqueId,
+  width,
+  height,
+  top,
+  left,
+  onPointerDown,
+  onMouseEnter,
+  onMouseLeave,
+}) => {
+  return (
+    <div
+      onPointerDown={onPointerDown}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={cn(\`\${uniqueId}-drag-track\`, "absolute rounded-full pointer-events-auto")}
+      style={{
+        left,
+        top,
+        width,
+        height,
+        cursor: "ns-resize",
+        opacity: 0,
+        zIndex: 60,
+        borderRadius: 9999,
+      }}
+    />
+  );
+};
+
+// ============== Main Component ==============
+
+export const FancySlider: React.FC<FancySliderProps> = ({
+  config,
+  value,
+  onChange,
+}) => {
+  const merged = useMemo<SliderConfig>(
+    () => ({ ...DEFAULT_CONFIG, ...config }),
+    [config]
+  );
+
+  const [mounted, setMounted] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [dragSpeed, setDragSpeed] = useState(0);
+
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const lastY = useRef<number>(0);
+  const lastTime = useRef<number>(0);
+  const idRef = useRef<string>("");
+
+  if (!idRef.current) {
+    idRef.current = \`lux-\${Math.random().toString(36).slice(2, 9)}\`;
+  }
+  const uniqueId = idRef.current;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const supportsBackdropFilter = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return (
+      window.CSS?.supports?.("backdrop-filter", "blur(24px)") ||
+      window.CSS?.supports?.("-webkit-backdrop-filter", "blur(24px)")
+    );
+  }, []);
+
+  const activeColor = useMemo(
+    () =>
+      getColorAtValue(
+        value,
+        merged.min,
+        merged.max,
+        merged.gradientColors,
+        merged.gradientStops
+      ),
+    [value, merged]
+  );
+
+  const activeTrackHeight =
+    merged.trackHeight - merged.trackDeadzoneTop - merged.trackDeadzoneBottom;
+
+  const fillPercentage =
+    ((clamp(value, merged.min, merged.max) - merged.min) /
+      (merged.max - merged.min || 1)) *
+    100;
+
+  const bodyWidth = merged.trackWidth + merged.paddingX * 2;
+  const bodyHeight = merged.trackHeight + merged.paddingY * 2;
+
+  const knobTopRelative =
+    merged.trackDeadzoneTop +
+    (1 - fillPercentage / 100) * activeTrackHeight;
+
+  const bodyStyle = useMemo(
+    () =>
+      buildBackdropStyle(
+        supportsBackdropFilter,
+        merged.bodyBackgroundColor,
+        merged.bodyOpacity,
+        merged.bodyBackdropBlur,
+        merged.bodyBorderColor,
+        merged.bodyBorderOpacity,
+        merged.bodyBorderWidth
+      ),
+    [supportsBackdropFilter, merged]
+  );
+
+  const trackBgStyle = useMemo(() => {
+    const background = \`linear-gradient(
+      180deg,
+      \${parseToRgba(merged.trackUpperColor, merged.trackOpacity)},
+      \${parseToRgba(merged.trackLowerColor, merged.trackOpacity)}
+    )\`;
+    return { background };
+  }, [merged]);
+
+  const trackGlassStyle = useMemo(
+    () =>
+      buildBackdropStyle(
+        supportsBackdropFilter,
+        "transparent",
+        0,
+        0,
+        parseToRgba(merged.trackBorderColor, merged.trackBorderOpacity),
+        merged.trackBorderOpacity,
+        merged.trackBorderWidth
+      ),
+    [supportsBackdropFilter, merged]
+  );
+
+  const knobTop = merged.paddingY + knobTopRelative;
+  const knobWidth = merged.knobSize * 2;
+  const invisibleTrackLeft =
+    merged.paddingX +
+    merged.trackWidth / 2 -
+    knobWidth / 2;
+  const invisibleTrackTop = merged.paddingY + knobTopRelative - merged.knobSize;
+
+  const calculateValue = useCallback(
+    (clientY: number) => {
+      if (!trackRef.current) {
+        return normalizeValue(value, merged.min, merged.max, merged.step);
+      }
+      const rect = trackRef.current.getBoundingClientRect();
+      const relativeY = clientY - rect.top;
+      const percentage = 1 -
+        clamp(
+          (relativeY - merged.trackDeadzoneTop) / activeTrackHeight,
+          0,
+          1
+        );
+      const rawValue = merged.min + percentage * (merged.max - merged.min);
+      return normalizeValue(rawValue, merged.min, merged.max, merged.step);
+    },
+    [value, merged, activeTrackHeight]
+  );
+
+  const updateDrag = useCallback(
+    (clientY: number) => {
+      const now = Date.now();
+      const deltaY = Math.abs(clientY - lastY.current);
+      const deltaTime = now - lastTime.current;
+      const speed = deltaTime > 0 ? deltaY / deltaTime : 0;
+
+      setDragSpeed((prev) => prev * 0.8 + speed * 0.2);
+      lastY.current = clientY;
+      lastTime.current = now;
+
+      onChange(calculateValue(clientY));
+    },
+    [calculateValue, onChange]
+  );
+
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      setIsDragging(true);
+      lastY.current = e.clientY;
+      lastTime.current = Date.now();
+      onChange(calculateValue(e.clientY));
+    },
+    [calculateValue, onChange]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        onChange(
+          normalizeValue(value + 1, merged.min, merged.max, merged.step)
+        );
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        onChange(
+          normalizeValue(value - 1, merged.min, merged.max, merged.step)
+        );
+      }
+    },
+    [value, merged, onChange]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
+  useEffect(() => {
+    if (!isDragging) return;
+    const move = (e: PointerEvent) => updateDrag(e.clientY);
+    const end = () => {
+      setIsDragging(false);
+      setDragSpeed(0);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", end);
+    return () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", end);
+    };
+  }, [isDragging, updateDrag]);
+
+  const tickCount = Math.max(2, Math.floor(merged.density * 12) + 1);
+
+  if (!mounted) {
+    return (
+      <div
+        style={{ width: bodyWidth, height: bodyHeight }}
+        className="bg-white/5 animate-pulse rounded-3xl"
+      />
+    );
+  }
+
+  return (
+    <div
+      dir="ltr"
+      ref={containerRef}
+      className={cn(
+        "relative flex flex-col items-center justify-center select-none outline-none",
+        \`\${uniqueId}-container\`
+      )}
+      style={{
+        "--active-color": activeColor,
+        "--liquid-glow": merged.liquidGlowOpacity,
+        "--fish-glow-color": merged.fishScaleGlowColor,
+        "--fish-glow-opacity": merged.fishScaleGlowOpacity,
+      } as CSSProperties}
+    >
+      <style>{\`
+        .\${uniqueId}-container {
+          position: relative;
+          overflow: visible;
+        }
+
+        @keyframes \${uniqueId}-pulseElectric {
+          0% {
+            opacity: 0.15;
+            transform: scaleY(1);
+          }
+          100% {
+            opacity: 0.35;
+            transform: scaleY(1.05);
+          }
+        }
+
+        .\${uniqueId}-plasma-filter {
+          position: absolute;
+          width: 0;
+          height: 0;
+          pointer-events: none;
+        }
+
+        .\${uniqueId}-body {
+          position: relative;
+          cursor: ns-resize;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          touch-action: none;
+          transition: transform 0.2s ease, box-shadow 0.3s ease;
+          overflow: visible;
+          z-index: 5;
+        }
+
+        .\${uniqueId}-track-wrapper {
+          position: relative;
+          z-index: 10;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .\${uniqueId}-track-bg-layer {
+          position: absolute;
+          inset: 0;
+          background-clip: padding-box;
+          border-radius: inherit;
+          z-index: 1;
+        }
+
+        .\${uniqueId}-liquid-container {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background-clip: padding-box;
+          z-index: 5;
+          border-radius: inherit;
+        }
+
+        .\${uniqueId}-mercury {
+          position: absolute;
+          bottom: 0;
+          left: -45%;
+          width: 190%;
+          mix-blend-mode: screen;
+          transition: height 0.12s linear, background-color 0.3s ease;
+          filter: url(#\${uniqueId}-turbulent-displace);
+          box-shadow: 0 0 45px var(--active-color), 0 0 90px var(--active-color);
+          opacity: 0.95;
+        }
+
+        .\${uniqueId}-mercury::before,
+        .\${uniqueId}-mercury::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          filter: blur(6px);
+          background: radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 255, 255, 0.3),
+            transparent 90%
+          );
+          mix-blend-mode: color-dodge;
+          opacity: 0.25;
+          animation: \${uniqueId}-pulseElectric 3s infinite ease-in-out alternate;
+        }
+
+        .\${uniqueId}-mercury::after {
+          filter: blur(16px);
+          opacity: 0.18;
+          animation-delay: 1.5s;
+        }
+
+        .\${uniqueId}-scale {
+          position: absolute;
+          pointer-events: none;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 192px;
+          overflow: visible;
+        }
+
+        .\${uniqueId}-scale-tick {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          will-change: transform, opacity;
+          transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1),
+                      opacity 0.2s ease;
+          overflow: visible;
+        }
+
+        .\${uniqueId}-label-text {
+          transition: color 0.3s ease;
+          display: flex;
+          white-space: pre;
+          line-height: 1;
+        }
+
+        .\${uniqueId}-knob {
+          transform: translateZ(0);
+          box-shadow: none !important;
+        }
+
+        .\${uniqueId}-drag-track {
+          cursor: ns-resize;
+        }
+      \`}</style>
+
+      <svg
+        className={\`\${uniqueId}-plasma-filter\`}
+        x="-200%"
+        y="-200%"
+        width="500%"
+        height="500%"
+      >
+        <defs>
+          <filter
+            id={\`\${uniqueId}-turbulent-displace\`}
+            colorInterpolationFilters="sRGB"
+            x="-20%"
+            y="-20%"
+            width="140%"
+            height="140%"
+          >
+            <feTurbulence
+              type="turbulence"
+              baseFrequency="0.02"
+              numOctaves="10"
+              result="noise1"
+              seed="1"
+            />
+            <feOffset
+              in="noise1"
+              dx="0"
+              dy="0"
+              result="offsetNoise1"
+            >
+              <animate
+                attributeName="dy"
+                values="700; 0"
+                dur="6s"
+                repeatCount="indefinite"
+                calcMode="linear"
+              />
+            </feOffset>
+            <feTurbulence
+              type="turbulence"
+              baseFrequency="0.02"
+              numOctaves="10"
+              result="noise2"
+              seed="1"
+            />
+            <feOffset
+              in="noise2"
+              dx="0"
+              dy="0"
+              result="offsetNoise2"
+            >
+              <animate
+                attributeName="dy"
+                values="0; -700"
+                dur="6s"
+                repeatCount="indefinite"
+                calcMode="linear"
+              />
+            </feOffset>
+            <feTurbulence
+              type="turbulence"
+              baseFrequency="0.02"
+              numOctaves="10"
+              result="noise3"
+              seed="2"
+            />
+            <feOffset
+              in="noise3"
+              dx="0"
+              dy="0"
+              result="offsetNoise3"
+            >
+              <animate
+                attributeName="dx"
+                values="490; 0"
+                dur="6s"
+                repeatCount="indefinite"
+                calcMode="linear"
+              />
+            </feOffset>
+            <feTurbulence
+              type="turbulence"
+              baseFrequency="0.02"
+              numOctaves="10"
+              result="noise4"
+              seed="2"
+            />
+            <feOffset
+              in="noise4"
+              dx="0"
+              dy="0"
+              result="offsetNoise4"
+            >
+              <animate
+                attributeName="dx"
+                values="0; -490"
+                dur="6s"
+                repeatCount="indefinite"
+                calcMode="linear"
+              />
+            </feOffset>
+            <feComposite
+              in="offsetNoise1"
+              in2="offsetNoise2"
+              result="part1"
+            />
+            <feComposite
+              in="offsetNoise3"
+              in2="offsetNoise4"
+              result="part2"
+            />
+            <feBlend
+              in="part1"
+              in2="part2"
+              mode="color-dodge"
+              result="combinedNoise"
+            />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="combinedNoise"
+              scale={merged.mercuryMeltValue + dragSpeed * 20}
+              xChannelSelector="R"
+              yChannelSelector="B"
+            />
+          </filter>
+        </defs>
+      </svg>
+
+      <div
+        onPointerDown={handlePointerDown}
+        className={\`\${uniqueId}-body\`}
+        style={{
+          ...bodyStyle,
+          width: bodyWidth,
+          height: bodyHeight,
+          borderRadius: merged.bodyBorderRadius,
+          boxShadow: isDragging
+            ? "0 30px 60px rgba(0, 0, 0, 0.65)"
+            : "0 15px 35px rgba(0, 0, 0, 0.3)",
+        }}
+      >
+        <div
+          ref={trackRef}
+          className={\`\${uniqueId}-track-wrapper\`}
+          style={{
+            ...trackGlassStyle,
+            width: merged.trackWidth,
+            height: merged.trackHeight,
+            borderRadius: merged.trackBorderRadius,
+          }}
+        >
+          <div
+            className={\`\${uniqueId}-track-bg-layer\`}
+            style={{
+              ...trackBgStyle,
+              borderRadius: merged.trackBorderRadius,
+            }}
+          />
+
+          <div className={\`\${uniqueId}-liquid-container\`}>
+            <div
+              className={\`\${uniqueId}-mercury\`}
+              style={{
+                height: \`calc(\${fillPercentage / 100} * \${activeTrackHeight}px)\`,
+                bottom: \`\${merged.trackDeadzoneBottom}px\`,
+                backgroundColor: activeColor,
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-white/30" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Visible Knob on top of the track */}
+      <div
+        className="absolute pointer-events-none z-50"
+        style={{
+          left: "50%",
+          top: knobTop,
+          width: \`\${merged.knobSize * 2}px\`,
+          height: \`\${merged.knobSize * 2}px\`,
+          transform: \`translate(-50%, -50%)\`,
+          transition: isDragging
+            ? "none"
+            : "top 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+        }}
+      >
+        <Knob
+          uniqueId={uniqueId}
+          size={merged.knobSize}
+          radius={merged.knobBorderRadius}
+          blur={merged.knobBlur}
+          glassColor={merged.knobBackgroundColor}
+          glassOpacity={merged.knobOpacity}
+          borderColor={merged.knobBorderColor}
+          borderOpacity={merged.knobBorderOpacity}
+          borderWidth={merged.knobBorderWidth}
+          dotSize={merged.knobDotSize}
+          dotRadius={merged.knobDotBorderRadius}
+          hoverScale={merged.knobHoverScale}
+          activeScale={merged.knobActiveScale}
+          isHovered={isHovered}
+          isDragging={isDragging}
+          activeColor={activeColor}
+          supportsBackdropFilter={supportsBackdropFilter}
+        />
+      </div>
+
+      {/* Invisible Drag Track: handles hover and drag, triggers knob hover state */}
+      <InvisibleDragTrack
+        uniqueId={uniqueId}
+        width={knobWidth}
+        height={merged.trackHeight}
+        top={invisibleTrackTop}
+        left={invisibleTrackLeft}
+        onPointerDown={handlePointerDown}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      />
+
+      {/* Scale */}
+      {merged.showScale && (
+        <div
+          className={\`\${uniqueId}-scale\`}
+          style={{
+            top: \`\${merged.paddingY + merged.trackDeadzoneTop}px\`,
+            height: \`\${activeTrackHeight}px\`,
+            left: merged.showScaleOnTheLeftSide ? "auto" : "100%",
+            right: merged.showScaleOnTheLeftSide ? "100%" : "auto",
+            marginLeft: merged.showScaleOnTheLeftSide ? 0 : merged.scaleSpacing,
+            marginRight: merged.showScaleOnTheLeftSide ? merged.scaleSpacing : 0,
+            alignItems: merged.showScaleOnTheLeftSide ? "flex-end" : "flex-start",
+            transform: \`translateX(\${merged.scaleTranslateX ?? 0}px)\`,
+          }}
+        >
+          {Array.from({ length: tickCount }).map((_, i, arr) => {
+            const range = merged.max - merged.min;
+            const tickValueRaw = merged.max - (i * (range / (arr.length - 1)));
+            const tickValueStr = tickValueRaw.toFixed(0);
+            const tickY = (i / (arr.length - 1)) * activeTrackHeight;
+            const knobYPos = (1 - fillPercentage / 100) * activeTrackHeight;
+            const dist = Math.abs(knobYPos - tickY);
+            const isFish = true;
+            const proximity = isFish
+              ? Math.max(0, 1 - dist / merged.fishScaleProximity)
+              : 0;
+            const isMajor = i % 2 === 0;
+
+            const lineThickness =
+              isFish && merged.fishScaleLineMagnificationEnabled
+                ? merged.fishScaleLineThicknessInactive +
+                  proximity *
+                    (merged.fishScaleLineThicknessActive -
+                      merged.fishScaleLineThicknessInactive)
+                : merged.scaleTickHeight;
+
+            const tickTransform = isFish
+              ? \`scale(\${1 +
+                  proximity *
+                    (isMajor
+                      ? 1 + merged.fishScaleMagnification
+                      : 1 + merged.fishScaleMagnification * 0.5)}) translateX(\${proximity *
+                  (merged.showScaleOnTheLeftSide
+                    ? -merged.fishScaleTickTranslate
+                    : merged.fishScaleTickTranslate)}px)\`
+              : "none";
+
+            const textColor = merged.useColorOverrides
+              ? merged.textOverrideColor
+              : proximity > 0.4
+              ? activeColor
+              : merged.inactiveScaleColor;
+
+            const lineColor = merged.useColorOverrides
+              ? merged.lineOverrideColor
+              : proximity > 0.4
+              ? activeColor
+              : merged.inactiveScaleColor;
+
+            const alignmentClass =
+              merged.unitVerticalAlign === "top"
+                ? "items-start"
+                : merged.unitVerticalAlign === "bottom"
+                ? "items-end"
+                : "items-center";
+
+            const labelContent = isMajor
+              ? merged.scaleUnitPosition === "prefix"
+                ? \`\${merged.scaleUnit}\${tickValueStr}\`
+                : \`\${tickValueStr}\${merged.scaleUnit}\`
+              : "";
+
+            return (
+              <div
+                key={i}
+                className={\`\${uniqueId}-scale-tick\`}
+                style={{
+                  transform: tickTransform,
+                  opacity: isFish
+                    ? merged.inactiveScaleOpacity +
+                      proximity * (1 - merged.inactiveScaleOpacity)
+                    : 0.6,
+                }}
+              >
+                {!merged.showScaleOnTheLeftSide && (
+                  <>
+                    {merged.swapScaleAndNumbers ? (
+                      <>
+                        {/* Numbers first, then tick */}
+                        {isMajor && (
+                          <span
+                            className={cn(
+                              \`\${uniqueId}-label-text\`,
+                              alignmentClass
+                            )}
+                            style={{
+                              fontSize: \`\${merged.scaleFontSize}px\`,
+                              fontWeight: merged.scaleFontWeight,
+                              color: textColor,
+                              textShadow:
+                                proximity > 0.4 && !merged.useColorOverrides
+                                  ? \`0 0 10px \${activeColor}55\`
+                                  : "none",
+                            }}
+                          >
+                            {labelContent}
+                          </span>
+                        )}
+                        <div
+                          className="rounded-full transition-all duration-300"
+                          style={{
+                            width: \`\${merged.scaleTickWidth *
+                              (isMajor ? 1 : 0.6)}px\`,
+                            height: \`\${lineThickness}px\`,
+                            backgroundColor: lineColor,
+                            boxShadow:
+                              proximity > 0.4 && !merged.useColorOverrides
+                                ? \`0 0 12px var(--active-color)\`
+                                : "none",
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        {/* Tick first, then numbers (default) */}
+                        <div
+                          className="rounded-full transition-all duration-300"
+                          style={{
+                            width: \`\${merged.scaleTickWidth *
+                              (isMajor ? 1 : 0.6)}px\`,
+                            height: \`\${lineThickness}px\`,
+                            backgroundColor: lineColor,
+                            boxShadow:
+                              proximity > 0.4 && !merged.useColorOverrides
+                                ? \`0 0 12px var(--active-color)\`
+                                : "none",
+                          }}
+                        />
+                        {isMajor && (
+                          <span
+                            className={cn(
+                              \`\${uniqueId}-label-text\`,
+                              alignmentClass
+                            )}
+                            style={{
+                              fontSize: \`\${merged.scaleFontSize}px\`,
+                              fontWeight: merged.scaleFontWeight,
+                              color: textColor,
+                              textShadow:
+                                proximity > 0.4 && !merged.useColorOverrides
+                                  ? \`0 0 10px \${activeColor}55\`
+                                  : "none",
+                            }}
+                          >
+                            {labelContent}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
+
+                {merged.showScaleOnTheLeftSide && (
+                  <>
+                    {merged.swapScaleAndNumbers ? (
+                      <>
+                        {/* Numbers first (RTL), then tick */}
+                        {isMajor && (
+                          <span
+                            className={cn(
+                              \`\${uniqueId}-label-text\`,
+                              alignmentClass
+                            )}
+                            style={{
+                              fontSize: \`\${merged.scaleFontSize}px\`,
+                              fontWeight: merged.scaleFontWeight,
+                              color: textColor,
+                              textShadow:
+                                proximity > 0.4 && !merged.useColorOverrides
+                                  ? \`0 0 10px \${activeColor}55\`
+                                  : "none",
+                            }}
+                          >
+                            {labelContent}
+                          </span>
+                        )}
+                        <div
+                          className="rounded-full transition-all duration-300"
+                          style={{
+                            width: \`\${merged.scaleTickWidth *
+                              (isMajor ? 1 : 0.6)}px\`,
+                            height: \`\${lineThickness}px\`,
+                            backgroundColor: lineColor,
+                            boxShadow:
+                              proximity > 0.4 && !merged.useColorOverrides
+                                ? \`0 0 12px var(--active-color)\`
+                                : "none",
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        {/* Tick first (RTL), then numbers */}
+                        <div
+                          className="rounded-full transition-all duration-300"
+                          style={{
+                            width: \`\${merged.scaleTickWidth *
+                              (isMajor ? 1 : 0.6)}px\`,
+                            height: \`\${lineThickness}px\`,
+                            backgroundColor: lineColor,
+                            boxShadow:
+                              proximity > 0.4 && !merged.useColorOverrides
+                                ? \`0 0 12px var(--active-color)\`
+                                : "none",
+                          }}
+                        />
+                        {isMajor && (
+                          <span
+                            className={cn(
+                              \`\${uniqueId}-label-text\`,
+                              alignmentClass
+                            )}
+                            style={{
+                              fontSize: \`\${merged.scaleFontSize}px\`,
+                              fontWeight: merged.scaleFontWeight,
+                              color: textColor,
+                              textShadow:
+                                proximity > 0.4 && !merged.useColorOverrides
+                                  ? \`0 0 10px \${activeColor}55\`
+                                  : "none",
+                            }}
+                          >
+                            {labelContent}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};`,
+    props: [
+      {name: 'min', type: 'number', defaultValue: '20', description: 'fancy_slider_prop_min', required: false},
+      {name: 'max', type: 'number', defaultValue: '110', description: 'fancy_slider_prop_max', required: false},
+      {name: 'step', type: 'number', defaultValue: '0.01', description: 'fancy_slider_prop_step', required: false},
+      {name: 'density', type: 'number', defaultValue: '2.5', description: 'fancy_slider_prop_density', required: false},
+      {name: 'paddingX', type: 'number', defaultValue: '45', description: 'fancy_slider_prop_paddingX', required: false},
+      {name: 'paddingY', type: 'number', defaultValue: '46', description: 'fancy_slider_prop_paddingY', required: false},
+      {name: 'bodyBorderRadius', type: 'number | string', defaultValue: '"999px"', description: 'fancy_slider_prop_bodyBorderRadius', required: false},
+      {name: 'bodyBorderWidth', type: 'number', defaultValue: '1', description: 'fancy_slider_prop_bodyBorderWidth', required: false},
+      {name: 'bodyBorderColor', type: 'string', defaultValue: '"#ffffff"', description: 'fancy_slider_prop_bodyBorderColor', required: false},
+      {name: 'bodyBorderOpacity', type: 'number', defaultValue: '0.14', description: 'fancy_slider_prop_bodyBorderOpacity', required: false},
+      {name: 'bodyBackgroundColor', type: 'string', defaultValue: '"#0a0a0a"', description: 'fancy_slider_prop_bodyBackgroundColor', required: false},
+      {name: 'bodyOpacity', type: 'number', defaultValue: '0.36', description: 'fancy_slider_prop_bodyOpacity', required: false},
+      {name: 'bodyBackdropBlur', type: 'number', defaultValue: '7.64', description: 'fancy_slider_prop_bodyBackdropBlur', required: false},
+      {name: 'trackBorderRadius', type: 'number | string', defaultValue: '"99px"', description: 'fancy_slider_prop_trackBorderRadius', required: false},
+      {name: 'trackWidth', type: 'number', defaultValue: '42', description: 'fancy_slider_prop_trackWidth', required: false},
+      {name: 'trackHeight', type: 'number', defaultValue: '428', description: 'fancy_slider_prop_trackHeight', required: false},
+      {name: 'trackUpperColor', type: 'string', defaultValue: '"#ffffff"', description: 'fancy_slider_prop_trackUpperColor', required: false},
+      {name: 'trackLowerColor', type: 'string', defaultValue: '"#000000"', description: 'fancy_slider_prop_trackLowerColor', required: false},
+      {name: 'trackOpacity', type: 'number', defaultValue: '0.22', description: 'fancy_slider_prop_trackOpacity', required: false},
+      {name: 'trackBorderWidth', type: 'number', defaultValue: '1', description: 'fancy_slider_prop_trackBorderWidth', required: false},
+      {name: 'trackBorderOpacity', type: 'number', defaultValue: '0.14', description: 'fancy_slider_prop_trackBorderOpacity', required: false},
+      {name: 'trackBorderColor', type: 'string', defaultValue: '"#ffffff"', description: 'fancy_slider_prop_trackBorderColor', required: false},
+      {name: 'trackDeadzoneTop', type: 'number', defaultValue: '21.25', description: 'fancy_slider_prop_trackDeadzoneTop', required: false},
+      {name: 'trackDeadzoneBottom', type: 'number', defaultValue: '21.25', description: 'fancy_slider_prop_trackDeadzoneBottom', required: false},
+      {name: 'knobBorderRadius', type: 'number | string', defaultValue: '"99px"', description: 'fancy_slider_prop_knobBorderRadius', required: false},
+      {name: 'knobSize', type: 'number', defaultValue: '36', description: 'fancy_slider_prop_knobSize', required: false},
+      {name: 'knobBlur', type: 'number', defaultValue: '12', description: 'fancy_slider_prop_knobBlur', required: false},
+      {name: 'knobBackgroundColor', type: 'string', defaultValue: '"#0a0a0a"', description: 'fancy_slider_prop_knobBackgroundColor', required: false},
+      {name: 'knobOpacity', type: 'number', defaultValue: '0.32', description: 'fancy_slider_prop_knobOpacity', required: false},
+      {name: 'knobBorderColor', type: 'string', defaultValue: '"#ffffff"', description: 'fancy_slider_prop_knobBorderColor', required: false},
+      {name: 'knobBorderOpacity', type: 'number', defaultValue: '0.14', description: 'fancy_slider_prop_knobBorderOpacity', required: false},
+      {name: 'knobBorderWidth', type: 'number', defaultValue: '1', description: 'fancy_slider_prop_knobBorderWidth', required: false},
+      {name: 'knobDotSize', type: 'number', defaultValue: '10', description: 'fancy_slider_prop_knobDotSize', required: false},
+      {name: 'knobDotBorderRadius', type: 'number | string', defaultValue: '50', description: 'fancy_slider_prop_knobDotBorderRadius', required: false},
+      {name: 'knobHoverScale', type: 'number', defaultValue: '1.1', description: 'fancy_slider_prop_knobHoverScale', required: false},
+      {name: 'knobActiveScale', type: 'number', defaultValue: '1.2', description: 'fancy_slider_prop_knobActiveScale', required: false},
+      {name: 'mercuryMeltValue', type: 'number', defaultValue: '36', description: 'fancy_slider_prop_mercuryMeltValue', required: false},
+      {name: 'liquidGlowOpacity', type: 'number', defaultValue: '0.5', description: 'fancy_slider_prop_liquidGlowOpacity', required: false},
+      {name: 'showScale', type: 'boolean', defaultValue: 'true', description: 'fancy_slider_prop_showScale', required: false},
+      {name: 'scaleUnit', type: 'string', defaultValue: '"° F"', description: 'fancy_slider_prop_scaleUnit', required: false},
+      {name: 'scaleUnitPosition', type: '"prefix" | "suffix"', defaultValue: '"suffix"', description: 'fancy_slider_prop_scaleUnitPosition', required: false},
+      {name: 'unitVerticalAlign', type: '"top" | "center" | "bottom"', defaultValue: '"center"', description: 'fancy_slider_prop_unitVerticalAlign', required: false},
+      {name: 'scaleTickWidth', type: 'number', defaultValue: '20', description: 'fancy_slider_prop_scaleTickWidth', required: false},
+      {name: 'scaleTickHeight', type: 'number', defaultValue: '1.5', description: 'fancy_slider_prop_scaleTickHeight', required: false},
+      {name: 'inactiveScaleColor', type: 'string', defaultValue: '"#ffffff66"', description: 'fancy_slider_prop_inactiveScaleColor', required: false},
+      {name: 'inactiveScaleOpacity', type: 'number', defaultValue: '0.4', description: 'fancy_slider_prop_inactiveScaleOpacity', required: false},
+      {name: 'scaleFontSize', type: 'number', defaultValue: '12', description: 'fancy_slider_prop_scaleFontSize', required: false},
+      {name: 'scaleFontWeight', type: 'string | number', defaultValue: '"700"', description: 'fancy_slider_prop_scaleFontWeight', required: false},
+      {name: 'fishScaleProximity', type: 'number', defaultValue: '70', description: 'fancy_slider_prop_fishScaleProximity', required: false},
+      {name: 'fishScaleMagnification', type: 'number', defaultValue: '0.4', description: 'fancy_slider_prop_fishScaleMagnification', required: false},
+      {name: 'fishScaleLineMagnificationEnabled', type: 'boolean', defaultValue: 'true', description: 'fancy_slider_prop_fishScaleLineMagnificationEnabled', required: false},
+      {name: 'useColorOverrides', type: 'boolean', defaultValue: 'false', description: 'fancy_slider_prop_useColorOverrides', required: false},
+      {name: 'textOverrideColor', type: 'string', defaultValue: '"#ffffff"', description: 'fancy_slider_prop_textOverrideColor', required: false},
+      {name: 'unitOverrideColor', type: 'string', defaultValue: '"#ffffff"', description: 'fancy_slider_prop_unitOverrideColor', required: false},
+      {name: 'lineOverrideColor', type: 'string', defaultValue: '"#ffffff"', description: 'fancy_slider_prop_lineOverrideColor', required: false},
+      {name: 'gradientColors', type: 'string[]', defaultValue: '["#00eaff", "#0099ff", "#00ff73", "#ffdd00", "#ff8800", "#ff0044"]', description: 'fancy_slider_prop_gradientColors', required: false},
+      {name: 'gradientStops', type: 'number[]', defaultValue: '[0, 0.25, 0.5, 0.7, 0.85, 1]', description: 'fancy_slider_prop_gradientStops', required: false},
+      {name: 'fishScaleGlowColor', type: 'string', defaultValue: '"#00B9FA"', description: 'fancy_slider_prop_fishScaleGlowColor', required: false},
+      {name: 'fishScaleGlowOpacity', type: 'number', defaultValue: '0.55', description: 'fancy_slider_prop_fishScaleGlowOpacity', required: false},
+      {name: 'fishScaleLineThicknessActive', type: 'number', defaultValue: '2.0', description: 'fancy_slider_prop_fishScaleLineThicknessActive', required: false},
+      {name: 'fishScaleLineThicknessInactive', type: 'number', defaultValue: '1.5', description: 'fancy_slider_prop_fishScaleLineThicknessInactive', required: false},
+      {name: 'fishScaleTickScaleBoost', type: 'number', defaultValue: '0.6', description: 'fancy_slider_prop_fishScaleTickScaleBoost', required: false},
+      {name: 'fishScaleTickTranslate', type: 'number', defaultValue: '8', description: 'fancy_slider_prop_fishScaleTickTranslate', required: false},
+      {name: 'showScaleOnTheLeftSide', type: 'boolean', defaultValue: 'false', description: 'fancy_slider_prop_showScaleOnTheLeftSide', required: false},
+      {name: 'swapScaleAndNumbers', type: 'boolean', defaultValue: 'false', description: 'fancy_slider_prop_swapScaleAndNumbers', required: false},
+      {name: 'scaleSpacing', type: 'number', defaultValue: '48', description: 'fancy_slider_prop_scaleSpacing', required: false},
+      {name: 'scaleTranslateX', type: 'number', defaultValue: '0', description: 'fancy_slider_prop_scaleTranslateX', required: false},
+      {name: 'value', type: 'number', description: 'fancy_slider_prop_value', required: true},
+      {name: 'onChange', type: '(val: number) => void', description: 'fancy_slider_prop_onChange', required: true},
+      {name: 'config', type: 'Partial<SliderConfig>', description: 'fancy_slider_prop_config', required: false},
+    ],
+    noPadding: true,
     isPreviewImage: true,
   },
 ];
