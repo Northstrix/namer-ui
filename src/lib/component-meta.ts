@@ -56,6 +56,7 @@ import ColorPickerFullPageDemo from "@/app/the-actual-components/color-picker/de
 import WordCardFullPageDemo from "@/app/the-actual-components/word-card/demo-full-page";
 import ShimmerAccordionFullPageDemo from "@/app/the-actual-components/shimmer-accordion/demo-full-page";
 import FancySliderFullPageDemo from "@/app/the-actual-components/fancy-slider/demo-full-page";
+import DynamicNodesFullPageDemo from "@/app/the-actual-components/dynamic-nodes/demo-full-page";
 import { TranslationKey } from "./translations";
 
 export interface ComponentMetadata {
@@ -23998,6 +23999,1027 @@ export const FancySlider: React.FC<FancySliderProps> = ({
       {name: 'config', type: 'Partial<SliderConfig>', description: 'fancy_slider_prop_config', required: false},
     ],
     noPadding: true,
+    isPreviewImage: true,
+  },
+  {
+    id: "dynamic-nodes",
+    title: "dynamic_nodes_title",
+    description: "dynamic_nodes_desc",
+    demoFullPage: DynamicNodesFullPageDemo,
+    noPadding: true,
+    dependencies: "npm install framer-motion",
+    credit: '[Skills animation](https://codepen.io/giorgi-chelidze/pen/jEWwEyG) by [Giorgi Chelidze](https://codepen.io/giorgi-chelidze)',
+    usage: `// Path to the "DynamicNodes.tsx" file
+import DynamicNodes, { DynamicNodeItem, DynamicNodeLink } from "@/app/the-actual-components/dynamic-nodes/DynamicNodes";
+import React from "react";
+
+export default function DynamicNodesDemo() {
+  const nodes: DynamicNodeItem[] = [
+    {
+      dynamicNodeId: "lang-pr",
+      dynamicNodeText: "Language",
+      dynamicNodeInitialX: 18,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 68,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 16,
+      dynamicNodeFillColor: "#777",
+      dynamicNodeGlowColor: "#6a6a6a",
+      dynamicNodeGlowBlur: 20,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontFamily: "Inter",
+      dynamicNodeFontSize: 20,
+      dynamicNodeFontWeight: 900,
+      dynamicNodeTextDirection: "ltr",
+      dynamicNodeLabelSide: "right",
+      dynamicNodeLabelGap: 14,
+      dynamicNodeVelocityX: 0.36,
+      dynamicNodeVelocityY: -0.2,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 16,
+    },
+    {
+      dynamicNodeId: "lang-en",
+      dynamicNodeText: "English",
+      dynamicNodeInitialX: 28,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 44,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 9,
+      dynamicNodeFillColor: "#FFFFFF",
+      dynamicNodeGlowColor: "#FFFFFF",
+      dynamicNodeGlowBlur: 12,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontSize: 14,
+      dynamicNodeFontWeight: 700,
+      dynamicNodeTextDirection: "ltr",
+      dynamicNodeLabelSide: "right",
+      dynamicNodeLabelGap: 10,
+      dynamicNodeVelocityX: -0.3,
+      dynamicNodeVelocityY: 0.18,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 14,
+    },
+    {
+      dynamicNodeId: "lang-he",
+      dynamicNodeText: "עברית",
+      dynamicNodeInitialX: 26,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 78,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 9,
+      dynamicNodeFillColor: "#9625FF",
+      dynamicNodeGlowColor: "#9625FF",
+      dynamicNodeGlowBlur: 10,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontSize: 14,
+      dynamicNodeFontWeight: 500,
+      dynamicNodeTextDirection: "rtl",
+      dynamicNodeLabelSide: "left",
+      dynamicNodeLabelGap: 10,
+      dynamicNodeVelocityX: 0.28,
+      dynamicNodeVelocityY: -0.22,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 14,
+    },
+    {
+      dynamicNodeId: "lang-jp",
+      dynamicNodeText: "日本語",
+      dynamicNodeInitialX: 38,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 60,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 9,
+      dynamicNodeBorderRadius: 5,
+      dynamicNodeFillColor: "#3CA29E",
+      dynamicNodeGlowColor: "#3CA29E",
+      dynamicNodeGlowBlur: 10,
+      dynamicNodeTextColor: "#25FFE7",
+      dynamicNodeFontFamily: "Inter",
+      dynamicNodeFontSize: 14,
+      dynamicNodeFontWeight: 700,
+      dynamicNodeTextDirection: "ltr",
+      dynamicNodeLabelSide: "right",
+      dynamicNodeLabelGap: 10,
+      dynamicNodeVelocityX: -0.18,
+      dynamicNodeVelocityY: 0.15,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 14,
+    },
+    {
+      dynamicNodeId: "lang-it",
+      dynamicNodeText: "Italiano",
+      dynamicNodeInitialX: 31,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 85,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 9,
+      dynamicNodeFillColor: "#FF25C5",
+      dynamicNodeGlowColor: "#FF25C5",
+      dynamicNodeGlowBlur: 10,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontSize: 14,
+      dynamicNodeFontWeight: 700,
+      dynamicNodeTextDirection: "ltr",
+      dynamicNodeLabelSide: "right",
+      dynamicNodeLabelGap: 10,
+      dynamicNodeVelocityX: 0.2,
+      dynamicNodeVelocityY: -0.14,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 14,
+    },
+
+    {
+      dynamicNodeId: "fruit-pr",
+      dynamicNodeText: "פרי",
+      dynamicNodeInitialX: 62,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 68,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 16,
+      dynamicNodeFillColor: "#2558FF",
+      dynamicNodeGlowColor: "#2558FF",
+      dynamicNodeGlowBlur: 22,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontFamily: "Inter",
+      dynamicNodeFontSize: 20,
+      dynamicNodeFontWeight: 900,
+      dynamicNodeTextDirection: "rtl",
+      dynamicNodeLabelSide: "left",
+      dynamicNodeLabelGap: 14,
+      dynamicNodeVelocityX: -0.38,
+      dynamicNodeVelocityY: 0.24,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 20,
+    },
+    {
+      dynamicNodeId: "fruit-apple",
+      dynamicNodeText: "תפוח",
+      dynamicNodeInitialX: 54,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 47,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 10,
+      dynamicNodeFillColor: "#25FF5F",
+      dynamicNodeGlowColor: "#25FF5F",
+      dynamicNodeGlowBlur: 12,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontSize: 14,
+      dynamicNodeFontWeight: 700,
+      dynamicNodeTextDirection: "rtl",
+      dynamicNodeLabelSide: "left",
+      dynamicNodeLabelGap: 10,
+      dynamicNodeVelocityX: 0.24,
+      dynamicNodeVelocityY: 0.16,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 14,
+    },
+    {
+      dynamicNodeId: "fruit-plum",
+      dynamicNodeText: "שזיף",
+      dynamicNodeInitialX: 50,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 80,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 10,
+      dynamicNodeFillColor: "#7A25FF",
+      dynamicNodeGlowColor: "#7A25FF",
+      dynamicNodeGlowBlur: 12,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontSize: 14,
+      dynamicNodeFontWeight: 700,
+      dynamicNodeTextDirection: "rtl",
+      dynamicNodeLabelSide: "right",
+      dynamicNodeLabelGap: 10,
+      dynamicNodeVelocityX: -0.2,
+      dynamicNodeVelocityY: -0.22,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 14,
+    },
+    {
+      dynamicNodeId: "fruit-orange",
+      dynamicNodeText: "תפוז",
+      dynamicNodeInitialX: 76,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 58,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 10,
+      dynamicNodeFillColor: "#FF2534",
+      dynamicNodeGlowColor: "#FF2534",
+      dynamicNodeGlowBlur: 12,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontSize: 14,
+      dynamicNodeFontWeight: 700,
+      dynamicNodeTextDirection: "rtl",
+      dynamicNodeLabelSide: "left",
+      dynamicNodeLabelGap: 10,
+      dynamicNodeVelocityX: 0.16,
+      dynamicNodeVelocityY: 0.1,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 14,
+    },
+    {
+      dynamicNodeId: "fruit-peach",
+      dynamicNodeText: "Peach",
+      dynamicNodeInitialX: 74,
+      dynamicNodeInitialXUnit: "%",
+      dynamicNodeInitialY: 84,
+      dynamicNodeInitialYUnit: "%",
+      dynamicNodeRadius: 10,
+      dynamicNodeFillColor: "#FF5F25",
+      dynamicNodeGlowColor: "#FF5F25",
+      dynamicNodeGlowBlur: 12,
+      dynamicNodeTextColor: "#FFFFFF",
+      dynamicNodeFontSize: 14,
+      dynamicNodeFontWeight: 700,
+      dynamicNodeTextDirection: "ltr",
+      dynamicNodeLabelSide: "right",
+      dynamicNodeLabelGap: 10,
+      dynamicNodeVelocityX: -0.18,
+      dynamicNodeVelocityY: -0.15,
+      dynamicNodeAutoTextScale: true,
+      dynamicNodeAutoTextFontSize: 14,
+    },
+  ];
+
+  const links: DynamicNodeLink[] = [
+    {
+      dynamicLinkFromIds: ["lang-pr"],
+      dynamicLinkToIds: ["lang-en"],
+      dynamicLinkColor: "#363636",
+      dynamicLinkWidth: 1.5,
+      dynamicLinkDash: [6, 5],
+    },
+    {
+      dynamicLinkFromIds: ["lang-pr"],
+      dynamicLinkToIds: ["lang-he"],
+      dynamicLinkColor: "#363636",
+      dynamicLinkWidth: 1.5,
+      dynamicLinkDash: [6, 5],
+    },
+    {
+      dynamicLinkFromIds: ["lang-pr"],
+      dynamicLinkToIds: ["lang-jp"],
+      dynamicLinkColor: "#363636",
+      dynamicLinkWidth: 1.5,
+      dynamicLinkDash: [6, 5],
+    },
+    {
+      dynamicLinkFromIds: ["lang-pr"],
+      dynamicLinkToIds: ["lang-it"],
+      dynamicLinkColor: "#363636",
+      dynamicLinkWidth: 1.5,
+      dynamicLinkDash: [6, 5],
+    },
+
+    {
+      dynamicLinkFromIds: ["fruit-pr"],
+      dynamicLinkToIds: ["fruit-apple"],
+      dynamicLinkColor: "rgba(168,85,247,0.55)",
+      dynamicLinkWidth: 1.5,
+      dynamicLinkDash: [5, 5],
+    },
+    {
+      dynamicLinkFromIds: ["fruit-pr"],
+      dynamicLinkToIds: ["fruit-orange"],
+      dynamicLinkColor: "rgba(168,85,247,0.55)",
+      dynamicLinkWidth: 1.5,
+      dynamicLinkDash: [5, 5],
+    },
+    {
+      dynamicLinkFromIds: ["fruit-pr"],
+      dynamicLinkToIds: ["fruit-peach"],
+      dynamicLinkColor: "rgba(168,85,247,0.55)",
+      dynamicLinkWidth: 1.5,
+      dynamicLinkDash: [5, 5],
+    },
+    {
+      dynamicLinkFromIds: ["fruit-pr"],
+      dynamicLinkToIds: ["fruit-plum"],
+      dynamicLinkColor: "rgba(245,158,11,0.9)",
+      dynamicLinkWidth: 2.2,
+      dynamicLinkOpacity: 1,
+      dynamicLinkDash: [10, 2, 3, 2, 1, 4],
+      dynamicLinkCap: "round",
+      dynamicLinkJoin: "round",
+    },
+  ];
+
+  return (
+    <div style={{ width: "100%", height: 320 }}>
+      <DynamicNodes
+        nodes={nodes}
+        links={links}
+        width="100%"
+        height="100%"
+        background="transparent"
+        borderColor="transparent"
+        borderRadius={0}
+        borderWidth={0}
+        defaultLinkColor="rgba(255,255,255,0.25)"
+        defaultLinkWidth={1}
+        defaultLinkOpacity={1}
+        defaultLinkDash={[4, 4]}
+        defaultLinkCap="round"
+        defaultLinkJoin="round"
+        useRandomPositions={false}
+        useRandomSpeed={false}
+        clampPadding={0}
+        animationSpeedMultiplier={1.75}
+        fadeMs={700}
+        showCanvas={true}
+        activateNodes={true}
+      />
+    </div>
+  );
+}`,
+    code: `"use client";
+
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
+type DynamicNodesDirection = "ltr" | "rtl";
+type DynamicNodesLabelSide = "left" | "right";
+type DynamicNodesPosUnit = "px" | "%";
+type DynamicNodesPoint = { x: number; y: number; unit?: DynamicNodesPosUnit };
+
+export interface DynamicNodeItem {
+  dynamicNodeId: string;
+  dynamicNodeText: string;
+  dynamicNodeInitialX?: number;
+  dynamicNodeInitialY?: number;
+  dynamicNodeInitialXUnit?: DynamicNodesPosUnit;
+  dynamicNodeInitialYUnit?: DynamicNodesPosUnit;
+  dynamicNodeInitialPosition?: DynamicNodesPoint;
+  dynamicNodeRadius?: number;
+  dynamicNodeBorderRadius?: number | number[];
+  dynamicNodeFillColor?: string;
+  dynamicNodeGlowColor?: string;
+  dynamicNodeGlowBlur?: number;
+  dynamicNodeGlowAlpha?: number;
+  dynamicNodeTextColor?: string;
+  dynamicNodeFontFamily?: string;
+  dynamicNodeFontSize?: number;
+  dynamicNodeFontWeight?: number | string;
+  dynamicNodeTextDirection?: DynamicNodesDirection;
+  dynamicNodeLabelSide?: DynamicNodesLabelSide;
+  dynamicNodeLabelGap?: number;
+  dynamicNodeLabelOffsetX?: number;
+  dynamicNodeLabelOffsetY?: number;
+  dynamicNodeLabelPaddingX?: number;
+  dynamicNodeVelocityX?: number;
+  dynamicNodeVelocityY?: number;
+  dynamicNodeVelocityUnit?: DynamicNodesPosUnit;
+  dynamicNodeRandomizeMotion?: boolean;
+  dynamicNodeMaxTextWidth?: number;
+  dynamicNodeAutoTextScale?: boolean;
+  dynamicNodeAutoTextFontSize?: number;
+  dynamicNodeTextLayerEnabled?: boolean;
+  dynamicNodeTextLayerColor?: string;
+  dynamicNodeTextLayerFontSize?: number;
+  dynamicNodeTextLayerFontWeight?: number | string;
+  dynamicNodeTextLayerFontFamily?: string;
+  dynamicNodeTextLayerOffsetX?: number;
+  dynamicNodeTextLayerOffsetY?: number;
+}
+
+export interface DynamicNodeLink {
+  dynamicLinkFromIds: string[];
+  dynamicLinkToIds: string[];
+  dynamicLinkColor?: string;
+  dynamicLinkWidth?: number;
+  dynamicLinkOpacity?: number;
+  dynamicLinkDash?: number[];
+  dynamicLinkCap?: CanvasLineCap;
+  dynamicLinkJoin?: CanvasLineJoin;
+}
+
+export interface DynamicNodesProps {
+  nodes: DynamicNodeItem[];
+  links?: DynamicNodeLink[];
+  className?: string;
+  style?: CSSProperties;
+  background?: string;
+  borderColor?: string;
+  canvasClassName?: string;
+  defaultNodeColor?: string;
+  defaultGlowColor?: string;
+  defaultTextColor?: string;
+  defaultFontFamily?: string;
+  defaultFontSize?: number;
+  defaultFontWeight?: number | string;
+  defaultRadius?: number;
+  defaultGlowBlur?: number;
+  defaultGlowAlpha?: number;
+  defaultLinkColor?: string;
+  defaultLinkWidth?: number;
+  defaultLinkOpacity?: number;
+  defaultLinkDash?: number[];
+  defaultLinkCap?: CanvasLineCap;
+  defaultLinkJoin?: CanvasLineJoin;
+  useRandomPositions?: boolean;
+  useRandomSpeed?: boolean;
+  clampPadding?: number;
+  animationSpeedMultiplier?: number;
+  showCanvas?: boolean;
+  fadeMs?: number;
+  height?: number | string;
+  width?: number | string;
+  borderRadius?: number;
+  borderWidth?: number;
+  activateNodes?: boolean;
+}
+
+function roundRectPath(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  radius: number | number[]
+) {
+  const w = Math.abs(width);
+  const h = Math.abs(height);
+  const r = Math.min(w, h) / 2;
+
+  if (typeof ctx.roundRect === "function") {
+    const radii = Array.isArray(radius)
+      ? radius.map((v) => Math.max(0, Math.min(v, r)))
+      : Math.max(0, Math.min(radius, r));
+    ctx.beginPath();
+    ctx.roundRect(x, y, width, height, radii as any);
+    return;
+  }
+
+  const rr = typeof radius === "number" ? radius : Math.max(...radius.map((v) => v || 0));
+  const cr = Math.max(0, Math.min(rr, r));
+
+  ctx.beginPath();
+  ctx.moveTo(x + cr, y);
+  ctx.lineTo(x + width - cr, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + cr);
+  ctx.lineTo(x + width, y + height - cr);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - cr, y + height);
+  ctx.lineTo(x + cr, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - cr);
+  ctx.lineTo(x, y + cr);
+  ctx.quadraticCurveTo(x, y, x + cr, y);
+  ctx.closePath();
+}
+
+class NodeSprite {
+  id: string;
+  text: string;
+  x: number;
+  y: number;
+  radius: number;
+  borderRadius?: number | number[];
+  color: string;
+  glowColor: string;
+  glowBlur: number;
+  glowAlpha: number;
+  textColor: string;
+  fontFamily: string;
+  fontSize: number;
+  fontWeight: number | string;
+  direction: DynamicNodesDirection;
+  labelSide: DynamicNodesLabelSide;
+  labelGap: number;
+  labelOffsetX: number;
+  labelOffsetY: number;
+  labelPaddingX: number;
+  speedX: number;
+  speedY: number;
+  opacity = 0;
+  textWidth = 0;
+  actualLeft = 0;
+  actualRight = 0;
+  actualAscent = 0;
+  actualDescent = 0;
+  maxTextWidth?: number;
+  autoTextScale: boolean;
+  autoTextFontSize: number;
+  textLayerEnabled = false;
+  textLayerColor = "#fff";
+  textLayerFontSize = 0;
+  textLayerFontWeight: number | string = 400;
+  textLayerFontFamily = "Inter";
+  textLayerOffsetX = 0;
+  textLayerOffsetY = 0;
+
+  constructor(
+    cfg: DynamicNodeItem &
+      Required<
+        Pick<
+          DynamicNodesProps,
+          | "defaultNodeColor"
+          | "defaultGlowColor"
+          | "defaultTextColor"
+          | "defaultFontFamily"
+          | "defaultFontSize"
+          | "defaultFontWeight"
+          | "defaultRadius"
+          | "defaultGlowBlur"
+          | "defaultGlowAlpha"
+        >
+      >,
+    bounds: { width: number; height: number },
+    useRandomPositions: boolean,
+    useRandomSpeed: boolean
+  ) {
+    this.id = cfg.dynamicNodeId;
+    this.text = cfg.dynamicNodeText;
+    this.radius = cfg.dynamicNodeRadius ?? cfg.defaultRadius;
+    this.borderRadius = cfg.dynamicNodeBorderRadius;
+    this.color = cfg.dynamicNodeFillColor ?? cfg.defaultNodeColor;
+    this.glowColor = cfg.dynamicNodeGlowColor ?? this.color ?? cfg.defaultGlowColor;
+    this.glowBlur = cfg.dynamicNodeGlowBlur ?? cfg.defaultGlowBlur;
+    this.glowAlpha = cfg.dynamicNodeGlowAlpha ?? cfg.defaultGlowAlpha;
+    this.textColor = cfg.dynamicNodeTextColor ?? cfg.defaultTextColor;
+    this.fontFamily = cfg.dynamicNodeFontFamily ?? cfg.defaultFontFamily;
+    this.fontSize = cfg.dynamicNodeFontSize ?? cfg.defaultFontSize;
+    this.fontWeight = cfg.dynamicNodeFontWeight ?? cfg.defaultFontWeight;
+    this.direction = cfg.dynamicNodeTextDirection ?? "ltr";
+    this.labelSide = cfg.dynamicNodeLabelSide ?? (this.direction === "rtl" ? "left" : "right");
+    this.labelGap = cfg.dynamicNodeLabelGap ?? 12;
+    this.labelOffsetX = cfg.dynamicNodeLabelOffsetX ?? 0;
+    this.labelOffsetY = cfg.dynamicNodeLabelOffsetY ?? 0;
+    this.labelPaddingX = cfg.dynamicNodeLabelPaddingX ?? 0;
+    this.speedX =
+      cfg.dynamicNodeVelocityX ??
+      (useRandomSpeed || cfg.dynamicNodeRandomizeMotion !== false ? (Math.random() - 0.5) * 1.5 : 0.5);
+    this.speedY =
+      cfg.dynamicNodeVelocityY ??
+      (useRandomSpeed || cfg.dynamicNodeRandomizeMotion !== false ? (Math.random() - 0.5) * 1.5 : 0.5);
+    this.maxTextWidth = cfg.dynamicNodeMaxTextWidth;
+    this.autoTextScale = cfg.dynamicNodeAutoTextScale ?? false;
+    this.autoTextFontSize = cfg.dynamicNodeAutoTextFontSize ?? this.fontSize;
+    this.textLayerEnabled = cfg.dynamicNodeTextLayerEnabled ?? false;
+    this.textLayerColor = cfg.dynamicNodeTextLayerColor ?? this.textColor;
+    this.textLayerFontSize = cfg.dynamicNodeTextLayerFontSize ?? this.fontSize;
+    this.textLayerFontWeight = cfg.dynamicNodeTextLayerFontWeight ?? this.fontWeight;
+    this.textLayerFontFamily = cfg.dynamicNodeTextLayerFontFamily ?? this.fontFamily;
+    this.textLayerOffsetX = cfg.dynamicNodeTextLayerOffsetX ?? 0;
+    this.textLayerOffsetY = cfg.dynamicNodeTextLayerOffsetY ?? 0;
+
+    const resolvePos = (v?: number, unit: DynamicNodesPosUnit = "px", total = 0, center = 0) =>
+      v == null ? center : unit === "%" ? (v / 100) * total : v;
+
+    const centerX = bounds.width / 2;
+    const centerY = bounds.height / 2;
+
+    if (cfg.dynamicNodeInitialPosition) {
+      const p = cfg.dynamicNodeInitialPosition;
+      const u = p.unit ?? "px";
+      this.x = resolvePos(p.x, u, bounds.width, centerX);
+      this.y = resolvePos(p.y, u, bounds.height, centerY);
+    } else {
+      this.x = resolvePos(cfg.dynamicNodeInitialX, cfg.dynamicNodeInitialXUnit ?? "px", bounds.width, centerX);
+      this.y = resolvePos(cfg.dynamicNodeInitialY, cfg.dynamicNodeInitialYUnit ?? "px", bounds.height, centerY);
+    }
+
+    if (
+      cfg.dynamicNodeInitialX == null &&
+      !cfg.dynamicNodeInitialPosition &&
+      (useRandomPositions || cfg.dynamicNodeRandomizeMotion !== false)
+    ) {
+      this.x = centerX + (Math.random() - 0.5) * bounds.width * 0.35;
+      this.y = centerY + (Math.random() - 0.5) * bounds.height * 0.35;
+    }
+  }
+
+  resolveTextSize(containerWidth: number) {
+    const base = this.autoTextFontSize;
+    const minW = 240;
+    const maxW = 1200;
+    const w = Math.max(minW, Math.min(maxW, containerWidth));
+    const t = (w - minW) / (maxW - minW);
+    const curved = Math.pow(t, 1.7);
+    return Math.max(10, Math.round(base * (0.85 + 0.3 * curved)));
+  }
+
+  measure(ctx: CanvasRenderingContext2D, containerWidth: number) {
+    const size = this.autoTextScale ? this.resolveTextSize(containerWidth) : this.fontSize;
+    this.fontSize = size;
+    ctx.font = \`\${this.fontWeight} \${size}px \${this.fontFamily}\`;
+    ctx.direction = this.direction;
+    const metrics = ctx.measureText(this.text);
+    this.textWidth = this.maxTextWidth ? Math.min(metrics.width, this.maxTextWidth) : metrics.width;
+    this.actualLeft = Math.abs(metrics.actualBoundingBoxLeft || 0);
+    this.actualRight = Math.abs(metrics.actualBoundingBoxRight || this.textWidth);
+    this.actualAscent = Math.abs(metrics.actualBoundingBoxAscent || size * 0.8);
+    this.actualDescent = Math.abs(metrics.actualBoundingBoxDescent || size * 0.2);
+  }
+
+  textVisualWidth() {
+    return Math.max(this.textWidth, this.actualLeft + this.actualRight);
+  }
+
+  textVisualHeight() {
+    return Math.max(this.actualAscent + this.actualDescent, this.fontSize * 1.35);
+  }
+
+  groupBounds() {
+    const textGap = this.labelGap + this.labelPaddingX + Math.abs(this.labelOffsetX);
+    const textW = this.textVisualWidth();
+    const textH = this.textVisualHeight();
+    const circleLeft = this.x - this.radius;
+    const circleRight = this.x + this.radius;
+    const circleTop = this.y - this.radius;
+    const circleBottom = this.y + this.radius;
+    const textLeft =
+      this.labelSide === "right"
+        ? this.x + this.radius + textGap
+        : this.x - this.radius - textGap - textW;
+    const textRight = textLeft + textW;
+    const textTop = this.y - textH / 2 + this.labelOffsetY;
+    const textBottom = textTop + textH;
+
+    return {
+      left: Math.min(circleLeft, textLeft),
+      right: Math.max(circleRight, textRight),
+      top: Math.min(circleTop, textTop),
+      bottom: Math.max(circleBottom, textBottom),
+    };
+  }
+
+  update(
+    bounds: { width: number; height: number },
+    active: boolean,
+    clampPadding: number,
+    speedMultiplier: number
+  ) {
+    if (!active) {
+      this.opacity = Math.max(this.opacity - 0.06, 0);
+      return;
+    }
+
+    this.opacity = Math.min(this.opacity + 0.06, 1);
+    this.x += this.speedX * speedMultiplier;
+    this.y += this.speedY * speedMultiplier;
+
+    const b = this.groupBounds();
+    if (b.left <= clampPadding) {
+      this.x += clampPadding - b.left;
+      this.speedX = Math.abs(this.speedX);
+    } else if (b.right >= bounds.width - clampPadding) {
+      this.x -= b.right - (bounds.width - clampPadding);
+      this.speedX = -Math.abs(this.speedX);
+    }
+
+    const b2 = this.groupBounds();
+    if (b2.top <= clampPadding) {
+      this.y += clampPadding - b2.top;
+      this.speedY = Math.abs(this.speedY);
+    } else if (b2.bottom >= bounds.height - clampPadding) {
+      this.y -= b2.bottom - (bounds.height - clampPadding);
+      this.speedY = -Math.abs(this.speedY);
+    }
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    if (this.opacity <= 0) return;
+
+    const labelX =
+      this.labelSide === "right"
+        ? this.x + this.radius + this.labelGap + this.labelOffsetX
+        : this.x - this.radius - this.labelGap - this.labelOffsetX;
+
+    const nodeSize = this.radius * 2;
+    const nodeX = this.x - this.radius;
+    const nodeY = this.y - this.radius;
+    const nodeRadius = this.borderRadius ?? this.radius;
+
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    ctx.shadowBlur = this.glowBlur;
+    ctx.shadowColor = this.glowColor;
+
+    roundRectPath(ctx, nodeX, nodeY, nodeSize, nodeSize, nodeRadius);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = this.textColor;
+    ctx.font = \`\${this.fontWeight} \${this.fontSize}px \${this.fontFamily}\`;
+    ctx.textBaseline = "middle";
+    ctx.direction = this.direction;
+    ctx.textAlign = this.labelSide === "right" ? "left" : "right";
+    ctx.fillText(
+      this.text,
+      labelX + this.labelPaddingX * (this.labelSide === "right" ? 1 : -1),
+      this.y + this.labelOffsetY
+    );
+
+    if (this.textLayerEnabled) {
+      ctx.fillStyle = this.textLayerColor;
+      ctx.font = \`\${this.textLayerFontWeight} \${this.textLayerFontSize}px \${this.textLayerFontFamily}\`;
+      ctx.fillText(
+        this.text,
+        labelX + this.labelPaddingX * (this.labelSide === "right" ? 1 : -1) + this.textLayerOffsetX,
+        this.y + this.labelOffsetY + this.textLayerOffsetY
+      );
+    }
+
+    ctx.restore();
+  }
+}
+
+export default function DynamicNodes({
+  nodes,
+  links = [],
+  className,
+  style,
+  background = "transparent",
+  borderColor = "transparent",
+  canvasClassName,
+  defaultNodeColor = "#146DE9",
+  defaultGlowColor = "#146DE9",
+  defaultTextColor = "#ffffff",
+  defaultFontFamily = "Inter",
+  defaultFontSize = 16,
+  defaultFontWeight = 700,
+  defaultRadius = 8,
+  defaultGlowBlur = 12,
+  defaultGlowAlpha = 1,
+  defaultLinkColor = "rgba(255,255,255,0.25)",
+  defaultLinkWidth = 1,
+  defaultLinkOpacity = 1,
+  defaultLinkDash = [4, 4],
+  defaultLinkCap = "round",
+  defaultLinkJoin = "round",
+  useRandomPositions = true,
+  useRandomSpeed = true,
+  clampPadding = 0,
+  animationSpeedMultiplier = 1,
+  showCanvas = true,
+  fadeMs = 700,
+  height = 360,
+  width = "100%",
+  borderRadius = 0,
+  borderWidth = 0,
+  activateNodes = true,
+}: DynamicNodesProps) {
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const nodesRef = useRef<NodeSprite[]>([]);
+  const rafRef = useRef<number>(0);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      const box = entry.borderBoxSize?.[0];
+      setSize({
+        width: box?.inlineSize ?? entry.contentRect.width,
+        height: box?.blockSize ?? entry.contentRect.height,
+      });
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !showCanvas || size.width <= 0 || size.height <= 0) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    canvas.width = Math.floor(size.width * dpr);
+    canvas.height = Math.floor(size.height * dpr);
+    canvas.style.width = \`\${size.width}px\`;
+    canvas.style.height = \`\${size.height}px\`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    nodesRef.current = nodes.map(
+      (n) =>
+        new NodeSprite(
+          {
+            ...n,
+            defaultNodeColor,
+            defaultGlowColor,
+            defaultTextColor,
+            defaultFontFamily,
+            defaultFontSize,
+            defaultFontWeight,
+            defaultRadius,
+            defaultGlowBlur,
+            defaultGlowAlpha,
+          } as any,
+          { width: size.width, height: size.height },
+          useRandomPositions,
+          useRandomSpeed
+        )
+    );
+
+    nodesRef.current.forEach((n) => n.measure(ctx, size.width));
+
+    const animate = () => {
+      ctx.clearRect(0, 0, size.width, size.height);
+      ctx.save();
+      roundRectPath(ctx, 0, 0, size.width, size.height, borderRadius);
+      ctx.clip();
+
+      if (background && background !== "transparent") {
+        ctx.fillStyle = background;
+        ctx.fillRect(0, 0, size.width, size.height);
+      }
+
+      const map = new Map<string, NodeSprite>();
+      nodesRef.current.forEach((n) => map.set(n.id, n));
+
+      for (const link of links) {
+        const a = map.get(link.dynamicLinkFromIds[0]);
+        const b = map.get(link.dynamicLinkToIds[0]);
+        if (!a || !b || a.opacity <= 0 || b.opacity <= 0) continue;
+
+        ctx.save();
+        ctx.strokeStyle = link.dynamicLinkColor ?? defaultLinkColor;
+        ctx.lineWidth = link.dynamicLinkWidth ?? defaultLinkWidth;
+        ctx.globalAlpha = link.dynamicLinkOpacity ?? defaultLinkOpacity;
+        ctx.lineCap = link.dynamicLinkCap ?? defaultLinkCap;
+        ctx.lineJoin = link.dynamicLinkJoin ?? defaultLinkJoin;
+        ctx.setLineDash(link.dynamicLinkDash ?? defaultLinkDash);
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      nodesRef.current.forEach((node) => {
+        node.measure(ctx, size.width);
+        node.update({ width: size.width, height: size.height }, activateNodes, clampPadding, animationSpeedMultiplier);
+        node.draw(ctx);
+      });
+
+      ctx.restore();
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [
+    nodes,
+    links,
+    size.width,
+    size.height,
+    showCanvas,
+    background,
+    borderRadius,
+    defaultNodeColor,
+    defaultGlowColor,
+    defaultTextColor,
+    defaultFontFamily,
+    defaultFontSize,
+    defaultFontWeight,
+    defaultRadius,
+    defaultGlowBlur,
+    defaultGlowAlpha,
+    defaultLinkColor,
+    defaultLinkWidth,
+    defaultLinkOpacity,
+    defaultLinkDash,
+    defaultLinkCap,
+    defaultLinkJoin,
+    useRandomPositions,
+    useRandomSpeed,
+    clampPadding,
+    animationSpeedMultiplier,
+    activateNodes,
+  ]);
+
+  return (
+    <div
+      ref={wrapRef}
+      className={\`dynamic-nodes-root \${className || ""}\`}
+      style={{
+        width,
+        height,
+        position: "relative",
+        overflow: "hidden",
+        background,
+        borderRadius,
+        border: \`\${borderWidth}px solid \${borderColor}\`,
+        ...style,
+      }}
+    >
+      <style>{\`
+        .dynamic-nodes-root, .dynamic-nodes-root * {
+          box-sizing: border-box;
+        }
+        .dynamic-nodes-root canvas {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      \`}</style>
+
+      <AnimatePresence>
+        {showCanvas && (
+          <motion.canvas
+            ref={canvasRef}
+            className={\`dynamic-nodes-canvas \${canvasClassName || ""}\`}
+            style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: fadeMs / 1000 }}
+          />
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}`,
+    props: [
+      { name: "dynamicNodeId", type: "string", description: "dynamic_nodes_prop_dynamicNodeId", required: true },
+      { name: "dynamicNodeText", type: "string", description: "dynamic_nodes_prop_dynamicNodeText", required: true },
+      { name: "dynamicNodeInitialX", type: "number", description: "dynamic_nodes_prop_dynamicNodeInitialX", required: false },
+      { name: "dynamicNodeInitialY", type: "number", description: "dynamic_nodes_prop_dynamicNodeInitialY", required: false },
+      { name: "dynamicNodeInitialXUnit", type: "\"px\" | \"%\"", description: "dynamic_nodes_prop_dynamicNodeInitialXUnit", required: false },
+      { name: "dynamicNodeInitialYUnit", type: "\"px\" | \"%\"", description: "dynamic_nodes_prop_dynamicNodeInitialYUnit", required: false },
+      { name: "dynamicNodeInitialPosition", type: "DynamicNodesPoint", description: "dynamic_nodes_prop_dynamicNodeInitialPosition", required: false },
+      { name: "dynamicNodeRadius", type: "number", description: "dynamic_nodes_prop_dynamicNodeRadius", required: false },
+      { name: "dynamicNodeBorderRadius", type: "number | number[]", description: "dynamic_nodes_prop_dynamicNodeBorderRadius", required: false },
+      { name: "dynamicNodeFillColor", type: "string", description: "dynamic_nodes_prop_dynamicNodeFillColor", required: false },
+      { name: "dynamicNodeGlowColor", type: "string", description: "dynamic_nodes_prop_dynamicNodeGlowColor", required: false },
+      { name: "dynamicNodeGlowBlur", type: "number", description: "dynamic_nodes_prop_dynamicNodeGlowBlur", required: false },
+      { name: "dynamicNodeGlowAlpha", type: "number", description: "dynamic_nodes_prop_dynamicNodeGlowAlpha", required: false },
+      { name: "dynamicNodeTextColor", type: "string", description: "dynamic_nodes_prop_dynamicNodeTextColor", required: false },
+      { name: "dynamicNodeFontFamily", type: "string", description: "dynamic_nodes_prop_dynamicNodeFontFamily", required: false },
+      { name: "dynamicNodeFontSize", type: "number", description: "dynamic_nodes_prop_dynamicNodeFontSize", required: false },
+      { name: "dynamicNodeFontWeight", type: "number | string", description: "dynamic_nodes_prop_dynamicNodeFontWeight", required: false },
+      { name: "dynamicNodeTextDirection", type: "\"ltr\" | \"rtl\"", description: "dynamic_nodes_prop_dynamicNodeTextDirection", required: false },
+      { name: "dynamicNodeLabelSide", type: "\"left\" | \"right\"", description: "dynamic_nodes_prop_dynamicNodeLabelSide", required: false },
+      { name: "dynamicNodeLabelGap", type: "number", description: "dynamic_nodes_prop_dynamicNodeLabelGap", required: false },
+      { name: "dynamicNodeLabelOffsetX", type: "number", description: "dynamic_nodes_prop_dynamicNodeLabelOffsetX", required: false },
+      { name: "dynamicNodeLabelOffsetY", type: "number", description: "dynamic_nodes_prop_dynamicNodeLabelOffsetY", required: false },
+      { name: "dynamicNodeLabelPaddingX", type: "number", description: "dynamic_nodes_prop_dynamicNodeLabelPaddingX", required: false },
+      { name: "dynamicNodeVelocityX", type: "number", description: "dynamic_nodes_prop_dynamicNodeVelocityX", required: false },
+      { name: "dynamicNodeVelocityY", type: "number", description: "dynamic_nodes_prop_dynamicNodeVelocityY", required: false },
+      { name: "dynamicNodeVelocityUnit", type: "\"px\" | \"%\"", description: "dynamic_nodes_prop_dynamicNodeVelocityUnit", required: false },
+      { name: "dynamicNodeRandomizeMotion", type: "boolean", description: "dynamic_nodes_prop_dynamicNodeRandomizeMotion", required: false },
+      { name: "dynamicNodeMaxTextWidth", type: "number", description: "dynamic_nodes_prop_dynamicNodeMaxTextWidth", required: false },
+      { name: "dynamicNodeAutoTextScale", type: "boolean", description: "dynamic_nodes_prop_dynamicNodeAutoTextScale", required: false },
+      { name: "dynamicNodeAutoTextFontSize", type: "number", description: "dynamic_nodes_prop_dynamicNodeAutoTextFontSize", required: false },
+      { name: "dynamicNodeTextLayerEnabled", type: "boolean", description: "dynamic_nodes_prop_dynamicNodeTextLayerEnabled", required: false },
+      { name: "dynamicNodeTextLayerColor", type: "string", description: "dynamic_nodes_prop_dynamicNodeTextLayerColor", required: false },
+      { name: "dynamicNodeTextLayerFontSize", type: "number", description: "dynamic_nodes_prop_dynamicNodeTextLayerFontSize", required: false },
+      { name: "dynamicNodeTextLayerFontWeight", type: "number | string", description: "dynamic_nodes_prop_dynamicNodeTextLayerFontWeight", required: false },
+      { name: "dynamicNodeTextLayerFontFamily", type: "string", description: "dynamic_nodes_prop_dynamicNodeTextLayerFontFamily", required: false },
+      { name: "dynamicNodeTextLayerOffsetX", type: "number", description: "dynamic_nodes_prop_dynamicNodeTextLayerOffsetX", required: false },
+      { name: "dynamicNodeTextLayerOffsetY", type: "number", description: "dynamic_nodes_prop_dynamicNodeTextLayerOffsetY", required: false },
+
+      // DynamicNodeLink
+      { name: "dynamicLinkFromIds", type: "string[]", description: "dynamic_nodes_prop_dynamicLinkFromIds", required: true },
+      { name: "dynamicLinkToIds", type: "string[]", description: "dynamic_nodes_prop_dynamicLinkToIds", required: true },
+      { name: "dynamicLinkColor", type: "string", description: "dynamic_nodes_prop_dynamicLinkColor", required: false },
+      { name: "dynamicLinkWidth", type: "number", description: "dynamic_nodes_prop_dynamicLinkWidth", required: false },
+      { name: "dynamicLinkOpacity", type: "number", description: "dynamic_nodes_prop_dynamicLinkOpacity", required: false },
+      { name: "dynamicLinkDash", type: "number[]", description: "dynamic_nodes_prop_dynamicLinkDash", required: false },
+      { name: "dynamicLinkCap", type: "CanvasLineCap", description: "dynamic_nodes_prop_dynamicLinkCap", required: false },
+      { name: "dynamicLinkJoin", type: "CanvasLineJoin", description: "dynamic_nodes_prop_dynamicLinkJoin", required: false },
+
+      // DynamicNodesProps
+      { name: "nodes", type: "DynamicNodeItem[]", description: "dynamic_nodes_prop_nodes", required: true },
+      { name: "links", type: "DynamicNodeLink[]", description: "dynamic_nodes_prop_links", required: false },
+      { name: "className", type: "string", description: "dynamic_nodes_prop_className", required: false },
+      { name: "style", type: "CSSProperties", description: "dynamic_nodes_prop_style", required: false },
+      { name: "background", type: "string", description: "dynamic_nodes_prop_background", required: false },
+      { name: "borderColor", type: "string", description: "dynamic_nodes_prop_borderColor", required: false },
+      { name: "canvasClassName", type: "string", description: "dynamic_nodes_prop_canvasClassName", required: false },
+      { name: "defaultNodeColor", type: "string", description: "dynamic_nodes_prop_defaultNodeColor", required: false },
+      { name: "defaultGlowColor", type: "string", description: "dynamic_nodes_prop_defaultGlowColor", required: false },
+      { name: "defaultTextColor", type: "string", description: "dynamic_nodes_prop_defaultTextColor", required: false },
+      { name: "defaultFontFamily", type: "string", description: "dynamic_nodes_prop_defaultFontFamily", required: false },
+      { name: "defaultFontSize", type: "number", description: "dynamic_nodes_prop_defaultFontSize", required: false },
+      { name: "defaultFontWeight", type: "number | string", description: "dynamic_nodes_prop_defaultFontWeight", required: false },
+      { name: "defaultRadius", type: "number", description: "dynamic_nodes_prop_defaultRadius", required: false },
+      { name: "defaultGlowBlur", type: "number", description: "dynamic_nodes_prop_defaultGlowBlur", required: false },
+      { name: "defaultGlowAlpha", type: "number", description: "dynamic_nodes_prop_defaultGlowAlpha", required: false },
+      { name: "defaultLinkColor", type: "string", description: "dynamic_nodes_prop_defaultLinkColor", required: false },
+      { name: "defaultLinkWidth", type: "number", description: "dynamic_nodes_prop_defaultLinkWidth", required: false },
+      { name: "defaultLinkOpacity", type: "number", description: "dynamic_nodes_prop_defaultLinkOpacity", required: false },
+      { name: "defaultLinkDash", type: "number[]", description: "dynamic_nodes_prop_defaultLinkDash", required: false },
+      { name: "defaultLinkCap", type: "CanvasLineCap", description: "dynamic_nodes_prop_defaultLinkCap", required: false },
+      { name: "defaultLinkJoin", type: "CanvasLineJoin", description: "dynamic_nodes_prop_defaultLinkJoin", required: false },
+      { name: "useRandomPositions", type: "boolean", description: "dynamic_nodes_prop_useRandomPositions", required: false },
+      { name: "useRandomSpeed", type: "boolean", description: "dynamic_nodes_prop_useRandomSpeed", required: false },
+      { name: "clampPadding", type: "number", description: "dynamic_nodes_prop_clampPadding", required: false },
+      { name: "animationSpeedMultiplier", type: "number", description: "dynamic_nodes_prop_animationSpeedMultiplier", required: false },
+      { name: "showCanvas", type: "boolean", description: "dynamic_nodes_prop_showCanvas", required: false },
+      { name: "fadeMs", type: "number", description: "dynamic_nodes_prop_fadeMs", required: false },
+      { name: "height", type: "number | string", description: "dynamic_nodes_prop_height", required: false },
+      { name: "width", type: "number | string", description: "dynamic_nodes_prop_width", required: false },
+      { name: "borderRadius", type: "number", description: "dynamic_nodes_prop_borderRadius", required: false },
+      { name: "borderWidth", type: "number", description: "dynamic_nodes_prop_borderWidth", required: false },
+      { name: "activateNodes", type: "boolean", description: "dynamic_nodes_prop_activateNodes", required: false },
+    ],
     isPreviewImage: true,
   },
 ];
